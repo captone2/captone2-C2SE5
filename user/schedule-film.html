@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--[if IE]><![endif]-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detail Film</title>
+    <meta name='robots' content='max-image-preview:large' />
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel="stylesheet" href="../assets/css/style-link/wp-block-library/wp-bllock-library.css">
+    <!-- Elementor -->
+    <link rel='stylesheet' href='../assets/css//style-link/elementor-frontend/elementor-frontend.css' />
+    <link rel='stylesheet' href='../assets/css/style-link/elementor-post-5/elementor-post-5.css' />
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/elementor-global/elementor-global.css' /> -->
+    <link rel='stylesheet' href='../assets/css/style-link/elementor-post-84/elementor-post-84.css' />
+    <!-- Elementor -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <!-- Font Awesome -->
+    <!-- Slick style -->
+    <link rel='stylesheet' href='../assets/css/style-link/slick-style/slick-style.css' />
+    <!-- Slick style -->
+    <!-- Fancy box -->
+    <link rel='stylesheet' href='../assets/css/style-link/fancybox/fancybox.css' />
+    <!-- Fancy box -->
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/tooltipster/tooltipster.css' /> -->
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/mCustomScrollbar/mCustomScrollbar.css' /> -->
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/plyr/plyr.css' /> -->
+    <link rel='stylesheet' href='../assets/css/style-link/amy-movie-style/amy-movie-style.css' />
+    <!-- Google Font -->
+    <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto%20Condensed:400,700&#038;display=swap' />
+    <link rel='stylesheet'
+        href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Condensed%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=5.9.5' />
+    <!-- Google Font -->
+    <script type='text/javascript' src='../assets/js/jquery/jquery.min.js'></script>
+    <script type='text/javascript' src='../assets/js/jquery/jquery-migrate.min.js'></script>
+    <!-- Link Style css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <div id="page" class="hfeed site">
+        <header id="masthead" class="site-header header-default  light">
+            <div class="container">
+                <div class="amy-inner">
+                    <div class="amy-left">
+                        <div id="amy-site-logo">
+                            <a href="#">
+                                <img src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_66.png"
+                                    alt="Elementor Single Cinema" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="amy-right">
+                        <nav id="amy-site-nav" class="amy-site-navigation amy-primary-navigation">
+                            <div class="menu-mainnav-container">
+                                <ul id="menu-mainnav" class="nav-menu">
+                                    <li id="menu-item-121"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-121">
+                                        <a href="#">Home</a>
+                                    </li>
+                                    <li id="menu-item-276"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-276">
+                                        <a href="#">Movie</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-143"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/now-playing/">Now
+                                                    Playing</a>
+                                            </li>
+                                            <li id="menu-item-134"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/coming-soon/">Coming
+                                                    Soon</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-277"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-277">
+                                        <a href="#">Single Movie</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-338"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-338">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/kubo-and-the-two-strings/">Full
+                                                    Width &#038; Banner</a>
+                                            </li>
+                                            <li id="menu-item-365"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-365">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">Full
+                                                    Width &#038; No Banner</a>
+                                            </li>
+                                            <li id="menu-item-340"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-340">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/jumanji-welcome-to-the-jungle/">Sidebar
+                                                    &#038; Banner</a>
+                                            </li>
+                                            <li id="menu-item-366"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-366">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/bad-moms/">Sidebar
+                                                    &#038; No Banner</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-278"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-278">
+                                        <a href="#">Showtime</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-140"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/daily-showtime-layout-list/">Daily
+                                                    Showtime Layout List</a>
+                                            </li>
+                                            <li id="menu-item-137"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/daily-showtime-ajax/">Daily
+                                                    Showtime Ajax</a>
+                                            </li>
+                                            <li id="menu-item-149"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-148 current_page_item menu-item-149">
+                                                <a href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/weekly-showtime-ajax/"
+                                                    aria-current="page">Lịch Chiếu</a>
+                                            </li>
+                                            <li id="menu-item-152"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-152">
+                                                <a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/weekly-showtime-table/">Weekly
+                                                    Showtime Table</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-146"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146">
+                                        <a
+                                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/top-rated/">Top
+                                            rated</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div id="amy-menu-toggle"><a><span></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div id="amy-site-header-shadow"></div>
+        </header>
+
+        <div id="amy-navigation-mobile">
+            <div class="menu-mainnav-container">
+                <ul id="menu-mainnav-1" class="menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-121"><a
+                            href="#">Home</a></li>
+                    <li
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-276">
+                        <a href="#">Movie</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/now-playing/">Now
+                                    Playing</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/coming-soon/">Coming
+                                    Soon</a></li>
+                        </ul>
+                    </li>
+                    <li
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-277">
+                        <a href="#">Single Movie</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-338"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/kubo-and-the-two-strings/">Full
+                                    Width &#038; Banner</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-365"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">Full
+                                    Width &#038; No Banner</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-340"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/jumanji-welcome-to-the-jungle/">Sidebar
+                                    &#038; Banner</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-366"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/bad-moms/">Sidebar
+                                    &#038; No Banner</a></li>
+                        </ul>
+                    </li>
+                    <li
+                        class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-278">
+                        <a href="#">Showtime</a>
+                        <ul class="sub-menu">
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/daily-showtime-layout-list/">Daily
+                                    Showtime Layout List</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/daily-showtime-ajax/">Daily
+                                    Showtime Ajax</a></li>
+                            <li
+                                class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-148 current_page_item menu-item-149">
+                                <a href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/weekly-showtime-ajax/"
+                                    aria-current="page">Weekly Showtime Ajax</a>
+                            </li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-152"><a
+                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/weekly-showtime-table/">Weekly
+                                    Showtime Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/top-rated/">Top rated</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            <div id="content" class="site-content">
+
+                <section id="amy-page-header" class="amy-page-header">
+                    <div class="amy-page-title amy-center">
+                        <div class="amy-inner container">
+                            <h1 class="page-title">
+                                Lịch Chiếu </h1>
+                        </div>
+                    </div>
+                    <span class="amy-section-overlay"></span>
+                </section>
+                <section class="main-content page-layout-">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-content">
+                                    <div class="elementor elementor-148">
+                                        <section class="elementor-section">
+                                            <div class="amy-movie-layout-list amy-movie-showtimews-daily-1 ">
+                                                <div class="amy-showtimes-header">
+                                                    <div class="amy-showtimes-header-inner">
+                                                        <ul>
+                                                            <li class="active">
+                                                                <a href="#">
+                                                                    <span>
+                                                                        May 5, 2023 </span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="">
+                                                                <a href="#">
+                                                                    <span>
+                                                                        May 6, 2023 </span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="">
+                                                                <a href="#">
+                                                                    <span>
+                                                                        May 7, 2023 </span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="">
+                                                                <a href="#">
+                                                                    <span>
+                                                                        May 8, 2023 </span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="">
+                                                                <a href="#">
+                                                                    <span>
+                                                                        May 9, 2023 </span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="amy-movie-list">
+                                                    <div class="amy-movie-items">
+                                                        <div class="amy-movie-item">
+                                                            <div class="amy-movie-item-inner">
+                                                                <div class="amy-movie-item-front">
+                                                                    <div class="amy-movie-item-poster">
+                                                                        <a
+                                                                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/swiss-army-man/">
+                                                                            <img class=""
+                                                                                src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_10-214x321_c.jpg"
+                                                                                alt="Swiss Army Man" />
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="amy-movie-item-back">
+                                                                    <div class="amy-movie-item-back-inner">
+                                                                        <div class="amy-movie-item-content">
+                                                                            <span
+                                                                                class="amy-movie-field-imdb">8.5</span>
+                                                                            <h3 class="amy-movie-field-title">
+                                                                                <a
+                                                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/swiss-army-man/">Swiss
+                                                                                    Army Man</a>
+                                                                            </h3>
+
+                                                                            <div class="amy-movie-item-meta">
+                                                                                <span
+                                                                                    class="amy-movie-field-mpaa">G</span>
+                                                                                <span
+                                                                                    class="amy-movie-field-duration"><i
+                                                                                        class="fa fa-clock-o"></i>01
+                                                                                    hours 30
+                                                                                    minutes</span>
+                                                                            </div>
+
+                                                                            <div class="amy-movie-field-desc">
+                                                                                <p>Sed ut
+                                                                                    perspiciatis
+                                                                                    unde omnis iste
+                                                                                    natus error sit
+                                                                                    voluptatem
+                                                                                    accusantium
+                                                                                    doloremque
+                                                                                    laudantium,
+                                                                                    totam rem
+                                                                                    aperiam, ...</p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-language">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Language:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    English
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Release
+                                                                                    Date:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    April 29, 2022
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Genre:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/genre/sci-fi/">Sci-fi</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Actor:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/cartin-hollia/">Cartin
+                                                                                        Hollia</a>,
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/humpray-richard/">Humpray
+                                                                                        Richard</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Director:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/kingia-rogers/">Kingia
+                                                                                        Rogers</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="amy-movie-item-showtimes amy-item-40">
+                                                                    <div class="amy-movie-intro-times">
+                                                                        <span>06h30</span>
+                                                                        <span> 19h20</span>
+                                                                        <span> 13h30</span>
+                                                                        <span> 16h20</span>
+                                                                        <span> 20h30</span>
+                                                                        <a class="button" href="#">Buy
+                                                                            Ticket</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="amy-movie-item">
+                                                            <div class="amy-movie-item-inner">
+                                                                <div class="amy-movie-item-front">
+                                                                    <div class="amy-movie-item-poster">
+                                                                        <a
+                                                                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">
+                                                                            <img class=""
+                                                                                src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_7-214x321_c.jpg"
+                                                                                alt="The Girl With All The Gifts" />
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="amy-movie-item-back">
+                                                                    <div class="amy-movie-item-back-inner">
+                                                                        <div class="amy-movie-item-content">
+                                                                            <span
+                                                                                class="amy-movie-field-imdb">7.3</span>
+                                                                            <h3 class="amy-movie-field-title">
+                                                                                <a
+                                                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">The
+                                                                                    Girl With All
+                                                                                    The Gifts</a>
+                                                                            </h3>
+
+                                                                            <div class="amy-movie-item-meta">
+                                                                                <span
+                                                                                    class="amy-movie-field-mpaa">G</span>
+                                                                                <span
+                                                                                    class="amy-movie-field-duration"><i
+                                                                                        class="fa fa-clock-o"></i>02
+                                                                                    hours 00
+                                                                                    minutes</span>
+                                                                            </div>
+
+                                                                            <div class="amy-movie-field-desc">
+                                                                                <p>Sed ut
+                                                                                    perspiciatis
+                                                                                    unde omnis iste
+                                                                                    natus error sit
+                                                                                    voluptatem
+                                                                                    accusantium
+                                                                                    doloremque
+                                                                                    laudantium,
+                                                                                    totam rem
+                                                                                    aperiam, ...</p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-language">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Language:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    English
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Release
+                                                                                    Date:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    March 17, 2022
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Genre:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/genre/cartoon/">Cartoon</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Actor:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/alexander-cattly/">Alexander
+                                                                                        Cattly</a>,
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/cartin-hollia/">Cartin
+                                                                                        Hollia</a>,
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/humpray-richard/">Humpray
+                                                                                        Richard</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div
+                                                                                class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                                <label
+                                                                                    class="amy-movie-custom-field-label">Director:</label>
+                                                                                <div
+                                                                                    class="amy-movie-custom-field-content">
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/kingia-rogers/">Kingia
+                                                                                        Rogers</a>,
+                                                                                    <a
+                                                                                        href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/mae-west/">Mae
+                                                                                        West</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="amy-movie-item-showtimes amy-item-33">
+                                                                    <div class="amy-movie-intro-times">
+                                                                        <span>09h20</span>
+                                                                        <span> 13h10</span>
+                                                                        <span> 15h40</span>
+                                                                        <span> 17h30</span>
+                                                                        <span> 21h20</span>
+                                                                        <a class="button" href="#">Buy
+                                                                            Ticket</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <footer id="amy-colophon" class="amy-site-footer">
+            <div class="container">
+                <div class="amy-footer-widgets">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-12">
+                            <div class="amy-widget amy-widget-module">
+                                <div class="amy-widget amy-widget-module about ">
+                                    <h4 class="amy-title amy-widget-title"></h4>
+                                    <div class="footer-logo"><a href="#"><img
+                                                src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_65.png" /></a>
+                                    </div>
+                                    <div class="summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                        consequat</div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <div class="amy-widget widget_nav_menu">
+                                <div class="amy-widget-title">
+                                    <h4>Customer Services</h4>
+                                </div>
+                                <div class="amy-widget-content">
+                                    <ul id="menu-customer-services" class="menu">
+                                        <li id="menu-item-346"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-346">
+                                            <a href="#">Home</a>
+                                        </li>
+                                        <li id="menu-item-347"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-347">
+                                            <a
+                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/coming-soon/">Coming
+                                                Soon</a>
+                                        </li>
+                                        <li id="menu-item-348"
+                                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-348">
+                                            <a
+                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/top-rated/">Top
+                                                rated</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <div class="amy-widget amy-widget-list">
+                                <div class="amy-widget amy-widget-list list-post ">
+                                    <h4 class="amy-title amy-widget-title">Recent Posts</h4>
+                                    <div class="entry-item">
+                                        <div class="entry-thumb"><img
+                                                src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_59-115x85_c.jpg" />
+                                        </div>
+                                        <div class="entry-content">
+                                            <h2 class="entry-title"><a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/2022/04/28/six-book-to-film-adaptations-to-get-excited-about-this-autumn/">Six
+                                                    book-to-film adaptations to get excited about this autumn</a></h2>
+                                            <div class="entry-meta"><span class="entry-date">April 28, 2022</span><span>
+                                                    / </span><span class="entry-comment">0 Comments</span></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="entry-item">
+                                        <div class="entry-thumb"><img
+                                                src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_57-115x85_c.jpg" />
+                                        </div>
+                                        <div class="entry-content">
+                                            <h2 class="entry-title"><a
+                                                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/2022/04/28/the-beatles-eight-days-a-week-the-touring/">The
+                                                    Beatles: Eight Days a Week – The Touring</a></h2>
+                                            <div class="entry-meta"><span class="entry-date">April 28, 2022</span><span>
+                                                    / </span><span class="entry-comment">0 Comments</span></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <div class="amy-widget amy-widget-module">
+                                <div class="amy-widget amy-widget-module contact ">
+                                    <h4 class="amy-title amy-widget-title">Contact Us</h4>
+                                    <div class="address"><i class="fa fa-location-arrow" aria-hidden="true"></i>9067
+                                        Zurich, Switzerland 87</div>
+                                    <div class="email"><i class="fa fa-envelope-o" aria-hidden="true"></i>abc@gmail.com
+                                    </div>
+                                    <div class="phone"><i class="fa fa-phone" aria-hidden="true"></i>01-234-5678</div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div id="amy-copyright" class="amy-copyright">
+            <div class="container">
+                <div class="amy-inner">
+                    <div class="amy-copyright-left pull-left">
+                        <div class="amy-copyright-module amy-module-text ">
+
+                            ©copyright 2016 Movie
+                        </div>
+                    </div>
+                    <div class="amy-copyright-right pull-right">
+                        <div class="amy-copyright-module amy-module-social ">
+                            <ul class="amy-social-list">
+                                <li><a href="#" class="fa fa-facebook"></a></li>
+                                <li><a href="#" class="fa fa-twitter"></a></li>
+                                <li><a href="#" class="fab fa-linkedin"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script type='text/javascript' src='../assets/js/jquery/jquery-ui-core.js'></script> -->
+    <script type='text/javascript' src='../assets/js/vendor/slick/slick.js'></script>
+    <script type='text/javascript' src='../assets/js/vendor/isotope/isotope.js'></script>
+    <script type='text/javascript' src='../assets/js/vendor/masonry-horizontal/masonry-horizontal.js'></script>
+    <!-- <script type='text/javascript' src='../assets/js/vendor/kinetic/kinetic.js'></script> -->
+    <!-- <script type='text/javascript' src='../assets/js/vendor/smoothdivscroll/smoothdivscroll.js'></script> -->
+    <!-- <script type='text/javascript' src='../assets/js/vendor/jquery-mousewheel-min/jquery.mousewheel.min.js'></script> -->
+    <script type='text/javascript' src='../assets/js/vendor/ui/datepicker.js'></script>
+    <script type='text/javascript' src='../assets/js/vendor/fancybox/jquery.fancybox.js'></script>
+    <script type='text/javascript' src='../assets/js/vendor/bootstrap/bootstrap-tab.js'></script>
+    <script type='text/javascript' src='../assets/js/scripts/imagesloaded.js'></script>
+    <!-- <script type='text/javascript' src='../assets/js/vendor/tooltipster/tooltipster.bundle.js'></script> -->
+    <!-- <script type='text/javascript' src='../assets/js/vendor/waterwheelCarousel/waterwheelCarousel.js'></script> -->
+    <!-- <script type='text/javascript' src='../assets/js/vendor/TweenMax/TweenMax.js'></script> -->
+    <script type='text/javascript' src='../assets/js/vendor/mCustomScrollbar/mCustomScrollbar.js'></script>
+    <!-- <script type='text/javascript' src='../assets/js/vendor/plyr/plyr.js'></script> -->
+    <!-- <script type='text/javascript' src='../assets/js/vendor/reflection/reflection.js'></script> -->
+    <script type='text/javascript' src='../assets/js/scripts/amy-movie-script/amy-movie-script.js'></script>
+    <!-- <script type='text/javascript' src='../assets/js/scripts/elementor/elementor-webpack-runtime.js'></script>
+    <script type='text/javascript' src='../assets/js/scripts/elementor/elementor-frontend.js'></script>
+    <script type='text/javascript' src='../assets/js/scripts/elementor/elementor-waypoint.js'></script> -->
+    <script type='text/javascript'>
+        jQuery(function (jQuery) { jQuery.datepicker.setDefaults({ "closeText": "Close", "currentText": "Today", "monthNames": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "nextText": "Next", "prevText": "Previous", "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "dayNamesMin": ["S", "M", "T", "W", "T", "F", "S"], "dateFormat": "MM d, yy", "firstDay": 1, "isRTL": false }); });
+    </script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var amy_script = { "ajax_url": "http:\/\/demo.amytheme.com\/movie\/demo\/elementor-single-cinema\/wp-admin\/admin-ajax.php", "viewport": "992", "site_url": "http:\/\/demo.amytheme.com\/movie\/demo\/elementor-single-cinema\/", "theme_url": "http:\/\/demo.amytheme.com\/movie\/demo\/elementor-single-cinema\/wp-content\/themes\/amy-movie", "enable_fb_login": null, "fb_app_id": null, "enable_google_login": null, "gg_app_id": null, "gg_client_id": null, "amy_rtl": "", "amy_rate_already": "You already rate a movie", "amy_rate_done": "You vote done" };
+    /* ]]> */
+    </script>
+    <script src="../assets/js/jquery.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('.modal-toggle').on('click', function (e) {
+                e.preventDefault();
+                console.log("1");
+                jQuery('.modal').toggleClass('is-visible');
+            });
+        })
+    </script>
+
+</body>
+
+</html>

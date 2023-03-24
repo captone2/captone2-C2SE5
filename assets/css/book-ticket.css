@@ -1,0 +1,272 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    /* padding: 0 150px; */
+}
+
+.booking-chair {
+    width: 60%;
+}
+
+
+.info-ticket {
+    width: 30%;
+    margin-left: 5%;
+}
+
+.row {
+    display: flex;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 2em;
+}
+
+.chair {
+    margin: auto;
+    margin-top: 50px;
+}
+
+.seat {
+    height: 2em;
+    width: 3em;
+    border-radius: 4px;
+    background: #999;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    line-height: 2em;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.2s linear;
+}
+
+.seat:hover {
+    background: #ef7900;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.screen {
+    background: #999;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    height: 3em;
+    width: 3em;
+    line-height: 3em;
+    width: 100%;
+}
+
+/* ---------------------------------------------------- */
+/* ---------------------Info------------------------------- */
+/* ---------------------------------------------------- */
+.info {
+    padding: 10px 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 8px;
+}
+
+.event-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 22.5px;
+}
+
+.location {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: green;
+    line-height: 22.5px;
+}
+
+.date-time {
+    font-size: 1.1rem;
+    color: grey;
+    line-height: 22.5px;
+}
+
+.room-seat {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: black;
+    line-height: 22.5px;
+}
+
+
+/* ---------------------------------- */
+/* ----------------Note-------------- */
+/* ---------------------------------- */
+
+.note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.note .row div {
+    margin: 0 20px;
+}
+
+.note .row div span {
+    display: block;
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    background: #999;
+    margin: auto;
+    border-radius: 4px;
+}
+
+.note .choice span {
+    background: #ef7900 !important;
+    position: relative;
+}
+
+.note .not-choice span {
+    position: relative;
+}
+
+.note .sold span {
+    background: #000 !important;
+}
+
+.note .not-choice span::before,
+.note .not-choice span::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0.2em;
+    height: 4.4em;
+    background-color: #fff;
+    top: -24%;
+    left: 50%;
+    transform: rotate(-45deg) translateX(-50%);
+}
+
+.note .not-choice span::after {
+    transform: rotate(45deg) translateX(-50%);
+}
+
+/* --------------------------------------------------------------------------- */
+/* ------------------------------- Total Price ------------------------------- */
+/* --------------------------------------------------------------------------- */
+.total {
+    position: relative;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.total .time-chair {
+    text-align: end;
+}
+
+.total div p {
+    font-size: 1.1rem;
+    line-height: 0;
+}
+
+.total span {
+    color: #444;
+    text-transform: uppercase;
+    color: #999;
+    font-size: 11px;
+}
+
+.total-chair::after {
+    position: absolute;
+    content: "";
+    width: 0.1px;
+    height: 2em;
+    background: #999;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-next {
+    background-color: #0088a9;
+    width: 100%;
+    padding: 0.7rem 0;
+    border-radius: 4px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+.btn-next:hover {
+    opacity: 0.8;
+    transition: all 0.3s linear;
+}
+
+
+/* --------------------------------------------------------------------------- */
+/* ------------------------------- Steps ------------------------------- */
+/* --------------------------------------------------------------------------- */
+.steps-booking {
+    width: 100%;
+    overflow: hidden;
+    margin: 40px 0;
+    text-align: center;
+    background: #f3f3f3;
+}
+
+.steps-booking i {
+    font-size: 20px;
+}
+
+.steps {
+    position: relative;
+    background: #f3f3f3;
+    display: inline-block;
+    padding: 10px 15px;
+    position: relative;
+    font-size: 11px;
+    font-weight: bolder;
+    margin: 0 100px;
+}
+
+
+
+.steps::before {
+    position: absolute;
+    content: "\2192";
+    font-size: 36px;
+    left: 160px;
+}
+
+
+
+.steps:nth-child(4)::before {
+    position: relative !important;
+    content: "";
+}
+
+.active-step {
+    color: #ef7900;
+}
+
+
+
+
+@media only screen and (min-width:1500px) {
+    .seat {
+        height: 2rem;
+        line-height: 2em;
+        font-size: 14px;
+
+    }
+}
