@@ -1,217 +1,691 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
+<!--[if IE]><![endif]-->
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Ticket</title>
-    <link rel="stylesheet" href="../assets/css/book-ticket.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detail Film</title>
+    <meta name='robots' content='max-image-preview:large' />
+    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+    <link rel="stylesheet" href="../assets/css/style-link/wp-block-library/wp-bllock-library.css">
+    <!-- Elementor -->
+    <link rel='stylesheet' href='../assets/css//style-link/elementor-frontend/elementor-frontend.css' />
+    <link rel='stylesheet' href='../assets/css/style-link/elementor-post-5/elementor-post-5.css' />
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/elementor-global/elementor-global.css' /> -->
+    <link rel='stylesheet' href='../assets/css/style-link/elementor-post-84/elementor-post-84.css' />
+    <!-- Elementor -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
-
+    <!-- Font Awesome -->
+    <!-- Slick style -->
+    <link rel='stylesheet' href='../assets/css/style-link/slick-style/slick-style.css' />
+    <!-- Slick style -->
+    <!-- Fancy box -->
+    <link rel='stylesheet' href='../assets/css/style-link/fancybox/fancybox.css' />
+    <!-- Fancy box -->
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/tooltipster/tooltipster.css' /> -->
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/mCustomScrollbar/mCustomScrollbar.css' /> -->
+    <!-- <link rel='stylesheet' href='../assets/css/style-link/plyr/plyr.css' /> -->
+    <link rel='stylesheet' href='../assets/css/style-link/amy-movie-style/amy-movie-style.css' />
+    <!-- Google Font -->
+    <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto%20Condensed:400,700&#038;display=swap' />
+    <link rel='stylesheet'
+        href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Condensed%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=auto&#038;ver=5.9.5' />
+    <!-- Google Font -->
+    <script type='text/javascript' src='../assets/js/jquery/jquery.min.js'></script>
+    <script type='text/javascript' src='../assets/js/jquery/jquery-migrate.min.js'></script>
+    <!-- Link Style css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/book-ticket.css">
 </head>
 
 <body>
+    <div id="page" class="hfeed site">
 
+        <header id="masthead" class="site-header header-default  light">
+            <div class="container">
+                <div class="amy-inner">
+                    <div class="amy-left">
+                        <div id="amy-site-logo">
+                            <a href="#">
+                                <img src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_66.png"
+                                    alt="Elementor Single Cinema" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="amy-right">
+                        <nav id="amy-site-nav" class="amy-site-navigation amy-primary-navigation">
+                            <div class="menu-mainnav-container">
+                                <ul id="menu-mainnav" class="nav-menu">
+                                    <li id="menu-item-121"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-121">
+                                        <a href="#">Home</a>
+                                    </li>
+                                    <li id="menu-item-276"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-276">
+                                        <a href="#">Movie</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-143"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143">
+                                                <a href="#now-playing/">Now
+                                                    Playing</a>
+                                            </li>
+                                            <li id="menu-item-134"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134">
+                                                <a href="#coming-soon/">Coming
+                                                    Soon</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-277"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-277">
+                                        <a href="#">Single Movie</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-338"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-338">
+                                                <a href="#movie/kubo-and-the-two-strings/">Full
+                                                    Width &#038; Banner</a>
+                                            </li>
+                                            <li id="menu-item-365"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-365">
+                                                <a href="#movie/the-girl-with-all-the-gifts/">Full
+                                                    Width &#038; No Banner</a>
+                                            </li>
+                                            <li id="menu-item-340"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie current-menu-item menu-item-340">
+                                                <a href="#movie/jumanji-welcome-to-the-jungle/"
+                                                    aria-current="page">Sidebar &#038; Banner</a>
+                                            </li>
+                                            <li id="menu-item-366"
+                                                class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-366">
+                                                <a href="#movie/bad-moms/">Sidebar
+                                                    &#038; No Banner</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-278"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-278">
+                                        <a href="#">Showtime</a>
+                                        <ul class="sub-menu">
+                                            <li id="menu-item-140"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140">
+                                                <a href="#daily-showtime-layout-list/">Daily
+                                                    Showtime Layout List</a>
+                                            </li>
+                                            <li id="menu-item-137"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137">
+                                                <a href="#daily-showtime-ajax/">Daily
+                                                    Showtime Ajax</a>
+                                            </li>
+                                            <li id="menu-item-149"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-149">
+                                                <a href="#weekly-showtime-ajax/">Weekly
+                                                    Showtime Ajax</a>
+                                            </li>
+                                            <li id="menu-item-152"
+                                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-152">
+                                                <a href="#weekly-showtime-table/">Weekly
+                                                    Showtime Table</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-146"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146">
+                                        <a href="#top-rated/">Top
+                                            rated</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div id="amy-menu-toggle"><a><span></span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div id="amy-site-header-shadow"></div>
+        </header>
 
-    <body>
-        <div class="steps-booking">
-            <div class="steps active-step">
-                <i class="fa-solid fa-table-cells-large"></i>
-                <h3>Chọn Ghế</h3>
+        <div id="main">
+            <div class="steps-booking">
+                <div class="steps choose-chair active-step" data-id="1">
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    <p>Choose a chair</p>
+                </div>
+                <div class="steps water-corn" data-id="2">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <p>Water corn</p>
+                </div>
+                <div class="steps payment-st" data-id="3">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <p>Payment</p>
+                </div>
+                <div class="steps st-info" data-id="4">
+                    <i class="fa-solid fa-info"></i>
+                    <p>Ticket infomation</p>
+                </div>
             </div>
-            <div class="steps">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <h3>Bắp Nước</h3>
-            </div>
-            <div class="steps">
-                <i class="fa-regular fa-credit-card"></i>
-                <h3>Thanh Toán</h3>
-            </div>
-            <div class="steps">
-                <i class="fa-solid fa-info"></i>
-                <h3>Thông Tin Vé</h3>
+            <div class="wrapper">
+                <div class="col-md-8">
+                    <!-- /Book chair -->
+                    <div class="booking-chair">
+                        <div class="note">
+                            <div class="row">
+                                <div class="single">
+                                    <span></span>
+                                    <p>Single Chair</p>
+                                </div>
+                                <div class="double">
+                                    <span></span>
+                                    <p>Double Chair</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="choice">
+                                    <span></span>
+                                    <p>Selected Seats</p>
+                                </div>
+                                <div class="not-choice">
+                                    <span></span>
+                                    <p>
+                                        Can't choose</p>
+                                </div>
+                                <div class="sold">
+                                    <span></span>
+                                    <p>Sold</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="screen">Screen</div>
+                        </div>
+                        <div class="chair">
+                            <div>
+                                <div class="row">
+                                    <div class="seat">A1</div>
+                                    <div class="seat">A2</div>
+                                    <div class="seat">A3</div>
+                                    <div class="seat">A4</div>
+                                    <div class="seat">A5</div>
+                                    <div class="seat">A6</div>
+                                    <div class="seat">A7</div>
+                                    <div class="seat">A8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">A9</div>
+                                    <div class="seat">A10</div>
+                                    <div class="seat">A11</div>
+                                    <div class="seat">A12</div>
+                                    <div class="seat">A13</div>
+                                    <div class="seat">A14</div>
+                                    <div class="seat">A15</div>
+                                    <div class="seat">A16</div>
+                                    <div class="seat">A17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat">B1</div>
+                                    <div class="seat">B2</div>
+                                    <div class="seat">B3</div>
+                                    <div class="seat">B4</div>
+                                    <div class="seat">B5</div>
+                                    <div class="seat">B6</div>
+                                    <div class="seat">B7</div>
+                                    <div class="seat">B8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">B9</div>
+                                    <div class="seat">B10</div>
+                                    <div class="seat">B11</div>
+                                    <div class="seat">B12</div>
+                                    <div class="seat">B13</div>
+                                    <div class="seat">B14</div>
+                                    <div class="seat">B15</div>
+                                    <div class="seat">B16</div>
+                                    <div class="seat">B17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat">C1</div>
+                                    <div class="seat">C2</div>
+                                    <div class="seat">C3</div>
+                                    <div class="seat">C4</div>
+                                    <div class="seat">C5</div>
+                                    <div class="seat">C6</div>
+                                    <div class="seat">C7</div>
+                                    <div class="seat">C8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">C9</div>
+                                    <div class="seat">C10</div>
+                                    <div class="seat">C11</div>
+                                    <div class="seat">C12</div>
+                                    <div class="seat">C13</div>
+                                    <div class="seat">C14</div>
+                                    <div class="seat">C15</div>
+                                    <div class="seat">C16</div>
+                                    <div class="seat">C17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat">D1</div>
+                                    <div class="seat">D2</div>
+                                    <div class="seat">D3</div>
+                                    <div class="seat">D4</div>
+                                    <div class="seat">D5</div>
+                                    <div class="seat">D6</div>
+                                    <div class="seat">D7</div>
+                                    <div class="seat">D8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">D9</div>
+                                    <div class="seat">D10</div>
+                                    <div class="seat">D11</div>
+                                    <div class="seat">D12</div>
+                                    <div class="seat">D13</div>
+                                    <div class="seat">D14</div>
+                                    <div class="seat">D15</div>
+                                    <div class="seat">D16</div>
+                                    <div class="seat">D17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat">E1</div>
+                                    <div class="seat">E2</div>
+                                    <div class="seat">E3</div>
+                                    <div class="seat">E4</div>
+                                    <div class="seat">E5</div>
+                                    <div class="seat">E6</div>
+                                    <div class="seat active-sold">E7</div>
+                                    <div class="seat">E8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">E9</div>
+                                    <div class="seat">E10</div>
+                                    <div class="seat">E11</div>
+                                    <div class="seat active-sold">E12</div>
+                                    <div class="seat">E13</div>
+                                    <div class="seat">E14</div>
+                                    <div class="seat">E15</div>
+                                    <div class="seat active-sold" disabled>E16</div>
+                                    <div class="seat active-sold">E17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat">F1</div>
+                                    <div class="seat">F2</div>
+                                    <div class="seat">F3</div>
+                                    <div class="seat active-sold">F4</div>
+                                    <div class="seat">F5</div>
+                                    <div class="seat">F6</div>
+                                    <div class="seat">F7</div>
+                                    <div class="seat">F8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">F9</div>
+                                    <div class="seat">F10</div>
+                                    <div class="seat">F11</div>
+                                    <div class="seat">F12</div>
+                                    <div class="seat">F13</div>
+                                    <div class="seat">F14</div>
+                                    <div class="seat">F15</div>
+                                    <div class="seat">F16</div>
+                                    <div class="seat">F17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat">G1</div>
+                                    <div class="seat">G2</div>
+                                    <div class="seat">G3</div>
+                                    <div class="seat active-sold">G4</div>
+                                    <div class="seat">G5</div>
+                                    <div class="seat">G6</div>
+                                    <div class="seat">G7</div>
+                                    <div class="seat">G8</div>
+                                    <div class="land"></div>
+                                    <div class="seat">G9</div>
+                                    <div class="seat">G10</div>
+                                    <div class="seat">G11</div>
+                                    <div class="seat">G12</div>
+                                    <div class="seat">G13</div>
+                                    <div class="seat">G14</div>
+                                    <div class="seat">G15</div>
+                                    <div class="seat">G16</div>
+                                    <div class="seat">G17</div>
+                                </div>
+                                <div class="row">
+                                    <div class="seat seat-double">F1</div>
+                                    <div class="seat seat-double">F2</div>
+                                    <div class="seat seat-double active-sold">F3</div>
+                                    <div class="seat seat-double">F4</div>
+                                    <div class="seat seat-double">F5</div>
+                                    <div class="land"></div>
+                                    <div class="seat seat-double">F6</div>
+                                    <div class="seat seat-double">F7</div>
+                                    <div class="seat seat-double">F8</div>
+                                    <div class="seat seat-double">F9</div>
+                                    <div class="seat seat-double">F10</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Book food -->
+                    <div class="book-food" style="display: none;">
+                        <table class="tb-food table">
+                            <tr>
+                                <th class="text-start" style="padding: 15px;">COMBO</th>
+                                <th class="text-right">PRICE</th>
+                                <th class="text-right">NUMBER</th>
+                            </tr>
+                            <tr class="thum-combo">
+                                <td colspan="3" style="padding: 15px;">COMBO</td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">
+                                    <p class="head">1 POT 22OZ + 1 WATER 22OZ</p>
+                                    <p class="sub">1 COCA 22OZ + 1 BOOK 22OZ BUTTER</p>
+                                </td>
+                                <td class="text-right">
+                                    <div>
+                                        <p class="price">75,000</p>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="plus-minus">
+                                        <span class="minus">-</span>
+                                        <input class="num" type="text" value="0" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">
+                                    <p class="head">1 POT 30OZ + 1 WATER 22OZ</p>
+                                    <p class="sub">1 COCA 22OZ + 1 BOOK 30OZ BUTTER</p>
+                                </td>
+                                <td class="text-right">
+                                    <div>
+                                        <p class="price">80,000</p>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="plus-minus">
+                                        <span class="minus">-</span>
+                                        <input class="num" type="text" value="0" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">
+                                    <p class="head">1 POT 30OZ + 2 WATER 30OZ</p>
+                                    <p class="sub">2 COCA 30OZ + 1 PACK of 30OZ BUTTER</p>
+                                </td>
+                                <td class="text-right">
+                                    <div>
+                                        <p class="price">110,000</p>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="plus-minus">
+                                        <span class="minus">-</span>
+                                        <input class="num" type="text" value="0" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">
+                                    <p class="head">1 POT 30OZ + 1 WATER 30OZ</p>
+                                    <p class="sub">1 COCA 30OZ + 1 BOOK 30OZ BUTTER</p>
+                                </td>
+                                <td class="text-right">
+                                    <div>
+                                        <p class="price">85,000</p>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="plus-minus">
+                                        <span class="minus">-</span>
+                                        <input class="num" type="text" value="0" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">
+                                    <p class="head">1 POT 22OZ + 2 WATER 22OZ</p>
+                                    <p class="sub">2 COCA 22OZ + 1 BOOK 22OZ BUTTER</p>
+                                </td>
+                                <td class="text-right">
+                                    <div>
+                                        <p class="price">100,000</p>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="plus-minus">
+                                        <span class="minus">-</span>
+                                        <input class="num" type="text" value="0" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-start">
+                                    <p class="head">1 POT 30OZ + 2 WATER 22OZ</p>
+                                    <p class="sub">2 COCA 22OZ + 1 BOOK 22OZ BUTTER</p>
+                                </td>
+                                <td class="text-right">
+                                    <div>
+                                        <p class="price">105,000</p>
+                                    </div>
+                                </td>
+                                <td class="text-right">
+                                    <div class="plus-minus">
+                                        <span class="minus">-</span>
+                                        <input class="num" type="text" value="0" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- Payment -->
+                    <div class="step-payment" style="display: none;">
+                        <div class="order-summary">
+                            <table class="tb-pay table ">
+                                <tr class="thum-combo">
+                                    <td colspan="3" class="pay-sum" style="border-top: 0px; padding: 15px;">Order
+                                        Summary</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-start">DESCRIBE</th>
+                                    <th class="text-right">QUANTITY</th>
+                                    <th class="text-right">INTO MONEY</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        <p class="chair-pay">Single Chair</p>
+                                    </td>
+                                    <td class="text-right">
+                                        <p style="padding-right: 25px;">2</p>
+                                    </td>
+                                    <td class="text-right" style="padding-right: 40px;">
+                                        <p class="price">140,000</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">
+                                        <p class="food-water">1 POT 22OZ + 1 WATER 22OZ</p>
+                                    </td>
+                                    <td class="text-right">
+                                        <p style="padding-right: 18px;">first</p>
+                                    </td>
+                                    <td class="text-right" style="padding-right: 40px;">
+                                        <p class="price">75,000</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-start">
+                                        <p class="fee">Utility fee</p>
+                                    </td>
+                                    <td class="text-right" style="padding-right: 40px;">
+                                        <p class="price">11,000</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-start">
+                                        <p class="total-pay">Total</p>
+                                    </td>
+
+                                    <td class="text-right" style="padding-right: 40px;">
+                                        <p class="price">226,000</p>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <!-- Select payment -->
+                        <div class="payment-ticket">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="pay-sum">
+                                        Payments</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="payment-gateway active-pay">
+                                        <i class="fa-regular fa-circle-check active-icon-pay"></i>
+                                        <div class="pg-info">
+                                            <img src="/assets/images/pay-icon/momo-icon.png">
+                                        </div>
+                                        <div class="pg-text">MoMo Wallet</div>
+                                    </div>
+                                    <div class="payment-gateway ">
+                                        <i class="fa-regular fa-circle-check"></i>
+                                        <div class="pg-info">
+                                            <img src="/assets/images/pay-icon/foxpay-icon.png">
+                                        </div>
+                                        <div class="pg-text">Foxpay Wallet</div>
+                                    </div>
+                                    <div class="payment-gateway ">
+                                        <i class="fa-regular fa-circle-check"></i>
+                                        <div class="pg-info">
+                                            <img src="/assets/images/pay-icon/moveek-icon.png">
+                                        </div>
+                                        <div class="pg-text">Bank Transfer / Internet Banking</div>
+                                    </div>
+                                    <div class="payment-gateway ">
+                                        <i class="fa-regular fa-circle-check"></i>
+                                        <div class="pg-info">
+                                            <img src="/assets/images/pay-icon/payoo-icon.png">
+                                        </div>
+                                        <div class="pg-text">Visa, Master, JCB</div>
+                                    </div>
+                                    <div class="payment-gateway ">
+                                        <i class="fa-regular fa-circle-check"></i>
+                                        <div class="pg-info">
+                                            <img src="/assets/images/pay-icon/shopeepay-icon.png">
+                                        </div>
+                                        <div class="pg-text">ShopeePay Wallet</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Infomation -->
+                        <div class="infomation">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="pay-sum">
+                                        Personal information</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="fullname">Full Name</label>
+                                        <input type="text" class="form-control" id="fullname">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone_number">Phone number</label>
+                                        <input type="text" class="form-control" id="phone_number">
+                                    </div>
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="check">
+                                        <label class="form-check-label" for="check">Create an account with this email
+                                            and phone number</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-ticket">
+                        <div class="info">
+                            <div class="event-name">Thanh Gươm Diệt Quỷ Đường Đến Làng Rèn Gươm</div>
+                            <div class="location">Starlight Da Nang</div>
+                            <div class="date-time">Showtime 15:00 - Today, 23/03</div>
+                            <div class="room-seat">Screening room 04 - Seats <span class="select-chair"></span></div>
+                        </div>
+                        <div class="total">
+                            <div class="total-chair">
+                                <span>TOTAL ORDER</span>
+                                <p class="total-price">0</p>
+                            </div>
+                            <div class="time-chair">
+                                <span>SEAT HOLDING TIME</span>
+                                <p class="count-down">03:00</p>
+                            </div>
+                        </div>
+                        <div class="description" style="display: none;">
+                            <p>Tickets purchased cannot be exchanged or refunded.</p>
+                            <p>Ticket code will be sent <b>01</b> time via the phone number and email entered. Please
+                                double check the information before continuing.</p>
+                        </div>
+                        <div class="btun btn-next">Next</div>
+                        <div class="btun btn-pay" data-toggle="modal" data-target="#payment" style="display: none;">pay
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="wrapper">
-            <div class="booking-chair">
-                <div class="row">
-                    <div class="screen">Screen</div>
-                </div>
-                <div class="chair">
-                    <div class="row">
-                        <div class="seat">A1</div>
-                        <div class="seat">A2</div>
-                        <div class="seat">A3</div>
-                        <div class="seat">A4</div>
-                        <div class="seat">A5</div>
-                        <div class="seat">A6</div>
-                        <div class="seat">A7</div>
-                        <div class="seat">A8</div>
-                        <div class="seat">A9</div>
-                        <div class="seat">A10</div>
-                        <div class="seat">A11</div>
-                        <div class="seat">A12</div>
-                        <div class="seat">A13</div>
-                        <div class="seat">A14</div>
-                        <div class="seat">A15</div>
-                        <div class="seat">A16</div>
-                        <div class="seat">A17</div>
-                    </div>
-                    <div class="row">
-                        <div class="seat">B1</div>
-                        <div class="seat">B2</div>
-                        <div class="seat">B3</div>
-                        <div class="seat">B4</div>
-                        <div class="seat">B5</div>
-                        <div class="seat">B6</div>
-                        <div class="seat">B7</div>
-                        <div class="seat">B8</div>
-                        <div class="seat">B9</div>
-                        <div class="seat">B10</div>
-                        <div class="seat">B11</div>
-                        <div class="seat">B12</div>
-                        <div class="seat">B13</div>
-                        <div class="seat">B14</div>
-                        <div class="seat">B15</div>
-                        <div class="seat">B16</div>
-                        <div class="seat">B17</div>
-                    </div>
-                    <div class="row">
-                        <div class="seat">C1</div>
-                        <div class="seat">C2</div>
-                        <div class="seat">C3</div>
-                        <div class="seat">C4</div>
-                        <div class="seat">C5</div>
-                        <div class="seat">C6</div>
-                        <div class="seat">C7</div>
-                        <div class="seat">C8</div>
-                        <div class="seat">C9</div>
-                        <div class="seat">C10</div>
-                        <div class="seat">C11</div>
-                        <div class="seat">C12</div>
-                        <div class="seat">C13</div>
-                        <div class="seat">C14</div>
-                        <div class="seat">C15</div>
-                        <div class="seat">C16</div>
-                        <div class="seat">C17</div>
-                    </div>
-                    <div class="row">
-                        <div class="seat">D1</div>
-                        <div class="seat">D2</div>
-                        <div class="seat">D3</div>
-                        <div class="seat">D4</div>
-                        <div class="seat">D5</div>
-                        <div class="seat">D6</div>
-                        <div class="seat">D7</div>
-                        <div class="seat">D8</div>
-                        <div class="seat">D9</div>
-                        <div class="seat">D10</div>
-                        <div class="seat">D11</div>
-                        <div class="seat">D12</div>
-                        <div class="seat">D13</div>
-                        <div class="seat">D14</div>
-                        <div class="seat">D15</div>
-                        <div class="seat">D16</div>
-                        <div class="seat">D17</div>
-                    </div>
-                    <div class="row">
-                        <div class="seat">E1</div>
-                        <div class="seat">E2</div>
-                        <div class="seat">E3</div>
-                        <div class="seat">E4</div>
-                        <div class="seat">E5</div>
-                        <div class="seat">E6</div>
-                        <div class="seat">E7</div>
-                        <div class="seat">E8</div>
-                        <div class="seat">E9</div>
-                        <div class="seat">E10</div>
-                        <div class="seat">E11</div>
-                        <div class="seat">E12</div>
-                        <div class="seat">E13</div>
-                        <div class="seat">E14</div>
-                        <div class="seat">E15</div>
-                        <div class="seat">E16</div>
-                        <div class="seat">E17</div>
-                    </div>
-                    <div class="row">
-                        <div class="seat">F1</div>
-                        <div class="seat">F2</div>
-                        <div class="seat">F3</div>
-                        <div class="seat">F4</div>
-                        <div class="seat">F5</div>
-                        <div class="seat">F6</div>
-                        <div class="seat">F7</div>
-                        <div class="seat">F8</div>
-                        <div class="seat">F9</div>
-                        <div class="seat">F10</div>
-                        <div class="seat">F11</div>
-                        <div class="seat">F12</div>
-                        <div class="seat">F13</div>
-                        <div class="seat">F14</div>
-                        <div class="seat">F15</div>
-                        <div class="seat">F16</div>
-                        <div class="seat">F17</div>
-                    </div>
-                    <div class="row">
-                        <div class="seat">G1</div>
-                        <div class="seat">G2</div>
-                        <div class="seat">G3</div>
-                        <div class="seat">G4</div>
-                        <div class="seat">G5</div>
-                        <div class="seat">G6</div>
-                        <div class="seat">G7</div>
-                        <div class="seat">G8</div>
-                        <div class="seat">G9</div>
-                        <div class="seat">G10</div>
-                        <div class="seat">G11</div>
-                        <div class="seat">G12</div>
-                        <div class="seat">G13</div>
-                        <div class="seat">G14</div>
-                        <div class="seat">G15</div>
-                        <div class="seat">G16</div>
-                        <div class="seat">G17</div>
-                    </div>
-                </div>
-                <div class="note">
-                    <div class="row">
-                        <div class="choice">
-                            <span></span>
-                            <p>Ghế Đã chọn</p>
-                        </div>
-                        <div class="not-choice">
-                            <span></span>
-                            <p>Không thể chọn</p>
-                        </div>
-                        <div class="sold">
-                            <span></span>
-                            <p>Đã Bán</p>
-                        </div>
-                    </div>
+
+        <!-- modal payment -->
+        <div class="overlay" style="display: none;"></div>
+        <div class="modal-payment" style="display: none;">
+            <div class="modal-header">
+                <h4 class="title">Order confirmation</h4>
+                <div class="cls">
+                    <i class="fa-solid fa-xmark"></i>
                 </div>
             </div>
-            <div class="info-ticket">
-                <div class="info">
-                    <div class="event-name">Thanh Gươm Diệt Quỷ Đường Đến Làng Rèn Gươm</div>
-                    <div class="location">Starlight Đà Nẵng</div>
-                    <div class="date-time">Suất 15:00 - Hôm nay, 23/03</div>
-                    <div class="room-seat">Phòng chiếu 04 - Ghế E09</div>
+            <div class="modal-body">
+                <div>
+                    <div>Theater</div>
+                    <div>Starlight Da Nang</div>
                 </div>
-                <div class="total">
-                    <div class="total-chair">
-                        <span>Tổng đơn hàng</span>
-                        <p>180.000đ</p>
-                    </div>
-                    <div class="time-chair">
-                        <span>Thời gian giữ ghế</span>
-                        <p>03:00</p>
+                <div>
+                    <div>Movie</div>
+                    <div>Supper Fool ABC</div>
+                </div>
+                <div>
+                    <div>Showtime</div>
+                    <div><b>15:10</b> today, <b>March 26</b></div>
+                </div>
+                <div>
+                    <div>Chair</div>
+                    <div>D08,D09</div>
+                </div>
+                <div>
+                    <div>Personal Infomation</div>
+                    <div>
+                        <p>Nguyen Van Tuan</p>
+                        <p>nguyentuan22552001@gmail.com</p>
+                        <p>0357751334</p>
                     </div>
                 </div>
-                <div class="btn-next">Tiếp Tục</div>
+                <div>
+                    <div>Pay</div>
+                    <div>Momo Wallet</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-payment">Make a payment</button>
             </div>
         </div>
 
-    </body>
+    </div>
 </body>
+<script src="../assets/js/jquery.js"></script>
 
 </html>

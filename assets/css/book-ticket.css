@@ -1,92 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .wrapper {
     display: flex;
     justify-content: center;
-    /* padding: 0 150px; */
+    padding: 0 150px;
+    margin: 30px 0;
 }
 
-.booking-chair {
-    width: 60%;
+/* .booking-chair {
+    width: 70%;
 }
 
 
 .info-ticket {
     width: 30%;
-    margin-left: 5%;
-}
+} */
 
 .row {
     display: flex;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     padding-left: 2em;
+    margin-right: 0 !important;
 }
 
 .chair {
-    margin: auto;
-    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: -50px;
+    position: relative;
+    z-index: 99999;
+}
+
+.chair div {
+    width: 100%;
+    position: relative;
+    left: 4px;
+}
+
+.seat-double {
+    background: #3b5998;
+    width: 6em;
 }
 
 .seat {
-    height: 2em;
-    width: 3em;
+    height: 3em !important;
     border-radius: 4px;
     background: #999;
-    margin-right: 1em;
-    margin-bottom: 1em;
-    line-height: 2em;
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 3em;
     text-align: center;
     color: #fff;
     font-weight: bold;
+    font-size: 11px;
     transition: all 0.2s linear;
 }
 
 .seat:hover {
     background: #ef7900;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transform: scale(1.1);
     transition: all 0.2s linear;
 }
+
+
 
 .screen {
     background: #999;
     text-align: center;
     color: #fff;
     font-weight: bold;
-    height: 3em;
-    width: 3em;
-    line-height: 3em;
+    border-top-right-radius: 100%;
+    border-top-left-radius: 100%;
+    width: 100%;
+    color: #000;
+    height: 160px;
+    position: relative;
+    padding: 25px;
+    font-size: 20px;
+}
+
+.screen::after {
+    position: absolute;
+    content: "";
+    background: #fff;
+    height: 160px;
+    top: 80px;
+    left: 0;
     width: 100%;
 }
 
 /* ---------------------------------------------------- */
 /* ---------------------Info------------------------------- */
 /* ---------------------------------------------------- */
+.info,
+.total,
+.description,
+.btn-next {
+    /* width: 400px !important; */
+    margin: 0 auto;
+}
+
+.description,
 .info {
     padding: 10px 20px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 8px;
 }
 
+.land {
+    margin-right: 14px;
+    position: relative;
+}
+
+.land::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 61%;
+    transform: translate(-50%, -50%);
+    width: 35px;
+    height: 40px;
+    border-right: 1px dotted #999;
+    border-left: 1px dotted #999;
+}
+
+
+
 .event-name {
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 15px;
     line-height: 22.5px;
 }
 
 .location {
-    font-size: 1.1rem;
+    font-size: 15px;
     font-style: italic;
     color: green;
     line-height: 22.5px;
 }
 
 .date-time {
-    font-size: 1.1rem;
+    font-size: 15px;
     color: grey;
     line-height: 22.5px;
 }
 
 .room-seat {
-    font-size: 1.1rem;
+    font-size: 15px;
     font-weight: bold;
     color: black;
     line-height: 22.5px;
@@ -99,20 +166,27 @@
 
 .note {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
 }
 
 .note .row div {
     margin: 0 20px;
+    display: flex;
+}
+
+.note .row div p {
+    line-height: 3em;
+    margin: 0 !important;
+    padding-left: 5px;
 }
 
 .note .row div span {
     display: block;
-    width: 3em;
-    height: 3em;
-    line-height: 3em;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
     text-align: center;
     background: #999;
     margin: auto;
@@ -122,6 +196,16 @@
 .note .choice span {
     background: #ef7900 !important;
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.note .single span {
+    background: #999 !important;
+}
+
+
+.note .double span {
+    background: #3b5998 !important;
 }
 
 .note .not-choice span {
@@ -140,8 +224,8 @@
     width: 0.2em;
     height: 4.4em;
     background-color: #fff;
-    top: -24%;
-    left: 50%;
+    top: -57%;
+    left: 49%;
     transform: rotate(-45deg) translateX(-50%);
 }
 
@@ -157,7 +241,8 @@
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     font-weight: 700;
     font-size: 0.95rem;
     border-radius: 8px;
@@ -169,32 +254,31 @@
 }
 
 .total div p {
-    font-size: 1.1rem;
-    line-height: 0;
+    font-size: 18px;
 }
 
 .total span {
     color: #444;
     text-transform: uppercase;
     color: #999;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .total-chair::after {
     position: absolute;
     content: "";
     width: 0.1px;
-    height: 2em;
+    height: 3em;
     background: #999;
     top: 50%;
     left: 48%;
     transform: translate(-50%, -50%);
 }
 
-.btn-next {
-    background-color: #0088a9;
+.btun {
+    background-color: #ef7900;
     width: 100%;
-    padding: 0.7rem 0;
+    padding: 1rem 0;
     border-radius: 4px;
     margin: 0 auto;
     text-align: center;
@@ -205,6 +289,8 @@
     margin-top: 1rem;
     cursor: pointer;
     transition: all 0.3s linear;
+    font-size: 15px;
+    text-transform: capitalize;
 }
 
 .btn-next:hover {
@@ -219,24 +305,28 @@
 .steps-booking {
     width: 100%;
     overflow: hidden;
-    margin: 40px 0;
     text-align: center;
-    background: #f3f3f3;
+    background: #eeeeee;
+    height: 60px;
 }
 
 .steps-booking i {
     font-size: 20px;
 }
 
+.steps-booking p {
+    font-size: 12px;
+}
+
 .steps {
     position: relative;
-    background: #f3f3f3;
     display: inline-block;
-    padding: 10px 15px;
     position: relative;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bolder;
     margin: 0 100px;
+    line-height: 20px;
+    padding-top: 8px;
 }
 
 
@@ -245,7 +335,8 @@
     position: absolute;
     content: "\2192";
     font-size: 36px;
-    left: 160px;
+    left: 130px;
+    top: 15px;
 }
 
 
@@ -259,14 +350,338 @@
     color: #ef7900;
 }
 
+.active-seat {
+    background: #ef7900 !important;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.active-sold {
+    background: #000 !important;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+}
+
+.count-down {
+    color: #ef7900;
+}
 
 
 
 @media only screen and (min-width:1500px) {
     .seat {
-        height: 2rem;
-        line-height: 2em;
+        height: 4rem;
+        line-height: 3em;
         font-size: 14px;
 
     }
 }
+
+
+/* --------------------------------------- */
+/* ---------------Book Food--------------- */
+/* --------------------------------------- */
+.table>tbody>tr>td {
+    padding: 10px;
+    vertical-align: middle;
+    border-top: 1px solid #ef7900;
+}
+
+.table>tbody>tr>th {
+    padding: 10px;
+    border-top: none;
+}
+
+table,
+th,
+td {
+    border: none;
+}
+
+.tb-pay,
+.tb-food {
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    font-size: 14px;
+}
+
+
+.plus-minus span {
+    cursor: pointer;
+}
+
+
+.plus-minus .minus,
+.plus-minus .plus {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    background: transparent;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 50%;
+    transition: all 0.3s linear;
+}
+
+.plus-minus input {
+    height: 34px;
+    width: 40px;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.plus-minus .minus:hover,
+.plus-minus .plus:hover {
+    opacity: 0.7;
+    border: 1px solid #ef7900;
+    transition: all 0.3s linear;
+}
+
+.tb-pay .thum-combo,
+.tb-food .thum-combo {
+    background: #f29a47;
+    color: #fff;
+}
+
+.tb-pay .thum-combo .pay-sum {
+    border-top: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.tb-pay,
+.tb-food p {
+    line-height: 0.8;
+}
+
+.tb-food .head {
+    padding: 10px 0 0 0px;
+}
+
+.tb-pay .price,
+.tb-food .price {
+    position: relative;
+}
+
+.total-price::after,
+.tb-pay .price::after,
+.tb-food .price::after {
+    position: absolute;
+    content: "VNĐ";
+    margin-left: 5px;
+}
+
+.tb-pay p {
+    margin: 5px 0 !important;
+}
+
+.payment-gateway {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+    border: 1px solid #fff;
+}
+
+.payment-gateway i {
+    display: none;
+}
+
+.payment-gateway:hover {
+    border-radius: 10px;
+    border: 1px solid #ef7900;
+    background: #f29a4779;
+    transition: all 0.3s ease-in-out;
+}
+
+.active-pay {
+    border-radius: 10px;
+    border: 1px solid #ef7900;
+    background: #f29a4779;
+}
+
+.active-icon-pay {
+    display: block !important;
+}
+
+.payment-gateway img {
+    width: 28px;
+    height: 28px;
+}
+
+.payment-gateway .pg-info {
+    padding: 0 6px;
+}
+
+.payment-gateway i {
+    color: red;
+    font-size: 18px;
+}
+
+.card {
+    background: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+}
+
+.card-header {
+    padding: 15px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background: #f29a47;
+    height: 50px;
+    color: #fff;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 10px !important;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-check {
+    position: relative;
+    display: block;
+}
+
+.infomation {
+    margin: 20px 0;
+}
+
+
+/* modal payment */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0.7;
+    z-index: 99999;
+}
+
+.modal-payment {
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 30px 30px 30px;
+    border-radius: 8px;
+    width: 500px;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 99999;
+}
+
+
+.modal-payment .title {
+    font-weight: 600;
+}
+
+.modal-payment .cls {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    font-size: 18px;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.modal-payment .cls:hover {
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.modal-payment .modal-body>div {
+    display: flex;
+    font-size: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #ef770042;
+}
+
+.modal-payment .modal-body>div div:nth-child(1) {
+    width: 150px;
+    font-weight: 700;
+}
+
+.modal-payment .modal-footer button {
+    background: #ef7900;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-payment .modal-footer button:hover {
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+}
+
+@keyframes topdown {
+    0% {
+        transform: translate(-50%, -50%);
+        visibility: visible;
+    }
+
+    100% {
+        transform: translate(-50%, -170%);
+        visibility: hidden;
+    }
+}
+
+@keyframes downtop {
+    0% {
+
+        transform: translate(-50%, -170%);
+        visibility: hidden;
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+        visibility: visible;
+    }
+}
+
+
+
+

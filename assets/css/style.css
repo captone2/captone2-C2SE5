@@ -55,8 +55,9 @@ a {
 }
 
 .btn {
-    background-color: #fff;
+    background-color: #fe7900;
     border-radius: 5px;
+    color: #fff;
 }
 
 .d-flex {
@@ -575,15 +576,17 @@ img.emoji {
 }
 
 .font-bold {
-    padding: 9px 20px 6px 0;
+    padding: 9px 20px 6px 20px;
     font-weight: 700;
     cursor: pointer;
     height: 40px;
+    text-transform: uppercase;
 }
 
 .font-bold:hover {
-    opacity: 0.7;
+    opacity: 0.8;
     transition: all 0.2s ease-in;
+    color: #fff;
 }
 
 .detail-img .ActionButtons button:hover {
@@ -724,4 +727,29 @@ img.emoji {
 
 .amy-arrow.amy-next {
     left: 10px;
+}
+
+
+/* Schedule */
+
+.amy-movie-intro-times span {
+    text-align: center !important;
+    border-radius: 5px !important;
+}
+
+.amy-movie-intro-times span .price-ticket {
+    margin: 0 5px 0 0 !important;
+    opacity: 0.5;
+}
+
+.amy-movie-intro-times span .price-ticket::after {
+    position: absolute;
+    content: "k";
+}
+
+.amy-movie-intro-times .button {
+    height: 46px;
+    line-height: 46px;
+    padding: 0 8px !important;
+    border-radius: 5px !important;
 }
