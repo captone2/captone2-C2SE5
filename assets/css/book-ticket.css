@@ -664,7 +664,7 @@ label {
     }
 
     100% {
-        transform: translate(-50%, -170%);
+        transform: translate(-50%, -170%) scale(0);
         visibility: hidden;
     }
 }
@@ -681,7 +681,3 @@ label {
         visibility: visible;
     }
 }
-
-
-
-

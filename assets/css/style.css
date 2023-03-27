@@ -576,10 +576,12 @@ img.emoji {
 }
 
 .font-bold {
-    padding: 9px 20px 6px 20px;
     font-weight: 700;
     cursor: pointer;
+    width: 100px;
     height: 40px;
+    line-height: 40px;
+    text-align: center;
     text-transform: uppercase;
 }
 
@@ -602,7 +604,7 @@ img.emoji {
     bottom: 130px;
 }
 
-.detail-in .container {
+.detail-in .containers {
     display: flex;
     padding: 20px 50px;
 }
@@ -633,7 +635,7 @@ img.emoji {
 .detail-img .image {
     position: absolute;
     padding: 0 50px;
-    top: 180px;
+    top: 160px;
 }
 
 .detail-img .image img {
@@ -661,14 +663,6 @@ img.emoji {
     right: 0;
 }
 
-.ActionBut0p button {
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    width: 50px;
-    height: 50px;
-}
 
 .hd {
     border: 1px solid #fff;
@@ -752,4 +746,330 @@ img.emoji {
     line-height: 46px;
     padding: 0 8px !important;
     border-radius: 5px !important;
+}
+
+
+
+/* modal payment */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0.7;
+    z-index: 99999;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-trailer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    width: 700px;
+    color: #fff;
+    background: #181818;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 99999;
+}
+
+
+.modal-trailer .cls {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 18px;
+    opacity: 0.6;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    background: #181818;
+}
+
+.modal-trailer .cls:hover {
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.modal-trailer .modal-footer button {
+    background: #ef7900;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-trailer .modal-footer button:hover {
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+}
+
+@keyframes topdown {
+    0% {
+        transform: translate(-50%, -50%);
+        visibility: visible;
+    }
+
+    100% {
+        transform: translate(-50%, -170%) scale(0);
+        visibility: hidden;
+    }
+}
+
+@keyframes downtop {
+    0% {
+
+        transform: translate(-50%, -170%);
+        visibility: hidden;
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+        visibility: visible;
+    }
+}
+
+
+
+
+
+
+
+
+/* ---------------------------- ----------------------------------------*/
+/* ---------------------------- Payment  ----------------------------*/
+/* ----------------------------  ---------------------------------------*/
+
+.header-payment {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.header-payment .container {
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+
+.header-payment .container div {
+    height: 70px;
+    line-height: 70px;
+}
+
+.header-payment img {
+    width: 40px;
+    height: 40px;
+}
+
+.header-payment p {
+    padding-left: 20px;
+    line-height: 70px;
+    font-size: 16px;
+    margin: 0 !important;
+}
+
+.wrapper-pm .col-md-3 {
+    border-radius: 10px;
+    border: 1px solid rgb(242 230 237);
+}
+
+.payment-title {
+    padding-bottom: 10px;
+}
+
+.payment-detail .box-detail h4 {
+    font-size: 15px;
+    line-height: 18px;
+    color: #727272;
+    font-weight: 400;
+}
+
+.two-box {
+    display: flex;
+}
+
+.merchant-logo {
+    max-height: 45px;
+    margin-right: 10px;
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+.payment-detail .box-detail p {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    color: #303233;
+    word-wrap: break-word;
+}
+
+.payment-detail .line-detail {
+    border-top: 1px solid #ebebeb;
+    background-color: #ebebeb;
+    margin-bottom: 16px;
+}
+
+.expire-content {
+    margin-top: 16px;
+    border-radius: 8px;
+}
+
+.expire-content .box-expire {
+    background-color: rgb(255 240 246);
+}
+
+.expire-content .box-expire .expire-text {
+    color: rgb(216 45 139);
+}
+
+.expire-content .box-expire .expire-text {
+    padding: 13px;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #fa8c16;
+}
+
+.expire-content .box-expire .expire-text p {
+    margin-top: auto;
+    margin-bottom: 0.1rem;
+}
+
+.expire-content .box-expire .time-expire-text {
+    justify-content: center;
+}
+
+.box-expire .time-expire-text .time-box {
+    background: #ef7900;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 10px;
+}
+
+.payment-content {
+    background: url('https://static.mservice.io/jk/momo2020/img/intro/qrcode-pattern.png') 10px 10px no-repeat, linear-gradient(0deg, #c1177c, #e11b90);
+    padding-bottom: 10%;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+}
+
+.payment-content a {
+    color: #fff;
+}
+
+.payment-content {
+    margin-bottom: 30px;
+    margin-top: 30px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px 2px rgba(0, 0, 0, .08);
+    background-color: #fff;
+}
+
+.payment-qr {
+    padding: 20px 0 70px;
+}
+
+.payment-qr .payment-cta {
+    text-align: center;
+    padding: 0 0 24px;
+}
+
+.payment-cta h1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    text-align: center;
+    color: #fff;
+}
+
+.qrcode_scan_container {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: white;
+    width: 280px;
+    height: 280px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.qrcode_scan {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: white;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.qrcode_gradient {
+    position: absolute;
+    opacity: .6;
+    width: 98%;
+    height: 98%;
+    top: 1%;
+    left: 1%;
+    z-index: 6;
+    animation: QRCodeScan 3s infinite cubic-bezier(.45, .03, .81, .63);
+    backface-visibility: hidden;
+}
+
+.qrcode_border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    opacity: .9;
+    pointer-events: none;
+}
+
+.qrcode_image {
+    width: 100%;
+}
+
+@keyframes QRCodeScan {
+    0% {
+        transform: translate3d(0, -110%, 0);
+    }
+
+    100% {
+        transform: translate3d(0);
+    }
 }

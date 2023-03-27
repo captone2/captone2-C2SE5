@@ -90,7 +90,7 @@ jQuery(document).ready(function () {
         $input.change();
         return false;
     });
-    
+
     jQuery('.plus').on('click', function () {
         var $input = jQuery(this).parent().find('input');
         $input.val(parseInt($input.val()) + 1);
@@ -167,16 +167,24 @@ jQuery(document).ready(function () {
 
     jQuery(".cls").on('click', function () {
         jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".overlay").css('display', 'none');
     });
     jQuery(".overlay").on('click', function () {
         jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(this).css('display', 'none');
     });
 
     jQuery(".btn-pay").on('click', function () {
         jQuery(".modal-payment").css('animation', 'downtop 0.5s ease-in-out forwards')
         jQuery(".modal-payment").css('display', 'block')
+        jQuery(".overlay").css('display', 'block');
+    });
+
+    jQuery(".slide-button").find('.btn-trailer').on('click', function () {
+        jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')
+        jQuery(".modal-trailer").css('display', 'block')
         jQuery(".overlay").css('display', 'block');
     });
 });
