@@ -663,6 +663,14 @@ img.emoji {
     right: 0;
 }
 
+.btn {
+    transition: all 0.3s linear;
+}
+
+.btn:hover {
+    opacity: 0.6;
+    transition: all 0.3s linear;
+}
 
 .hd {
     border: 1px solid #fff;
