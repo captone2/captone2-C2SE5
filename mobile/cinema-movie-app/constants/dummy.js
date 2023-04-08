@@ -6,27 +6,27 @@ export const newSeason = [
         stillWatching: [
             {
                 id: 1,
-                profile: require("../assets/images/dummy_profile/1.jpg")
+                profile: require("../assets/images/dummy_profile/1.jpg"),
             },
             {
                 id: 2,
-                profile: require("../assets/images/dummy_profile/2.jpg")
+                profile: require("../assets/images/dummy_profile/2.jpg"),
             },
             {
                 id: 3,
-                profile: require("../assets/images/dummy_profile/3.jpg")
+                profile: require("../assets/images/dummy_profile/3.jpg"),
             },
             {
                 id: 4,
-                profile: require("../assets/images/dummy_profile/4.jpg")
+                profile: require("../assets/images/dummy_profile/4.jpg"),
             },
             {
                 id: 5,
-                profile: require("../assets/images/dummy_profile/5.jpg")
+                profile: require("../assets/images/dummy_profile/5.jpg"),
             },
             {
                 id: 6,
-                profile: require("../assets/images/dummy_profile/6.jpg")
+                profile: require("../assets/images/dummy_profile/6.jpg"),
             },
         ],
         details: {
@@ -37,8 +37,8 @@ export const newSeason = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E1 "Episode 1 : Vikings"',
             runningTime: "45m",
-            progress: "0%"
-        }
+            progress: "0%",
+        },
     },
     {
         id: 2,
@@ -47,20 +47,20 @@ export const newSeason = [
         stillWatching: [
             {
                 id: 1,
-                profile: require("../assets/images/dummy_profile/6.jpg")
+                profile: require("../assets/images/dummy_profile/6.jpg"),
             },
             {
                 id: 2,
-                profile: require("../assets/images/dummy_profile/7.jpg")
+                profile: require("../assets/images/dummy_profile/7.jpg"),
             },
             {
                 id: 3,
-                profile: require("../assets/images/dummy_profile/3.jpg")
+                profile: require("../assets/images/dummy_profile/3.jpg"),
             },
             {
                 id: 4,
-                profile: require("../assets/images/dummy_profile/4.jpg")
-            }
+                profile: require("../assets/images/dummy_profile/4.jpg"),
+            },
         ],
         details: {
             image: require("../assets/images/series/bridgerton/bridgerton.jpg"),
@@ -70,8 +70,8 @@ export const newSeason = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E6 "Episode 6 : Swish"',
             runningTime: "45m",
-            progress: "50%"
-        }
+            progress: "50%",
+        },
     },
     {
         id: 3,
@@ -86,8 +86,8 @@ export const newSeason = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E15 "Episode 15 : Bella ciao"',
             runningTime: "45m",
-            progress: "50%"
-        }
+            progress: "50%",
+        },
     },
     {
         id: 4,
@@ -96,15 +96,15 @@ export const newSeason = [
         stillWatching: [
             {
                 id: 1,
-                profile: require("../assets/images/dummy_profile/1.jpg")
+                profile: require("../assets/images/dummy_profile/1.jpg"),
             },
             {
                 id: 2,
-                profile: require("../assets/images/dummy_profile/2.jpg")
+                profile: require("../assets/images/dummy_profile/2.jpg"),
             },
             {
                 id: 3,
-                profile: require("../assets/images/dummy_profile/3.jpg")
+                profile: require("../assets/images/dummy_profile/3.jpg"),
             },
         ],
         details: {
@@ -115,10 +115,10 @@ export const newSeason = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E1 "Episode 1 : Pilot"',
             runningTime: "45m",
-            progress: "0%"
-        }
+            progress: "0%",
+        },
     },
-]
+];
 export const continueWatching = [
     {
         id: 1,
@@ -133,8 +133,8 @@ export const continueWatching = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E8 "Episode 8 : The Old Head"',
             runningTime: "45m",
-            progress: "50%"
-        }
+            progress: "50%",
+        },
     },
     {
         id: 2,
@@ -149,8 +149,8 @@ export const continueWatching = [
             season: "SEASON 1",
             currentEpisode: 'S4 : E1 "Chapter 40"',
             runningTime: "45m",
-            progress: "50%"
-        }
+            progress: "50%",
+        },
     },
     {
         id: 3,
@@ -165,8 +165,8 @@ export const continueWatching = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E6 "Episode 6 : Swish"',
             runningTime: "45m",
-            progress: "50%"
-        }
+            progress: "50%",
+        },
     },
     {
         id: 4,
@@ -181,10 +181,10 @@ export const continueWatching = [
             season: "SEASON 1",
             currentEpisode: 'S1 : E15 "Episode 15 : Bella ciao"',
             runningTime: "45m",
-            progress: "50%"
-        }
+            progress: "50%",
+        },
     },
-]
+];
 
 const dummyData = { newSeason, continueWatching };
 

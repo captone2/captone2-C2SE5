@@ -1,4 +1,3 @@
-import React from "react";
 import {
     View,
     Text,
@@ -9,11 +8,20 @@ import {
     TouchableWithoutFeedback,
     ImageBackground,
     Animated,
+    Pressable,
+    TouchableOpacity,
 } from "react-native";
-import { dummyData, icons, SIZES } from "../constants";
-import { Profiles, ProgressBar } from "../components";
-import { theme } from "../constants/theme";
+import { dummyData, icons, SIZES } from "../../constants";
+import { Profiles, ProgressBar } from "../../components";
+
+import React, { useContext } from "react";
+import { theme } from "../../constants/theme";
+import { MoviesCards } from "../../utils/Context";
+import { StartScreen, ProfileScreen } from "../index";
+import Button from "../../components/Button";
+
 const HomeScreen = ({ navigation }) => {
+    const { ticket } = useContext(MoviesCards);
     const newSeasonScrollX = React.useRef(new Animated.Value(0)).current;
 
     const renderNewSessionSection = () => {
@@ -28,6 +36,9 @@ const HomeScreen = ({ navigation }) => {
                 contentContainerStyle={{
                     marginTop: SIZES.radius,
                 }}
+                ListEmptyComponent={
+                    ticket.length > 0 ? StartScreen : ProfileScreen
+                }
                 data={dummyData.newSeason}
                 keyExtractor={(item) => `${item.id}`}
                 onScroll={Animated.event(
@@ -244,36 +255,67 @@ const HomeScreen = ({ navigation }) => {
                     keyExtractor={(item) => `${item.id}`}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableWithoutFeedback
-                                onPress={() =>
-                                    navigation.navigate("MovieDetail", {
-                                        selectedMovie: item,
-                                    })
-                                }
-                            >
+                            <View style={{ display: "flex" }}>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        navigation.navigate("MovieDetail", {
+                                            selectedMovie: item,
+                                        })
+                                    }
+                                >
+                                    <View
+                                        style={{
+                                            marginLeft:
+                                                index == 0 ? SIZES.padding : 20,
+                                            marginRight:
+                                                index ==
+                                                dummyData.continueWatching
+                                                    .length -
+                                                    1
+                                                    ? SIZES.padding
+                                                    : 0,
+                                        }}
+                                    >
+                                        <Image
+                                            source={item.thumbnail}
+                                            resizeMode="cover"
+                                            style={{
+                                                width: SIZES.width / 3,
+                                                height: SIZES.width / 3 + 60,
+                                                borderRadius: 20,
+                                            }}
+                                        />
+                                    </View>
+                                    {/* progressbar */}
+                                    <View
+                                        style={{
+                                            paddingHorizontal: 15,
+                                            paddingTop: 15,
+                                        }}
+                                    >
+                                        <ProgressBar
+                                            containerStyle={{
+                                                marginTops: SIZES.radius,
+                                                width: "100%",
+                                            }}
+                                            barStyle={{
+                                                height: 3,
+                                            }}
+                                            barPercentage={item.overallProgress}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+
+                                {/* name */}
                                 <View
                                     style={{
-                                        marginLeft:
-                                            index == 0 ? SIZES.padding : 20,
-                                        marginRight:
-                                            index ==
-                                            dummyData.continueWatching.length -
-                                                1
-                                                ? SIZES.padding
-                                                : 0,
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignContent: "center",
+                                        justifyContent: "space-around",
+                                        textAlign: "center",
                                     }}
                                 >
-                                    {/* thumbnail */}
-                                    <Image
-                                        source={item.thumbnail}
-                                        resizeMode="cover"
-                                        style={{
-                                            width: SIZES.width / 3,
-                                            height: SIZES.width / 3 + 60,
-                                            borderRadius: 20,
-                                        }}
-                                    />
-                                    {/* name */}
                                     <Text
                                         style={{
                                             color: theme.colors.white,
@@ -281,20 +323,35 @@ const HomeScreen = ({ navigation }) => {
                                             ...SIZES.h4,
                                         }}
                                     >
-                                        {item.name}
+                                        <Text
+                                            style={{
+                                                color: theme.colors.white,
+                                            }}
+                                        >
+                                            {item.name}
+                                        </Text>
                                     </Text>
-                                    {/* progressbar */}
-                                    <ProgressBar
-                                        containerStyle={{
-                                            marginTops: SIZES.radius,
+                                    <TouchableOpacity
+                                        style={{
+                                            backgroundColor:
+                                                theme.colors.primary,
+                                            width: 45,
+                                            marginTop: 5,
+                                            paddingLeft: 5,
+                                            borderRadius: 14,
                                         }}
-                                        barStyle={{
-                                            height: 3,
-                                        }}
-                                        barPercentage={item.overallProgress}
-                                    />
+                                    >
+                                        <Text
+                                            style={{
+                                                color: theme.colors.yelow,
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            Book
+                                        </Text>
+                                    </TouchableOpacity>
                                 </View>
-                            </TouchableWithoutFeedback>
+                            </View>
                         );
                     }}
                 />

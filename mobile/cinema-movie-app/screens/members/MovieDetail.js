@@ -10,12 +10,13 @@ import {
     ScrollView,
     Platform,
 } from "react-native";
-import { ProgressBar } from "../components";
-import { SIZES, icons } from "../constants";
-import { theme } from "../constants/theme";
+import { ProgressBar } from "../../components/index";
+import { SIZES, icons } from "../../constants";
+import { theme } from "../../constants/theme";
 
 const MovieDetail = ({ navigation, route }) => {
-    const selectedMovie = React.useState(route.params.selectedMovie);
+    const [selectedMovie] = React.useState(route.params.selectedMovie);
+    console.log(selectedMovie);
 
     function renderHeaderBar() {
         return (

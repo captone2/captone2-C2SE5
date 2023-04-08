@@ -1,9 +1,6 @@
-import { View, Text, Image } from "react-native";
-import React, { FC } from "react";
+import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import HomeScreen from "../screens/HomeScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import StartScreen from "../screens/StartScreen";
+import { HomeScreen, SettingsScreen, StartScreen } from "../screens/index";
 
 const Tab = createMaterialTopTabNavigator();
 const TabsTop = () => {
