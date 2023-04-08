@@ -60,6 +60,11 @@ a {
     color: #fff;
 }
 
+button {
+    outline: none;
+    border: none;
+}
+
 .d-flex {
     display: flex !important;
 }
