@@ -642,7 +642,7 @@
 
         <!-- modal payment -->
         <div class="overlay" style="display: none;"></div>
-        <div class="modal-payment" style="display: none;">
+        <div class="modal-payment modal-wrap" style="display: none;">
             <div class="modal-header">
                 <h4 class="title">Order confirmation</h4>
                 <div class="cls">
@@ -685,6 +685,34 @@
             </div>
         </div>
 
+        <!-- Modal Re-buy -->
+        <div class="modal-wrap modal-rebuy" style="display: none;">
+            <div class="modal-header">
+                <div class="cls">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div class="modal-body" style="padding-top: 30px;">
+                Hết thời gian giữ ghế, Vui lòng thực hiện lại sau 5 phút
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-rebuy"><a href="#" style="color: #fff;">Đặt lại vé</a></button>
+            </div>
+        </div>
+        <!-- Modal max chair -->
+        <div class="modal-wrap modal-maxchair" style="display: none;">
+            <div class="modal-header">
+                <div class="cls">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div class="modal-body" style="padding-top: 30px;">
+                Chỉ cho phép đặt tối đa 5 ghế
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-rebuy"><a href="#" style="color: #fff;">Đóng</a></button>
+            </div>
+        </div>
     </div>
 </body>
 <script src="../assets/js/jquery.js"></script>

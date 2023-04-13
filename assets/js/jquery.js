@@ -46,7 +46,8 @@ jQuery(document).ready(function () {
         }
         var counts = jQuery('.active-seat').size();
         if (counts > 5) {
-            alert("Đéo cho chọn quá 5 ghế!!!")
+            jQuery(".modal-maxchair").css('animation', 'downtop 0.5s ease-in-out forwards')
+            jQuery(".modal-maxchair").css('display', 'block')
             jQuery(this).removeClass('active-seat');
             var seats = jQuery('.select-chair').text();
             seats = seats.replace(jQuery(this).text() + ', ', '');
@@ -167,12 +168,17 @@ jQuery(document).ready(function () {
 
     jQuery(".cls").on('click', function () {
         jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".modal-maxchair").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".modal-rebuy").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".overlay").css('display', 'none');
     });
     jQuery(".overlay").on('click', function () {
         jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".modal-maxchair").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".modal-rebuy").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery('.video-main')[0].pause();
         jQuery(this).css('display', 'none');
     });
 

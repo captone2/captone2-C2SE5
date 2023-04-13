@@ -594,7 +594,7 @@ label {
     z-index: 99999;
 }
 
-.modal-payment {
+.modal-wrap {
     position: fixed;
     top: 35%;
     left: 50%;
@@ -608,11 +608,11 @@ label {
 }
 
 
-.modal-payment .title {
+.modal-wrap .title {
     font-weight: 600;
 }
 
-.modal-payment .cls {
+.modal-wrap .cls {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -621,25 +621,25 @@ label {
     cursor: pointer;
 }
 
-.modal-payment .cls:hover {
+.modal-wrap .cls:hover {
     opacity: 1;
     transition: all 0.2s ease-in-out;
 }
 
 
-.modal-payment .modal-body>div {
+.modal-wrap .modal-body>div {
     display: flex;
     font-size: 16px;
     padding: 12px 0;
     border-bottom: 1px solid #ef770042;
 }
 
-.modal-payment .modal-body>div div:nth-child(1) {
+.modal-wrap .modal-body>div div:nth-child(1) {
     width: 150px;
     font-weight: 700;
 }
 
-.modal-payment .modal-footer button {
+.modal-wrap .modal-footer button {
     background: #ef7900;
     outline: none;
     border: none;
@@ -652,7 +652,17 @@ label {
     transition: all 0.3s ease-in-out;
 }
 
-.modal-payment .modal-footer button:hover {
+.modal-wrap.modal-maxchair .modal-footer,
+.modal-wrap.modal-rebuy .modal-footer {
+    text-align: right;
+}
+
+.modal-wrap.modal-maxchair .modal-footer button,
+.modal-wrap.modal-rebuy .modal-footer button {
+    width: auto;
+}
+
+.modal-wrap .modal-footer button:hover {
     opacity: 0.7;
     transition: all 0.3s ease-in-out;
 }
