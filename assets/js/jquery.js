@@ -48,6 +48,7 @@ jQuery(document).ready(function () {
         if (counts > 5) {
             jQuery(".modal-maxchair").css('animation', 'downtop 0.5s ease-in-out forwards')
             jQuery(".modal-maxchair").css('display', 'block')
+            jQuery('.overlay').css('display', 'block');
             jQuery(this).removeClass('active-seat');
             var seats = jQuery('.select-chair').text();
             seats = seats.replace(jQuery(this).text() + ', ', '');
@@ -173,9 +174,15 @@ jQuery(document).ready(function () {
         jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".overlay").css('display', 'none');
     });
+
+    jQuery(".btn-cls").on('click', function () {
+        jQuery(".modal-maxchair").css('animation', 'topdown 0.5s ease-in-out forwards')
+        jQuery(".overlay").css('display', 'none');
+    });
+
+
     jQuery(".overlay").on('click', function () {
         jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
-        jQuery(".modal-maxchair").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".modal-rebuy").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery('.video-main')[0].pause();
@@ -197,4 +204,8 @@ jQuery(document).ready(function () {
 
 
 
+    // Toggle drop down user
+    jQuery(".img-user").click(function () {
+        jQuery(".list-down").slideToggle();
+    });
 });
