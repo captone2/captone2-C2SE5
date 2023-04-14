@@ -1146,3 +1146,129 @@ img.emoji {
     opacity: .7;
     transition: all 0.3s linear;
 }
+
+
+.avatar-wrapper {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    margin: 50px auto;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 1px 1px 15px -5px black;
+    transition: all 0.3s ease;
+}
+
+.avatar-wrapper:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.avatar-wrapper:hover .profile-pic {
+    opacity: 0.5;
+}
+
+.profile-pic {
+    height: 100%;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.profile-pic:after {
+    font-family: FontAwesome;
+    content: "\f007";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 190px;
+    background: #ecf0f1;
+    color: #34495e;
+    text-align: center;
+}
+
+.upload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.upload-button .fa-arrow-circle-up {
+    position: absolute;
+    font-size: 234px;
+    top: -17px;
+    left: -20px;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: #34495e;
+}
+
+.upload-button:hover .fa-arrow-circle-up {
+    opacity: 0.9;
+}
+
+#history {
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#history td,
+#history th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#history tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#history tr:hover {
+    background-color: #f2bc82;
+}
+
+#history th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #fa8c16;
+    color: white;
+}
+
+.pagination-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-wrap button {
+    padding: 5px;
+}
+
+#payment-success {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border: 1px solid #fa8c16;
+}
+
+#succes-booking {
+    width: 100%;
+    border: 1px solid #fa8c16;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+th {
+    background-color: #fa8c16;
+    color: #FFFFFF;
+}
+
+td {
+    padding: 10px;
+}

@@ -206,4 +206,91 @@ jQuery(document).ready(function () {
     jQuery(".img-user").click(function () {
         jQuery(".list-down").slideToggle();
     });
+
+    // Avatar setting
+
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                jQuery('.profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    jQuery(".file-upload").on('change', function () {
+        readURL(this);
+    });
+
+    jQuery(".upload-button").on('click', function () {
+        jQuery(".file-upload").click();
+    });
+
+    // Pagination
+    var rowsPerPage = 5;
+    var rowCount = jQuery('#history tbody tr').length;
+    var pageCount = Math.ceil(rowCount / rowsPerPage);
+    var currentPage = 1; // Trang hiện tại
+
+    for (var i = 1; i <= pageCount; i++) {
+        jQuery('#pagination-container').append('<button class="page-link">' + i + '</button>');
+    }
+
+    showPage(currentPage);
+
+    jQuery('#pagination-container').on('click', '.page-link', function () {
+        currentPage = parseInt(jQuery(this).text());
+        showPage(currentPage);
+    });
+
+    jQuery('#prev-btn').click(function () {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            updatePagination();
+        }
+    });
+
+    jQuery('#next-btn').click(function () {
+        if (currentPage < pageCount) {
+            currentPage++;
+            showPage(currentPage);
+            updatePagination();
+        }
+    });
+
+    function updatePagination() {
+        if (currentPage == 1) {
+            jQuery('#prev-btn').prop('disabled', true);
+        } else {
+            jQuery('#prev-btn').prop('disabled', false);
+        }
+
+        if (currentPage == pageCount) {
+            jQuery('#next-btn').prop('disabled', true);
+        } else {
+            jQuery('#next-btn').prop('disabled', false);
+        }
+    }
+
+    function showPage(pageNumber) {
+        var startIndex = (pageNumber - 1) * rowsPerPage;
+        var endIndex = Math.min(startIndex + rowsPerPage, rowCount);
+
+        jQuery('#history tbody tr').hide();
+        for (var i = startIndex; i < endIndex; i++) {
+            jQuery('#history tbody tr').eq(i).show();
+        }
+
+        updatePagination();
+    }
+
+    jQuery('#prev-btn').prop('disabled', true);
+
+
+
+
 });
