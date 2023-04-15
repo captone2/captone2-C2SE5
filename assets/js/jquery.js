@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
         }
     });
 
-    let minutes = 3;
+    let minutes = 1;
     let seconds = 0;
     setInterval(() => {
         if (seconds > 0) {
