@@ -180,11 +180,10 @@ jQuery(document).ready(function () {
         jQuery(".overlay").css('display', 'none');
     });
 
-
     jQuery(".overlay").on('click', function () {
         jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
         jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
-        jQuery('.video-main')[0].pause();
+        // jQuery('.video-main')[0].pause();
         jQuery(this).css('display', 'none');
     });
 
