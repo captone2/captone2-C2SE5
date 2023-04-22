@@ -1,0 +1,292 @@
+<div style="margin-right: 0" class="row">
+  <app-navbar-left></app-navbar-left>
+  <div class="col-md-10 nav_content">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <h1 style="margin-bottom: 40px; margin-right: 180px; color: #FF8D1B;">CHỈNH SỬA PHIM
+      </h1>
+      <!-- /.content-header -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid ">
+          <div class="card shadow">
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="">
+
+                  <form class="form-horizontal" [formGroup]="updateMovie" (ngSubmit)="onSubmit()">
+                    <div class="row" style="padding-bottom: 30px">
+                      <div class="col-sm-8">
+                        <div class="form-group">
+                          <label for="inputNameMovie" class="col-sm-2 control-label">Tên phim <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <input id="inputNameMovie" type="text" class="form-control" formControlName="title"
+                                   placeholder="Nhập tên phim" (change)="getIdMovieByName(updateMovie.get('title'))">
+                            <ng-container *ngFor="let validation of validation_messages.title">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('title').hasError(validation.type)&&(updateMovie.get('title').dirty || updateMovie.get('title').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+
+                        <div class="form-group row" style="display: flex; align-items: center">
+                          <label for="inputDateStart" class="col-sm-2 control-label">Từ ngày <span class="star">*</span></label>
+                          <mat-form-field appearance="" style=" width: 60%">
+                            <mat-label>Chọn ngày bắt đầu</mat-label>
+                            <input id="inputDateStart" matInput [matDatepicker]="showingFrom" [min]="dateNow" formControlName="showingFrom">
+                            <mat-datepicker-toggle matSuffix [for]="showingFrom"></mat-datepicker-toggle>
+                            <mat-datepicker #showingFrom></mat-datepicker>
+                          </mat-form-field>
+                          <ng-container *ngFor="let validation of validation_messages.showingFrom">
+                            <small class="form-text text-danger"
+                                   *ngIf="updateMovie.get('showingFrom').hasError(validation.type)&&(updateMovie.get('showingFrom').dirty || updateMovie.get('showingFrom').touched)">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                        </div>
+                        <div class="form-group row" style="display: flex; align-items: center">
+                          <label for="inputDateEnd" class="col-sm-2 control-label">Đến ngày <span class="star">*</span></label>
+                          <mat-form-field appearance="" style=" width: 60%">
+                            <mat-label>Chọn ngày kết thúc</mat-label>
+                            <input id="inputDateEnd" matInput [matDatepicker]="showingTo" [min]="dateNow" formControlName="showingTo">
+                            <mat-datepicker-toggle matSuffix [for]="showingTo"></mat-datepicker-toggle>
+                            <mat-datepicker #showingTo></mat-datepicker>
+                          </mat-form-field>
+                          <ng-container *ngFor="let validation of validation_messages.showingTo">
+                            <small class="form-text text-danger"
+                                   *ngIf="updateMovie.get('showingTo').hasError(validation.type)&&(updateMovie.get('showingTo').dirty || updateMovie.get('showingTo').touched)">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inputCast" class="col-sm-2 control-label">Diễn viên <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <input id="inputCast" type="text" class="form-control" formControlName="cast"
+                                   placeholder="Nhập diễn viên">
+                            <ng-container *ngFor="let validation of validation_messages.cast">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('cast').hasError(validation.type)&&(updateMovie.get('cast').dirty || updateMovie.get('cast').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputFilmStudio" class="col-sm-2 control-label">Hãng phim <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <input id="inputFilmStudio" type="text" class="form-control" formControlName="production"
+                                   placeholder="Nhập hãng phim">
+                            <ng-container *ngFor="let validation of validation_messages.production">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('production').hasError(validation.type)&&(updateMovie.get('production').dirty || updateMovie.get('production').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputDirector" class="col-sm-2 control-label">Đạo diễn <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <input id="inputDirector" type="text" class="form-control" formControlName="director"
+                                   placeholder="Nhập đạo diễn">
+                            <ng-container *ngFor="let validation of validation_messages.director">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('director').hasError(validation.type)&&(updateMovie.get('director').dirty || updateMovie.get('director').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputTime" class="col-sm-2 control-label">Thời lượng (phút) <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <input id="inputTime" type="number" class="form-control" formControlName="runningTime"
+                                   placeholder="Nhập thời lượng">
+                            <ng-container *ngFor="let validation of validation_messages.runningTime">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('runningTime').hasError(validation.type)&&(updateMovie.get('runningTime').dirty || updateMovie.get('runningTime').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="form-group" >
+                          <label class="col-sm-2 control-label">Phiên bản <span class="star">*</span></label>
+                          <mat-radio-group aria-label="Select an option" formControlName="is3D">
+                            <mat-radio-button value="true" style="padding: 0 20px">2D</mat-radio-button>
+                            <mat-radio-button value="false">3D</mat-radio-button>
+                          </mat-radio-group>
+                          <ng-container *ngFor="let validation of validation_messages.is3D">
+                            <small class="form-text text-danger"
+                                   *ngIf="updateMovie.get('is3D').hasError(validation.type)&&(updateMovie.get('is3D').dirty || updateMovie.get('is3D').touched)">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                          <mat-form-field appearance="" style="margin-left: 20px">
+                            <mat-label>Giới hạn tuổi <span class="star">*</span></mat-label>
+                            <mat-select formControlName="rated">
+                              <mat-option value="1">1</mat-option>
+                              <mat-option value="2">2</mat-option>
+                              <mat-option value="3">3</mat-option>
+                              <mat-option value="4">4</mat-option>
+                              <mat-option value="5">5</mat-option>
+                              <mat-option value="6">6</mat-option>
+                              <mat-option value="7">7</mat-option>
+                              <mat-option value="8">8</mat-option>
+                              <mat-option value="9">9</mat-option>
+                              <mat-option value="10">10</mat-option>
+                              <mat-option value="11">11</mat-option>
+                              <mat-option value="12">12</mat-option>
+                              <mat-option value="13">13</mat-option>
+                              <mat-option value="14">14</mat-option>
+                              <mat-option value="15">15</mat-option>
+                              <mat-option value="16">16</mat-option>
+                              <mat-option value="17">17</mat-option>
+                              <mat-option value="18">18</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <ng-container *ngFor="let validation of validation_messages.rated">
+                            <small class="form-text text-danger"
+                                   *ngIf="updateMovie.get('rated').hasError(validation.type)&&(updateMovie.get('rated').dirty || updateMovie.get('rated').touched)">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputTrailer" class="col-sm-2 control-label">Trailer <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <input id="inputTrailer" type="text" class="form-control" formControlName="trailerUrl"
+                                   placeholder="Nhập trailer">
+                            <ng-container *ngFor="let validation of validation_messages.trailerUrl">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('trailerUrl').hasError(validation.type)&&(updateMovie.get('trailerUrl').dirty || updateMovie.get('trailerUrl').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="form-group row" style="display: flex; flex-direction: column">
+                          <label class="col-sm-2 control-label">Thể loại <span
+                            class="star">*</span></label>
+                          <div class="" style="padding-left: 150px">
+                            <ng-container *ngFor="let genre of genreList; let i = index" formArrayName="genres">
+                              <label>
+                                <input type="checkbox" [value]="genre.id" (change)="onCheckChange($event)">{{genre.name}}
+                              </label>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="row" style="display: flex; align-items: center; flex-wrap: wrap">
+                          <label for="inputReleaseDate" class="col-sm-2 control-label">Lịch chiếu <span class="star">*</span></label>
+                          <mat-form-field appearance="" style="margin-left: 20px; width: 60%">
+                            <mat-label>Chọn ngày khởi chiếu</mat-label>
+                            <input id="inputReleaseDate" matInput [matDatepicker]="releaseDate" [min]="dateNow" formControlName="releaseDate">
+                            <mat-datepicker-toggle matSuffix [for]="releaseDate"></mat-datepicker-toggle>
+                            <mat-datepicker #releaseDate></mat-datepicker>
+                          </mat-form-field>
+                          <ng-container *ngFor="let validation of validation_messages.releaseDate">
+                            <small class="form-text text-danger"
+                                   *ngIf="updateMovie.get('releaseDate').hasError(validation.type)&&(updateMovie.get('releaseDate').dirty || updateMovie.get('releaseDate').touched)">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                          <div class="row">
+                            <div class="add-showtime-form" >
+                              <ng-container formArrayName="showtimes">
+                                <ng-container *ngFor="let showtimeForms of showtimes.controls; let i = index">
+                                  <div class="showtime-form row" [formGroup]="showtimeForms">
+                                    <mat-form-field appearance="" >
+                                      <input matInput placeholder="Nhập giờ chiếu (hh:mm:ss)" formControlName="showtime" width="300px">
+                                    </mat-form-field>
+                                    <mat-form-field style="margin-left: 30px">
+                                      <mat-select formControlName="price">
+                                        <mat-option *ngFor="let price of priceList" [value]="price.id">{{price.price}} đồng</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                                    <mat-icon class="delete-btn" (click)="deleteShowtime(i)">delete_forever</mat-icon>
+                                  </div>
+                                </ng-container>
+                              </ng-container>
+                              <div style="margin-left: 50px;">
+                                <button type="button" mat-mini-fab (click)="addShowtime()">
+                                  <mat-icon class="add-course-btn">add</mat-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="inputContent" class="col-sm-2 control-label">Nội dung <span
+                            class="star">*</span></label>
+                          <div class="col-sm-8">
+                            <textarea id="inputContent" class="form-control" formControlName="content"></textarea>
+                            <ng-container *ngFor="let validation of validation_messages.content">
+                              <small class="form-text text-danger"
+                                     *ngIf="updateMovie.get('content').hasError(validation.type)&&(updateMovie.get('content').dirty || updateMovie.get('content').touched)">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card card-user" style="height: 40%">
+                          <div class="card-body">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                              <ng-container >
+                                <div class="fileinput-new thumbnail img-raised">
+                                  <img *ngFor="let image of imageUrl; let i = index" [src]="image.imageUrl" style="width: 40%; padding: 10px 0; border: 2px solid darkgoldenrod" alt="..." rel="nofollow">
+                                  <!--                                    <button type="button" mat-mini-fab (click)="deleteImage(i)">-->
+                                  <!--                                      <mat-icon class="delete-btn">remove_circle_outline</mat-icon>-->
+                                  <!--                                    </button>-->
+                                </div>
+                                <div style="margin-left: 30px">
+                                  <label for="flim">Chọn ảnh bìa</label>
+                                  <input id="flim" type="file" (change)="selectFiles($event)" accept=".jpg,.jpeg,.png" multiple>
+                                  <mat-spinner *ngIf="checkUpLoad"></mat-spinner>
+                                </div>
+                              </ng-container>
+                              <ng-container *ngFor="let validation of validation_messages.imageUrl">
+                                <small class="form-text text-danger"
+                                       *ngIf="!imageUrl">
+                                  {{validation.message}}
+                                </small>
+                              </ng-container>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row" style="text-align: center">
+                      <div class="col-sm-6" style="text-align: right">
+                        <button type="button" class="btn btn-primary" (click)="back()">Quay lại</button>
+                      </div>
+                      <div class="col-sm-1" style="text-align: left">
+                        <input type="submit" class="btn btn-success" value="Chỉnh sửa">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

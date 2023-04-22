@@ -1,0 +1,169 @@
+<!--slide-->
+
+<owl-carousel-o [options]="customBanner">
+  <ng-template carouselSlide [dataMerge]=5>
+    <img src="./assets/images/kingsman.png">
+  </ng-template>
+  <ng-template carouselSlide [dataMerge]=5>
+    <img src="./assets/images/eternal.png">
+  </ng-template>
+  <ng-template carouselSlide [dataMerge]=5>
+    <img src="./assets/images/venom.png">
+  </ng-template>
+  <ng-template carouselSlide [dataMerge]=5>
+    <img src="./assets/images/eternal.png">
+  </ng-template>
+  <ng-template carouselSlide [dataMerge]=5>
+    <img src="./assets/images/venom.png">
+  </ng-template>
+  <div class="clearfix"></div>
+</owl-carousel-o>
+
+<!--//slide-->
+<div class="row">
+  <div class="col-md-2 nav_menu" *ngIf="showModeratorBoard || showAdminBoard">
+    <ul>
+      <li class="nav_menu_title">
+        <i class="fa fa-film" aria-hidden="true"></i>
+        <a routerLink="">Quản Lý Suất Chiếu</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-ticket" aria-hidden="true"></i>
+        <a routerLink="">Quản Lý Đặt Vé</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <a href="/employee-list">Quản Lý Nhân Viên</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <a href="/screens">Quản Lý Phòng Chiếu</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        <a href="/list-member">Quản Lý Thành Viên</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+        <a routerLink="/list-movie">Quản Lý Phim</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-cc-discover" aria-hidden="true"></i>
+        <a routerLink="">Quản Lý Khuyến Mãi</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <a routerLink="">Thống Kê</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <div class="col-md-10 nav_content">
+      <!-- PHIM DANG CHIEU -->
+      <div class="banner-bottom">
+        <h4 class="latest-text w3_latest_text">Phim Đang Chiếu</h4>
+        <div class="container">
+          <div class="w3_agile_banner_bottom_grid">
+            <div class="item">
+              <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+                <owl-carousel-o [options]="customOptions">
+                  <ng-container *ngFor="let movie of movieShowings">
+                    <ng-template carouselSlide>
+                      <a class="hvr-shutter-out-horizontal">
+                        <a routerLink="/movie-detail/{{movie.id}}">
+                          <img [src]="movie.movieImages[0].imageUrl" style="height: 300px; width: auto">
+                        </a>
+
+                        <button class="btn-on-image-left">Đặt vé</button>
+                        <a routerLink="/movie-detail/{{movie.id}}">
+                          <button class="btn-on-image-right">Chi tiết</button>
+                        </a>
+                      </a>
+                      <a routerLink="/movie-detail/{{movie.id}}" style="color: inherit">
+                        <h3>{{movie.title | titlecase}}</h3>
+                      </a>
+                    </ng-template>
+                    <div class="clearfix"></div>
+                  </ng-container>
+                </owl-carousel-o>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- //PHIM DANG CHIEU -->
+
+
+      <!-- PHIM HOT -->
+      <div class="general">
+        <h4 class="latest-text w3_latest_text">Phim hot</h4>
+        <div class="container">
+          <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab"
+                                                        aria-controls="home" aria-expanded="true">Top 5 yêu thích</a>
+              </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                <div class="w3_agile_featured_movies" *ngFor="let movie of movieTopFives; let i = index">
+                  <div class="col-md-2 w3l-movie-gride-agile">
+                    <a href="#" class="hvr-shutter-out-horizontal">
+                      <a routerLink="/movie-detail/{{movie.id}}">
+                        <img [src]="movie.movieImages[0].imageUrl" title="album-name" class="img-responsive" alt=" "/>
+                      </a>
+                      <button class="btn-on-image-left">Đặt vé</button>
+                      <a routerLink="/movie-detail/{{movie.id}}">
+                        <button class="btn-on-image-right">Chi tiết</button>
+                      </a>
+                    </a>
+                    <div class="mid-1 agileits_w3layouts_mid_1_home">
+                      <div class="w3l-movie-text">
+                        <h3><a routerLink="/movie-detail/{{movie.id}}"
+                               style="color: inherit">{{movie.title | titlecase}}</a></h3>
+                      </div>
+                      <div class="clearfix"></div>
+
+                    </div>
+                    <div class="ribben">
+                      <p>{{i + 1}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- //PHIM HOT -->
+
+      <!-- PHIM SAP CHIEU -->
+      <div class="Latest-tv-series">
+        <h4 class="latest-text w3_latest_text w3_home_popular">Phim sắp chiếu</h4>
+        <div class="container">
+          <owl-carousel-o [options]="customOptions" style="text-align: center">
+            <ng-container *ngFor="let movie of movieComings">
+              <ng-template carouselSlide>
+                <a class="hvr-shutter-out-horizontal">
+                  <a routerLink="/movie-detail/{{movie.id}}">
+                    <img [src]="movie.movieImages[0].imageUrl" style="height: 300px; width: auto">
+                  </a>
+                  <button class="btn-on-image-left">Đặt vé</button>
+                  <a routerLink="/movie-detail/{{movie.id}}">
+                    <button class="btn-on-image-right">Chi tiết</button>
+                  </a>
+                </a>
+                <a routerLink="/movie-detail/{{movie.id}}" style="color: inherit">
+                  <h3>{{movie.title | titlecase}}</h3>
+                </a>
+              </ng-template>
+              <div class="clearfix"></div>
+            </ng-container>
+          </owl-carousel-o>
+          <!-- //PHIM SAP CHIEU -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

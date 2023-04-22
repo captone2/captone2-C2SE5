@@ -1,0 +1,40 @@
+<div class="container">
+  <!--  ve phim-->
+  <div class="cardWrap">
+    <div class="card cardLeft">
+      <h1>A09 <span>Cinema</span></h1>
+      <div class="title">
+        <h2>{{seats[0]?.title}}</h2>
+        <span>Phim</span>
+      </div>
+      <div class="name">
+        <h2>Hằng Nguyễn</h2>
+        <span>Khách hàng</span>
+      </div>
+      <div class="seat">
+        <h2>07/11</h2>
+        <span>Ngày chiếu</span>
+      </div>
+      <div class="time">
+        <h2>{{seats[0]?.showtime}}</h2>
+        <span>Suất chiếu</span>
+      </div>
+
+    </div>
+    <div class="card cardRight">
+      <div class="eye"></div>
+      <div class="number">
+        <h3 *ngFor="let seat of seats">
+          <li>{{seat.name}} </li>
+        </h3>
+        <span>Ghế</span>
+      </div>
+      <div class="barcode"></div>
+    </div>
+  </div>
+  <!--  ve phim-->
+  <div style="margin-top: 20em; width: 20em">
+    <h4 style="margin-bottom: 1em">Phương thức thanh thoán: </h4>
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  </div>
+</div>

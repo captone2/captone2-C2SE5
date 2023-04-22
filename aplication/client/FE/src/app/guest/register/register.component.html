@@ -1,0 +1,199 @@
+<div class="body">
+  <div class="container">
+    <div class="title">Đăng Kí</div>
+    <form [formGroup]="register" (ngSubmit)="onSubmit(register)">
+      <div class="user-details">
+
+        <div class="input-box">
+          <span class="details">Họ và Tên <span class="star">*</span></span>
+          <input type="text" placeholder="Nhập Họ và Tên" formControlName="fullName" required>
+          <ng-container *ngFor="let validation of validationMessages.fullName">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('fullName').hasError(validation.type)&& (register.get('fullName').touched ||
+                   register.get('fullName').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('matchingPassword').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập họ và tên.</small>
+          </div>
+        </div>
+
+
+
+        <div class="input-box">
+          <span class="details">Tài Khoản <span class="star">*</span></span>
+          <input type="text" placeholder="Nhập tên tài khoản" formControlName="username" required>
+          <ng-container *ngFor="let validation of validationMessages.username">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('username').hasError(validation.type)&& (register.get('username').touched ||
+                   register.get('username').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('username').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập tên tài khoản.</small>
+          </div>
+        </div>
+<!--        <div class="messageError" >-->
+<!--          <div >Bạn chưa nhập tên tài khoản.</div>-->
+<!--        </div>-->
+
+
+        <div class="input-box">
+          <span class="details">Email <span class="star">*</span></span>
+          <input type="text" placeholder="Nhập email" formControlName="email" required>
+          <ng-container *ngFor="let validation of validationMessages.email">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('email').hasError(validation.type)&& (register.get('email').touched ||
+                   register.get('email').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('email').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập email.</small>
+          </div>
+        </div>
+
+
+        <div class="input-box">
+          <span class="details">Mật Khẩu <span class="star">*</span></span>
+          <input type="password" class="password" placeholder="Nhập mật khẩu" formControlName="password"  required>
+          <ng-container *ngFor="let validation of validationMessages.password">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('password').hasError(validation.type)&& (register.get('password').touched ||
+                   register.get('password').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('password').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập mật khẩu.</small>
+          </div>
+        </div>
+<!--        <div class="messageError" >-->
+<!--          <div >Bạn chưa nhập email.</div>-->
+<!--        </div>-->
+
+
+        <div class="input-box">
+          <span class="details">Số Điện Thoại <span class="star">*</span></span>
+          <input type="text" placeholder="Nhập số điện thoại" formControlName="phone" required>
+          <ng-container *ngFor="let validation of validationMessages.phone">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('phone').hasError(validation.type)&& (register.get('phone').touched ||
+                   register.get('phone').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('phone').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập số điện thoại.</small>
+          </div>
+        </div>
+
+
+        <div class="input-box">
+          <span class="details">Xác Nhận Mật Khẩu <span class="star">*</span></span>
+          <input type="password" placeholder="Nhập mật khẩu" formControlName="matchingPassword" required>
+          <ng-container *ngFor="let validation of validationMessages.matchingPassword">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('matchingPassword').hasError(validation.type)&& (register.get('matchingPassword').touched ||
+                   register.get('matchingPassword').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+
+          <small class="form-text text-danger"
+          *ngIf="register.get('matchingPassword').invalid
+          && (register.get('matchingPassword').dirty|| register.get('matchingPassword').touched)">
+           <span *ngIf="register.get('matchingPassword').errors['compare']"> Mật khẩu không khớp.</span>
+          </small>
+
+          <div *ngIf="register.get('matchingPassword').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng xác nhận lại mật khẩu.</small>
+          </div>
+        </div>
+
+        <div class="input-box">
+          <span class="details">Địa Chỉ </span>
+          <input type="text" placeholder="Nhập địa chỉ" formControlName="address" required>
+          <ng-container *ngFor="let validation of validationMessages.address">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('address').hasError(validation.type)&& (register.get('address').touched ||
+                   register.get('address').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+        </div>
+
+        <div class="input-box">
+          <span class="details">Ngày Sinh <span class="star">*</span></span>
+          <input type="date" placeholder="dd/MM/yy" formControlName="birthday" required>
+          <ng-container *ngFor="let validation of validationMessages.birthday">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('birthday').hasError(validation.type)&& (register.get('birthday').touched ||
+                   register.get('birthday').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('birthday').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập ngày sinh.</small>
+          </div>
+        </div>
+<!--        <div class="messageError" >-->
+<!--          <div >Bạn chưa nhập email.</div>-->
+<!--        </div>-->
+
+
+        <div class="input-box">
+          <span class="details">CMND <span class="star">*</span></span>
+          <input type="text" placeholder="Nhập CMND" formControlName="idCard" required>
+          <ng-container *ngFor="let validation of validationMessages.idCard">
+            <small class="form-text text-danger"
+                   *ngIf="register.get('idCard').hasError(validation.type)&& (register.get('idCard').touched ||
+                   register.get('idCard').dirty)">
+              {{validation.message}}
+            </small>
+          </ng-container>
+          <div *ngIf="register.get('idCard').value == null && clickSubmit ">
+            <small class="form-text text-danger">Vui lòng nhập CMND.</small>
+          </div>
+        </div>
+<!--        <div class="messageError" >-->
+<!--          <div >Bạn chưa nhập email.</div>-->
+<!--        </div>-->
+
+      </div>
+      <div class="gender-details">
+        <input type="radio" name="gender" id="dot-1" formControlName="gender" value="Nam">
+        <input type="radio" name="gender" id="dot-2" formControlName="gender" value="Nữ" >
+        <input type="radio" name="gender" id="dot-3" formControlName="gender" value="Khác">
+        <span class="gender-title">Giới Tính <span class="star">*</span></span>
+        <div *ngIf="register.get('gender').value == null && clickSubmit ">
+          <small class="form-text text-danger">Vui lòng chọn giới tính.</small>
+        </div>
+        <div class="category">
+          <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Nam</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Nữ</span>
+          </label>
+
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="gender">Khác</span>
+          </label>
+        </div>
+      </div>
+      <div class="button">
+        <div class="row">
+<!--          <input type="button" (click)="back()" value="Quay Về">-->
+          <input type="submit"  value="Đăng Kí">
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

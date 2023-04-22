@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row" style="margin: 2em">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="exampleFormControlSelect2">Chọn phim</label>
+        <select [ngModel]="movieId" class="movie" (ngModelChange)="onChangeMovie($event)" name="movieId"
+                multiple class="form-control" id="exampleFormControlSelect2" style="height: 15em">
+          <option *ngFor="let movie of movies" value="{{movie.id}}" style="font-size: 1.5em">
+            {{movie.title}}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label>Ngày chiếu</label><br>
+        <mat-form-field appearance="fill">
+          <mat-label></mat-label>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6" style="margin: 0">
+        <label>Suất chiếu</label>
+        <select [(ngModel)]="showtimeId" class="form-control " >
+          <option value="{{showtime.id}}" *ngFor="let showtime of showtimes">{{showtime.showTime}}</option>
+        </select>
+      </div>
+    </div>
+    <!--    Trong-->
+    <div class="col-md-2">
+
+    </div>
+    <!--    Trong-->
+
+    <!--    Chon ghe-->
+    <div class="col-md-6" style="align-items: center">
+      <div style="width: 400px; margin: 20px auto; display: block;">
+        <span [ngClass]="{'seat-disabled': true}" style=" margin: 10px;padding: 10px;">Ghế đã đặt</span>
+        <span [ngClass]="{'seat-selected': true}" style=" margin: 10px;padding: 10px;">Ghế đang chọn</span>
+        <span [ngClass]="{'seat-select':true}" style=" margin: 10px;padding: 10px;">Ghế trống</span>
+      </div>
+      <div>
+        <div class="screen">Màn hình</div>
+        <table style="">
+          <tr *ngFor="let row of rows">
+            <td *ngFor="let seat of seats; let i = index">
+              <div (click)="chooseSeat(row+''+seat)" [ngClass]="{'seat-selected' : selectedIdx == row+''+seat, 'seat-select': selectedIdx != row+''+seat}">
+                {{row + '' + seat}}
+              </div>
+            </td>
+          </tr>
+        </table>
+        <button type="button" class="btn btn-lg"  style="margin: 1em; background: #ff8d1b; color: whitesmoke">Tiếp tục</button>
+      </div>
+    </div>
+    <!--    Chon ghe-->
+  </div>
+</div>
+
+

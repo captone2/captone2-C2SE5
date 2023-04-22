@@ -1,0 +1,87 @@
+<div class="col-md-12 nav_content" style="background: white; height: 40rem">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <h1 style="margin: 30px; color: #FF8D1B;text-align: center">QUẢN LÝ SUẤT CHIẾU TRONG HỆ THỐNG
+    </h1>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!--                                </div>-->
+      <div class="col-md-4 input-group mt-auto mb-auto search_icon" style="display: flex; justify-content: flex-end">
+
+        <input type="search" class="form-control" style="width: 20rem; border-radius: 20px;"
+               placeholder="Nhập thông tin mà bạn muốn tìm kiếm" [(ngModel)]="name">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-default" style="border: none; background: none"
+                  (click)="getSearchByName()">
+            <i style="font-size: 23px; color: cornflowerblue;" class="fa fa-search"></i>
+          </button>
+        </div>
+
+      </div>
+      <!--        </div>-->
+      <div class="card-body" >
+        <div class="table-responsive" *ngIf="showTimeList?.length > 0">
+          <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+            <thead class="bg-secondary">
+            <tr>
+              <th class="text-center">STT</th>
+              <th class="text-center">Tên Phim <i class="fa fa-sort"
+                                                  aria-hidden="true"></i></th>
+              <th class="text-center">Rạp Chiếu <i class="fa fa-sort"
+                                                   aria-hidden="true"></i></th>
+              <th class="text-center">Ngày Chiếu <i class="fa fa-sort"
+                                                    aria-hidden="true"></i></th>
+              <th class="text-center">Suất Chiếu <i class="fa fa-sort"
+                                                    aria-hidden="true"></i></th>
+              <th class="text-center">Loại Chiếu <i class="fa fa-sort"
+                                                    aria-hidden="true"></i></th>
+              <th class="text-center">Giá Vé <i class="fa fa-sort"
+                                                aria-hidden="true"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let showTime1 of showTimeList; let i = index">
+                <td class="text-center">{{page * 3 + i + 1}}</td>
+                <td class="text-left">{{showTime1.title}}</td>
+                <td class="text-center">{{showTime1.screenName}}</td>
+                <td class="text-center">{{showTime1.showDay | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{showTime1.showTime}}</td>
+                <td class="text-center" *ngIf="showTime1.is3D == 1">3D</td>
+                <td class="text-center" *ngIf="showTime1.is3D == 0">2D</td>
+                <td class="text-center">{{showTime1.price | number}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="showTimeList?.length == null">
+          <h4 style="text-align: center">Không tim thấy dữ liệu</h4>
+        </div>
+      </div>
+      <div class="text-right" *ngIf="showTimeList?.length > 0">
+        <nav class="d-flex justify-content-center mt-5">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" (click)="paginate(0)">Đầu</a></li>
+            <li class="page-item"><a class="page-link" (click)="paginate(page-1)"><<</a></li>
+            <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-2)"
+                                           *ngIf="page-2>=0&&page+1>=totalPage">{{page - 1}}</a></li>
+            <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page-1)"
+                                           *ngIf="page-1>=0">{{page}}</a></li>
+            <li class="page-item click"><a class="page-link text-dark bg-secondary"
+                                           (click)="paginate(page)">{{page + 1}}</a></li>
+            <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+1)"
+                                           *ngIf="page+1<totalPage">{{page + 2}}</a></li>
+            <li class="page-item click"><a class="page-link text-dark" (click)="paginate(page+2)"
+                                           *ngIf="page+2<totalPage&&page-1<0">{{page + 3}}</a></li>
+            <li class="page-item"><a class="page-link" (click)="paginate(page+1)"> >></a></li>
+            <li class="page-item"><a class="page-link" (click)="paginate(totalPage-1)">Cuối</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+  </div>
+</div>
+

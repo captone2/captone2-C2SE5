@@ -1,0 +1,242 @@
+
+<div class="row" style=" margin-right: 0px">
+  <app-nava-employee></app-nava-employee>
+  <div class="col-md-10 nav_content">
+    <div class="content-wrapper">
+      <div class="content">
+        <section class="content" style="font-family: 'Poppins', sans-serif;">
+          <div class="container-fluid" style="margin-top: 50px">
+            <form [formGroup]="createMembers" (ngSubmit)="onSubmit(createMembers)">
+              <div class="row content_style">
+                <div class="col-md-6">
+                  <div class="card-user">
+                    <div class="card-header card-background-color ">
+                      <h1 style="margin-bottom: 30px; color: #FF8D1B;"><b style="margin-left: 50px">Thêm Mới Thành Viên</b></h1>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Mã thành viên <span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập mã thành viên"
+                                   formControlName="accountCode">
+                            <ng-container *ngFor="let validation of validationMessage.accountCode">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('accountCode').hasError(validation.type)&& createMembers.get('accountCode').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Tên đăng nhập <span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập tên đăng nhập"
+                                   formControlName="username">
+                            <ng-container *ngFor="let validation of validationMessage.username">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('username').hasError(validation.type)&& createMembers.get('username').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-12 pr-1">
+                        <div class="form-group">
+                          <label>Mật khẩu <span class="infomation__required" style="color: red">*</span></label>
+                          <input type="password" class="form-control" placeholder="Nhập mật khẩu"
+                                 formControlName="password" >
+                          <ng-container *ngFor="let validation of validationMessage.password">
+                            <small class="form-text text-danger"
+                                   *ngIf="createMembers.get('password').hasError(validation.type)&& createMembers.get('password').touched">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Xác nhận lại Mật khẩu <span class="infomation__required" style="color: red">*</span></label>
+                            <input type="password" class="form-control" placeholder="Nhập mật khẩu"
+                                   formControlName="newPassword">
+                            <ng-container *ngFor="let validation of validationMessage.newPassword">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('newPassword').hasError(validation.type)&& createMembers.get('newPassword').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                            <small class="form-text text-danger"
+                                   *ngIf="createMembers.get('newPassword').invalid
+          && (createMembers.get('newPassword').dirty|| createMembers.get('newPassword').touched)">
+                              <span *ngIf="createMembers.get('newPassword').errors['compare']"> Mật khẩu không trùng khớp.</span>
+                            </small>
+
+<!--                            <div *ngIf="createMembers.get('newPassword').value == null && clickSubmit ">-->
+<!--                              <small class="form-text text-danger">Vui lòng xác nhận lại mật khẩu.</small>-->
+<!--                            </div>-->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Tên Thành Viên<span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập tên thành viên"
+                                   formControlName="fullname">
+                            <ng-container *ngFor="let validation of validationMessage.fullname">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('fullname').hasError(validation.type)&& createMembers.get('fullname').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-9 pr-1">
+                          <div class="form-group">
+                            <label>Ngày sinh<span class="infomation__required" style="color: red">*</span></label>
+                            <input type="date" class="form-control"
+                                   formControlName="birthday">
+                            <div>
+                            <ng-container *ngFor="let validation of validationMessage.birthday">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('birthday').hasError(validation.type)&& createMembers.get('birthday').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Email <span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập email"
+                                   formControlName="email">
+                            <ng-container *ngFor="let validation of validationMessage.email">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('email').hasError(validation.type)&& createMembers.get('email').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Số chứng minh<span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập số CM"
+                                   formControlName="idCard">
+                            <ng-container *ngFor="let validation of validationMessage.idCard">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('idCard').hasError(validation.type)&& createMembers.get('idCard').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Số điện thoại<span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                   formControlName="phone">
+                            <ng-container *ngFor="let validation of validationMessage.phone">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('phone').hasError(validation.type)&& createMembers.get('phone').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group">
+                            <label>Địa chỉ<span class="infomation__required" style="color: red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Nhập địa chỉ"
+                                   formControlName="address">
+                            <ng-container *ngFor="let validation of validationMessage.address">
+                              <small class="form-text text-danger"
+                                     *ngIf="createMembers.get('address').hasError(validation.type)&& createMembers.get('address').touched">
+                                {{validation.message}}
+                              </small>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Giới tính <span class="infomation__required" style="color: red">*</span></label>
+                            <div style="margin-top: 12px">
+                            <input type="radio" class="" formControlName="gender" value="Nam" style="width: 18px;height: 18px">
+                              <span>Nam</span>
+
+                            <input type="radio" class="radios" formControlName="gender" value="Nữ" style="width: 18px;height: 18px">
+                              <span style="margin-left: 0px">Nữ</span>
+
+                            <input type="radio" class="radios" formControlName="gender" value="Khác" style="width: 18px;height: 18px">
+                              <span style="margin-left: 0px">Khác</span>
+                            </div>
+                          </div>
+                          <ng-container *ngFor="let validation of validationMessage.gender">
+                            <small class="form-text text-danger"
+                                   *ngIf="createMembers.get('gender').hasError(validation.type)&& createMembers.get('gender').touched">
+                              {{validation.message}}
+                            </small>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row" style="display: flex">
+                        <div class="" style="margin-left: 200px; ">
+                          <button class="btn btn-info" routerLink="/list-member">Quay Lại
+                          </button>
+                        </div>
+                        <div class="">
+                          <button class="btn btn-warning" style="margin: 0 30px">
+                            Thêm Mới
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4" style="margin-left: 100px">
+                  <div class="card card-user">
+                    <div class="card-body">
+                      <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail img-raised">
+                          <img [src]="getImageUrl()" style="width:370px; height: 320px" alt="..." rel="nofollow">
+                        </div>
+<!--                        <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>-->
+                        <div>
+                <span style="margin-top: 20px"
+                      class="btn btn-info btn-round btn-default btn-file btn__upload-custom">
+                <span class="fileinput-new">Chọn ảnh</span>
+                <input type="file" name="..." (change)="selectImage($event)"/>
+                  </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,224 @@
+<div style="margin-right: 0px" class="row">
+  <div class="col-md-3 nav_profile" style="background: antiquewhite ; padding-bottom: 10px">
+    <div align="center"><br>
+
+      <h2><b>Quản lý tài khoản</b></h2>
+      <br>
+
+
+        <img [src]="getImageUrl()" class="img-circle" height="200" width="200" alt="..." rel="nofollow"><br>
+      <div>
+                    <span style="margin-top: 20px; "
+                          class="btn btn-info btn-round btn-default btn-file btn__upload-custom">
+                      <span class="glyphicon glyphicon-camera"></span>Đổi Avatar
+                      <input type="file"  name="..." (change)="selectImage($event)  "    style="opacity: 0 ; font-size: 4px"/>
+                    </span>
+      </div>
+
+
+
+
+      <br>
+      <br>
+      <h4 align="center"><b>{{name}}</b></h4> <br>
+
+      <i class="glyphicon glyphicon-star" style="font-size: 18px"></i><span
+      style="font-size: 20px">Điểm tích lũy : {{totalpoint}}</span>
+      <br>
+      <br>
+<!--      <button class="glyphicon glyphicon-log-out   btn btn-primary  "><span-->
+<!--        style="font-family: TimesNewRoman; font-size: 20px">Đăng xuất</span></button>-->
+
+      <hr style="  border-bottom: 1px solid #000;">
+      <div align="center" class="col-md-12">
+        <span class="glyphicon glyphicon-user" style="font-size: 25px"></span><a href="#">Thông tin tài
+        khoản</a>
+        <hr style="  border-bottom: 1px solid #000;">
+        <span class="glyphicon glyphicon-calendar" style="font-size: 25px"></span><a href="#">Lịch sử cộng điểm</a>
+        <hr style="  border-bottom: 1px solid #000;">
+        <a [routerLink]="['/manageBookingUser/', idUpdate] ">Vé đã đặt</a>
+        <!-- <hr style="  border-bottom: 1px solid #000;">
+         <a href="#">Vé đã hủy</a-->
+        <hr style="  border-bottom: 1px solid #000;">
+        <a  [routerLink]="['/changePassword/', idUpdate]">Đổi mật khẩu</a>
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="col-md-9 nav_content">
+
+    <h1 style="text-align: center; margin: 40px 0;color: #FF8D1B;font-family: 'Times New Roman'"><b>
+      Thông tin tài khoản
+    </b>
+    </h1>
+    <div class="content-wrapper">
+
+      <form [formGroup]="accountUpdateForm" (ngSubmit)="updateAccount()">
+        <div class="card-body ">
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>Họ tên </b><span style="color: red">*</span>:</h4>
+            </div>
+            <div class="col-sm-6 text-secondary">
+
+                <input type="text" class="form-control" placeholder="Họ và tên" formControlName="fullname">
+                <ng-container *ngFor="let validation of validationMessage.fullname">
+                  <small class="form-text text-danger"
+                         *ngIf="accountUpdateForm.get('fullname').hasError(validation.type) && (accountUpdateForm.get('fullname').dirty || accountUpdateForm.get('fullname').touched)">
+                    {{validation.message}}
+                  </small>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>Ngày sinh</b><span style="color: red">*</span>:</h4>
+            </div>
+            <div class="col-sm-6 text-secondary">
+
+              <input type="date" class="form-control border-1 shadow-1" formControlName="birthday">
+              <ng-container *ngFor="let validation of validationMessage.birthday">
+                <small class="form-text text-danger"
+                       *ngIf="accountUpdateForm.get('birthday').hasError(validation.type) && (accountUpdateForm.get('birthday').dirty || accountUpdateForm.get('birthday').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          </div>
+
+          <br>
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>Giới tính</b><span style="color: red">*</span>:</h4>
+
+            </div>
+            <div class="col-sm-6 text-secondary">
+              <input type="radio" id="html" name="gender" value="Nam" formControlName="gender"><span for="css">Nam</span>
+                <input type="radio" id="css" name="gender" value="Nữ" formControlName="gender"><span for="css">Nữ</span>
+                <input type="radio" name="gender" value="Khác" formControlName="gender"><span for="css">Khác</span><br>
+
+            </div>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>Email</b><span style="color: red">*</span>:</h4>
+            </div>
+            <div class="col-sm-6 text-secondary">
+
+              <input type="email" class="form-control border-1 shadow-1" placeholder="Email" formControlName="email">
+              <ng-container *ngFor="let validation of validationMessage.email">
+                <small class="form-text text-danger"
+                       *ngIf="accountUpdateForm.get('email').hasError(validation.type) && (accountUpdateForm.get('email').dirty || accountUpdateForm.get('email').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container>
+            </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>CMND</b> <span style="color: red">*</span>:</h4>
+            </div>
+            <div class="col-sm-6 text-secondary">
+              <input type="text" class="form-control border-1 shadow-1"
+                     placeholder="số chứng minh nhân dân " formControlName="idCard">
+              <ng-container *ngFor="let validation of validationMessage.idCard">
+                <small class="form-text text-danger"
+                       *ngIf="accountUpdateForm.get('idCard').hasError(validation.type) && (accountUpdateForm.get('idCard').dirty || accountUpdateForm.get('idCard').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>Số điện thoại</b> <span style="color: red">*</span>:</h4>
+            </div>
+            <div class="col-sm-6 text-secondary">
+              <input type="text" class="form-control border-1 shadow-1" placeholder="Số điện thoại "
+                     formControlName="phone" >
+              <ng-container *ngFor="let validation of validationMessage.phone">
+                <small class="form-text text-danger"
+                       *ngIf="accountUpdateForm.get('phone').hasError(validation.type) && (accountUpdateForm.get('phone').dirty || accountUpdateForm.get('phone').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container>
+            </div>
+
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="form-group">
+            <div class="col-sm-3" align="right">
+              <h4 class="mb-0"><b>Địa chỉ</b> <span style="color: red">*</span>:</h4>
+            </div>
+            <div class="col-sm-6 text-secondary">
+
+              <input type="text" class="form-control border-1 shadow-1" placeholder="Địa chỉ "
+                     formControlName="address" >
+              <ng-container *ngFor="let validation of validationMessage.address">
+                <small class="form-text text-danger"
+                       *ngIf="accountUpdateForm.get('address').hasError(validation.type) && (accountUpdateForm.get('address').dirty || accountUpdateForm.get('address').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          </div>
+          <br>
+          <div align="center">
+            <button class="btn btn-primary" style="font-size: 18px" type="submit"><span>Cập nhật</span></button>
+          </div>
+        </div>
+      </form>
+      <div class="col-sm-5" align="right">Dấu(<span style="color: red">*</span>)Vui lòng nhập không được để
+        trống!
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="row content_style">
+  <div class="col-md-3">
+    <div class="card card-user">
+      <div class="card-body">
+        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+          &lt;!&ndash;                  <div class="fileinput-new thumbnail img-raised" *ngIf="meetingRoom">&ndash;&gt;
+          &lt;!&ndash;                    <img src="{{meetingRoom.imageUrl}}" style="width: 100%;" alt="..." rel="nofollow">&ndash;&gt;
+          &lt;!&ndash;                  </div>&ndash;&gt;
+          <div class="fileinput-new thumbnail img-raised">
+            <img [src]="getImageUrl()" style="width: 100%;" alt="..." rel="nofollow">
+          </div>
+          <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+          <div>
+                    <span style="margin-top: 20px"
+                          class="btn btn-info btn-round btn-default btn-file btn__upload-custom">
+                      <span class="fileinput-new">Chọn ảnh</span>
+                      <input type="file" name="..." (change)="selectImage($event)"/>
+                    </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

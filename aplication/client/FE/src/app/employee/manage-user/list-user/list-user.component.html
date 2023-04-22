@@ -1,0 +1,96 @@
+
+<div style="margin-right: 0px;" class="row">
+  <app-nava-employee></app-nava-employee>
+  <div class="col-md-10 nav_content">
+    <div class="content-wrapper">
+      <h1 style="margin-bottom: 40px;margin-top: 15px; text-align: center;  color: #FF8D1B;">DANH SÁCH THÔNG TIN THÀNH
+        VIÊN
+      </h1>
+      <section class="content">
+        <div class="container-fluid ">
+          <div class="card shadow">
+            <div class="col-12 card-header d-flex justify-content-between content_search" style="display: flex">
+              <div style="margin-left: 10%;" class="col-6 mt-auto mb-auto">
+                <button type="button" class="btn btn-success" routerLink="/create-member"><i style="margin-right: 5px"
+                                                                                             class="fa fa-plus-circle"
+                                                                                             aria-hidden="true"></i><b
+                  style="font-size: 17px;">Thêm Mới</b></button>
+              </div>
+              <div class="col-4 input-group mt-auto mb-auto search_icon" style="display: flex; margin-left:45%">
+                <input type="search" class="form-control" style="width: 20rem; border-radius: 20px;"
+                       [(ngModel)]="nameMember"
+                       placeholder="Nhập thông tin mà bạn muốn tìm kiếm" (keydown.enter)="searchName()">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"
+                          style="border: none; background: none;" (click)="searchName()">
+                    <i style="font-size: 23px; color: cornflowerblue;" class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                  <thead class="bg-secondary">
+                  <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center" (click)="sort('accountCode')">Mã Thành Viên<i class="fa fa-sort"
+                                                                                          aria-hidden="true"></i></th>
+                    <th class="text-center" (click)="sort('username')">Tên Đăng Nhập<i class="fa fa-sort"
+                                                                                       aria-hidden="true"></i></th>
+                    <th class="text-center" (click)="sort('fullname')">Tên Thành Viên<i class="fa fa-sort"
+                                                                                        aria-hidden="true"></i></th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Số CMND</th>
+                    <th class="text-center">Số Điện Thoại</th>
+                    <th class="text-center">Địa Chỉ</th>
+                    <th class="text-center">Hành động</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let men of members | paginate: {itemsPerPage:5, currentPage: page}; let i = index">
+                    <td class="text-right">{{i++1}}</td>
+                    <td class="text-left">{{men.accountCode}}</td>
+                    <td class="text-left">{{men.username}}</td>
+                    <td class="text-left">{{men.fullname | titlecase}}</td>
+                    <td class="text-left">{{men.email}}</td>
+                    <td class="text-left">{{men.idCard}}</td>
+                    <td class="text-left">{{men.phone}}</td>
+                    <td class="text-left">{{men.address}}</td>
+                    <td class="text-center">
+                      <a (click)="openDialogDelete(men.id)" class="trigger-btn" data-toggle="modal" >
+                        <i style="font-size: 20px" class="fa fa-trash"></i>
+                      </a>
+
+                      <a [routerLink]="['/update-member/',men.id]" style="margin: 0 10px 0 10px">
+                        <span class="material-icons" style="margin-right: 8px">
+                        <i style="font-size: 20px; " class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      </span>
+                      </a>
+                      <a [routerLink]="['/detail-member/',men.id]">
+                        <i style="font-size: 20px;" class="fa fa-info-circle" aria-hidden="true">
+                        </i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <pagination-controls (pageChange)="page = $event" style="text-align:center"
+                                 previousLabel="Trước" nextLabel="Tiếp"></pagination-controls>
+            <div>
+              <ng-container *ngIf="members?.length === 0">
+                <div class="text-center">
+                  <h3>Không tìm thấy <b style="color: red">{{nameMember}}</b> trong danh sách.</h3>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+

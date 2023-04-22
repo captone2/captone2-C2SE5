@@ -1,0 +1,95 @@
+<div style="margin-right: 0px;" class="row">
+  <app-navbar-left></app-navbar-left>
+  <div class="col-md-10 nav_content">
+    <h1 style="margin-bottom: 40px;margin-top: 40px; text-align: center;  color: #FF8D1B;">DANH SÁCH THÔNG TIN NHÂN VIÊN
+    </h1>
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="container-fluid ">
+          <div class="card shadow">
+            <div class="col-12 card-header d-flex justify-content-between content_search"
+                 style="display: flex; justify-content: space-between">
+              <div style="margin-left: 50px" class="col-8 mt-auto mb-auto">
+                <button type="button" class="btn btn-success" routerLink="/employee-create">
+                  <i style="margin-right: 5px" class="fa fa-plus-circle" aria-hidden="true"></i><b
+                  style="font-size: 17px;">
+                  Thêm mới</b>
+                </button>
+              </div>
+              <div class="col-4 input-group mt-auto mb-auto search_icon" style="margin-right: 0;">
+                <input type="search" class="form-control" style="width: 20rem; border-radius: 20px;"
+                       placeholder="Nhập thông tin nhân viên mà bạn muốn tìm kiếm" [(ngModel)]="keyWord">
+                <div class="input-group-append" style=" display: inline">
+                  <button type="button" class="btn btn-default" style="border: none; background: none"
+                          (click)="searchKeyWord()">
+                    <i style="font-size: 23px; color: cornflowerblue;" class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="employeeList.length > 0 ">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th scope="col">Mã nhân viên</th>
+                      <th scope="col">Tên nhân viên</th>
+                      <th scope="col">Số CMND</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Số điện thoại</th>
+                      <th scope="col">Địa chỉ</th>
+                      <th class="text-center" colspan="3">Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let e of employeeList | paginate: {itemsPerPage:5, currentPage: page} ; let i = index">
+                      <!--                    <tr *ngFor="let e of employeeList " >-->
+                      <td class="text-center">{{e.accountCode}}</td>
+                      <td class="text-left">{{e.fullname}}</td>
+                      <td class="text-right">{{e.idCard}}</td>
+                      <td class="text-left">{{e.email}}</td>
+                      <td class="text-right">{{e.phone}}</td>
+                      <td class="text-left">{{e.address}}</td>
+                      <td>
+                        <a class="trigger-btn" data-toggle="modal" (click)="openDialogDelete(e.id)">
+                          <i style="font-size: 20px" class="fa fa-trash"></i>
+                        </a>
+                      </td>
+                      <td>
+                        <a [routerLink]="['/employee-update/' , e.id]">
+                          <i style="font-size: 20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                      <td>
+                        <a [routerLink]="['/employee-detail/' , e.id]">
+                          <i style="font-size: 20px;" class="fa fa-info-circle" aria-hidden="true"></i>
+
+                        </a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="d-flex flex-row justify-content-center ">
+                  <nav aria-label="Page navigation example">
+                    <div>
+                      <pagination-controls (pageChange)="page = $event" style="text-align: center "
+                                           previousLabel="Trước"
+                                           nextLabel="Tiếp"></pagination-controls>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="employeeList.length === 0">
+              <div class="text-center">
+                <h3>Không tìm thấy tên {{keyWord}} trong danh sách</h3>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

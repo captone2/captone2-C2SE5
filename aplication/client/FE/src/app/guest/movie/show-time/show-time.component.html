@@ -1,0 +1,232 @@
+<app-header></app-header>
+<div id="amy-navigation-mobile">
+    <div class="menu-mainnav-container">
+        <ul id="menu-mainnav-1" class="menu">
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-121"><a
+                    href="#">Home</a></li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-276">
+                <a href="#">Movie</a>
+                <ul class="sub-menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/now-playing/">Now
+                            Playing</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/coming-soon/">Coming
+                            Soon</a></li>
+                </ul>
+            </li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-277">
+                <a href="#">Single Movie</a>
+                <ul class="sub-menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-338"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/kubo-and-the-two-strings/">Full
+                            Width &#038; Banner</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-365"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">Full
+                            Width &#038; No Banner</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-340"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/jumanji-welcome-to-the-jungle/">Sidebar
+                            &#038; Banner</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-366"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/bad-moms/">Sidebar
+                            &#038; No Banner</a></li>
+                </ul>
+            </li>
+            <li
+                class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-278">
+                <a href="#">Showtime</a>
+                <ul class="sub-menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/daily-showtime-layout-list/">Daily
+                            Showtime Layout List</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/daily-showtime-ajax/">Daily
+                            Showtime Ajax</a></li>
+                    <li
+                        class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-148 current_page_item menu-item-149">
+                        <a href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/weekly-showtime-ajax/"
+                            aria-current="page">Weekly Showtime Ajax</a>
+                    </li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-152"><a
+                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/weekly-showtime-table/">Weekly
+                            Showtime Table</a></li>
+                </ul>
+            </li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146"><a
+                    href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/top-rated/">Top rated</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="main">
+    <div id="content" class="site-content">
+
+        <section id="amy-page-header" class="amy-page-header">
+            <div class="amy-page-title amy-center">
+                <div class="amy-inner container">
+                    <h1 class="page-title">
+                        Lịch Chiếu </h1>
+                </div>
+            </div>
+            <span class="amy-section-overlay"></span>
+        </section>
+        <section class="main-content page-layout-">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="page-content">
+                            <div class="elementor elementor-148">
+                                <section class="elementor-section">
+                                    <div class="amy-movie-layout-list amy-movie-showtimews-daily-1 ">
+                                        <div class="amy-showtimes-header">
+                                            <div class="amy-showtimes-header-inner">
+                                                <ul>
+                                                    <!-- <li *ngFor="let date of dateList; let i = index" class="active">
+                                                        <a (click)="getListMovieShowTime(date)">
+                                                            <span>
+                                                                {{date | date: 'EEEE, dd/MM'}} </span>
+                                                        </a>
+                                                    </li> -->
+                                                    <li *ngFor="let date of dateList; let i = index" class="showtime">
+                                                        <span (click)="getListMovieShowTime(date)" >{{date | date: 'EEEE, dd/MM'}} </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="amy-movie-list">
+                                            <div *ngFor="let movie of listMovieShowTime; let i = index"
+                                                class="amy-movie-items">
+                                                <div class="amy-movie-item">
+                                                    <div class="amy-movie-item-inner">
+                                                        <div class="amy-movie-item-front">
+                                                            <div class="amy-movie-item-poster">
+                                                                <a href="">
+                                                                    <img class=""
+                                                                        src="{{movie?.movie.movieImages[0].imageUrl}}"
+                                                                        alt="{{movie?.movie.title}}" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="amy-movie-item-back">
+                                                            <div class="amy-movie-item-back-inner">
+                                                                <div class="amy-movie-item-content">
+                                                                    <span class="amy-movie-field-imdb">7.3</span>
+                                                                    <h3 class="amy-movie-field-title">
+                                                                        <a
+                                                                            href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">
+                                                                            {{movie?.movie.title}}</a>
+                                                                    </h3>
+
+                                                                    <div class="amy-movie-item-meta">
+                                                                        <span class="amy-movie-field-mpaa">G</span>
+                                                                        <span class="amy-movie-field-duration"><i
+                                                                                class="fa fa-clock-o"></i>02
+                                                                            hours 00
+                                                                            minutes</span>
+                                                                    </div>
+
+                                                                    <div class="amy-movie-field-desc">
+                                                                        <p>Sed ut
+                                                                            perspiciatis
+                                                                            unde omnis iste
+                                                                            natus error sit
+                                                                            voluptatem
+                                                                            accusantium
+                                                                            doloremque
+                                                                            laudantium,
+                                                                            totam rem
+                                                                            aperiam, ...</p>
+                                                                    </div>
+                                                                    <div
+                                                                        class="amy-movie-custom-field-group amy-movie-field-language">
+                                                                        <label
+                                                                            class="amy-movie-custom-field-label">Language:</label>
+                                                                        <div class="amy-movie-custom-field-content">
+                                                                            English
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="amy-movie-custom-field-group amy-movie-field-release_date">
+                                                                        <label
+                                                                            class="amy-movie-custom-field-label">Release
+                                                                            Date:</label>
+                                                                        <div class="amy-movie-custom-field-content">
+                                                                            March 17, 2022
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="amy-movie-custom-field-group amy-movie-field-amy_genre">
+                                                                        <label
+                                                                            class="amy-movie-custom-field-label">Genre:</label>
+                                                                        <div class="amy-movie-custom-field-content">
+                                                                            <a
+                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/genre/cartoon/">Cartoon</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="amy-movie-custom-field-group amy-movie-field-amy_actor">
+                                                                        <label
+                                                                            class="amy-movie-custom-field-label">Actor:</label>
+                                                                        <div class="amy-movie-custom-field-content">
+                                                                            <a
+                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/alexander-cattly/">Alexander
+                                                                                Cattly</a>,
+                                                                            <a
+                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/cartin-hollia/">Cartin
+                                                                                Hollia</a>,
+                                                                            <a
+                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/humpray-richard/">Humpray
+                                                                                Richard</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        class="amy-movie-custom-field-group amy-movie-field-amy_director">
+                                                                        <label
+                                                                            class="amy-movie-custom-field-label">Director:</label>
+                                                                        <div class="amy-movie-custom-field-content">
+                                                                            <a
+                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/kingia-rogers/">Kingia
+                                                                                Rogers</a>,
+                                                                            <a
+                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/mae-west/">Mae
+                                                                                West</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="amy-movie-item-showtimes amy-item-33">
+                                                                    <div class="amy-movie-intro-times">
+                                                                        <span>06h30 <p class="price-ticket">70</p>
+                                                                        </span>
+                                                                        <span> 19h20 <p class="price-ticket">70</p>
+                                                                        </span>
+                                                                        <span> 13h30 <p class="price-ticket">70</p>
+                                                                        </span>
+                                                                        <span> 16h20 <p class="price-ticket">70</p>
+                                                                        </span>
+                                                                        <span> 20h30 <p class="price-ticket">70</p>
+                                                                        </span>
+                                                                        <a class="button" href="#">Buy
+                                                                            Ticket</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+<app-footer></app-footer>

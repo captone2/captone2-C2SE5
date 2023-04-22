@@ -1,0 +1,35 @@
+<!--<h4 class="modal-title w-100" style=" font-size: 20px; color: red">Bạn chắc chắn chứ ?</h4>-->
+<!--<div class="row d-flex justify-content-center">-->
+<!--  <p>Bạn thực sự muốn xóa phòng họp <b style="color: red;">{{accountCode}}</b> ra khỏi-->
+<!--    danh sách ? Thao tác sẽ xóa phòng họp ra khỏi danh sách này !</p>-->
+<!--</div>-->
+<!--<div class="row d-flex justify-content-end">-->
+<!--  <button mat-dialog-close class="btn btn-secondary">Hủy Bỏ</button>-->
+<!--  <button class="btn btn-danger mr-3" (click)="delete()">Xóa</button>-->
+<!--</div>-->
+
+
+<!--<div id="myModal" >-->
+<!--        <h4 class="modal-title w-100">Bạn có chắc không?</h4>-->
+<!--      <div class="modal-body">-->
+<!--        <p>Bạn có thực sự muốn xóa nhân viên <b style="color: red;">{{fullname}}</b> có mã nhân viên là <b style="color: red;">{{accountCode}}</b> này không? Không thể hoàn tác quá trình này.</p>-->
+<!--      </div>-->
+<!--      <div class="modal-footer justify-content-center">-->
+<!--        <button mat-dialog-close class="btn btn-secondary">Hủy Bỏ</button>-->
+<!--        <button type="button" class="btn btn-danger" (click)="delete()">Xóa</button>-->
+<!--      </div>-->
+<!--</div>-->
+
+<div md-dialog-title>
+  <h1>Bạn có chắc không?</h1>
+</div>
+<br>
+<div md-dialog-content><p>Bạn có thực sự muốn xóa nhân viên <b style="color: red;">{{fullname}}</b> có mã nhân viên là
+  <b style="color: red;">{{accountCode}}</b> này không?</p>
+  <p>Không thể hoàn tác quá trình này.</p>
+</div>
+<br>
+<div md-dialog-actions >
+  <button type="button" class="btn btn-danger" (click)="delete()" style="margin: 5px">Xóa</button>
+  <button mat-dialog-close class="btn btn-secondary" style="margin: 5px" >Hủy Bỏ</button>
+</div>

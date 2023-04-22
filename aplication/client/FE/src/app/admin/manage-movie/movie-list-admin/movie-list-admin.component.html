@@ -1,0 +1,133 @@
+<div style="margin-right: 0; padding-left: 20px" class="row">
+  <app-navbar-left></app-navbar-left>
+  <div class="col-md-10 nav_content">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <h1 style="margin-bottom: 40px; margin-right: 180px; color: #FF8D1B;">QUẢN LÝ PHIM</h1>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid ">
+          <div class="card shadow">
+            <div class="row">
+              <div class="col-2" style="float: left">
+                <div>
+                  <a style="color: white; border-radius: 9px" class=" btn btn-success" [routerLink]="['/create-movie', user.id]"><i
+                    class="fa fa-plus-circle" aria-hidden="true"></i> Thêm
+                    mới</a>
+                </div>
+              </div>
+              <div class="col-10" style="float: right; display:flex;" [formGroup]="formSearch" (ngSubmit)="search()">
+                <div class="row-12" style="margin-right: 50px">
+                  <div class="col-6">
+                    <div class="input-group">
+                      <label class="input-group-text" for="titleSearch">Tên phim</label>
+                      <input type="text" class="form-control" id="titleSearch" aria-label="Search" placeholder="Nhập tên phim"
+                            formControlName="title">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="">
+                      <label class="input-group-text" for="releaseDateSearch">Ngày khởi chiếu </label>
+                      <input class="form-control" id="releaseDateSearch" type="date" placeholder="DD/YY/MM"
+                             formControlName="releaseDate" >
+                    </div>
+                  </div>
+                </div>
+                <div class="row-12">
+                    <div class="col-6">
+                      <div class="input-group">
+                        <label class="input-group-text" for="productionSearch">Hãng phim </label>
+                        <input class="form-control" id="productionSearch" type="text" placeholder="Nhập hãng phim"
+                               formControlName="production">
+                      </div>
+                    </div>
+                  <div class="col-6">
+                    <div class="form-group" >
+                      <label class="row-sm-2 control-label">Phiên bản</label>
+                      <mat-radio-group aria-label="Select an option"  formControlName="is3D">
+                        <mat-radio-button value="false" style="padding: 0 20px" [checked]="true">2D</mat-radio-button>
+                        <mat-radio-button value="true">3D</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-10">
+                  <div class="input-group-append" style=" display: inline">
+                    <button type="button" class="btn btn-default" style="border: none;margin-top: 100px; background: none" (click)="search()">
+                      <i style="font-size: 23px; color: cornflowerblue;" class="fa fa-search"></i>Tìm kiếm
+                    </button>
+                  </div>
+                </div>
+                <div class="row-10">
+                  <div class="input-group-append" style=" display: inline">
+                    <button type="button" class="btn btn-default" style="border: none;margin-top: 100px; background: none" (click)="reset()">
+                      <mat-icon style="font-size: 23px;color: cornflowerblue;">restore</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+              <ng-container *ngIf="movieList.length > 0 ">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                      <tr >
+                        <th style="color: white">STT</th>
+                        <th style="color: white" scope="col">Phim</th>
+                        <th style="color: white" scope="col">Ngày khởi chiếu</th>
+                        <th style="color: white" scope="col">Hãng phim</th>
+                        <th style="color: white" scope="col">Thời lượng</th>
+                        <th style="color: white" scope="col">Phiên bản</th>
+                        <th style="color: white" scope="col">Thao tác</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let movie of movieList| paginate: {itemsPerPage:10, currentPage: page}; index as i">
+                        <td scope="row">{{i + 1}}</td>
+                        <td>{{movie.title | titlecase}}</td>
+                        <td style="text-align: center">{{movie.releaseDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{movie.production}}</td>
+                        <td style="text-align: center">{{movie.runningTime}} phút</td>
+                        <td style="text-align: center" *ngIf="movie.is3D === true">3D</td>
+                        <td style="text-align: center" *ngIf="movie.is3D === false">2D</td>
+                        <td class="text-center">
+                          <a routerLink="/update-movie/{{movie.id}}/{{user.id}}">
+                      <span class="material-icons" style="margin-right: 8px">
+                        <i style="font-size: 20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      </span>
+                          </a>
+                          <a [routerLink]="['/show-details-movie/',movie.id]" style="margin-top: 7px">
+                            <i style="font-size: 20px;" class="fa fa-info-circle" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="d-flex flex-row justify-content-center ">
+                    <nav aria-label="Page navigation example">
+                      <div>
+                        <pagination-controls (pageChange)="page = $event" style="text-align: center "
+                                             previousLabel="Trước"
+                                             nextLabel="Tiếp"></pagination-controls>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="movieList.length === 0">
+                <div class="text-center">
+                  <h3>Không tìm thấy trong danh sách</h3>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+      </section>
+    </div>
+  </div>
+</div>

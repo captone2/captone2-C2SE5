@@ -1,0 +1,83 @@
+.nav_menu{
+  height: 500px;
+  background-color: antiquewhite;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.nav_menu ul{
+  list-style-type: none ;
+}
+
+.nav_menu ul li {
+  line-height: 45px;
+  border-bottom: 3px solid white;
+}
+
+.nav_menu > ul > li:hover {
+  line-height: 45px;
+  border-bottom: 3px solid white;
+  background-color: cornsilk;
+}
+
+.nav_menu > ul > li:hover > a{
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  /* padding-left: 40px; */
+  font-weight: bold;
+}
+
+
+.nav_menu ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  /* padding-left: 40px; */
+  font-weight: bold;
+  /* display: block; */
+
+}
+
+.nav_menu ul li i {
+  margin-right: 10px;
+  size: 50px;
+}
+
+/* Content Css */
+.nav_content{
+  height: auto;
+  margin-top: 60px;
+  margin-bottom: 100px;
+}
+
+.content_search{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.search_icon{
+  display: flex;
+  margin-right: 120px;
+}
+
+.content-wrapper{
+  padding: 0px 30px;
+}
+
+.content-wrapper h1{
+  display: flex;
+  justify-content: center;
+}
+
+.card_body .table-responsive .table .bg-secondary tr th {
+  color: red;
+}
+
+/* Search Input */
+.search_input{
+  width: 20rem;
+}
