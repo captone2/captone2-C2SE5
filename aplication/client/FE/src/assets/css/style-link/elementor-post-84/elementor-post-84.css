@@ -1,0 +1,96 @@
+.elementor-84 .elementor-element.elementor-element-222b7e7>.elementor-element-populated {
+    margin: 0px 0px 0px 0px;
+    --e-column-margin-right: 0px;
+    --e-column-margin-left: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.elementor-84 .elementor-element.elementor-element-6dd3468 {
+    width: 100%;
+    max-width: 100%;
+}
+
+.elementor-84 .elementor-element.elementor-element-6271200>.elementor-element-populated {
+    margin: 0px 0px 0px 0px;
+    --e-column-margin-right: 0px;
+    --e-column-margin-left: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.elementor-84 .elementor-element.elementor-element-d06313b:not(.elementor-motion-effects-element-type-background),
+.elementor-84 .elementor-element.elementor-element-d06313b>.elementor-motion-effects-container>.elementor-motion-effects-layer {
+    background-image: url("http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/bg_topmovie.png");
+}
+
+.elementor-84 .elementor-element.elementor-element-d06313b {
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+    padding: 80px 0px 80px 0px;
+}
+
+.elementor-84 .elementor-element.elementor-element-d06313b>.elementor-background-overlay {
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+
+.elementor-84 .elementor-element.elementor-element-af4aa50 {
+    text-align: center;
+}
+
+.elementor-84 .elementor-element.elementor-element-af4aa50 .elementor-heading-title {
+    color: #FE7900;
+    font-family: "Roboto Condensed", Sans-serif;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.elementor-84 .elementor-element.elementor-element-af4aa50>.elementor-widget-container {
+    margin: 0px 0px 30px 0px;
+}
+
+.elementor-84 .elementor-element.elementor-element-bae4559 {
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+.elementor-84 .elementor-element.elementor-element-4a8597b .elementor-heading-title {
+    color: #FE7900;
+    font-family: "Roboto Condensed", Sans-serif;
+    font-weight: 600;
+}
+
+.elementor-84 .elementor-element.elementor-element-d4a6835:not(.elementor-motion-effects-element-type-background),
+.elementor-84 .elementor-element.elementor-element-d4a6835>.elementor-motion-effects-container>.elementor-motion-effects-layer {
+    background-image: url("http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/bg_latestnew.png");
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+.elementor-84 .elementor-element.elementor-element-d4a6835 {
+    transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    padding: 40px 0px 0px 0px;
+}
+
+.elementor-84 .elementor-element.elementor-element-d4a6835>.elementor-background-overlay {
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+}
+
+.elementor-84 .elementor-element.elementor-element-5717a5b {
+    text-align: center;
+}
+
+.elementor-84 .elementor-element.elementor-element-5717a5b .elementor-heading-title {
+    color: #FE7900;
+    font-family: "Roboto Condensed", Sans-serif;
+    font-weight: 600;
+}
+
+@media(min-width:768px) {
+    .elementor-84 .elementor-element.elementor-element-c982f26 {
+        width: 40%;
+    }
+
+    .elementor-84 .elementor-element.elementor-element-16ca592 {
+        width: 60%;
+    }
+}

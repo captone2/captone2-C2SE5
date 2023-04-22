@@ -1,0 +1,25 @@
+.nav_menu{
+  height: auto;
+  background-color: antiquewhite;
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+}
+.nav_menu ul li {
+  line-height: 45px;
+  border-bottom: 3px solid white;
+}
+.nav_menu ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  /* padding-left: 40px; */
+  font-weight: bold;
+  /* display: block; */
+}
+.nav_content{
+  height: auto;
+  margin-top: 60px;
+  margin-bottom: 100px;
+}

@@ -1,0 +1,51 @@
+<div class="faq">
+  <h4 class="latest-text w3_faq_latest_text w3_latest_text">Phim</h4>
+  <div class="container">
+    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+          <div class="agile-news-table" *ngIf="movies?.length > 0">
+            <div class="w3ls-news-result" style="margin-bottom: 2em">
+              <h4>Kết quả : <span>{{movies?.length}}</span></h4>
+            </div>
+            <table id="table-breakpoint">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên phim</th>
+                <th>Năm phát hành</th>
+                <th>Đạo diễn</th>
+                <th>Diễn viên</th>
+                <th>Thể loại</th>
+                <th>Đánh giá</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let movie of movies; let i = index">
+                <td>{{i + 1}}</td>
+                <td class="w3-list-img"><a routerLink="/movie-detail/{{movie.id}}" style="color: inherit">
+                  <img [src]="movie.movieImages[0].imageUrl" alt="" width="100px" height="150px"/>
+                  <br><br>
+                  <span style="font-size: medium; font-weight: bold">{{movie.title | titlecase}}</span></a>
+                </td>
+                <td>{{movie.releaseDate | date: 'yyyy'}}</td>
+                <td>{{movie.director}}</td>
+                <td class="w3-list-info" width="20%">{{movie.cast}}</td>
+                <td class="w3-list-info">
+                  <li *ngFor="let genre of movie.genres" style="list-style-type: none">
+                    <span>{{genre.name}}</span>
+                  </li>
+                </td>
+                <td>7.0</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="agile-news-table" *ngIf="movies?.length == null">
+            <p>Không tìm thấy kết quả tìm kiếm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

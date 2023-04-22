@@ -1,0 +1,77 @@
+<div style="margin-right: 0px" class="row">
+  <app-nava-employee></app-nava-employee>
+
+  <div class="col-md-10 nav_content">
+  <h1 style="margin-bottom: 40px;margin-top: 40px; text-align: center;  color: #FF8D1B;">DANH SÁCH PHÒNG CHIẾU
+  </h1>
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid ">
+        <div class="card shadow">
+          <div class="col-12 card-header d-flex justify-content-between content_search" style="display: flex; justify-content: space-between">
+            <div style="margin-left: 50px" class="col-8 mt-auto mb-auto">
+              <button type="button" class="btn btn-success" routerLink="/create">
+                <i style="margin-right: 5px" class="fa fa-plus-circle" aria-hidden="true"></i><b style="font-size: 17px;">
+                Thêm mới</b>
+              </button>
+            </div>
+            <div class="col-4 input-group mt-auto mb-auto search_icon" style="margin-right: 0;">
+              <input type="search" class="form-control" style="width: 20rem; border-radius: 20px;"
+                     placeholder="Tìm phòng chiếu" [(ngModel)]="keyWord">
+              <div class="input-group-append" style=" display: inline">
+                <button type="button" class="btn btn-default" style="border: none; background: none" (click)="searchKeyWord()">
+                  <i style="font-size: 23px; color: cornflowerblue;" class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th class="text-center">Mã phòng chiếu </th>
+                    <th class="text-left">Tên phòng </th>
+                    <th class="text-left">Tổng số ghế </th>
+                    <th class="text-left">Chi tiết ghế </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let screen of screenList | paginate: {itemsPerPage:5, currentPage: page} ; let i = index" >
+                    <td class="text-center">{{screen.id}}</td>
+                    <td class="text-left">{{screen.name}}</td>
+                    <td class="text-left">{{screen.totalSeat}}</td>
+
+
+                    <td >
+                      <a [routerLink]="['screen-details', screen.id]" class="trigger-btn" data-toggle="modal">
+                          <i style="font-size: 20px;" class="fa fa-info-circle" aria-hidden="true">
+                          </i>
+                      </a>
+                    </td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="d-flex flex-row justify-content-center ">
+                <nav aria-label="Page navigation example">
+                  <div>
+                    <pagination-controls (pageChange)="page = $event" style="text-align: center " previousLabel="Trước"
+                                         nextLabel="Tiếp"></pagination-controls>
+                  </div>
+                </nav>
+              </div>
+            </div>
+<!--          <ng-container *ngIf="screenList.length === 0">-->
+<!--            <div class="text-center">-->
+<!--              <h3>Không tìm thấy tên {{keyWord}} trong danh sách</h3>-->
+<!--            </div>-->
+<!--          </ng-container>-->
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+</div>

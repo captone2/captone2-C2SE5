@@ -1,0 +1,73 @@
+<div class="main" *ngIf="!isLoggedIn">
+  <div class="background_img">
+    <div class="content">
+      <header>Đăng Nhập</header>
+      <form  name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="field">
+          <span class="fa fa-user"></span>
+          <input type="text" placeholder="Tên email"  [(ngModel)]="form.username" #username="ngModel"
+                 [ngModelOptions]="{standalone: true}" required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+        </div>
+        <div class="messageError"  *ngIf="f.submitted && username.invalid" style="">
+          <div *ngIf="username.errors.required">Bạn chưa nhập email.</div>
+          <div *ngIf="username.errors.pattern">Email không hợp lệ.</div>
+        </div>
+        <div class="field space">
+          <span class="fa fa-lock"></span>
+          <input type="password" class="password" placeholder="Mật khẩu" [(ngModel)]="form.password"
+                 [ngModelOptions]="{standalone: true}" required minlength="6"
+                 #password="ngModel">
+          <span class="show"><i (click)="showPassword()" class="fa fa-eye"></i></span>
+        </div>
+        <div class="messageError" *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Bạn chưa nhập mật khẩu.</div>
+          <div *ngIf="password.errors.minlength">Mật khẩu ít nhất phải 6 kí tự.</div>
+        </div>
+        <div class="pass">
+          <a href="/reset-password"> Quên mật khẩu?</a>
+        </div>
+        <div class="field">
+          <input type="submit" value="Đăng Nhập">
+        </div>
+        <div class="login">
+          Hoặc đăng nhập với
+          <div class="link">
+            <div class="facebook">
+              <a href="{{facebookURL}}" style="color: white">
+              <i class="fa fa-facebook-f">
+                <span>Facebook</span>
+              </i>
+              </a>
+            </div>
+            <div class="google">
+              <a href="{{googleURL}}">
+              <i class="fa fa-google">
+                <span >Google</span>
+              </i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="signup">Bạn chưa có tài khoản?
+          <a routerLink="/register">Đăng kí ngay</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--<script>-->
+<!--  const pass_field = document.querySelector('.password');-->
+<!--  const show_btn = document.querySelector('.show');-->
+<!--  show_btn.addEventListener('click',function () {-->
+<!--    if (pass_field.type === "password"){-->
+<!--      pass_field.type = "text";-->
+<!--      show_btn.color ="#3498db";-->
+<!--      show_btn.innerHTML="<i class='fa fa-eye-slash'></i>";-->
+<!--    }else {-->
+<!--      pass_field.type = "password";-->
+<!--      show_btn.color = "#3498db";-->
+<!--      show_btn.innerHTML="<i class='fa fa-eye'></i>";-->
+<!--    }-->
+<!--  });-->
+<!--</script>-->

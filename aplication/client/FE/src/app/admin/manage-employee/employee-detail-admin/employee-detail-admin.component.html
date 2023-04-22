@@ -1,0 +1,154 @@
+<div style="margin-right: 0px;" class="row">
+  <div class="col-md-2 nav_menu">
+    <ul>
+      <li class="nav_menu_title">
+        <i class="fa fa-film" aria-hidden="true"></i>
+        <a href="">Quản Lý Suất Chiếu</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-ticket" aria-hidden="true"></i>
+        <a href="">Quản Lý Đặt Vé</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <a routerLink="">Quản Lý Nhân Viên</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <a href="">Quản Lý Phòng Chiếu</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        <a href="">Quản Lý Thành Viên</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+        <a href="">Quản Lý Phim</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-cc-discover" aria-hidden="true"></i>
+        <a href="">Quản Lý Khuyến Mãi</a>
+      </li>
+      <li class="nav_menu_title">
+        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <a href="">Thống Kê</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-10 nav_content">
+    <h1 style="margin-bottom: 40px;margin-top: 40px; text-align: center;  color: #FF8D1B;"> THÔNG TIN CHI TIẾT NHÂN VIÊN
+    </h1>
+    <!--    content-->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-3">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Hình ảnh :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <img style="height: 250px ; width: 180px" [src]="employeeDetail.imageUrl" class="img-thumbnail" alt="...">                </div>
+            </div>
+            <hr>
+
+
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Mã nhân viên :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.accountCode}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Họ và tên :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.fullname}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Tên tài khoảng :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.username}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Ngày sinh :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.birthday  | date: 'dd/MM/yyyy'}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Giới tính :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.gender}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Email :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.email}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">CMND :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.idCard}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Số điện thoại :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.phone}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <h1 style="font-size:25px">Địa chỉ :</h1>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                {{employeeDetail.address}}
+              </div>
+            </div>
+            <hr>
+
+
+            <div class="row text-center">
+              <div>
+                <button type="button" class="btn btn-primary" routerLink="/employee-list">Quay lại</button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--   end content-->
+
+  </div>
+</div>

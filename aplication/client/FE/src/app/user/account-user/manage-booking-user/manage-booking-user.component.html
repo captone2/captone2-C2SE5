@@ -1,0 +1,99 @@
+<!-- <div style="margin-right: 0px" class="row">
+  <div class="col-md-3 nav_profile" style="background: antiquewhite">
+    <div align="center">
+      <br>
+
+      <h2><b>Quản lý tài khoản</b></h2>
+      <br>
+
+
+      <img [src]="getImageUrl()" class="img-circle" height="200" width="200" alt="..." rel="nofollow"><br>
+      <div>
+                    <span style="margin-top: 20px; "
+                          class="btn btn-info btn-round btn-default btn-file btn__upload-custom">
+                      <span class="glyphicon glyphicon-camera"></span>Đổi Avatar
+                      <input type="file"  name="..." (change)="selectImage($event)  "    style="opacity: 0 ; font-size: 4px"/>
+                    </span>
+      </div>
+
+
+
+
+      <br>
+      <br>
+      <h4 align="center"><b>{{name}}</b></h4> <br>
+
+      <i class="glyphicon glyphicon-star" style="font-size: 18px"></i><span
+      style="font-size: 20px">Điểm tích lũy : {{totalpoint}}</span>
+      <br>
+      <br>
+      <button class="glyphicon glyphicon-log-out   btn btn-primary  "><span
+        style="font-family: TimesNewRoman; font-size: 20px">Đăng xuất</span></button>
+
+      <hr style="  border-bottom: 1px solid #000;">
+      <div align="center" class="col-md-12">
+        <span class="glyphicon glyphicon-user" style="font-size: 25px"></span><a href="#">Thông tin tài
+        khoản</a>
+        <hr style="  border-bottom: 1px solid #000;">
+        <span class="glyphicon glyphicon-calendar" style="font-size: 25px"></span><a href="#">Lịch sử cộng điểm</a>
+        <hr style="  border-bottom: 1px solid #000;">
+        <a href="#">Vé đã đặt</a>
+         <hr style="  border-bottom: 1px solid #000;">
+         <a href="#">Vé đã hủy</a
+        <hr style="  border-bottom: 1px solid #000;">
+        <a href="#">Đổi mật khẩu</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 nav_content" style="padding-top: 100px">
+    <h1 align="center" STYLE="color: #FF8D1B;font-family: 'Times New Roman'"><b>Vé đã đặt</b></h1>
+    <div class="content-wrapper">
+      <section class="content">
+        <div class="container-fluid ">
+          <div class="card shadow">
+            <div class="col-9 card-header d-flex justify-content-between content_search">
+
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+              <thead class="bg-secondary">
+              <tr>
+                <th class="text-center"><b>STT</b></th>
+                <th class="text-center">Tên phim <i class="fa fa-sort"
+                                                    aria-hidden="true"></i></th>
+                <th class="text-center"> Ngày đặt<i class="fa fa-sort"
+                                                    aria-hidden="true"></i></th>
+                <th class="text-center">Tổng tiền(VND) <i class="fa fa-sort"></i></th>
+                <th class="text-center">Trạng Thái <i class="fa fa-sort"></i></th>
+
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let book of booking |paginate: {itemsPerPage:10, currentPage: page}; let i = index">
+                <td scope="row" class="text-center"><b>{{i+1}}</b></td>
+                <td scope="row" class="text-center"><b>{{book.title}}</b></td>
+                <td scope="row" class="text-center">{{book.day_time_booking}}</td>
+                <td scope="row" class="text-center">{{book.total_price | number : '1.2-3'}}&nbsp;&nbsp; VNĐ</td>
+
+                <td scope="row" *ngIf="(book.received == 1 ) " class="text-center"><span style="color: green">Đã Nhận Vé</span></td>
+                <td scope="row" *ngIf="(book.received == 0) " class="text-center"><span style="color: #00bcd4">Chưa Nhận Vé</span></td>
+              </tr>
+
+              </tbody>
+            </table>
+            <div>
+              <pagination-controls (pageChange)=" page = $event " style="text-align: center" previousLabel="Trước" nextLabel="Tiếp"></pagination-controls>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+  </div>
+</div >
+-->
