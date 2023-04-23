@@ -1,6 +1,6 @@
 import icons from "./icons";
 import images from "./images";
-import dummyData from "./dummyData";
+import dummy from "./dummy";
 import theme, { COLORS, SIZES, FONTS } from "./theme";
 
-export { dummyData, icons, images, theme, COLORS, SIZES, FONTS };
+export { dummy, icons, images, theme, COLORS, SIZES, FONTS };
