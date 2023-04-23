@@ -211,7 +211,7 @@
                             </div>
                         </div>
                         <!-- Tài khoản -->
-                        <div class="row"  id="taikhoan">
+                        <div class="row" id="taikhoan" style="display: none;">
                             <div class="col-md-12">
                                 <form action="/settings" method="post">
                                     <div class="row">
@@ -271,18 +271,22 @@
                                             style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
                                             <div class="form-group">
                                                 <label for="current-pass">Password Current</label>
-                                                <input type="password" id="current-pass" name="current-pass" class="form-control">
+                                                <input type="password" id="current-pass" name="current-pass"
+                                                    class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="new-pass">Password New</label>
-                                                <input type="password" id="new-pass" name="new-pass" class="form-control">
+                                                <input type="password" id="new-pass" name="new-pass"
+                                                    class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="verify">Verify</label>
                                                 <input type="password" id="verify" name="verify" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <div class="btn btn-confirm" style="display: inline-block;cursor: pointer; padding: 10px 15px;">Reset Password</div>
+                                                <div class="btn btn-confirm"
+                                                    style="display: inline-block;cursor: pointer; padding: 10px 15px;">
+                                                    Reset Password</div>
                                             </div>
                                         </div>
                                     </div>
@@ -290,19 +294,35 @@
                             </div>
                         </div>
                         <!-- Vé -->
-                        <div class="row" id="ve" style="display: none;">
+                        <div class="row" id="ve" style="display: block;">
                             <div class="col-12 col-xl-8">
                                 <div class="card"
                                     style="background: #f0bd5fd6; color: #000; padding: 10px; margin-bottom: 10px;">
                                     Bạn chưa có giao dịch nào trước đây.<br>
                                     Để bắt đầu mua vé xem phim, vui lòng làm theo các bước sau.
                                 </div>
-                                <p>
-                                    <a href="#">
-                                        <img src="https://cdn.moveek.com/bundles/ornweb/img/tutorial-ticketing.png"
-                                            class="img-fluid border">
-                                    </a>
-                                </p>
+                                <div class="history">
+                                    <div class="fim-history">
+                                        <div class="img-history">
+                                            <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&w=1000&q=80"
+                                                alt="">
+                                        </div>
+                                        <div class="detail-history">
+                                            <p>Thế giới khủn long 2</p>
+                                            <p>Suất <b>12:15</b> ngày <b>18/09</b> </p>
+                                            <p>Rạp <b>MD-03</b> - Ghế <b>G8,G9</b></p>
+                                            <p>Beta Mỹ đình</p>
+                                        </div>
+                                    </div>
+                                    <div class="time-history">
+                                        <img src="https://firebasestorage.googleapis.com/v0/b/dtu-event.appspot.com/o/qr_code_1681816626383.png?alt=media&token=e3c0e19d-ae4a-42ee-8ac2-351e3ff492b9&fbclid=IwAR13I83YPHRQztfHZ-PD7WEQVduxF-pQ-8-dfF6AjUn86_H-T28kjbEjp30"
+                                            alt="qr">
+                                    </div>
+                                    <div class="price-history">
+                                        <h3>111.000 đ</h3>
+                                        <p style="text-align: right;">Tổng đơn hàng</p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
