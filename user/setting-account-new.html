@@ -180,7 +180,7 @@
                                                 data-toggle="dropdown">Tài khoản</a>
                                             <div class="dropdown-menu">
                                                 <a href="#" class="dropdown-item">Quản lý tài khoản</a>
-                                                <a href="#" class="dropdown-item">Đổi mật
+                                                <a href="#" class="dropdown-item reset-pass">Đổi mật
                                                     khẩu</a>
                                             </div>
                                         </li>
@@ -211,7 +211,7 @@
                             </div>
                         </div>
                         <!-- Tài khoản -->
-                        <div class="row" id="taikhoan">
+                        <div class="row"  id="taikhoan">
                             <div class="col-md-12">
                                 <form action="/settings" method="post">
                                     <div class="row">
@@ -256,6 +256,33 @@
                                                 <div style="text-align: left; padding-top: 10px; ">
                                                     <input type="submit" value="Save" style="border-radius: 10px;" />
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Mật khẩu -->
+                        <div class="row" id="matkhau" style="display: none;">
+                            <div class="col-md-12">
+                                <form action="/settings" method="post">
+                                    <div class="row">
+                                        <div class="col-md-9"
+                                            style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
+                                            <div class="form-group">
+                                                <label for="current-pass">Password Current</label>
+                                                <input type="password" id="current-pass" name="current-pass" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="new-pass">Password New</label>
+                                                <input type="password" id="new-pass" name="new-pass" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="verify">Verify</label>
+                                                <input type="password" id="verify" name="verify" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn btn-confirm" style="display: inline-block;cursor: pointer; padding: 10px 15px;">Reset Password</div>
                                             </div>
                                         </div>
                                     </div>

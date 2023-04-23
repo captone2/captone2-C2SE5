@@ -305,6 +305,12 @@ jQuery(document).ready(function () {
         }
     });
 
+    jQuery(".reset-pass").click(function () {
+        jQuery("#ve").css("display", "none");
+        jQuery("#taikhoan").css("display", "none");
+        jQuery("#matkhau").css("display", "block");
+    });
+
     jQuery('.nav-item').hover(function () {
         // Khi di chuột vào nav-item
         var menu = jQuery(this).find('.dropdown-menu');
@@ -323,5 +329,7 @@ jQuery(document).ready(function () {
             menu.removeClass('show');
         });
     });
+
+
 
 });
