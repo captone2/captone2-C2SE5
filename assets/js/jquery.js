@@ -291,5 +291,37 @@ jQuery(document).ready(function () {
 
 
 
+    // ================================================Setting=================================
+    jQuery('.nav-item a').click(function (e) {
+        e.preventDefault();
+        jQuery('.nav-item a.active').removeClass('active');
+        jQuery(this).addClass('active');
+        if (jQuery(this).attr('value') == "ve") {
+            jQuery("#ve").css("display", "block");
+            jQuery("#taikhoan").css("display", "none");
+        } else {
+            jQuery("#ve").css("display", "none");
+            jQuery("#taikhoan").css("display", "block");
+        }
+    });
+
+    jQuery('.nav-item').hover(function () {
+        // Khi di chuột vào nav-item
+        var menu = jQuery(this).find('.dropdown-menu');
+        // Kiểm tra xem dropdown-menu đã hiển thị hay chưa
+        if (!menu.hasClass('show')) {
+            // Nếu chưa hiển thị, sử dụng slideDown để hiển thị
+            menu.slideDown(300, function () {
+                menu.addClass('show');
+            });
+        }
+    }, function () {
+        // Khi di chuột khỏi nav-item
+        var menu = jQuery(this).find('.dropdown-menu');
+        // Sử dụng slideUp để ẩn
+        menu.slideUp(300, function () {
+            menu.removeClass('show');
+        });
+    });
 
 });

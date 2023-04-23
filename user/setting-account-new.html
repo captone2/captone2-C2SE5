@@ -146,58 +146,139 @@
         </header>
 
         <div id="main">
+            <section id="amy-page-header" class="amy-page-header">
+                <div class="amy-page-title amy-center">
+                    <div class="amy-inner container">
+                        <h1 class="page-title">
+                            Lịch Chiếu </h1>
+                    </div>
+                </div>
+                <span class="amy-section-overlay"></span>
+            </section>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Account settings</h1>
-                        <form action="/settings" method="post">
-                            <div>
-                                <div class="avatar-wrapper">
-                                    <img class="profile-pic" src="" />
-                                    <input class="file-upload" type="file" accept="image/*" />
+                        <div class="if-avatar">
+                            <div class="avatar-wrapper">
+                                <img class="profile-pic" src="" />
+                                <div class="upload-button">
                                 </div>
-                                <div style="text-align: center;">
-                                    <h1>Nguyen Van Tuan</h1>
+                                <input class="file-upload" type="file" accept="image/*" />
+                            </div>
+                            <div
+                                style="text-align: center;display: inline-block;position: relative;top: -30px;right: -30px;">
+                                <h1>Nguyen Van Tuan <span class="total-buy">0đ</span>
+                                </h1>
+
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <!-- Nav -->
+                                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link dropdown-toggle active" value="taikhoan"
+                                                data-toggle="dropdown">Tài khoản</a>
+                                            <div class="dropdown-menu">
+                                                <a href="#" class="dropdown-item">Quản lý tài khoản</a>
+                                                <a href="#" class="dropdown-item">Đổi mật
+                                                    khẩu</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" value="tuphim">
+                                                Tủ phim
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" value="ve">
+                                                Vé
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                                value="naptien">
+                                                Nạp tiền
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a href="#" class="dropdown-item">Nạp tiền</a>
+                                                <a href="#" class="dropdown-item">Lịch sử nạp tiền</a>
+                                                <a href="#" class="dropdown-item">Lịch sử giao dịch</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
                                 </div>
                             </div>
-                            <div>
-                                <label for="fullname">Fullname:</label><br>
-                                <input type="text" id="fullname" name="fullname" />
+                        </div>
+                        <!-- Tài khoản -->
+                        <div class="row" id="taikhoan">
+                            <div class="col-md-12">
+                                <form action="/settings" method="post">
+                                    <div class="row">
+                                        <div class="col-md-9"
+                                            style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="fullname">Fullname:</label><br>
+                                                    <input class="form-control" type="text" id="fullname"
+                                                        name="fullname" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="address">Address:</label><br>
+                                                    <input class="form-control" type="text" id="address"
+                                                        name="address" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email:</label><br>
+                                                    <input class="form-control" type="text" id="email" name="email" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="birthday">Birthday:</label><br>
+                                                    <input class="form-control" type="date" id="birthday"
+                                                        name="birthday" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="gender">Gender:</label><br>
+                                                    <select style="border-radius: 10px;" name="gender" id="gender">
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phone">Phone:</label><br>
+                                                    <input class="form-control" type="text" id="phone" name="phone" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div style="text-align: left; padding-top: 10px; ">
+                                                    <input type="submit" value="Save" style="border-radius: 10px;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label for="address">Address:</label><br>
-                                <input type="text" id="address" name="address" />
+                        </div>
+                        <!-- Vé -->
+                        <div class="row" id="ve" style="display: none;">
+                            <div class="col-12 col-xl-8">
+                                <div class="card"
+                                    style="background: #f0bd5fd6; color: #000; padding: 10px; margin-bottom: 10px;">
+                                    Bạn chưa có giao dịch nào trước đây.<br>
+                                    Để bắt đầu mua vé xem phim, vui lòng làm theo các bước sau.
+                                </div>
+                                <p>
+                                    <a href="#">
+                                        <img src="https://cdn.moveek.com/bundles/ornweb/img/tutorial-ticketing.png"
+                                            class="img-fluid border">
+                                    </a>
+                                </p>
                             </div>
 
-                            <div>
-                                <label for="birthday">Birthday:</label><br>
-                                <input type="date" id="birthday" name="birthday" />
-                            </div>
-
-                            <div>
-                                <label for="email">Email:</label><br>
-                                <input type="text" id="email" name="email" />
-                            </div>
-
-
-
-                            <div>
-                                <label for="gender">Gender:</label><br>
-                                <select name="gender" id="gender">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label for="phone">Phone:</label><br>
-                                <input type="text" id="phone" name="phone" />
-                            </div>
-                            <div style="text-align: center; padding-top: 10px;">
-                                <input type="submit" value="Save" style="border-radius: 10px;" />
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
