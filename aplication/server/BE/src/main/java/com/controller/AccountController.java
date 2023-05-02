@@ -41,12 +41,6 @@ public class AccountController {
     AccountService accountService;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    AccountRepository accountRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("account/{id}")
