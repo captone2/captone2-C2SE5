@@ -59,6 +59,9 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     void createMovie(String title, LocalDate showing_From, LocalDate showing_To, String cast, String director, LocalDate release_Date, String rated, int running_Time,
                      String production,String trailer_Url, String content, boolean is3D, long account_Id);
 
+
+
+
     //HueHV
     @Transactional
     @Modifying
