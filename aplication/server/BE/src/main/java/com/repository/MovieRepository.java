@@ -60,9 +60,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
                      String production,String trailer_Url, String content, boolean is3D, long account_Id);
 
 
-
-
-    //HueHV
     @Transactional
     @Modifying
     @Query(value = "update movie set title = ?1, showing_From = ?2, showing_To = ?3, cast = ?4, director = ?5, release_Date = ?6, rated = ?7, running_Time = ?8,  " +
