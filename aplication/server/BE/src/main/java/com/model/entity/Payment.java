@@ -1,18 +1,20 @@
 package com.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 @Entity
-@JsonIdentityInfo(generator= JSOGGenerator.class)
+
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Booking> bookings;
 
     public long getId() {

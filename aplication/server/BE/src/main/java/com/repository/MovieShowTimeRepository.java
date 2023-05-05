@@ -20,6 +20,25 @@ public interface MovieShowTimeRepository extends JpaRepository<MovieShowTime,Lon
     List<MovieShowTime> findMovieShowTimeByDate(@Param("date") String date);
 
 
-    @Query(value = "select * from movie_show_time where year(show_date) = year(now())", nativeQuery = true)
+    @Query(value = "select * from movie_show_time where year(show_date) = year(now()) ORDER BY show_date", nativeQuery = true)
     List<MovieShowTime> findMovieShowTimeByYearNow();
+
+
+    @Query(value = "select * from movie_show_time \n" +
+            "join genre_movie on genre_movie.movie_id = movie_show_time.movie_id\n" +
+            " where year(show_date) = year(now()) and genre_id = :id\n" +
+            " ORDER BY show_date ", nativeQuery = true)
+    List<MovieShowTime> findMovieShowTimeByYearAndGenre(@Param("id") String id);
+
+
+    @Query(value = "select * from movie_show_time where show_date = CURDATE()\n" +
+            "group by movie_id", nativeQuery = true)
+    List<MovieShowTime> findMovieCNowPlaying();
+
+    @Query(value = "select * from movie_show_time \n" +
+            "join genre_movie on genre_movie.movie_id = movie_show_time.movie_id\n" +
+            "where show_date = CURDATE() and genre_id = 1\n" +
+            "group by movie_show_time.movie_id", nativeQuery = true)
+    List<MovieShowTime> findMovieShowTimeNow(@Param("id") String id);
+
 }

@@ -21,7 +21,7 @@ public class CommentController {
     @Autowired
     private MovieService movieService;
 
-    //    TuHC - lay comment cho 1 bo phim
+
     @GetMapping(value = "/get-comment/{id}")
     public ResponseEntity<List<Comment>> getAllCommentByMovieId(@PathVariable("id") long id) {
         List<Comment> comments = commentService.findAllCommentByMovieId(id);
@@ -33,7 +33,7 @@ public class CommentController {
         }
     }
 
-    //    TuHC - them comment
+
     @PostMapping(value = "/add-comment")
     public ResponseEntity<CommentDTO> addNewComment(@RequestBody CommentDTO commentDTO) {
         List<Movie> moviesSeen = movieService.findAllMovieSeenByAccount(commentDTO.getAccount());

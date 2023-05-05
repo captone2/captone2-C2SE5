@@ -33,13 +33,20 @@ import { SharedModule } from "../shared/shared.module";
 import { TopRateComponent } from './movie/top-rate/top-rate.component';
 import { ShowTimeComponent } from './movie/show-time/show-time.component';
 import { CommingSoonComponent } from './movie/comming-soon/comming-soon.component';
+import { NowPlayingComponent } from './movie/now-playing/now-playing.component';
+import { ProfileUserComponent } from './movie/profile-user/profile-user.component';
 const guestRoutes: Routes = [
 
   {path: 'cinema', component: MovieListComponent},
   {path: 'show-time', component: ShowTimeComponent},
   {path: 'top-rate', component: TopRateComponent},
   {path: 'comming-soon', component: CommingSoonComponent},
+  {path: 'now-playing', component: NowPlayingComponent},
   {path: 'movie-detail/:id', component: MovieDetailComponent},
+  {path: 'profile', component: ProfileUserComponent,
+  canActivate: [AuthGuardService],
+  data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
+},
   {path: 'booking/:movieShowTimeId/:transactionId', component: BookingComponent, 
   canActivate: [AuthGuardService],
   data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
@@ -71,7 +78,9 @@ const guestRoutes: Routes = [
         BookingNoExistComponent,
         TopRateComponent,
         ShowTimeComponent,
-        CommingSoonComponent
+        CommingSoonComponent,
+        NowPlayingComponent,
+        ProfileUserComponent
     ],
     exports: [RouterModule],
     imports: [

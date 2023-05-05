@@ -43,7 +43,7 @@ public class MovieController {
         }
     }
 
-    //    TuHC - phim sap chieu
+
     @GetMapping(value = "/movie-coming")
     public ResponseEntity<List<Movie>> getMovieComingSoon() {
         List<Movie> movieComingSoons = movieService.findAllMovieComingSoon(today);
@@ -54,18 +54,9 @@ public class MovieController {
         }
     }
 
-    //    TuHC - phim top 5
-//    @GetMapping(value = "/movie-top5")
-//    public ResponseEntity<List<Movie>> getMovieTopFive() {
-//        List<Movie> movieTopFives = movieService.listTopFiveMovie();
-//        if (movieTopFives.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(movieTopFives, HttpStatus.OK);
-//        }
-//    }
 
-    //    TuHC - chi tiet phim
+
+
     @GetMapping(value = "/detail-movie/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable("id") long id) {
         Movie movie = movieService.findMovieById(id);
@@ -76,7 +67,7 @@ public class MovieController {
         }
     }
 
-    //    TuHC - tim kiem phim
+
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {
         List<Movie> movies = movieService.searchMovie(keyword, today);
@@ -87,7 +78,7 @@ public class MovieController {
         }
     }
 
-    //    TuHC - lay phim dang chieu va sap chieu
+
     @GetMapping(value = "/all-movie")
     public ResponseEntity<List<Movie>> findAllMovieShowingAndComingSoon() {
         List<Movie> movies = movieService.findAllMovieShowingAndComingSoon();

@@ -14,19 +14,19 @@ import java.util.List;
 @Repository
 public interface MovieImageRepository extends JpaRepository<MovieImage, Long> {
 
-    // HueHv
+
     @Transactional
     @Modifying
     @Query(value = "insert into movie_image (image_url, movie_id) values (?1, ?2) ", nativeQuery = true)
     void addImage(String image_url, long movie_id);
 
-    // HueHv
+
     @Transactional
     @Modifying
     @Query(value = "update movie_image set image_url=?1, movie_id=?2 where id=?3", nativeQuery = true)
     void updateImage(String image_url, long movie_id, long id);
 
-    // HueHV
+
     @Query(value = "select * from movie_image where movie_id = ?1", nativeQuery = true)
     List<MovieImage> listImageMovieById(long id);
 

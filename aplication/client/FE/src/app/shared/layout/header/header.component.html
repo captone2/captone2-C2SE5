@@ -5,7 +5,7 @@
         <div class="amy-left">
           <div id="amy-site-logo">
             <a routerLink="/home">
-              <img src="http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/uploads/sites/2/2022/05/img_66.png"
+              <img style="height: 20px" src="https://firebasestorage.googleapis.com/v0/b/dtu-event.appspot.com/o/logo.webp?alt=media&token=a4e9b96c-f62f-4b29-85b0-2d71f2300c37"
                    alt="Elementor Single Cinema" />
             </a>
           </div>
@@ -24,7 +24,7 @@
                   <ul class="sub-menu">
                     <li id="menu-item-143"
                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143">
-                      <a href="#now-playing/">Now
+                      <a routerLink="/now-playing">Now
                         Playing</a>
                     </li>
                     <li id="menu-item-134"
@@ -34,57 +34,10 @@
                     </li>
                   </ul>
                 </li>
-                <li id="menu-item-277"
-                    class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-277">
-                  <a href="#">Single Movie</a>
-                  <ul class="sub-menu">
-                    <li id="menu-item-338"
-                        class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-338">
-                      <a href="#movie/kubo-and-the-two-strings/">Full
-                        Width &#038; Banner</a>
-                    </li>
-                    <li id="menu-item-365"
-                        class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-365">
-                      <a href="#movie/the-girl-with-all-the-gifts/">Full
-                        Width &#038; No Banner</a>
-                    </li>
-                    <li id="menu-item-340"
-                        class="menu-item menu-item-type-post_type menu-item-object-amy_movie current-menu-item menu-item-340">
-                      <a href="#movie/jumanji-welcome-to-the-jungle/"
-                         aria-current="page">Sidebar &#038; Banner</a>
-                    </li>
-                    <li id="menu-item-366"
-                        class="menu-item menu-item-type-post_type menu-item-object-amy_movie menu-item-366">
-                      <a href="#movie/bad-moms/">Sidebar
-                        &#038; No Banner</a>
-                    </li>
-                  </ul>
-                </li>
+
                 <li id="menu-item-278"
                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-278">
                   <a routerLink="/show-time">Showtime</a>
-                  <ul class="sub-menu">
-                    <li id="menu-item-140"
-                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140">
-                      <a href="#daily-showtime-layout-list/">Daily
-                        Showtime Layout List</a>
-                    </li>
-                    <li id="menu-item-137"
-                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137">
-                      <a href="#daily-showtime-ajax/">Daily
-                        Showtime Ajax</a>
-                    </li>
-                    <li id="menu-item-149"
-                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-149">
-                      <a href="#weekly-showtime-ajax/">Weekly
-                        Showtime Ajax</a>
-                    </li>
-                    <li id="menu-item-152"
-                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-152">
-                      <a href="#weekly-showtime-table/">Weekly
-                        Showtime Table</a>
-                    </li>
-                  </ul>
                 </li>
                 <li id="menu-item-146"
                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146">
@@ -105,15 +58,11 @@
           </div>
           <div class="list-down" style="display: none;">
               <ul>
-                  <li>
+                  <li routerLink="/profile">
                       <i class="fa-solid fa-gear"></i>
-                      Setting
+                      Profile
                   </li>
-                  <li>
-                      <i class="fa-solid fa-clock-rotate-left"></i>
-                      History Booking
-                  </li>
-                  <li>
+                  <li (click)="logout()">
                       <i class="fa-solid fa-arrow-right-from-bracket"></i>
                       Logout
                   </li>

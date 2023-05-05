@@ -202,9 +202,9 @@ jQuery(document).ready(function () {
 
 
     // Toggle drop down user
-    jQuery(".img-user").click(function () {
-        jQuery(".list-down").slideToggle();
-    });
+    // jQuery(".img-user").click(function () {
+    //     jQuery(".list-down").slideToggle();
+    // });
 
     // Avatar setting
 

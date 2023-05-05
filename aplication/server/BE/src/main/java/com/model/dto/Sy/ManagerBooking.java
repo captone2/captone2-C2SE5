@@ -1,4 +1,4 @@
-package com.model.dto.Viet;
+package com.model.dto.Sy;
 
 public interface ManagerBooking {
 Long getId();

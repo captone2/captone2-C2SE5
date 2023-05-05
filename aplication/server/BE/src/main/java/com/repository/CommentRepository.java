@@ -13,12 +13,12 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    //    TuHC - lay comment cho 1 bo phim
+
     @Query(value = "SELECT * FROM movietheater.comment " +
             "where movie_id = :id", nativeQuery = true)
     List<Comment> findAllCommentByMovieId(@Param("id") long id);
 
-    //    TuHC - them moi 1 comment
+
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO `movietheater`.`comment` (`content`, `account_id`, `movie_id`, `seen`) " +

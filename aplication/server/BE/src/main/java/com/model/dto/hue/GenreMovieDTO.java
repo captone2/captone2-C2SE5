@@ -1,4 +1,4 @@
-package com.model.dto.hue;
+package com.model.dto.Hue;
 
 public class GenreMovieDTO {
     private long genre_id;

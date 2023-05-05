@@ -1,7 +1,7 @@
 package com.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-  
+
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -14,8 +14,10 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Transient
     private Boolean isEnabled;
     private String username;
+    @Transient
     private String accountCode;
     private String password;
     private String fullname;
@@ -30,6 +32,8 @@ public class Account {
     private String imageUrl;
 
 
+
+    @Transient
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean deleted;
 
@@ -46,9 +50,6 @@ public class Account {
 
     private String provider;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<AccountRole> accountRoles;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonBackReference
@@ -70,11 +71,11 @@ public class Account {
         isEnabled = enabled;
     }
 
-    // AnhLT Login
+
+
     @ManyToMany
     @JsonBackReference
-    @JoinTable(name = "account_role_test", joinColumns = @JoinColumn(name = "account_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public Set<Role> getRoles() {
@@ -84,7 +85,7 @@ public class Account {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-    // end AnhLT
+
 
     public long getId() {
         return id;
@@ -200,17 +201,9 @@ public class Account {
 
     }
 
-    public List<AccountRole> getAccountRoles() {
-        return accountRoles;
-    }
-
-    public void setAccountRoles(List<AccountRole> accountRoles) {
-        this.accountRoles = accountRoles;
-    }
-
     public List<Comment> getComments() {
         return comments;
-   }
+    }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;

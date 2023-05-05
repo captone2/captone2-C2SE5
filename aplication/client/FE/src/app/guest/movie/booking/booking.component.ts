@@ -57,7 +57,7 @@ export class BookingComponent implements OnInit {
         this.clearExpiredCookies();
       });
     this.getAllSeatByScreen();
-    //  this.getMovieShowTimeById();
+     this.getMovieShowTimeById();
     this.getCookieValueByName();
     this.getAllFood();
     this.getUserById();
@@ -367,7 +367,7 @@ closeModal() {
       },
       onCancel: (data, actions) => {
         // console.log('OnCancel', data, actions);
-        alert('cancel');
+        alert('Cancel');
       },
       onError: err => {
         // console.log('OnError', err);
@@ -479,16 +479,10 @@ closeModal() {
         myBooking.movieShowTimeId = this.bookingDTO.movieShowTimeId;
         console.log(this.urlQrCode)
         myBooking.urlQrCode = this.urlQrCode;
-        console.log("Begin create")
         this.createBooking(myBooking).subscribe((data) => {
-          console.log("After postSeat")
-          console.log("Begin postSeat")
           this.postListSeatNumbersAndId(this.bookingDTO.seatId, this.bookingQRCode).subscribe((data) => {
-            console.log("After postSeat")
           });;
-          console.log("Begin postFood")
           this.postTwoListsFood(this.bookingQRCode, this.bookingDTO.foodTotal, this.bookingDTO.foodId).subscribe((data) => {
-            console.log("After postSeat")
           });
         });
       });

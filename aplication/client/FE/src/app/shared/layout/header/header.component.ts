@@ -12,6 +12,8 @@ import {TokenStorageService} from '../../../services/token-storage.service';
 })
 export class HeaderComponent implements OnInit {
   keyword = '';
+  url = 'assets/js/main.js';
+  loadAPI: any;
   movieSearches: Movie[];
   idAccount: any;
   private roles: string[];
@@ -24,6 +26,9 @@ export class HeaderComponent implements OnInit {
               private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.loadAPI = new Promise(resolve => {
+      this.loadScript();
+    });
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -41,17 +46,26 @@ export class HeaderComponent implements OnInit {
   }
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.href = ('/cinema');
+    window.location.href = ('/login');
   }
-  // TuHC - goi y tim kiem
-  suggestMovie(){
-    this.movieService.searchMovie(this.keyword).subscribe(data => {
-      // @ts-ignore
-      this.movieSearches = this.jsog.deserializeArray(data, Movie);
-    });
+  
+  public loadScript() {
+    const node = document.createElement('script');
+    node.src = this.url;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
   }
-  // TuHC - tim kiem phim
-  searchMovie(){
-    this.router.navigateByUrl('/movie-search?keyword=' + this.keyword);
-  }
+  
+  // suggestMovie(){
+  //   this.movieService.searchMovie(this.keyword).subscribe(data => {
+  //     // @ts-ignore
+  //     this.movieSearches = this.jsog.deserializeArray(data, Movie);
+  //   });
+  // }
+ 
+  // searchMovie(){
+  //   this.router.navigateByUrl('/movie-search?keyword=' + this.keyword);
+  // }
 }

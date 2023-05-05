@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Account} from '../shared/model/entity/Account';
+import { Password } from '../shared/model/dto/Password';
 
 
 @Injectable({
@@ -31,7 +32,6 @@ export class AccountUserServiceService {
 
 
   findAccountId(id: number): Observable<Account> {
-
     return this.httpClient.get<Account>(this.baseURL + '/account/' + id);
   }
 
@@ -49,5 +49,9 @@ export class AccountUserServiceService {
   changePassword(account: Account): Observable<Account> {
     return this.httpClient.put<Account>(this.baseURL + '/public/changePassword/' + account.id, account);
 
+  }
+
+  public updatePassword(accountId: number, password: Password): Observable<void> {
+    return this.httpClient.patch<void>(`${this.baseURL}/update/password/${accountId}`, password);
   }
 }

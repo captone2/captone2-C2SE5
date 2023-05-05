@@ -1,11 +1,10 @@
 package com.controller.hue;
 
-import com.model.dto.hue.SearchMovieDTO;
+import com.model.dto.Hue.SearchMovieDTO;
 import com.model.entity.*;
 import com.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -111,7 +110,7 @@ public class HueMovieController {
 
     //HueHV, phương thức chỉnh sửa 1 bộ phim
     @PatchMapping(value = "/update-movie/{id}/{idAccount}")
-    public ResponseEntity<?> updateMovie(@PathVariable(value = "id") long id, @PathVariable(value = "idAccount") long accountId, @RequestBody com.model.dto.hue.MovieDTO movie) {
+    public ResponseEntity<?> updateMovie(@PathVariable(value = "id") long id, @PathVariable(value = "idAccount") long accountId, @RequestBody com.model.dto.Hue.MovieDTO movie) {
         if (movie == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

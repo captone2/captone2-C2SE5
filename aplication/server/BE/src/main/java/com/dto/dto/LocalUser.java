@@ -21,13 +21,13 @@ public class LocalUser extends User implements OAuth2User, OidcUser {
 	private com.model.entity.Account user;
 
 	public LocalUser(final String userID, final String password, final boolean enabled, final boolean accountNonExpired, final boolean credentialsNonExpired,
-                     final boolean accountNonLocked, final Collection<? extends GrantedAuthority> authorities, final com.model.entity.Account user) {
+					 final boolean accountNonLocked, final Collection<? extends GrantedAuthority> authorities, final com.model.entity.Account user) {
 		this(userID, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, user, null, null);
 	}
 
 	public LocalUser(final String userID, final String password, final boolean enabled, final boolean accountNonExpired, final boolean credentialsNonExpired,
-                     final boolean accountNonLocked, final Collection<? extends GrantedAuthority> authorities, final com.model.entity.Account user, OidcIdToken idToken,
-                     OidcUserInfo userInfo) {
+					 final boolean accountNonLocked, final Collection<? extends GrantedAuthority> authorities, final com.model.entity.Account user, OidcIdToken idToken,
+					 OidcUserInfo userInfo) {
 		super(userID, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.user = user;
 		this.idToken = idToken;

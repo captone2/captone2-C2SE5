@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {NotificationRegisterComponent} from './notification-register/notification-register.component';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
   clickSubmit = false;
-  constructor(private authService: AuthService,
+  constructor(private toastr: ToastrService, private authService: AuthService,
               public dialog: MatDialog,
               private location: Location,
               private router: Router
@@ -121,8 +122,8 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.notification('Đăng kí thành công!');
-        this.router.navigateByUrl('');
+        this.toastr.success('Đăng kí thành công!', 'Success: ');
+        this.router.navigateByUrl('/login');
       },
       err => {
         this.errorMessage = err.error.message;
@@ -132,7 +133,7 @@ export class RegisterComponent implements OnInit {
           this.authService.checkEmail(register.get('email').value).subscribe(
           (data) => {
             if (data) {
-              this.notification('Email đã tồn tại');
+              this.toastr.error('Email đã tồn tại', 'Error: ');
               stop();
               // this.errorEmail = 'Email đã tồn tại';
             }
@@ -143,7 +144,7 @@ export class RegisterComponent implements OnInit {
         this.authService.checkPhone(register.get('phone').value).subscribe(
           (data) => {
             if (data) {
-              this.notification('Số điện thoại đã tồn tại');
+              this.toastr.error('Số điện thoại đã tồn tại', 'Error: ');
               stop();
               // this.errorPhone = 'Số điện thoại đã tồn tại';
             }
@@ -154,7 +155,7 @@ export class RegisterComponent implements OnInit {
         this.authService.checkUsername(register.get('username').value).subscribe(
           (data) => {
             if (data) {
-              this.notification('Tài khoản đã tồn tại');
+              this.toastr.error('Tài khoản đã tồn tại', 'Error: ');
               stop();
               // this.errorPhone = 'Số điện thoại đã tồn tại';
             }

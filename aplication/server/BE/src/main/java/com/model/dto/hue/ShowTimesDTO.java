@@ -1,4 +1,4 @@
-package com.model.dto.hue;
+package com.model.dto.Hue;
 
 import java.time.LocalTime;
 
