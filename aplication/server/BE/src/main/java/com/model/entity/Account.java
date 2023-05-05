@@ -1,10 +1,7 @@
 package com.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
-
+  
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -46,9 +43,8 @@ public class Account {
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean enable;
-    //AnhLT
+
     private String provider;
-    //end AnhlT
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonBackReference
@@ -57,7 +53,6 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Comment> comments;
-
 
     public String getVerificationCode() {
         return verificationCode;
@@ -75,7 +70,6 @@ public class Account {
         isEnabled = enabled;
     }
 
-
     // AnhLT Login
     @ManyToMany
     @JsonBackReference
@@ -91,7 +85,6 @@ public class Account {
         this.roles = roles;
     }
     // end AnhLT
-
 
     public long getId() {
         return id;
@@ -211,8 +204,6 @@ public class Account {
         return accountRoles;
     }
 
-
-
     public void setAccountRoles(List<AccountRole> accountRoles) {
         this.accountRoles = accountRoles;
     }
@@ -225,8 +216,6 @@ public class Account {
         this.comments = comments;
     }
 
-
-    //anhLT
     public String getProvider() {
         return provider;
     }
@@ -234,7 +223,6 @@ public class Account {
     public void setProvider(String provider) {
         this.provider = provider;
     }
-    // end AnhlT
 
 }
 
