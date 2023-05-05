@@ -53,16 +53,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
 
     @Transactional
-    @Modifying
+    @Modifying∂∂∂
     @Query(value = "insert into movie(title, showing_From, showing_To, cast, director, release_Date, rated, running_Time,production, trailer_Url, content, is3D, account_Id) " +
             " values(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13)", nativeQuery = true)
     void createMovie(String title, LocalDate showing_From, LocalDate showing_To, String cast, String director, LocalDate release_Date, String rated, int running_Time,
                      String production,String trailer_Url, String content, boolean is3D, long account_Id);
 
 
-
-
-    //HueHV
     @Transactional
     @Modifying
     @Query(value = "update movie set title = ?1, showing_From = ?2, showing_To = ?3, cast = ?4, director = ?5, release_Date = ?6, rated = ?7, running_Time = ?8,  " +

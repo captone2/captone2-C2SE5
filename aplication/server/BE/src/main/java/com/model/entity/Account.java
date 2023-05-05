@@ -48,8 +48,6 @@ public class Account {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean enable;
 
-    private String provider;
-
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonBackReference
@@ -71,10 +69,11 @@ public class Account {
         isEnabled = enabled;
     }
 
+
+
     @ManyToMany
     @JsonBackReference
-    @JoinTable(name = "account_role_test", joinColumns = @JoinColumn(name = "account_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public Set<Role> getRoles() {
@@ -198,14 +197,6 @@ public class Account {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
 
-    }
-
-    public List<AccountRole> getAccountRoles() {
-        return accountRoles;
-    }
-
-    public void setAccountRoles(List<AccountRole> accountRoles) {
-        this.accountRoles = accountRoles;
     }
 
     public List<Comment> getComments() {
