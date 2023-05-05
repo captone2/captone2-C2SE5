@@ -1,8 +1,8 @@
 package com.util;
 
-import com.dto.dto.LocalUser;
-import com.dto.dto.SocialProvider;
-import com.dto.dto.UserInfo;
+import com.model.dto.dto.LocalUser;
+import com.model.dto.dto.SocialProvider;
+import com.model.dto.dto.UserInfo;
 import com.model.entity.Account;
 import com.model.entity.Role;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

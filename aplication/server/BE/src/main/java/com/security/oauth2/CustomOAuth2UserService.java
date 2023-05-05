@@ -1,6 +1,6 @@
 package com.security.oauth2;
 
-import com.dto.dto.SocialProvider;
+import com.model.dto.dto.SocialProvider;
 import com.exception.OAuth2AuthenticationProcessingException;
 import com.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

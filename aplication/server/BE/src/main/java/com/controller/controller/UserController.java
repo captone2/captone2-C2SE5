@@ -1,7 +1,7 @@
 package com.controller.controller;
 
 import com.config.config.CurrentUser;
-import com.dto.dto.LocalUser;
+import com.model.dto.dto.LocalUser;
 import com.util.GeneralUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,8 +1,8 @@
 package com.service.service;
 
-import com.dto.dto.LocalUser;
-import com.dto.dto.SignUpRequest;
-import com.dto.dto.SocialProvider;
+import com.model.dto.dto.LocalUser;
+import com.model.dto.dto.SignUpRequest;
+import com.model.dto.dto.SocialProvider;
 import com.exception.OAuth2AuthenticationProcessingException;
 import com.exception.UserAlreadyExistAuthenticationException;
 import com.model.entity.Account;

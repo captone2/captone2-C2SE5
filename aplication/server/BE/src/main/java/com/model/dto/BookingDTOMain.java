@@ -1,7 +1,4 @@
-package com.model;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+package com.model.dto;
 
 public class BookingDTOMain {
 

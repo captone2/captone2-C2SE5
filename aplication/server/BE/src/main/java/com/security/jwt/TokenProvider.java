@@ -1,7 +1,7 @@
 package com.security.jwt;
 
 import com.config.config.AppProperties;
-import com.dto.dto.LocalUser;
+import com.model.dto.dto.LocalUser;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

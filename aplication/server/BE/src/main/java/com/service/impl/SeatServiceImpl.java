@@ -13,7 +13,6 @@ public class SeatServiceImpl implements SeatService {
     @Autowired
     private SeatRepository seatRepository;
 
-
     @Override
     public List<Seat> findAllSeatByShowtimeId(long showtimeId) {
         return seatRepository.findAllSeatByShowtimeId(showtimeId);

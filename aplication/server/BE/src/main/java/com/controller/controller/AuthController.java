@@ -1,6 +1,6 @@
 package com.controller.controller;
 
-import com.dto.dto.*;
+import com.model.dto.dto.*;
 import com.exception.UserAlreadyExistAuthenticationException;
 import com.model.entity.Account;
 import com.security.jwt.TokenProvider;

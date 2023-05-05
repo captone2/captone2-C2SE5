@@ -1,7 +1,7 @@
 package com.validator;
 
 
-import com.dto.dto.SignUpRequest;
+import com.model.dto.dto.SignUpRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

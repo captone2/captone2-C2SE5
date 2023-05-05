@@ -1,6 +1,6 @@
 package com.config.config;
 
-import com.dto.dto.SocialProvider;
+import com.model.dto.dto.SocialProvider;
 import com.model.entity.Account;
 import com.model.entity.Role;
 import com.repository.AccountRepository;

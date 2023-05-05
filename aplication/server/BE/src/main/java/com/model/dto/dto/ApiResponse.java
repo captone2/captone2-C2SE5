@@ -1,4 +1,4 @@
-package com.dto.dto;
+package com.model.dto.dto;
 
 public class ApiResponse {
 	private Boolean success;

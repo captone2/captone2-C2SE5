@@ -1,4 +1,4 @@
-package com.dto.dto;
+package com.model.dto.dto;
 
 import com.util.GeneralUtils;
 import org.springframework.security.core.GrantedAuthority;

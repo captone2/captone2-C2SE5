@@ -1,7 +1,7 @@
 package com.service.service;
 
-import com.dto.dto.LocalUser;
-import com.dto.dto.SignUpRequest;
+import com.model.dto.dto.LocalUser;
+import com.model.dto.dto.SignUpRequest;
 import com.exception.UserAlreadyExistAuthenticationException;
 import com.model.entity.Account;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;

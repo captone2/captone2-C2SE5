@@ -1,6 +1,6 @@
 package com.security.oauth2.user;
 
-import com.dto.dto.SocialProvider;
+import com.model.dto.dto.SocialProvider;
 import com.exception.OAuth2AuthenticationProcessingException;
 import java.util.Map;
 

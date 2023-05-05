@@ -1,6 +1,5 @@
 package com.model.dto;
 
-
 public class Password {
     private String oldPassword;
     private String newPassword;

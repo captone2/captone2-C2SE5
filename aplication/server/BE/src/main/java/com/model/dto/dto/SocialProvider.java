@@ -1,4 +1,4 @@
-package com.dto.dto;
+package com.model.dto.dto;
 
 /**
  * @author Chinna

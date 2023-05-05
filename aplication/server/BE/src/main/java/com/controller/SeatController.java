@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.model.dto.SeatDTO;
 import com.model.entity.Seat;
 import com.service.SeatService;
 import org.springframework.beans.factory.ListableBeanFactory;

@@ -1,19 +1,13 @@
 package com.service.impl;
 
 
-import com.dto.dto.SocialProvider;
 import com.model.dto.AccountMemberDTO;
 import com.model.dto.Sy.AccountUserDTO;
 import com.model.dto.Sy.ManagerBooking;
 import com.model.entity.Account;
-import com.model.entity.Role;
 import com.repository.AccountRepository;
-
-
 import com.model.dto.employeeAccount.CreateEmployeeAccount;
 import com.model.dto.employeeAccount.UpdateEmployeeAccount;
-
-
 import com.repository.RoleRepository;
 import com.service.AccountService;
 import net.bytebuddy.utility.RandomString;
@@ -21,14 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-
-import java.util.HashSet;
-
 import java.util.List;
 
 
@@ -42,13 +31,10 @@ public class AccountServiceImpl implements AccountService {
 
     private RoleRepository roleRepository;
 
-
     @Override
     public Account findAccountUpdateById(long id) {
         return accountRepository.findAccountUpdateById(id);
-
     }
-
 
     @Override
     public List<Account> findAll() {
@@ -153,12 +139,6 @@ public class AccountServiceImpl implements AccountService {
         helper.setText(mailContent, true);
         javaMailSender.send(message);
     }
-
-
-//    @Override
-//    public List<Account> listAccountByCodeEmployee() {
-//        return accountRepository.listAccountByAccountCodeEmployee();
-//    }
 
     @Override
     public List<Account> listAccountByCodeEmployee() {
@@ -316,12 +296,6 @@ public class AccountServiceImpl implements AccountService {
         return null;
     }
 
-
-//    @Override
-//    public Account findAccountByEmployeeName(String accountCode) {
-//        return accountRepository.findAccountByEmployeeName(accountCode);
-//    }
-
     @Override
     public void deleteEmployeeAccountById(Long id) {
         accountRepository.deleteEmployeeAccountById(id);
@@ -331,11 +305,6 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> findEmployeeAccountByFullNameOrAccountCode(String keyWord) {
         return null;
     }
-
-//    @Override
-//    public List<Account> findEmployeeAccountByFullNameOrAccountCode(String keyWord) {
-//        return accountRepository.findEmployeeAccountByFullNameOrAccountCode(keyWord);
-//    }
 
     @Override
     public boolean checkEmailEmployee(String email) {
@@ -356,11 +325,6 @@ public class AccountServiceImpl implements AccountService {
     public boolean checkAccountCodeEmployee(String accountCode) {
         return false;
     }
-
-//    @Override
-//    public boolean checkAccountCodeEmployee(String accountCode) {
-//        return accountRepository.existsAccountsByAccountCode(accountCode);
-//    }
 
 }
 

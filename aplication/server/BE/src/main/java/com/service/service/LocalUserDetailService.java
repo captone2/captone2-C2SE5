@@ -1,6 +1,6 @@
 package com.service.service;
 
-import com.dto.dto.LocalUser;
+import com.model.dto.dto.LocalUser;
 import com.exception.ResourceNotFoundException;
 import com.model.entity.Account;
 import com.util.GeneralUtils;
