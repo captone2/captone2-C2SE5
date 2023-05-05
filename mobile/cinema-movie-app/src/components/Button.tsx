@@ -1,48 +1,39 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   Platform,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import PropTypes from "prop-types";
-import { COLORS } from "../../constants";
-import Text from "./Text";
+import { Text } from "react-native-paper";
+import { COLORS } from "../utils/theme";
 
-const propTypes = {
-  loading: PropTypes.bool,
-  color: PropTypes.string,
-  disabled: PropTypes.bool,
-  tintColor: PropTypes.string,
-  transparent: PropTypes.bool,
-  text: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
-};
+interface defaultProps {
+  text?: string;
+  loading?: boolean;
+  disabled?: boolean;
+  transparent?: boolean;
+  color?: string;
+  tintColor?: string;
+  onPress?: () => any;
+}
 
-const defaultProps = {
-  loading: false,
-  disabled: false,
-  transparent: false,
-  color: COLORS.green,
-  tintColor: COLORS.black,
-};
-
-const Button = ({
+const Button: FC<defaultProps> = ({
   text,
-  color,
-  loading,
+  color = COLORS.green,
+  loading = false,
   onPress,
-  disabled,
-  tintColor,
-  transparent,
+  disabled = false,
+  tintColor = COLORS.black,
+  transparent = false,
 }) => {
   const { container } = styles;
   const buttonContainerStyle = [container];
 
   if (disabled || loading) {
-    buttonContainerStyle.push({ backgroundColor: COLORS.lightGrey });
+    buttonContainerStyle.push({ backgroundColor: COLORS.lightGrey } as any);
   } else if (!transparent) {
-    buttonContainerStyle.push({ backgroundColor: color });
+    buttonContainerStyle.push({ backgroundColor: color } as any);
   }
 
   return (
@@ -58,7 +49,9 @@ const Button = ({
           style={{ marginVertical: Platform.OS === "ios" ? 10 : 0 }}
         />
       ) : (
-        <Text bold color={tintColor} style={{ textAlign: "center" }}>
+        <Text
+          style={{ textAlign: "center", fontWeight: "bold", color: tintColor }}
+        >
           {text}
         </Text>
       )}
@@ -75,8 +68,5 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
 });
-
-Button.propTypes = propTypes;
-Button.defaultProps = defaultProps;
 
 export default Button;

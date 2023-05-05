@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-
-const DynamicHeader = ({ animHeaderValue }) => {
-    return null;
+import React, { FC } from "react";
+type DynamicHeaderProps = {
+  animHeaderValue: any;
+};
+const DynamicHeader: FC<DynamicHeaderProps> = ({ animHeaderValue }) => {
+  return null;
 };
 
 export default DynamicHeader;

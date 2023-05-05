@@ -1,42 +1,42 @@
-/* eslint-disable react/prop-types */
-import React from "react";
+import React, { FC } from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Colors } from "../constants";
-import { Icon, Container } from "../components";
-import HomeStack from "./HomeStack";
-import ProfileStack from "./ProfileStack";
+import HomeStack from "../screens/navigation/HomeStack";
+import ProfileStack from "../screens/navigation/ProfileStack";
+import { COLORS } from "../utils/theme";
+import Container from "./Container";
+import Icon from "./Icon";
 
 const Tab = createBottomTabNavigator();
-
-// eslint-disable-next-line arrow-parens
+type getTabIconProps = {
+  color: string;
+};
 const getTabIcon =
-  (name) =>
+  (name: string) =>
   ({ color }) =>
-    <Icon name={name} color={color} />;
+    <Icon large={false} name={name} color={color} />;
 
-const MainTab = () => (
+const TabBottom = () => (
   <Tab.Navigator
-    initialRouteName="homeStack"
-    tabBarOptions={{
-      showLabel: false,
-      tabStyle: {
-        borderTopColor: Colors.green,
-        backgroundColor: Colors.black,
+    initialRouteName="HomeStack"
+    screenOptions={{
+      tabBarShowLabel: false,
+      tabBarStyle: {
+        borderTopColor: COLORS.green,
+        backgroundColor: COLORS.black,
         borderTopWidth: StyleSheet.hairlineWidth,
       },
-      keyboardHidesTabBar: true,
-      activeTintColor: Colors.green,
-      inactiveTintColor: Colors.lightGrey,
-      style: { backgroundColor: Colors.black },
+      tabBarHideOnKeyboard: true,
+      tabBarActiveTintColor: COLORS.green,
+      tabBarInactiveTintColor: COLORS.lightGrey,
     }}
   >
     <Tab.Screen
-      name="homeStack"
+      name="HomeStack"
       component={HomeStack}
       options={{ tabBarIcon: getTabIcon("home") }}
     />
-    <Tab.Screen
+    {/* <Tab.Screen
       name="a"
       component={Container}
       options={{ tabBarIcon: getTabIcon("search") }}
@@ -50,13 +50,13 @@ const MainTab = () => (
       name="c"
       component={Container}
       options={{ tabBarIcon: getTabIcon("message-square") }}
-    />
+    /> */}
     <Tab.Screen
-      name="profileStack"
+      name="ProfileStack"
       component={ProfileStack}
       options={{ tabBarIcon: getTabIcon("user") }}
     />
   </Tab.Navigator>
 );
 
-export default MainTab;
+export default TabBottom;

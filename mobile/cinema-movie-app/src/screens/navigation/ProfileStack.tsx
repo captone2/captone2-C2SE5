@@ -1,11 +1,11 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Profile } from "../screens";
+import { Profile } from "..";
 
 const Stack = createStackNavigator();
 
 const ProfileStack = () => (
-  <Stack.Navigator initialRouteName="profile" headerMode="none">
+  <Stack.Navigator initialRouteName="profile">
     <Stack.Screen name="profile" component={Profile} />
   </Stack.Navigator>
 );

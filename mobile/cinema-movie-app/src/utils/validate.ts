@@ -1,4 +1,4 @@
-class ValidateService {
+export class ValidateService {
   static emailValidator(email) {
     const re = /\S+@\S+\.\S+/;
     // email = email.trim();
@@ -21,4 +21,3 @@ class ValidateService {
     return "";
   }
 }
-export default new ValidateService();

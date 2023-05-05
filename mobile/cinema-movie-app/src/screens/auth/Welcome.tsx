@@ -1,12 +1,17 @@
-import React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
-import { Logo, Text, Button, StatusBar } from "./../../components";
-import { COLORS } from "./../../constants";
+import { StatusBar } from "expo-status-bar";
+import React, { FC } from "react";
+import { View, StyleSheet, SafeAreaView, Text } from "react-native";
+import { Logo, Button } from "../../components";
+import { COLORS } from "../../utils/theme";
 
-const Welcome = ({ navigation }) => {
+type Props = {
+  navigation: any;
+};
+const Welcome: FC<Props> = ({ navigation }) => {
   const { container, logoContainer, actionsContainer, welcomeContainer } =
     styles;
   const { navigate } = navigation;
+  console.log(1);
 
   return (
     <React.Fragment>
@@ -21,22 +26,27 @@ const Welcome = ({ navigation }) => {
           <View style={welcomeContainer}>
             <View style={{ alignItems: "center" }}>
               <Text>Welcome to rnmovies</Text>
-              <Text extraLarge color={COLORS.white} style={{ marginTop: 20 }}>
+              <Text
+                style={{ marginTop: 20, color: COLORS.white, fontSize: 30 }}
+              >
                 Get Started.
               </Text>
             </View>
           </View>
           <View style={actionsContainer}>
             <View>
-              <Button text="Sign In" onPress={() => navigate("auth")} />
+              {/* <Button mode="outlined" onPress={() => navigate("auth")}>
+                Sign In
+              </Button> */}
             </View>
             <View style={{ alignSelf: "center" }}>
-              <Button
-                transparent
-                text="Sign Up"
-                tintColor={COLORS.white}
+              {/* <Button
+                mode="outlined"
+                style={COLORS.white}
                 onPress={() => navigate("register")}
-              />
+              >
+                Sign Up
+              </Button> */}
             </View>
           </View>
         </View>

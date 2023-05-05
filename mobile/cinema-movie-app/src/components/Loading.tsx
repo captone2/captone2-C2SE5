@@ -1,6 +1,6 @@
 import React from "react";
 import { Platform, View, ActivityIndicator } from "react-native";
-import { COLORS } from "../../constants";
+import { COLORS } from "../utils/theme";
 
 const Loading = () => (
   <View style={{ marginVertical: Platform.OS === "ios" ? 10 : 5 }}>

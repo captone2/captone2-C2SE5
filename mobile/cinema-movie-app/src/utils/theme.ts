@@ -1,7 +1,12 @@
+import { DefaultTheme } from "react-native-paper";
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 export const COLORS = {
+  ...DefaultTheme,
+  color: {
+    primary: "#9A9A9A",
+  },
   red: "#FC0303",
   blue: "#4096FE",
   gray: "#464646",
@@ -69,7 +74,3 @@ export const FONTS = {
     lineHeight: 22,
   },
 };
-
-const appTheme = { COLORS, SIZES, FONTS };
-
-export default appTheme;

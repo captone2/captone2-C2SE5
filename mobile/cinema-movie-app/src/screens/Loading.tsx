@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { View, StyleSheet } from "react-native";
-import { COLORS } from "../constants";
+import { COLORS } from "../utils/theme";
 import { Logo, Loading } from "../components";
 
 const LoadingScreen = () => {
-  const dispatch = useDispatch();
-
   // useEffect(() => {
   //   dispatch(initFirebase());
   // }, [dispatch]);
