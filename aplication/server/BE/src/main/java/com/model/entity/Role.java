@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @JsonIdentityInfo(generator= JSOGGenerator.class)
 public class Role {
-//AnhLT
+
     public static final String ROLE_USER = "ROLE_USER";
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_MODERATOR = "ROLE_MODERATOR";
@@ -51,7 +51,6 @@ public class Role {
         builder.append("Role [name=").append(name).append("]").append("[id=").append(id).append("]");
         return builder.toString();
     }
-    //end AnhLT
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

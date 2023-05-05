@@ -108,27 +108,13 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Query(value = "insert into account_role(account_id, role_id) values (?1, ?2)", nativeQuery = true)
     void createAccountRole(long accountId, long roleId);
 
-
-
-
-
     @Transactional
     @Modifying
     @Query(value = "update `account` set account.deleted = 0 where account.id=?1", nativeQuery = true)
     void deleteEmployeeAccountById(Long id);
 
-
-//    boolean existsAccountsByAccountCode(String accountCode);
-
-
-
     @Query(value = "SELECT username from  movietheater.account where username = ?1", nativeQuery = true)
-
     String existsByUserName(String username);
-
-    @Query(value = "SELECT email FROM movietheater.account where email= ?1", nativeQuery = true)
-    String existsByEmailUser(String email);
-
 
     @Transactional
     @Query(value = "select * from movietheater.account where verification_code =?1",nativeQuery = true)
@@ -137,13 +123,7 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Modifying
     @Query(value ="update movietheater.account set verification_code=?1 where username =?2",nativeQuery = true)
     void addVerificationCode(String code,String username);
-    @Transactional
-    @Query(value = "select * from movietheater.account", nativeQuery = true)
-    List<Account> getAllAccount();
-    @Transactional
-    @Modifying
-    @Query(value = "insert into account(username,password) values (?1,?2)", nativeQuery = true)
-    void addNewAccount(String username, String password);
+
     @Transactional
     @Modifying
     @Query(value = "update account set password =?1,verification_code=null where verification_code=?2 ",nativeQuery = true)

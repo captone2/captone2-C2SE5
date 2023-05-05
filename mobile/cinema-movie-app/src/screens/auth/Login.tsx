@@ -1,17 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
-import { View, Keyboard, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { COLORS, SIZES } from "../../utils/theme";
-import { BackButton, Button, TextInput } from "../../components";
+import { Button, TextInput } from "../../components";
 import { logoutAction } from "../../redux/auth/reducer";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { ValidateService } from "../../utils/validate";
 import { loginAsync } from "../../redux/auth/dispatcher";
 import { LoginInfo } from "../../redux/auth/type";
-type LoginProps = {
-  navigation?: any;
-};
-const Login: FC<LoginProps> = ({ navigation }) => {
+import { useNavigation } from "../../hooks/useNavigation";
+
+const Login: FC = () => {
   const dispatch = useAppDispatch();
   const { user, errors } = useAppSelector((state) => state.user);
 
@@ -25,12 +24,15 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     error: "",
   });
 
+  const navigation = useNavigation();
   const handleLoginPressed = () => {
     console.log("press login");
 
     setLoading(true);
-    const checkEmailHasError = ValidateService.emailValidator(email);
-    const checkPasswordHasError = ValidateService.passwordValidator(password);
+    const checkEmailHasError = ValidateService.emailValidator(email.email);
+    const checkPasswordHasError = ValidateService.passwordValidator(
+      password.password
+    );
 
     if (checkEmailHasError || checkPasswordHasError) {
       setLoading(false);
@@ -50,7 +52,11 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     };
     dispatch(loginAsync(body))
       .unwrap()
-      .then(() => navigation.navigate("Welcome"));
+      .then(() => {
+        navigation.navigate("Welcome");
+        console.log(12);
+      });
+    setLoading(false);
   };
 
   useEffect(
@@ -63,7 +69,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     },
     []
   );
-  console.log(errors);
 
   return (
     <View style={styles.wrapContainer}>
@@ -77,7 +82,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
           onChangeText={(text: string) => setEmail({ email: text, error: "" })}
           autoCapitalize="none"
           returnKeyType="next"
-          keyboardType="email-address"
           autoComplete="email"
           error={!!email.error}
           errorText={email.error}
@@ -113,18 +117,17 @@ const Login: FC<LoginProps> = ({ navigation }) => {
           text="Sign In"
           disabled={!(email.email && password.password)}
           loading={loading}
-          onPress={() => {
-            Keyboard.dismiss();
-            handleLoginPressed;
-          }}
+          onPress={handleLoginPressed}
         />
         <View style={{ alignSelf: "center" }}>
+          {/* TODO: redirect to web */}
           <Button
             text="Create an account"
             transparent
             tintColor={COLORS.white}
             onPress={() => navigation.navigate("register")}
           />
+          {/* <ActivityIndicator size="small" color="#0000ff" animating={loading} /> */}
         </View>
       </View>
     </View>
@@ -148,6 +151,7 @@ const styles = StyleSheet.create({
   textHeader: {
     textAlign: "center",
     fontSize: SIZES.largeTitle,
+    color: COLORS.white,
   },
   errors: {
     justifyContent: "center",

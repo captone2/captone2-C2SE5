@@ -19,6 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin("**")
 public class AuthController {
 
 	@Autowired
@@ -29,6 +30,11 @@ public class AuthController {
 
 	@Autowired
 	TokenProvider tokenProvider;
+
+	@GetMapping("/")
+	public String test(){
+		return"hello world";
+	}
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

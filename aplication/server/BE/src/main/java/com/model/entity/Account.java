@@ -14,7 +14,6 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Transient
     private Boolean isEnabled;
     private String username;
     @Transient
@@ -30,22 +29,6 @@ public class Account {
     private String gender;
     private int totalPoint;
     private String imageUrl;
-
-    @Transient
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean deleted;
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean enable;
-
     private String provider;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
@@ -183,15 +166,6 @@ public class Account {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-
     }
 
     public List<Comment> getComments() {

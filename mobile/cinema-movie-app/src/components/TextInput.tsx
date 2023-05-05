@@ -16,7 +16,7 @@ const TextInput: FC<TextInputProps1> = ({
     <View style={styles.container}>
       <Input
         style={styles.input}
-        selectionColor={COLORS.colors.primary}
+        selectionColor={COLORS.lightGrey}
         underlineColor="transparent"
         mode="outlined"
         {...props}

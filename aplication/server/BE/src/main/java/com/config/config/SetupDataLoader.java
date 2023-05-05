@@ -58,7 +58,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 			user.setPassword(passwordEncoder.encode("admin@"));
 			user.setRoles(roles);
 			user.setProvider(SocialProvider.LOCAL.getProviderType());
-			user.setDeleted(false);
+			user.setEnabled(false);
 //			Date now = Calendar.getInstance().getTime();
 //			user.setCreatedDate(now);
 //			user.setModifiedDate(now);

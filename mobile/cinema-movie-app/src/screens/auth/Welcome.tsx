@@ -3,15 +3,12 @@ import React, { FC } from "react";
 import { View, StyleSheet, SafeAreaView, Text } from "react-native";
 import { Logo, Button } from "../../components";
 import { COLORS } from "../../utils/theme";
+import { useNavigation } from "../../hooks/useNavigation";
 
-type Props = {
-  navigation: any;
-};
-const Welcome: FC<Props> = ({ navigation }) => {
+const Welcome: FC = () => {
   const { container, logoContainer, actionsContainer, welcomeContainer } =
     styles;
-  const { navigate } = navigation;
-  console.log(1);
+  const navigation = useNavigation();
 
   return (
     <React.Fragment>
@@ -35,18 +32,21 @@ const Welcome: FC<Props> = ({ navigation }) => {
           </View>
           <View style={actionsContainer}>
             <View>
-              {/* <Button mode="outlined" onPress={() => navigate("auth")}>
-                Sign In
-              </Button> */}
+              <Button
+                transparent
+                text="Sign In"
+                tintColor={COLORS.white}
+                onPress={() => navigation.navigate("Login")}
+              />
             </View>
             <View style={{ alignSelf: "center" }}>
               {/* <Button
-                mode="outlined"
-                style={COLORS.white}
-                onPress={() => navigate("register")}
-              >
-                Sign Up
-              </Button> */}
+                transparent
+                text="Sign Up"
+                tintColor={COLORS.white}
+                color={COLORS.white}
+                onPress={() => navigate("HomeStack")}
+              /> */}
             </View>
           </View>
         </View>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   actionsContainer: {
     alignSelf: "stretch",
     paddingHorizontal: 20,
+    // backgroundColor: COLORS.red,
   },
 });
 

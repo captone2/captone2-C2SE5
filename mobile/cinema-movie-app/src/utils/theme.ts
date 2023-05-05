@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get("window");
 export const COLORS = {
   ...DefaultTheme,
   color: {
-    primary: "#9A9A9A",
+    primary: "#1A2435",
   },
   red: "#FC0303",
   blue: "#4096FE",

@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 import { useContext } from "react";
 
-const useNavigation = () => {
+export const useNavigation = () => {
   return useContext(NavigationContext) as NavigationScreenProp<
     NavigationRoute,
     NavigationParams

@@ -4,17 +4,18 @@ import AuthStack from "./AuthStack";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "../auth/Login";
-import HomeStack from "./HomeStack";
+import Welcome from "../auth/Welcome";
 
 const Navigation = () => {
   const user = useAppSelector((state) => state.user);
+
+  console.log("Navigation", user);
 
   // if (initializing) return <Loading />;
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      {user.user.id ? <MainTab /> : <AuthStack />}
+      {user.user.id ? <MainTab /> : <Welcome />}
     </NavigationContainer>
   );
 };

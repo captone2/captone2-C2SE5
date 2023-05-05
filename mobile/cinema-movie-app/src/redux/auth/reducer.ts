@@ -19,7 +19,7 @@ const initialState: UserState = {
     accessToken: "",
     roles: [],
   },
-  errors: [{ errorCode: "123", errorMessage: "1" }],
+  errors: [],
 };
 
 const userSlice = createSlice({

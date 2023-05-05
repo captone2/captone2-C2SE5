@@ -37,6 +37,6 @@ public class LocalUserDetailService implements UserDetailsService {
 	 * @return
 	 */
 	private LocalUser createLocalUser(Account user) {
-		return new LocalUser(user.getEmail(), user.getPassword(), user.isEnable(), true, true, true, GeneralUtils.buildSimpleGrantedAuthorities(user.getRoles()), user);
+		return new LocalUser(user.getEmail(), user.getPassword(), user.getEnabled(), true, true, true, GeneralUtils.buildSimpleGrantedAuthorities(user.getRoles()), user);
 	}
 }
