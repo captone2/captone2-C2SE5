@@ -2,11 +2,8 @@ package com.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
-
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -34,8 +31,6 @@ public class Account {
     private int totalPoint;
     private String imageUrl;
 
-
-
     @Transient
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean deleted;
@@ -50,15 +45,12 @@ public class Account {
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean enable;
-    //AnhLT
-    private String provider;
-    //end AnhlT
 
+    private String provider;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Comment> comments;
-
 
     public String getVerificationCode() {
         return verificationCode;
@@ -76,8 +68,6 @@ public class Account {
         isEnabled = enabled;
     }
 
-
-
     @ManyToMany
     @JsonBackReference
     @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -90,8 +80,6 @@ public class Account {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-
 
     public long getId() {
         return id;
@@ -197,7 +185,6 @@ public class Account {
         this.imageUrl = imageUrl;
     }
 
-
     public boolean isDeleted() {
         return deleted;
     }
@@ -215,8 +202,6 @@ public class Account {
         this.comments = comments;
     }
 
-
-    //anhLT
     public String getProvider() {
         return provider;
     }
@@ -224,8 +209,6 @@ public class Account {
     public void setProvider(String provider) {
         this.provider = provider;
     }
-    // end AnhlT
 
 }
-
 
