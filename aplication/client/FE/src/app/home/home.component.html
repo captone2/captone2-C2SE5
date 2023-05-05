@@ -257,31 +257,28 @@
                             <div class="pic-caption open-left">
                               <h4 class="entry-title">
                                 <a href="#">
-                                  Jumanji: Welcome to the Jungle </a>
+                                  {{movie.title}} </a>
                               </h4>
                               <span class="pg">
                                 DT </span>
                               <div class="desc-mv">
                                 <p>
                                   <span>Release: </span>
-                                  February 16, 2022
+                                  {{movie.releaseDate | date}}
                                 </p>
 
                                 <p>
                                   <span>Genre: </span>
-                                  <a href="#">Cartoon</a>,
-                                  <a href="#">Sci-fi</a>
+                                  <a href="#">{{convertGenre(movie?.genres)}}</a>
+                                  
                                 </p>
 
                                 <p>
                                   <span>Duration: </span>
-                                  02 hours 30 minutes
+                                  {{convertTime(movie?.runningTime)}}
                                 </p>
 
-                                <p>
-                                  <span>Language: </span>
-                                  English
-                                </p>
+  
                               </div>
 
 

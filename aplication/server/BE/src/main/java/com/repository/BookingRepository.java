@@ -46,4 +46,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "where movie_show_time.id = :id", nativeQuery = true)
     List<Integer> getSeatByShowTimeId(@Param("id") Integer id);
 
+
+    @Query(value = "select * from booking where account_id = :id", nativeQuery = true)
+    List<Booking> getBookingByAccountId(@Param("id") Integer id);
+
 }

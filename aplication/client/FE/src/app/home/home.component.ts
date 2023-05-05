@@ -4,14 +4,14 @@ import {MovieService} from "../services/movie.service";
 import {Movie} from "../shared/model/entity/Movie";
 import { TokenStorageService } from '../services/token-storage.service';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Genre } from '../shared/model/entity/Genre';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  url = 'assets/js/main.js';
-  loadAPI: any;
+ 
   public movieList: Movie[];
   @ViewChild('overlay') overlay: ElementRef;
   @ViewChild('modalPayment') modalPayment: ElementRef;
@@ -20,9 +20,7 @@ export class HomeComponent implements OnInit {
   constructor(private movieService : MovieService, private tokenStorage: TokenStorageService,) { }
 
   ngOnInit(): void {
-    this.loadAPI = new Promise(resolve => {
-      this.loadScript();
-    });
+   
     this.movieService.getMovieShowing().subscribe((data) => {
        this.movieList = data;
       console.log(data)
@@ -36,12 +34,19 @@ export class HomeComponent implements OnInit {
     this.overlay.nativeElement.style.display = 'none';
   }
 
-  public loadScript() {
-    const node = document.createElement('script');
-    node.src = this.url;
-    node.type = 'text/javascript';
-    node.async = true;
-    node.charset = 'utf-8';
-    document.getElementsByTagName('head')[0].appendChild(node);
+
+
+
+  convertTime(id: number) {
+    const minutes: number = id;
+    const date: Date = new Date(0, 0, 0, 0, minutes);
+    const hours: number = date.getHours();
+    const formattedMinutes: string = ('0' + date.getMinutes()).slice(-2);
+    const formattedTime: string = ('0' + hours).slice(-2) + ' hours ' + formattedMinutes + ' minutes';
+    return formattedTime
+  }
+
+  convertGenre(arr: Genre[]) {
+    return arr.map(genre => genre.name).join(', ');
   }
 }

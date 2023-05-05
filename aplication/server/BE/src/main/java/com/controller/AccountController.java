@@ -2,20 +2,22 @@ package com.controller;
 
 
 import com.model.dto.AccountMemberDTO;
-import com.model.dto.Viet.AccountUserDTO;
-import com.model.dto.Viet.ManagerBooking;
+import com.model.dto.Password;
+import com.model.dto.Sy.AccountUserDTO;
+import com.model.dto.Sy.ManagerBooking;
 
 import com.model.dto.employeeAccount.CreateEmployeeAccount;
 import com.model.dto.employeeAccount.UpdateEmployeeAccount;
 
 import com.model.entity.Account;
-import com.model.entity.Role;
+import com.repository.AccountRepository;
 import com.repository.RoleRepository;
 import com.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import payload.reponse.MessageResponse;
@@ -27,9 +29,8 @@ import payload.request.VerifyRequest;
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
-import java.util.HashSet;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -42,6 +43,8 @@ public class AccountController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    AccountRepository accountRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -55,7 +58,29 @@ public class AccountController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
+    @PatchMapping("update/password/{id}")
+    public ResponseEntity<?> updatePassword(@PathVariable("id") Long id, @RequestBody Password password) {
 
+        Optional<Account> account = accountRepository.findAccountById1(id);
+        if (!account.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            String originalPasswordEncode = account.get().getPassword();
+            boolean checkPassword = passwordEncoder.matches(password.getOldPassword(), originalPasswordEncode);
+            if (checkPassword) {
+                if (!password.getNewPassword().equals(password.getConfirmPassword())) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                } else {
+                    String newPassWordEncode = new BCryptPasswordEncoder().encode(password.getNewPassword());
+                    accountRepository.changePassword(id,newPassWordEncode);
+
+                    return new ResponseEntity<>(HttpStatus.OK);
+                }
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
 
 
 

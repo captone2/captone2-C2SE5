@@ -13,13 +13,13 @@ public class MovieImageServiceImpl implements MovieImageService {
     @Autowired
     MovieImageRepository movieImageRepository;
 
-    // HueHv
+
     @Override
     public void addImageByIdMovie(String image_url, long movie_id) {
         movieImageRepository.addImage(image_url, movie_id);
     }
 
-    // HueHv
+
     @Override
     public List<MovieImage> listImageMovieById(long id) {
         return movieImageRepository.listImageMovieById(id);

@@ -15,7 +15,7 @@
                 <div class="amy-page-title amy-center">
                     <div class="amy-inner container">
                         <h1 class="page-title" style="padding: 48px">
-                            Comming Soon </h1>
+                            Now Playing </h1>
                     </div>
                 </div>
                 <span class="amy-section-overlay"></span>
@@ -24,7 +24,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2">
-                            <div class="form-group" style="margin-bottom: 20px; " >
+                            <div class="form-group" style="margin-bottom: 20px;">
                                 <select (change)="changeGenre($event.target.value)" name="genres" id="genres"
                                     class="form-control" style="border-radius: 10px;height: auto;font-size: 14px;padding: 10px;">
                                     <option value="">-- Tất cả --</option>
@@ -34,28 +34,24 @@
                         </div>
                         <div class="col-md-8">
                             <!-- Row 1 -->
-                            <div *ngFor="let movie of movieConvert; let i = index" class="row"
+                            <div class="row"
                                 style="margin-bottom: 30px;">
-                                <div class="header" style="margin-bottom: 10px;">
-                                    <h5 style="text-transform: uppercase; margin: 0;">TUẦN {{movie?.week}}</h5>
-                                    <span style="font-size: 16px;">{{movie?.day}}</span>
-                                </div>
                                 <div class="row" style="display: flex;">
-                                    <div *ngFor="let movieDetail of movie.movieShowTime; let i = index"
+                                    <div  *ngFor="let movie of movieNow; let i = index"
                                         class="col-2-4 border-t border-b" style="height: 300px;">
                                         <div class="amy-movie-item-front">
                                             <div class="amy-movie-item-poster" style="position: relative;">
                                                 <a
                                                     href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/norma-royal-opera/">
                                                     <img class="border-t"
-                                                        src="{{movieDetail.movie.movieImages[0].imageUrl}}"
+                                                        src="{{movie.movie.movieImages[0].imageUrl}}"
                                                         alt="Norma – Royal Opera">
                                                 </a>
                                                 <!-- <span class="amy-movie-field-imdb pss">7.8</span> -->
                                                 <div style=" padding: 10px;">
                                                     <p style="font-weight: bold; font-size: 16px; margin: 0;">
-                                                        {{movieDetail.movie.title}}</p>
-                                                    <p>{{movieDetail.showDate | date: 'dd/MM'}}</p>
+                                                        {{movie.movie.title}}</p>
+                                                    <p>{{movie.movie.releaseDate | date: 'dd/MM'}}</p>
                                                 </div>
                                             </div>
                                         </div>

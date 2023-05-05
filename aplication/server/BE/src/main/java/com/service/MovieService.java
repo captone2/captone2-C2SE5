@@ -1,11 +1,10 @@
 package com.service;
 
-import com.model.dto.hue.SearchMovieDTO;
+import com.model.dto.Hue.SearchMovieDTO;
 
 import com.model.entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;

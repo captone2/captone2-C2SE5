@@ -59,9 +59,6 @@ public class Role {
 
     private String name;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
-    private List<AccountRole> accountRoles;
-
     public long getId() {
         return id;
     }
@@ -78,11 +75,4 @@ public class Role {
         this.name = name;
     }
 
-    public List<AccountRole> getAccountRoles() {
-        return accountRoles;
-    }
-
-    public void setAccountRoles(List<AccountRole> accountRoles) {
-        this.accountRoles = accountRoles;
-    }
 }

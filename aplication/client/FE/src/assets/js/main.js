@@ -4383,3 +4383,56 @@
 	});
 
 })(jQuery, window, document);
+
+jQuery(".img-user").click(function () {
+  jQuery(".list-down").slideToggle();
+});
+
+
+jQuery("ul li.showtime:first").addClass("active-showtime");jQuery("ul li.showtime").click(function(){
+  jQuery(this).addClass("active-showtime");
+  jQuery(this).siblings().removeClass("active-showtime");
+});
+
+
+jQuery('.nav-item a').click(function (e) {
+  e.preventDefault();
+  jQuery('.nav-item a.active').removeClass('active');
+  jQuery(this).addClass('active');
+  if (jQuery(this).attr('value') == "ve") {
+      jQuery("#ve").css("display", "block");
+      jQuery("#matkhau").css("display", "none");
+      jQuery("#taikhoan").css("display", "none");
+  } else {
+      jQuery("#ve").css("display", "none");
+      jQuery("#matkhau").css("display", "none");
+      jQuery("#taikhoan").css("display", "block");
+  }
+});
+
+jQuery(".reset-pass").click(function () {
+  jQuery("#ve").css("display", "none");
+  jQuery("#taikhoan").css("display", "none");
+  jQuery("#matkhau").css("display", "block");
+});
+
+jQuery('.nav-item').hover(function () {
+  // Khi di chuột vào nav-item
+  var menu = jQuery(this).find('.dropdown-menu');
+  // Kiểm tra xem dropdown-menu đã hiển thị hay chưa
+  if (!menu.hasClass('show')) {
+      // Nếu chưa hiển thị, sử dụng slideDown để hiển thị
+      menu.slideDown(300, function () {
+          menu.addClass('show');
+      });
+  }
+}, function () {
+  // Khi di chuột khỏi nav-item
+  var menu = jQuery(this).find('.dropdown-menu');
+  // Sử dụng slideUp để ẩn
+  menu.slideUp(300, function () {
+      menu.removeClass('show');
+  });
+});
+
+

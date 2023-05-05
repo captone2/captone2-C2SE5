@@ -61,7 +61,7 @@
 <div id="main">
     <div id="content" class="site-content">
 
-        <section id="amy-page-header" class="amy-page-header">
+        <section id="amy-page-header" class="amy-page-header" style="height: 137px;">
             <div class="amy-page-title amy-center">
                 <div class="amy-inner container">
                     <h1 class="page-title">
@@ -88,7 +88,8 @@
                                                         </a>
                                                     </li> -->
                                                     <li *ngFor="let date of dateList; let i = index" class="showtime">
-                                                        <span (click)="getListMovieShowTime(date)" >{{date | date: 'EEEE, dd/MM'}} </span>
+                                                        <span (click)="getListMovieShowTime(date)">{{date | date: 'EEEE,
+                                                            dd/MM'}} </span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -111,7 +112,7 @@
                                                         <div class="amy-movie-item-back">
                                                             <div class="amy-movie-item-back-inner">
                                                                 <div class="amy-movie-item-content">
-                                                                    <span class="amy-movie-field-imdb">7.3</span>
+
                                                                     <h3 class="amy-movie-field-title">
                                                                         <a
                                                                             href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/movie/the-girl-with-all-the-gifts/">
@@ -121,30 +122,11 @@
                                                                     <div class="amy-movie-item-meta">
                                                                         <span class="amy-movie-field-mpaa">G</span>
                                                                         <span class="amy-movie-field-duration"><i
-                                                                                class="fa fa-clock-o"></i>02
-                                                                            hours 00
-                                                                            minutes</span>
+                                                                                class="fa fa-clock-o"></i>{{convertTime(movie?.movie.runningTime)}}</span>
                                                                     </div>
 
                                                                     <div class="amy-movie-field-desc">
-                                                                        <p>Sed ut
-                                                                            perspiciatis
-                                                                            unde omnis iste
-                                                                            natus error sit
-                                                                            voluptatem
-                                                                            accusantium
-                                                                            doloremque
-                                                                            laudantium,
-                                                                            totam rem
-                                                                            aperiam, ...</p>
-                                                                    </div>
-                                                                    <div
-                                                                        class="amy-movie-custom-field-group amy-movie-field-language">
-                                                                        <label
-                                                                            class="amy-movie-custom-field-label">Language:</label>
-                                                                        <div class="amy-movie-custom-field-content">
-                                                                            English
-                                                                        </div>
+                                                                        <p>{{movie?.movie.content}}</p>
                                                                     </div>
                                                                     <div
                                                                         class="amy-movie-custom-field-group amy-movie-field-release_date">
@@ -152,7 +134,7 @@
                                                                             class="amy-movie-custom-field-label">Release
                                                                             Date:</label>
                                                                         <div class="amy-movie-custom-field-content">
-                                                                            March 17, 2022
+                                                                            {{movie.showDate | date: 'mediumDate'}}
                                                                         </div>
                                                                     </div>
                                                                     <div
@@ -161,7 +143,7 @@
                                                                             class="amy-movie-custom-field-label">Genre:</label>
                                                                         <div class="amy-movie-custom-field-content">
                                                                             <a
-                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/genre/cartoon/">Cartoon</a>
+                                                                                href="#">{{convertGenre(movie?.movie.genres)}}</a>
                                                                         </div>
                                                                     </div>
                                                                     <div
@@ -169,15 +151,8 @@
                                                                         <label
                                                                             class="amy-movie-custom-field-label">Actor:</label>
                                                                         <div class="amy-movie-custom-field-content">
-                                                                            <a
-                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/alexander-cattly/">Alexander
-                                                                                Cattly</a>,
-                                                                            <a
-                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/cartin-hollia/">Cartin
-                                                                                Hollia</a>,
-                                                                            <a
-                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/actor/humpray-richard/">Humpray
-                                                                                Richard</a>
+                                                                            <a href="#">{{movie?.movie.cast}}</a>
+
                                                                         </div>
                                                                     </div>
                                                                     <div
@@ -185,29 +160,18 @@
                                                                         <label
                                                                             class="amy-movie-custom-field-label">Director:</label>
                                                                         <div class="amy-movie-custom-field-content">
-                                                                            <a
-                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/kingia-rogers/">Kingia
-                                                                                Rogers</a>,
-                                                                            <a
-                                                                                href="http://demo.amytheme.com/movie/demo/elementor-single-cinema/director/mae-west/">Mae
-                                                                                West</a>
+                                                                            <a href="#">{{movie?.movie.production}}</a>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="amy-movie-item-showtimes amy-item-33">
                                                                     <div class="amy-movie-intro-times">
-                                                                        <span>06h30 <p class="price-ticket">70</p>
+                                                                        <span *ngFor="let showtime of movie.showtime; let i = index">
+                                                                            <p class="price-ticket">{{showtime.showTime | slice:0:5}}</p>
                                                                         </span>
-                                                                        <span> 19h20 <p class="price-ticket">70</p>
-                                                                        </span>
-                                                                        <span> 13h30 <p class="price-ticket">70</p>
-                                                                        </span>
-                                                                        <span> 16h20 <p class="price-ticket">70</p>
-                                                                        </span>
-                                                                        <span> 20h30 <p class="price-ticket">70</p>
-                                                                        </span>
-                                                                        <a class="button" href="#">Buy
-                                                                            Ticket</a>
+                                                              
+                                                                       
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -1,6 +1,6 @@
 package com.service.impl;
 
-import com.model.dto.hue.SearchMovieDTO;
+import com.model.dto.Hue.SearchMovieDTO;
 import com.model.entity.Movie;
 import com.repository.MovieRepository;
 import com.service.MovieService;
@@ -31,19 +31,19 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findAll();
     }
 
-    //TuHC - lay phim dang chieu
+
     @Override
     public List<Movie> findAllMovieShowing() {
         return movieRepository.findAllMovieShowing();
     }
 
-    //TuHC - lay phim sap chieu
+
     @Override
     public List<Movie> findAllMovieComingSoon(LocalDate today) {
         return movieRepository.findAllMovieComingSoon(today);
     }
 
-    //TuHc - lay phim theo id
+
     @Override
     public Movie findMovieById(long id) {
         return movieRepository.findMovieById(id);
@@ -92,19 +92,19 @@ public class MovieServiceImpl implements MovieService {
                             String production, String trailer_Url, String content, boolean is3D, long account_Id, long id) {
         movieRepository.updateMovie(title, showing_From, showing_To, cast, director, release_Date, rated, running_Time, production, trailer_Url, content, is3D, account_Id, id);
     }
-    //TuHC - tim kiem phim
+
     @Override
     public List<Movie> searchMovie(String keyword, LocalDate today) {
         return movieRepository.searchMovie(keyword, today);
     }
 
-    //TuHC - lay top 5 phim
+
     @Override
     public List<Movie> listTopFiveMovie() {
         return movieRepository.listTopFiveMovie();
     }
 
-    //TuHC - lay phim dang chieu va sap chieu
+
     @Override
     public List<Movie> findAllMovieShowingAndComingSoon() {
         return movieRepository.findAllMovieShowingAndComingSoon();

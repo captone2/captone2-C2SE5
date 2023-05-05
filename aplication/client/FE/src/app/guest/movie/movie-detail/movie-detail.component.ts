@@ -12,6 +12,7 @@ import { Transaction } from 'src/app/shared/model/dto/Transaction';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Food } from '../../../shared/model/entity/Food';
+import { Genre } from 'src/app/shared/model/entity/Genre';
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
@@ -20,6 +21,7 @@ import { Food } from '../../../shared/model/entity/Food';
 export class MovieDetailComponent implements OnInit {
   id: number;
   movie: Movie;
+  movieDetail: Movie;
   movieShowtime1: MovieShowtime;
   movieShowtime: MovieShowtime[] = [];
   dateDTO: DateDTO[] = [];
@@ -45,6 +47,7 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(() => {
         this.clearExpiredCookies();
       });
+      this.getMovieDetail();
   }
   public loadScript() {
     const node = document.createElement('script');
@@ -54,6 +57,15 @@ export class MovieDetailComponent implements OnInit {
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
   }
+  
+  getMovieDetail() {
+    this.id = parseInt(this.activatedRoute.snapshot.params['id']);
+    this.movieService.findMovieById(this.id).subscribe(data => {
+      this.movieDetail = data ;
+      console.log(data)
+    })
+  }
+
   getMovie() {
     this.id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.movieService.getMovieShowtimeByMovieId(this.id).subscribe(data => {
@@ -256,5 +268,18 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getAllFood().subscribe(data => {
       this.foodList = data
     })
+  }
+
+  convertTime(id: number) {
+    const minutes: number = id;
+    const date: Date = new Date(0, 0, 0, 0, minutes);
+    const hours: number = date.getHours();
+    const formattedMinutes: string = ('0' + date.getMinutes()).slice(-2);
+    const formattedTime: string = ('0' + hours).slice(-2) + ' hours ' + formattedMinutes + ' minutes';
+    return formattedTime
+  }
+
+  convertGenre(arr: Genre[]) {
+    return arr.map(genre => genre.name).join(', ');
   }
 }

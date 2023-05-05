@@ -1,4 +1,4 @@
-package com.model.dto.hue;
+package com.model.dto.Hue;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,7 @@ public class MovieDTO {
 
     private List<String> genres;
     private List<String> movieImages;
-    private List<com.model.dto.hue.ShowTimesDTO> showtime;
+    private List<com.model.dto.Hue.ShowTimesDTO> showtime;
 
 //    private List<Comment> comments;
 
@@ -43,11 +43,11 @@ public class MovieDTO {
         this.movieImages = movieImages;
     }
 
-    public List<com.model.dto.hue.ShowTimesDTO> getShowtime() {
+    public List<com.model.dto.Hue.ShowTimesDTO> getShowtime() {
         return showtime;
     }
 
-    public void setShowtime(List<com.model.dto.hue.ShowTimesDTO> showtime) {
+    public void setShowtime(List<com.model.dto.Hue.ShowTimesDTO> showtime) {
         this.showtime = showtime;
     }
 

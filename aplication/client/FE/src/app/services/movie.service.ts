@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import { MovieShowtime } from '../shared/model/entity/MovieShowtime';
 import { Movie } from '../shared/model/entity/Movie';
 import { Food } from '../shared/model/entity/Food';
+import { Genre } from '../shared/model/entity/Genre';
 
 
 @Injectable({
@@ -22,10 +23,25 @@ export class MovieService {
     return this.httpClient.get(this.MOVIE_URL + '/movie-showing');
   }
 
+  public getAllGenre(): Observable<Genre[]> {
+    return this.httpClient.get<Genre[]>(this.MOVIE_SHOWTIME_URL + 'genre');
+  }
+
+  public getMovieNow(): Observable<MovieShowtime[]> {
+    return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'now');
+  }
+
+  public getMovieNowByGenre(id: string): Observable<MovieShowtime[]> {
+    return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'now-genre/' + id);
+  }
+
   public getMovieShowingByDate(date: string): Observable<MovieShowtime[]> {
     return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'date/' + date);
   }
 
+  public getMovieShowingByYearAndGenre(id: string): Observable<MovieShowtime[]> {
+    return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'year-genre/' + id );
+  }
   public getMovieShowingByYear(): Observable<MovieShowtime[]> {
     return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'year-now');
   }

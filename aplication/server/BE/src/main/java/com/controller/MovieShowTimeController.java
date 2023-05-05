@@ -1,7 +1,9 @@
 package com.controller;
 
 
+import com.model.entity.Genre;
 import com.model.entity.MovieShowTime;
+import com.repository.GenreRepository;
 import com.repository.MovieShowTimeRepository;
 import com.service.MovieShowTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class MovieShowTimeController {
     MovieShowTimeRepository movieShowTimeRepository;
     @Autowired
     MovieShowTimeService movieShowTimeService;
+    @Autowired
+    GenreRepository genreRepository;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<List<MovieShowTime>> getMovieShowTimeByMovieId(@PathVariable("id") long id) {
@@ -50,6 +54,30 @@ public class MovieShowTimeController {
     public ResponseEntity<List<MovieShowTime>> getMovieShowTimeByYearNow() {
         List<MovieShowTime> movieShowTimes =  movieShowTimeRepository.findMovieShowTimeByYearNow();
         return new ResponseEntity<>(movieShowTimes, HttpStatus.OK);
+    }
 
+
+    @GetMapping(value = "/year-genre/{id}")
+    public ResponseEntity<List<MovieShowTime>> getMovieShowTimeByYearGenre(@PathVariable("id") String id) {
+        List<MovieShowTime> movieShowTimes =  movieShowTimeRepository.findMovieShowTimeByYearAndGenre(id);
+        return new ResponseEntity<>(movieShowTimes, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/genre")
+    public ResponseEntity<List<Genre>> getAllGenre() {
+        List<Genre> genreList =  genreRepository.findAllGenre();
+        return new ResponseEntity<>(genreList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/now")
+    public ResponseEntity<List<MovieShowTime>> getMovieShowTimeNow() {
+        List<MovieShowTime> movieShowTimes =  movieShowTimeRepository.findMovieCNowPlaying();
+        return new ResponseEntity<>(movieShowTimes, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/now-genre/{id}")
+    public ResponseEntity<List<MovieShowTime>> getMovieShowTimeNowByGenre(@PathVariable("id") String id) {
+        List<MovieShowTime> movieShowTimes =  movieShowTimeRepository.findMovieShowTimeNow(id);
+        return new ResponseEntity<>(movieShowTimes, HttpStatus.OK);
     }
 }

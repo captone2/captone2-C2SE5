@@ -15,7 +15,7 @@ public class Comment {
     private String content;
 
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean seen;
+    private Integer rate;
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
@@ -56,22 +56,11 @@ public class Comment {
         this.account = account;
     }
 
-    public boolean isSeen() {
-        return seen;
+    public Integer getRate() {
+        return rate;
     }
 
-    public void setSeen(boolean seen) {
-        this.seen = seen;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", seen=" + seen +
-                ", movie=" + movie +
-                ", account=" + account +
-                '}';
+    public void setRate(Integer rate) {
+        this.rate = rate;
     }
 }

@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { MovieShowtime } from 'src/app/shared/model/entity/MovieShowtime';
 import * as _ from 'lodash';
 import { CommingSoonDTO } from 'src/app/shared/model/dto/CommingSoonDTO';
+import { Genre } from 'src/app/shared/model/entity/Genre';
+import { log } from 'console';
 @Component({
   selector: 'app-comming-soon',
   templateUrl: './comming-soon.component.html',
@@ -12,16 +14,29 @@ import { CommingSoonDTO } from 'src/app/shared/model/dto/CommingSoonDTO';
 export class CommingSoonComponent implements OnInit {
   movieList: MovieShowtime[] = [];
   movieConvert: CommingSoonDTO[] = [];
+  genreList: Genre[] = [] ;
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
     this.getListDate();
+    this.getListGenre();
   }
 
-
+  getListGenre() {
+    this.movieService.getAllGenre().subscribe(data => {
+      this.genreList = data;
+    })
+  }
 
   getListDate() {
     this.movieService.getMovieShowingByYear().subscribe(data => {
+      this.movieList = data;
+      this.getListConvert();
+    })
+  }
+
+  getListMovieGenre(id: string) {
+    this.movieService.getMovieShowingByYearAndGenre(id).subscribe(data => {
       this.movieList = data;
       this.getListConvert();
     })
@@ -37,7 +52,7 @@ export class CommingSoonComponent implements OnInit {
       this.movieConvert.push({
         week: `#${i}`,
         day: `${startDate} - ${endDate}`,
-        movie: [],
+        movieShowTime: [],
         about: about
       });
     }
@@ -45,19 +60,18 @@ export class CommingSoonComponent implements OnInit {
 
 
     this.movieList.forEach(show => {
-      const showDate = new Date(show.showDate);
       this.movieConvert.forEach(week => {
         const [startStr, endStr] = week.about.split(' - ');
         const start = new Date(startStr);
         const end = new Date(endStr);
         const date = new Date(show.showDate);
         const isInRange = date >= start && date <= end;
-        if (isInRange) {
-          week.movie.push(show);
+        if (isInRange && this.isMovieExist(week.movieShowTime,show) === false) {
+            week.movieShowTime.push(show);
         }
       });
     });
-    this.movieConvert = this.movieConvert.filter((movie) => movie.movie.length > 0);
+    this.movieConvert = this.movieConvert.filter((movie) => movie.movieShowTime.length > 0);
     
 
   
@@ -65,5 +79,18 @@ export class CommingSoonComponent implements OnInit {
   }
 
 
+  isMovieExist(arr: any[], movie1: MovieShowtime): boolean {
+    return arr.some(item => item.movie.id === movie1.movie.id && item.showDate === movie1.showDate);
+  }
 
+  changeGenre(genreId :any) {
+    
+      if (genreId == '' ) {
+        this.movieConvert = [];
+        this.getListDate();
+      } else {
+        this.movieConvert = [];
+        this.getListMovieGenre(genreId)
+      }
+  }
 }

@@ -8,6 +8,7 @@ import { NotificationRegisterComponent } from '../guest/register/notification-re
 import { MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
 import { isBuffer } from 'util';
+import { ToastrService } from 'ngx-toastr';
 
 declare const showPassword: any;
 @Component({
@@ -25,7 +26,7 @@ export class LoginnComponent implements OnInit {
   currentUser: any;
   googleURL = AppConstants.GOOGLE_AUTH_URL;
   facebookURL = AppConstants.FACEBOOK_AUTH_URL;
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthService, private toastr: ToastrService,
     private tokenStorage: TokenStorageService,
     private route: ActivatedRoute,
     private router: Router,
@@ -70,7 +71,8 @@ export class LoginnComponent implements OnInit {
           sessionStorage.removeItem('requestedPage');
         } else {
           const user = JSON.parse(sessionStorage.getItem('auth-user'))
-          const role = user.role[0];
+          console.log(user)
+          const role = user.roles[0];
           if (role == 'ROLE_USER') {
             this.router.navigate(['/home']);
           } else{
@@ -83,7 +85,7 @@ export class LoginnComponent implements OnInit {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
         if (this.isLoginFailed) {
-          this.notification('Đăng nhập thất bại!');
+          this.toastr.error('Đăng nhập thất bại!', 'Error: ');
         }
       }
     );

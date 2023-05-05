@@ -56,6 +56,13 @@ import {authInterceptorProviders} from './_helpers/auth.interceptor';
     MatDialogModule,
     StaticPageModule,
     NgbModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      timeOut: 2000,
+      extendedTimeOut: 1000
+    }),
     RouterModule,
     JwtModule.forRoot({
       config: {

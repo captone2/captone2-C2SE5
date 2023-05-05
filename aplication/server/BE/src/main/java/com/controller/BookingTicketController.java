@@ -68,6 +68,15 @@ public class BookingTicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/account/{id}")
+    public ResponseEntity<List<Booking>> getListBookingByAccountId(@PathVariable("id") Integer id) {
+        List<Booking> bookings = bookingRepository.getBookingByAccountId(id);
+        return new ResponseEntity<>(bookings,HttpStatus.OK);
+    }
+
+
+
     @GetMapping(value = "/movie-showing")
     public ResponseEntity<List<Movie>> getMovieShowings() {
         List<Movie> movieShowings = movieService.findAllMovieShowing();

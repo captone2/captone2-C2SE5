@@ -20,12 +20,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "where now() >= showing_from and now() <= showing_to", nativeQuery = true)
     List<Movie> findAllMovieShowing();
 
-    //    TuHC - lay danh sach phim sap chieu
+
     @Query(value = "SELECT * FROM movietheater.movie " +
             "where :today < showing_from", nativeQuery = true)
     List<Movie> findAllMovieComingSoon(@Param("today") LocalDate today);
 
-    //HueHV
+
     @Query(value = "SELECT * FROM movie", nativeQuery = true)
     Page<Movie> findAllMovie(Pageable pageable);
 
@@ -35,22 +35,22 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             " where title like %?1% and production like %?2% and release_date like %?3% and is3D like ?4 ", nativeQuery = true)
     List<Movie> searchMovie(String title, String production,String releaseDate, boolean is3D);
 
-    //HueHV
+
     @Query(value = "select * from movie where id = ?1", nativeQuery = true)
     Movie findMovieById(long id);
 
-    //HueHV
+
     @Query(nativeQuery = true, value = "select * from movie where title like %?1%")
     Page<Movie> listAllMovie(String title, Pageable pageable);
 
-    //HueHV
+
     @Query(nativeQuery = true, value = "select * from movie where title like %?1%")
     List<Movie> listAllMovie(String title);
 
-    //HueHv
+
     @Query(nativeQuery = true, value = "select * from movie where title like %?1% limit 1")
     Movie getIdMovieByName(String title);
-    //HueHV
+
 
     @Transactional
     @Modifying
@@ -59,7 +59,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     void createMovie(String title, LocalDate showing_From, LocalDate showing_To, String cast, String director, LocalDate release_Date, String rated, int running_Time,
                      String production,String trailer_Url, String content, boolean is3D, long account_Id);
 
-    //HueHV
+
     @Transactional
     @Modifying
     @Query(value = "update movie set title = ?1, showing_From = ?2, showing_To = ?3, cast = ?4, director = ?5, release_Date = ?6, rated = ?7, running_Time = ?8,  " +
@@ -67,13 +67,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     void updateMovie(String title, LocalDate showing_From, LocalDate showing_To, String cast, String director, LocalDate release_Date, String rated, int running_Time,
                      String production,String trailer_Url, String content, boolean is3D, long account_Id, long id);
 
-    //    TuHC - tim kiem phim theo ten phim, dao dien, dien vien va phim dang duoc chieu
+
     @Query(value = "SELECT * FROM movietheater.movie " +
             "where (movie.title like %:keyword%) " +
             "and (:today between showing_from and showing_to)", nativeQuery = true)
     List<Movie> searchMovie(@Param("keyword") String keyword, @Param("today") LocalDate today);
 
-    //    TuHC- top 5 movie
+
     @Query(value = "SELECT movie.id, movie.cast, movie.content, movie.director, " +
             "movie.is3d, movie.production, movie.rated, movie.release_date, " +
             "movie.running_time, movie.showing_from, movie.showing_to, " +
@@ -89,13 +89,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "limit 5", nativeQuery = true)
     List<Movie> listTopFiveMovie();
 
-    //TuHC - lay phim dang chieu va sap chieu
+
     @Query(value = "SELECT * FROM movietheater.movie \n" +
             "where ((curdate() > showing_from) and (curdate() < showing_to))\n" +
             "or curdate() < showing_from", nativeQuery = true)
     List<Movie> findAllMovieShowingAndComingSoon();
 
-//    TuHC - lay nhung phim da xem theo account
+
     @Query(value = "SELECT distinct movie.*" +
             "FROM movietheater.movie \n" +
             "inner join movie_showtime on movie_showtime.movie_id = movie.id \n" +

@@ -16,12 +16,9 @@ public class Movie {
     private long id;
 
     private String title;
-    private LocalDate showingFrom;
-    private LocalDate showingTo;
     private String cast;
     private String director;
     private LocalDate releaseDate;
-    private String rated;
     private int runningTime;
     private String production;
     private String trailerUrl;
@@ -60,22 +57,6 @@ public class Movie {
         this.title = title;
     }
 
-    public LocalDate getShowingFrom() {
-        return showingFrom;
-    }
-
-    public void setShowingFrom(LocalDate showingFrom) {
-        this.showingFrom = showingFrom;
-    }
-
-    public LocalDate getShowingTo() {
-        return showingTo;
-    }
-
-    public void setShowingTo(LocalDate showingTo) {
-        this.showingTo = showingTo;
-    }
-
     public String getCast() {
         return cast;
     }
@@ -99,14 +80,7 @@ public class Movie {
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
-
-    public String getRated() {
-        return rated;
-    }
-
-    public void setRated(String rated) {
-        this.rated = rated;
-    }
+    
 
     public int getRunningTime() {
         return runningTime;
