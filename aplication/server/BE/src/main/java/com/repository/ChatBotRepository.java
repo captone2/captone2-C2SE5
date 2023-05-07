@@ -9,19 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//TODO: should refactor name
 @Repository
 public interface ChatBotRepository extends JpaRepository<ChatBot, Long> {
 
     // add key
-//    @Transactional
-//    @Modifying
-//    @Query(nativeQuery = true, value = "insert into chatbot (keyword,  ) values (?1, ?2);")
-//    void addKeyword(String keyword, long userID);
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "insert into chat_bot (keyword) values (?1);")
+    void addKeyword(String keyword);
 
     // get all key with role super user
-    @Query(value = "SELECT * FROM chatbot", nativeQuery = true)
+    @Query(value = "SELECT * FROM chat_bot", nativeQuery = true)
     List<ChatBot> findAllKeyword();
 
+    // remove key
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM chat_bot WHERE id = ?1",nativeQuery = true)
+    void removeKeywordById(long id);
+
+    @Query(value = "SELECT * FROM chat_bot WHERE id = ?1",nativeQuery = true)
+    ChatBot findChatBotById(long id);
 
 }

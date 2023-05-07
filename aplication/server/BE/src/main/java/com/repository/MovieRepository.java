@@ -17,17 +17,8 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT * FROM movietheater.movie " +
-            "where now() >= showing_from and now() <= showing_to", nativeQuery = true)
-    List<Movie> findAllMovieShowing();
-
-
-    @Query(value = "SELECT * FROM movietheater.movie " +
             "where :today < showing_from", nativeQuery = true)
     List<Movie> findAllMovieComingSoon(@Param("today") LocalDate today);
-
-
-    @Query(value = "SELECT * FROM movie", nativeQuery = true)
-    Page<Movie> findAllMovie(Pageable pageable);
 
     @Transactional
     @Modifying
@@ -35,38 +26,14 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             " where title like %?1% and production like %?2% and release_date like %?3% and is3D like ?4 ", nativeQuery = true)
     List<Movie> searchMovie(String title, String production,String releaseDate, boolean is3D);
 
-
     @Query(value = "select * from movie where id = ?1", nativeQuery = true)
     Movie findMovieById(long id);
-
-
-    @Query(nativeQuery = true, value = "select * from movie where title like %?1%")
-    Page<Movie> listAllMovie(String title, Pageable pageable);
-
 
     @Query(nativeQuery = true, value = "select * from movie where title like %?1%")
     List<Movie> listAllMovie(String title);
 
-
     @Query(nativeQuery = true, value = "select * from movie where title like %?1% limit 1")
     Movie getIdMovieByName(String title);
-
-
-    @Transactional
-    @Modifying
-    @Query(value = "insert into movie(title, showing_From, showing_To, cast, director, release_Date, rated, running_Time,production, trailer_Url, content, is3D, account_Id) " +
-            " values(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13)", nativeQuery = true)
-    void createMovie(String title, LocalDate showing_From, LocalDate showing_To, String cast, String director, LocalDate release_Date, String rated, int running_Time,
-                     String production,String trailer_Url, String content, boolean is3D, long account_Id);
-
-
-    @Transactional
-    @Modifying
-    @Query(value = "update movie set title = ?1, showing_From = ?2, showing_To = ?3, cast = ?4, director = ?5, release_Date = ?6, rated = ?7, running_Time = ?8,  " +
-            "production = ?9, trailer_Url = ?10, content = ?11, is3D = ?12, account_Id = ?13 where movie.id = ?14 ", nativeQuery = true)
-    void updateMovie(String title, LocalDate showing_From, LocalDate showing_To, String cast, String director, LocalDate release_Date, String rated, int running_Time,
-                     String production,String trailer_Url, String content, boolean is3D, long account_Id, long id);
-
 
     @Query(value = "SELECT * FROM movietheater.movie " +
             "where (movie.title like %:keyword%) " +
@@ -107,5 +74,28 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "inner join account on account.id = booking.account_id\n" +
             "where account.id = :accountId", nativeQuery = true)
     List<Movie> findAllMovieSeenByAccount(@Param("accountId") long accountId);
+
+    @Query(value = "SELECT movie.* FROM movie " +
+            "INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
+            "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
+            "WHERE TIME(now()) >= TIME(showtime.show_time)+2; ", nativeQuery = true)
+    List<Movie> findAllMovieShowing();
+
+    @Query(value = "SELECT DISTINCT movie.* FROM movie " +
+            "INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
+            "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
+            "WHERE Date(now()) <= Date(showtime.show_time);", nativeQuery = true)
+    List<Movie> findAllMovieComingSoon();
+
+    @Query(value = "SELECT movie.* FROM movie \n" +
+            "INNER JOIN movie_show_time ON movie_show_time.movie_id = movie.id \n" +
+            "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
+            "INNER JOIN seat ON seat.screen_id = movie_show_time.screen_id\n" +
+            "INNER JOIN booking_seat ON booking_seat.seat_id = seat.id\n" +
+            "GROUP BY movie.id \n" +
+            "ORDER BY count(movie.id) DESC \n" +
+            "LIMIT 1;", nativeQuery = true)
+    Movie findOneMovieBestSeller();
+
 }
 

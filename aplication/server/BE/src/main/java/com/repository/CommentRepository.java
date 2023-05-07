@@ -18,7 +18,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "where movie_id = :id", nativeQuery = true)
     List<Comment> findAllCommentByMovieId(@Param("id") long id);
 
-
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO `movietheater`.`comment` (`content`, `account_id`, `movie_id`, `seen`) " +

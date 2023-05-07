@@ -1,7 +1,6 @@
 package com.repository;
 
 import com.model.entity.Booking;
-;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,9 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-
 
     @Modifying
     @Query(value = "INSERT INTO booking (booking_code, day_time_booking, received, total_price, account_id, payment_id, movie_showtime_id, img_qr_code)\n" +
@@ -38,7 +35,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Modifying
     @Query(value = "insert into booking_food (total,booking_id,food_id) values (:total,:bookingId,:foodId)", nativeQuery = true)
     void saveBookingFood(@Param("total") Integer total,@Param("bookingId") Long bookingId, @Param("foodId") Integer foodId);
-
 
     @Query(value = "select booking_seat.seat_id from booking_seat\n" +
             "join seat on booking_seat.seat_id = seat.id\n" +
