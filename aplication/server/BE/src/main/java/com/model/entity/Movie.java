@@ -1,10 +1,9 @@
 package com.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +21,8 @@ public class Movie {
     private int runningTime;
     private String production;
     private String trailerUrl;
+
+    private LocalDate createAt;
 
     @Column(columnDefinition="LONGTEXT")
     private String content;
@@ -146,4 +147,11 @@ public class Movie {
         this.movieImages = movieImages;
     }
 
+    public LocalDate getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDate createAt) {
+        this.createAt = createAt;
+    }
 }
