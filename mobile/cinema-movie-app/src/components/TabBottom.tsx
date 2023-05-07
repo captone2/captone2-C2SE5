@@ -1,24 +1,27 @@
 import React, { FC } from "react";
-import { StyleSheet } from "react-native";
+import { StyleProp, StyleSheet, TextStyle } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStack from "../screens/navigation/HomeStack";
-import ProfileStack from "../screens/navigation/ProfileStack";
 import { COLORS } from "../utils/theme";
-import Container from "./Container";
 import Icon from "./Icon";
+import { Profile } from "../screens";
+import GenerateQR from "./GenerateQR";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const Tab = createBottomTabNavigator();
-type getTabIconProps = {
-  color: string;
-};
+
+const get =
+  (names?: any) =>
+  ({ color }) =>
+    <FontAwesome name={names} color={color} size={18} />;
 const getTabIcon =
   (name: string) =>
   ({ color }) =>
     <Icon large={false} name={name} color={color} />;
 
-const TabBottom = () => (
+const TabBottom: FC = () => (
   <Tab.Navigator
-    initialRouteName="HomeStack"
+    // initialRouteName="HomeStack"
     screenOptions={{
       tabBarShowLabel: false,
       tabBarStyle: {
@@ -36,24 +39,14 @@ const TabBottom = () => (
       component={HomeStack}
       options={{ tabBarIcon: getTabIcon("home") }}
     />
-    {/* <Tab.Screen
-      name="a"
-      component={Container}
-      options={{ tabBarIcon: getTabIcon("search") }}
+    <Tab.Screen
+      name="GenerateQR"
+      component={GenerateQR}
+      options={{ tabBarIcon: get("qrcode") }}
     />
     <Tab.Screen
-      name="b"
-      component={Container}
-      options={{ tabBarIcon: getTabIcon("grid") }}
-    />
-    <Tab.Screen
-      name="c"
-      component={Container}
-      options={{ tabBarIcon: getTabIcon("message-square") }}
-    /> */}
-    <Tab.Screen
-      name="ProfileStack"
-      component={ProfileStack}
+      name="Profile"
+      component={Profile}
       options={{ tabBarIcon: getTabIcon("user") }}
     />
   </Tab.Navigator>

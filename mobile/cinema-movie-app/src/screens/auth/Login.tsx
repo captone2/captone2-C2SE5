@@ -8,9 +8,11 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 import { ValidateService } from "../../utils/validate";
 import { loginAsync } from "../../redux/auth/dispatcher";
 import { LoginInfo } from "../../redux/auth/type";
-import { useNavigation } from "../../hooks/useNavigation";
 
-const Login: FC = () => {
+type Props = {
+  navigation?: any;
+};
+const Login: FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const { user, errors } = useAppSelector((state) => state.user);
 
@@ -24,7 +26,6 @@ const Login: FC = () => {
     error: "",
   });
 
-  const navigation = useNavigation();
   const handleLoginPressed = () => {
     console.log("press login");
 
@@ -53,17 +54,19 @@ const Login: FC = () => {
     dispatch(loginAsync(body))
       .unwrap()
       .then(() => {
-        navigation.navigate("Welcome");
-        console.log(12);
+        setLoading(false);
+        navigation.navigate("TabBottom");
+      })
+      .catch(() => {
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   useEffect(
     () => () => {
       setLoading(false);
-      if (user.id) {
-        navigation.navigate("Welcome");
+      if (user.accessToken) {
+        navigation.navigate("TabBottom");
       }
       dispatch(logoutAction());
     },
@@ -101,11 +104,12 @@ const Login: FC = () => {
           autoComplete="off"
           description=""
           theme={COLORS}
+          style={{ marginTop: 10 }}
         />
       </View>
       <View style={styles.errors}>
         {errors && errors.length > 0 ? (
-          <View style={{ marginHorizontal: 8 }}>
+          <View style={{ marginHorizontal: 20 }}>
             <Text style={{ color: COLORS.colors.error }}>
               {errors[0].errorMessage}
             </Text>
@@ -116,14 +120,15 @@ const Login: FC = () => {
         <Button
           text="Sign In"
           disabled={!(email.email && password.password)}
+          tintColor={COLORS.white}
           loading={loading}
           onPress={handleLoginPressed}
         />
-        <View style={{ alignSelf: "center" }}>
+
+        <View style={{ marginTop: 10 }}>
           {/* TODO: redirect to web */}
           <Button
             text="Create an account"
-            transparent
             tintColor={COLORS.white}
             onPress={() => navigation.navigate("register")}
           />

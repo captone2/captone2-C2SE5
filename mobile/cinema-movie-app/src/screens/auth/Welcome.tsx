@@ -5,10 +5,12 @@ import { Logo, Button } from "../../components";
 import { COLORS } from "../../utils/theme";
 import { useNavigation } from "../../hooks/useNavigation";
 
-const Welcome: FC = () => {
+type Props = {
+  navigation?: any;
+};
+const Welcome: FC<Props> = ({ navigation }) => {
   const { container, logoContainer, actionsContainer, welcomeContainer } =
     styles;
-  const navigation = useNavigation();
 
   return (
     <React.Fragment>
@@ -40,13 +42,12 @@ const Welcome: FC = () => {
               />
             </View>
             <View style={{ alignSelf: "center" }}>
-              {/* <Button
+              <Button
                 transparent
                 text="Sign Up"
                 tintColor={COLORS.white}
-                color={COLORS.white}
-                onPress={() => navigate("HomeStack")}
-              /> */}
+                onPress={() => navigation.navigate("HomeStack")}
+              />
             </View>
           </View>
         </View>

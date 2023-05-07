@@ -6,15 +6,13 @@ const loginAsync = createAsyncThunk(
   ActionType.LOGIN,
   async (arg: LoginInfo, { rejectWithValue }) => {
     try {
-      console.log("users", await UserService.login(arg));
-
       return await UserService.login(arg);
     } catch (error: any) {
-      if (error) {
-        if (error.response) {
-          return rejectWithValue(error.response.data.errors);
-        }
-      }
+      // if (error) {
+      //   if (error.response) {
+      //     return rejectWithValue(error.response.data.errors);
+      //   }
+      // }
 
       return rejectWithValue([
         {

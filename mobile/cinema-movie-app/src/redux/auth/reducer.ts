@@ -13,11 +13,13 @@ const initialState: UserState = {
   //   roles: ["ROLE_ADMIN", "ROLE_MODERATOR", "ROLE_USER"],
   // },
   user: {
-    id: "",
-    displayName: "",
-    email: "",
     accessToken: "",
-    roles: [],
+    user: {
+      id: "",
+      displayName: "",
+      email: "",
+      roles: [],
+    },
   },
   errors: [],
 };

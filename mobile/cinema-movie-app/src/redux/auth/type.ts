@@ -16,12 +16,15 @@ export interface LoginInfo {
   password: string;
 }
 
-export interface UserInfo {
+interface UserInfo2 {
   id: string;
   displayName: string;
   email: string;
-  accessToken: string;
   roles: string[];
+}
+export interface UserInfo {
+  accessToken: string;
+  user: UserInfo2;
 }
 
 export interface UserState {

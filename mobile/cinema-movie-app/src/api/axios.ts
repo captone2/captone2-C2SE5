@@ -4,7 +4,7 @@ import HttpStatusCode from "./HttpStatusCode";
 import { ApiHandler } from "../utils/api";
 import { trackPromise } from "react-promise-tracker";
 
-const axiosClient = axios.create({
+export const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
@@ -62,7 +62,7 @@ axiosClient.interceptors.response.use(
   }
 );
 
-const responseBody = <T>(response: AxiosResponse<T>) => response.data;
+export const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 class RequestService {
   get<T>(url: string, config?: AxiosRequestConfig) {

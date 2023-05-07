@@ -1,13 +1,19 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
+import { COLORS } from "../utils/theme";
 // import star from "./../../assets/icons/star.png";
 
 const Logo = () => (
-  <Image
-    source={require("./../../assets/icons/star.png")}
-    resizeMode="stretch"
-    style={{ width: 140, height: 140 }}
-  />
+  <View style={{ position: "absolute", top: "10%" }}>
+    <Image
+      source={require("./../../assets/icons/logo.png")}
+      resizeMode="stretch"
+      style={{
+        tintColor: COLORS.colors.surface,
+        width: 340,
+      }}
+    />
+  </View>
 );
 
 export default Logo;
