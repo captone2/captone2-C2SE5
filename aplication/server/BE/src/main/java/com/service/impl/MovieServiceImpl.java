@@ -32,13 +32,6 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findAllMovieShowing();
     }
 
-
-    @Override
-    public List<Movie> findAllMovieComingSoon(LocalDate today) {
-        return movieRepository.findAllMovieComingSoon(today);
-    }
-
-
     @Override
     public Movie findMovieById(long id) {
         return movieRepository.findMovieById(id);
@@ -74,11 +67,6 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> searchMovie(String keyword, LocalDate today) {
         return movieRepository.searchMovie(keyword, today);
-    }
-
-    @Override
-    public List<Movie> findAllMovieShowingAndComingSoon() {
-        return movieRepository.findAllMovieShowingAndComingSoon();
     }
 
     @Override

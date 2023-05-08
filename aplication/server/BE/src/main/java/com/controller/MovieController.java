@@ -32,7 +32,6 @@ public class MovieController {
         return ResponseEntity.ok(genreService.findAllGenre());
     }
 
-
     @GetMapping(value = "/movie-showing")
     public ResponseEntity<List<Movie>> getMovieShowings() {
         List<Movie> movieShowings = movieService.findAllMovieShowing();
@@ -42,20 +41,6 @@ public class MovieController {
             return new ResponseEntity<>(movieShowings, HttpStatus.OK);
         }
     }
-
-
-    @GetMapping(value = "/movie-coming")
-    public ResponseEntity<List<Movie>> getMovieComingSoon() {
-        List<Movie> movieComingSoons = movieService.findAllMovieComingSoon(today);
-        if (movieComingSoons.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(movieComingSoons, HttpStatus.OK);
-        }
-    }
-
-
-
 
     @GetMapping(value = "/detail-movie/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable("id") long id) {
@@ -67,7 +52,6 @@ public class MovieController {
         }
     }
 
-
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {
         List<Movie> movies = movieService.searchMovie(keyword, today);
@@ -78,14 +62,4 @@ public class MovieController {
         }
     }
 
-
-    @GetMapping(value = "/all-movie")
-    public ResponseEntity<List<Movie>> findAllMovieShowingAndComingSoon() {
-        List<Movie> movies = movieService.findAllMovieShowingAndComingSoon();
-        if (movies.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(movies, HttpStatus.OK);
-        }
-    }
 }

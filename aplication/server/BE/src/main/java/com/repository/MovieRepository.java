@@ -1,8 +1,5 @@
 package com.repository;
 
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import com.model.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,9 +13,6 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-    @Query(value = "SELECT * FROM movietheater.movie " +
-            "where :today < showing_from", nativeQuery = true)
-    List<Movie> findAllMovieComingSoon(@Param("today") LocalDate today);
 
     @Transactional
     @Modifying
@@ -55,13 +49,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "order by count(movie.id)desc " +
             "limit 5", nativeQuery = true)
     List<Movie> listTopFiveMovie();
-
-
-    @Query(value = "SELECT * FROM movietheater.movie \n" +
-            "where ((curdate() > showing_from) and (curdate() < showing_to))\n" +
-            "or curdate() < showing_from", nativeQuery = true)
-    List<Movie> findAllMovieShowingAndComingSoon();
-
 
     @Query(value = "SELECT distinct movie.*" +
             "FROM movietheater.movie \n" +

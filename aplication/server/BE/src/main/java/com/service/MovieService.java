@@ -26,9 +26,7 @@ public interface MovieService {
     Movie getIdMovieByName(String name);
 
     List<Movie> findAllMovieShowing();
-    List<Movie> findAllMovieComingSoon(LocalDate today);
     List<Movie> searchMovie(String keyword, LocalDate today);
-    List<Movie> findAllMovieShowingAndComingSoon();
     List<Movie> findAllMovieSeenByAccount(long accountId);
 
     List<Movie> findAllMovieComingSoon();

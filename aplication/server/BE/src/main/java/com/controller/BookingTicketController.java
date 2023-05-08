@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.model.dto.BookingCheck;
 import com.model.dto.BookingDTOMain;
 import com.model.dto.BookingFoodDTO;
 import com.model.entity.Booking;
@@ -9,6 +10,7 @@ import com.service.MovieService;
 import com.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,5 +90,16 @@ public class BookingTicketController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/get-booking-by-code", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Booking> getBookingByCode(@RequestBody BookingCheck booking) {
+        if(booking == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        Booking bookingCurrent = bookingRepository.getBookingByBookingCode(booking.getBookingCode());
+        return new ResponseEntity<>(bookingCurrent, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/received-booking")
+    public 
 }
 
