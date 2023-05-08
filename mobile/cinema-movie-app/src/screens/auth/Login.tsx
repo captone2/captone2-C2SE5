@@ -27,8 +27,6 @@ const Login: FC<Props> = ({ navigation }) => {
   });
 
   const handleLoginPressed = () => {
-    console.log("press login");
-
     setLoading(true);
     const checkEmailHasError = ValidateService.emailValidator(email.email);
     const checkPasswordHasError = ValidateService.passwordValidator(

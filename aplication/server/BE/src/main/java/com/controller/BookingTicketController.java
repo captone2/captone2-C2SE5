@@ -91,12 +91,21 @@ public class BookingTicketController {
     }
 
     @PostMapping(value = "/get-booking-by-code", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Booking> getBookingByCode(@RequestBody BookingCheck booking) {
+    public ResponseEntity<Booking> getBookingByCodeNotReceived(@RequestBody BookingCheck booking) {
         if(booking == null){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         Booking bookingCurrent = bookingRepository.getBookingByBookingCode(booking.getBookingCode());
         return new ResponseEntity<>(bookingCurrent, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/received-booking")
+    public ResponseEntity setTicketBookingReceived(@RequestBody BookingCheck booking){
+        if(booking == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        bookingRepository.setTicketBookingReceived(booking.getId());
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

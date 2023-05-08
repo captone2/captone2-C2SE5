@@ -5,7 +5,7 @@ export enum ActionType {
   SESSION = "SESSION",
 }
 
-export enum CompanyType {
+export enum UserType {
   CUSTOMER = "ROLE_USER",
   ADMIN = "ROLE_ADMIN",
   MODERATOR = "ROLE_MODERATOR",

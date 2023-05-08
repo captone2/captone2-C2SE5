@@ -9,6 +9,7 @@ const Navigation = () => {
   const user = useAppSelector((state) => state.user);
 
   // if (initializing) return <Loading />;
+
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>

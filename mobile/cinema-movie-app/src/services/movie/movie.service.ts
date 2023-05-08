@@ -3,7 +3,7 @@ import { LoginInfo, UserState } from "../../redux/auth/type";
 import { responseBody } from "./../../api/axios";
 import axios from "axios";
 
-export class UserService {
+export class MovieService {
   static prefix = "auth";
   static login(body: LoginInfo): Promise<UserState> {
     return axios
