@@ -21,7 +21,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT * FROM movie WHERE id = ?1", nativeQuery = true)
     Movie findMovieById(Long id);
 
-    @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE :title", nativeQuery = true)
+    @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE %:title%", nativeQuery = true)
     List<Movie> searchMovieByTitle(@Param("title") String keyword);
 
 

@@ -34,7 +34,10 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> searchMovie(String keyword) {
-        return movieRepository.searchMovieByTitle('%'+keyword+'%');
+        if (keyword.isEmpty()){
+            return movieRepository.findAll();
+        }
+        return movieRepository.searchMovieByTitle(keyword);
     }
 
     @Override

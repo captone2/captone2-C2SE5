@@ -50,6 +50,10 @@ export class MovieService {
     return this.httpClient.get<Movie>(this.MOVIE_URL + '/detail-movie/' + id);
   }
 
+  public getMovieByTitle(title: string): Observable<Movie[]> {
+    return this.httpClient.get<Movie[]>(this.MOVIE_URL + '/search-movie?keyword=' + title);
+  }
+
   public getSeatSold(id: number): Observable<number[]> {
     return this.httpClient.get<number[]>('http://localhost:8080/api/auth/booking/seatByShowTime/' + id);
   }

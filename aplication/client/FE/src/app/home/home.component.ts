@@ -5,14 +5,16 @@ import {Movie} from "../shared/model/entity/Movie";
 import { TokenStorageService } from '../services/token-storage.service';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Genre } from '../shared/model/entity/Genre';
+import { SlidesOutputData } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
- 
+
   public movieList: Movie[];
+  movieListSearch: Movie[];
   @ViewChild('overlay') overlay: ElementRef;
   @ViewChild('modalPayment') modalPayment: ElementRef;
   @ViewChild('modalTrailer') modalTrailer: ElementRef;
@@ -25,6 +27,14 @@ export class HomeComponent implements OnInit {
        this.movieList = data;
       console.log(data)
     });
+  }
+
+  searchMovie(value: string) {
+    console.log(value)
+    this.movieService.getMovieByTitle(value).subscribe((data) => {
+      this.movieListSearch = data;
+      console.log(data)
+   });
   }
 
   closeModal() {

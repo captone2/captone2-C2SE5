@@ -35,17 +35,13 @@ public class MovieController {
 
     @GetMapping(value = "/getAllMovie")
     public ResponseEntity<Page<Movie>> getAllUser(@RequestParam("page") Integer page,
-                                                 @RequestParam("size") Integer size) {
+                                                  @RequestParam("size") Integer size) {
         try {
             Page<Movie> userList = movieService.getAllMovie(page, size);
             return new ResponseEntity<>(userList,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-    @GetMapping(value = "/get-all-genre")
-    public ResponseEntity<List<Genre>> getAllGenre() {
-        return ResponseEntity.ok(genreService.findAllGenre());
     }
 
     @GetMapping(value = "/movie-showing")
@@ -70,7 +66,6 @@ public class MovieController {
 
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {
-        System.out.println(keyword);
         List<Movie> movies = movieService.searchMovie(keyword);
         if (movies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
