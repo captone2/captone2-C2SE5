@@ -72,8 +72,6 @@ public class BookingTicketController {
         return new ResponseEntity<>(bookings,HttpStatus.OK);
     }
 
-
-
     @GetMapping(value = "/movie-showing")
     public ResponseEntity<List<Movie>> getMovieShowings() {
         List<Movie> movieShowings = movieService.findAllMovieShowing();

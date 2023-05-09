@@ -155,6 +155,8 @@ public class Movie {
         this.createAt = createAt;
     }
 
+    public Movie() {
+    }
 
     public Movie(String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
         this.title = title;
