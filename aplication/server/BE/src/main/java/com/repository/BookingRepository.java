@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -25,7 +25,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                      @Param("imgQrCode") String imgQrCode);
 
 
-    @Query(value = "select * from booking where booking_code like :code", nativeQuery = true)
+    @Query(value = "select * from booking where received = false and booking_code like :code", nativeQuery = true)
     Booking getBookingByBookingCode(@Param("code") String code);
 
     @Modifying
@@ -46,4 +46,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query(value = "select * from booking where account_id = :id", nativeQuery = true)
     List<Booking> getBookingByAccountId(@Param("id") Integer id);
 
+    @Modifying
+    @Query(value = "UPDATE booking SET received = true where id =?1 ", nativeQuery = true)
+    void setTicketBookingReceived(long id);
 }

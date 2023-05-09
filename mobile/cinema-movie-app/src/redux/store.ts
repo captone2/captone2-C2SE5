@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers, compose, Reducer } from "redux";
 import { AppActionType } from "./types";
 import { userReducer } from "./auth/reducer";
+import { movieReducer } from "./movie/reducer";
 // import { userReducer } from './user/reducer';
 declare global {
   interface Window {
@@ -11,6 +12,7 @@ declare global {
 
 const appReducers = combineReducers({
   user: userReducer,
+  movieReducer,
 });
 
 export type RootState = ReturnType<typeof appReducers>;

@@ -5,7 +5,7 @@ import { Profile } from "..";
 const Stack = createStackNavigator();
 
 const ProfileStack = () => (
-  <Stack.Navigator initialRouteName="profile">
+  <Stack.Navigator initialRouteName="Profile">
     <Stack.Screen name="profile" component={Profile} />
   </Stack.Navigator>
 );

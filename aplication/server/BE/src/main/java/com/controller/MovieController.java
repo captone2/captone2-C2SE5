@@ -42,6 +42,10 @@ public class MovieController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+    @GetMapping(value = "/get-all-genre")
+    public ResponseEntity<List<Genre>> getAllGenre() {
+        return ResponseEntity.ok(genreService.findAllGenre());
     }
 
     @GetMapping(value = "/movie-showing")

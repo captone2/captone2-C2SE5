@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Long> {
-    @Query(value = "SELECT * FROM movietheater.genre", nativeQuery = true)
+    @Query(value = "SELECT * FROM genre", nativeQuery = true)
     List<Genre> findAllGenre();
 
     @Transactional
