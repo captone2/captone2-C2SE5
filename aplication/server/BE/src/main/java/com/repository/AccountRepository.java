@@ -15,8 +15,9 @@ import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account,Long> {
-    Account findByEmail(String email);
-    boolean existsByEmail(String email);
+    @Query(value = "select * from account where email = ?1",nativeQuery = true)
+    Optional<Account> findByEmail(String email);
+    Boolean existsByEmail(String username);
     boolean existsByPhone(String phone);
     boolean existsByUsername(String username);
 
@@ -111,13 +112,11 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Query(value = "SELECT username from  movietheater.account where username = ?1", nativeQuery = true)
     String existsByUserName(String username);
 
-    @Transactional
-    @Query(value = "select * from movietheater.account where verification_code =?1",nativeQuery = true)
-    Account findAccountByVerificationCode(String verifyCode);
-    @Transactional
+    Account findAccountByVerificationCode(String code);
+
     @Modifying
-    @Query(value ="update movietheater.account set verification_code=?1 where username =?2",nativeQuery = true)
-    void addVerificationCode(String code,String username);
+    @Query(value ="update account set verification_code =?1 where id =?2",nativeQuery = true)
+    void addVerificationCode(String code, Long id);
 
     @Transactional
     @Modifying

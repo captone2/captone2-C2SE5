@@ -13,6 +13,7 @@ import com.model.entity.Account;
 import com.repository.AccountRepository;
 import com.repository.RoleRepository;
 import com.service.AccountService;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -149,19 +150,13 @@ public class AccountController {
             createEmployeeAccount.setTotalPoint(0);
             createEmployeeAccount.setPassword(passwordEncoder.encode(createEmployeeAccount.getPassword()));
             accountService.createEmployeeAccount(createEmployeeAccount);
-
-//            Account account = accountService.findAccountByEmployeeName(createEmployeeAccount.getAccountCode());
-//
-//            accountService.createAccountRole(account.getId(), 3);
-
-
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    // Xóa nhân viên theo id  nhân viên (HoangLV)
+    // Xóa nhân viên theo id  nhân viên
     @DeleteMapping(value = "employee-account-delete/{id}")
     public ResponseEntity<?> deleteByEmployeeId(@PathVariable Long id) {
         if (id == null) {
@@ -171,33 +166,24 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // HoangLV
+
     @PostMapping("/check-email-employee")
     public boolean checkEmailEmployee(@RequestBody String email) {
         return accountService.checkEmailEmployee(email);
     }
 
-    // HoangLV
+
     @PostMapping("/check-phone-employee")
     public boolean checkPhoneEmployee(@RequestBody String phone) {
         return accountService.checkPhoneEmployee(phone);
     }
 
-    // HoangLV
+
     @PostMapping("/check-username-employee")
     public boolean checkUsernameEmployee(@RequestBody String username) {
         return accountService.checkUsernameEmployee(username);
     }
 
-    // HoangLV
-    @PostMapping("/check-accountCode-employee")
-    public boolean checkAccountCodeEmployee(@RequestBody String accountCode) {
-        System.out.println(accountCode);
-        return accountService.checkAccountCodeEmployee(accountCode);
-    }
-
-
-    //PhapNT-Hiển thị danh sách thành viên.
     @GetMapping("/list-member")
     public ResponseEntity<List<Account>> getAllMember() {
         List<Account> accounts = accountService.findAllMember();
@@ -207,7 +193,7 @@ public class AccountController {
         return new ResponseEntity<List<Account>>(accounts, HttpStatus.OK);
     }
 
-    //PhapNT- Chỉnh sửa thành viên
+
     @PutMapping("/update-member/{id}")
     public ResponseEntity<?> updateMember(@PathVariable("id") long id, @RequestBody AccountMemberDTO accountMemberDTO) {
         accountMemberDTO.setPassword(passwordEncoder.encode(accountMemberDTO.getPassword()));
@@ -215,7 +201,7 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //PhapNT- Thêm thành viên
+
     @PostMapping("/create-member")
     public ResponseEntity<?> createMember(@RequestBody AccountMemberDTO accountMemberDTO) {
         passwordEncoder.encode(accountMemberDTO.getPassword());
@@ -223,7 +209,7 @@ public class AccountController {
         return new ResponseEntity<AccountMemberDTO>(HttpStatus.CREATED);
     }
 
-    //PhapNT-
+
     @GetMapping("/public/findById-member/{id}")
     public ResponseEntity<Account> getIdMember(@PathVariable("id") long id) {
         Account accounts = accountService.findByIdMember(id);
@@ -259,7 +245,7 @@ public class AccountController {
         return accountService.checkUsernameMember(username);
     }
 
-    //ViệtNT lấy thông tin tài khoản bằng id 06/10/2021
+    // lấy thông tin tài khoản bằng id
 
     @GetMapping(value = "/accountFindById/{id}")
     public ResponseEntity<Account> getUserById(@PathVariable long id) {
@@ -268,7 +254,7 @@ public class AccountController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
-    //VietNT lấy tất cả User 08/10/2021
+    // lấy tất cả User
     @GetMapping(value = "/account")
     public ResponseEntity<List<Account>> getAllUser() {
 
@@ -282,7 +268,7 @@ public class AccountController {
         }
     }
 
-    //VietNT Update User
+    //Update User
     @PutMapping(value = "/public/update/{id}")
     public ResponseEntity<AccountUserDTO> updateAccountUser(@PathVariable("id") long id, @RequestBody AccountUserDTO accountUserDTO) {
         Account account = accountService.findAccountUpdateById(id);
@@ -291,9 +277,6 @@ public class AccountController {
         if (account == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-
-
-          /*  accountUserDTO.setPassword(passwordEncoder.encode(accountUserDTO.getPassword().trim()));*/
             System.out.println(accountUserDTO.getAccountCode().trim());
             accountUserDTO.setAccountCode(accountUserDTO.getAccountCode().trim());
             accountUserDTO.setAddress(accountUserDTO.getAddress().trim());
@@ -308,81 +291,36 @@ public class AccountController {
         }
     }
 
-    // Việt lấy  danh sách booking
-    @GetMapping(value = "/account/booking")
-    public ResponseEntity<List<ManagerBooking>> managerTickets() {
-
-        List<ManagerBooking> movieList = accountService.ManagerTickets();
-
-        if (movieList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-
-            return new ResponseEntity<>(movieList, HttpStatus.OK);
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody LoginRequest loginRequest){
+        System.out.println(1);
+        if (accountService.existsByEmail(loginRequest.getUsername()) != null) {
+            Optional<Account> user = accountService.findByEmail(loginRequest.getUsername());
+            String code = RandomString.make(64);
+            accountService.addVerificationCode(code, user.get().getId());
+            String confirmUrl = "http://localhost:4200/verify-reset-password?code=" + code;
+            accountService.sendMail(confirmUrl,user);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-    }
-
-    //Việt lấy danh sách booking theo account
-    @GetMapping(value = "/account/booking/{idAccount}")
-    public List<ManagerBooking> getAllFeedbackByIdAccount(@PathVariable("idAccount") String idAccount) {
-        List<ManagerBooking> managerBookingList = accountService.findAllBookByIdAccount(idAccount);
-        return managerBookingList;
-
-    }
-
-    ///Việt đổi mật khẩu
-    @PutMapping(value = "/public/changePassword/{id}")
-    public ResponseEntity<AccountUserDTO> changePassWord(@PathVariable("id") long id, @RequestBody AccountUserDTO accountUserDTO) {
-        Account account = accountService.findAccountUpdateById(id);
-        System.out.println(id);
-
-        if (account == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-
-            accountService.changePassword(accountUserDTO);
-
-            return new ResponseEntity<>(accountUserDTO, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 
-    @PostMapping("/auth/verify")
-    public ResponseEntity<?> VerifyEmail(@RequestBody VerifyRequest code) {
-        Boolean isVerified = accountService.findAccountByVerificationCode(code.getCode());
-        if (isVerified) {
-            return ResponseEntity.ok(new MessageResponse("activated"));
-        } else {
-            return ResponseEntity.ok(new MessageResponse("error"));
-        }
-    }
-
-    @PostMapping("/auth/reset-password")
-    public ResponseEntity<?> reset(@RequestBody LoginRequest loginRequest) throws MessagingException, UnsupportedEncodingException {
-        System.out.println("reset passsword");
-        if (accountService.existsByUserName(loginRequest.getUsername()) != null) {
-            accountService.addVerificationCode(loginRequest.getUsername());
-            return ResponseEntity.ok(new MessageResponse("Sent email "));
-        }
-        return ResponseEntity
-                .badRequest()
-                .body(new MessageResponse("Tài khoản không đúng"));
-    }
-
-    @PostMapping("/auth/verify-password")
+    @PostMapping("/verify-password")
     public ResponseEntity<?> VerifyPassword(@RequestBody VerifyRequest code) {
-        Boolean isVerified = accountService.findAccountByVerificationCodeToResetPassword(code.getCode());
-        if (isVerified) {
-            return ResponseEntity.ok(new MessageResponse("accepted"));
+        Account isVerified = accountService.findAccountByVerificationCode(code.getCode());
+        System.out.println(isVerified.getVerificationCode());
+        if (isVerified.getVerificationCode().equals(code.getCode())) {
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return ResponseEntity.ok(new MessageResponse("error"));
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PostMapping("/auth/do-reset-password")
+    @PostMapping("/do-forget-password")
     public ResponseEntity<?> doResetPassword(@RequestBody ResetPassRequest resetPassRequest) {
         accountService.saveNewPassword(passwordEncoder.encode(resetPassRequest.getPassword()), resetPassRequest.getCode());
-        return ResponseEntity.ok(new MessageResponse("success"));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 
