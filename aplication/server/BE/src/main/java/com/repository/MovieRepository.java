@@ -25,16 +25,16 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> searchMovieByTitle(@Param("title") String keyword);
 
 
-    @Query(value = "SELECT movie.* FROM movie " +
-            "INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
-            "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
-            "WHERE TIME(now()) >= TIME(showtime.show_time)+2; ", nativeQuery = true)
-    List<Movie> findAllMovieShowing();
-
     @Query(value = "SELECT DISTINCT movie.* FROM movie " +
             "INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
             "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
-            "WHERE Date(now()) <= Date(showtime.show_time);", nativeQuery = true)
+            "WHERE TIME(now()) >= TIME(showtime.show_time)+2 AND movie_show_time.show_date = DATE_FORMAT(NOW(), '%Y-%m-%d'); ", nativeQuery = true)
+    List<Movie> findAllMovieShowing();
+
+    @Query(value = "SELECT DISTINCT movie.* FROM movie \n" +
+            "            INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
+            "            INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
+            "            WHERE TIME(now()) <= TIME(showtime.show_time) AND movie_show_time.show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d');", nativeQuery = true)
     List<Movie> findAllMovieComingSoon();
 
     @Query(value = "SELECT movie.* FROM movie \n" +

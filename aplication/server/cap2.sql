@@ -3,7 +3,7 @@ use movietheater;
 
 
 
-INSERT INTO `movietheater`.`account` (`id`, `address`, `birthday`, `email`, `enable`, `password`, `provider`, `total_point`, `username`) VALUES ('2', 'Quang Nam', '2001-12-12', 'nguyenvansy091201@gmail.com', '0', '$2a$10$kn5VWyBieD8DQJY1UzMq1OJV9MXcKwlHEdP1LvOvUjfEew9yael7u', 'local', '0', 'Nguyev Van Sy');
+INSERT INTO `movietheater`.`account` (`id`, `address`, `birthday`, `email`, `is_enabled`, `password`, `provider`, `total_point`, `username`) VALUES ('2', 'Quang Nam', '2001-12-12', 'nguyenvansy091201@gmail.com', 0, '$2a$10$kn5VWyBieD8DQJY1UzMq1OJV9MXcKwlHEdP1LvOvUjfEew9yael7u', 'local', '0', 'Nguyev Van Sy');
 INSERT INTO `movietheater`.`account_role` (`account_id`, `role_id`) VALUES ('2', '1');
 
 

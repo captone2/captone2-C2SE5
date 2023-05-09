@@ -35,7 +35,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class AccountController {
 
     private @Autowired

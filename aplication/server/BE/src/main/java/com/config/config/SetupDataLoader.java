@@ -38,7 +38,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		// Create initial roles
 		Role userRole = createRoleIfNotFound(Role.ROLE_USER);
 		Role adminRole = createRoleIfNotFound(Role.ROLE_ADMIN);
-		Role modRole = createRoleIfNotFound(Role.ROLE_MODERATOR);
+		Role modRole = createRoleIfNotFound(Role.ROLE_EMPLOYEE);
 		Set<Role> roleSet = new HashSet<>();
 //        Set.of(userRole, adminRole, modRole)
 		roleSet.add(userRole);

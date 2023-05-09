@@ -76,7 +76,7 @@ export class LoginnComponent implements OnInit {
           if (role == 'ROLE_USER') {
             this.router.navigate(['/home']);
           } else{
-            this.router.navigate(['/home']);
+            this.router.navigate(['/admin']);
           }
           
         }

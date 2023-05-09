@@ -55,6 +55,7 @@ import {AppRoutingModule} from '../app-routing.module';
 import {OrderModule} from 'ngx-order-pipe';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CssComponent } from './css/css.component';
 
 const adminRoutes: Routes = [
   {
@@ -165,7 +166,8 @@ const adminRoutes: Routes = [
     NotifyEmployeeComponent,
     NavbarLeftComponent,
     AdminHomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    CssComponent
   ],
   exports: [
     EmployeeListAdminComponent,
