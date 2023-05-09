@@ -193,12 +193,75 @@ jQuery(document).ready(function () {
         jQuery(".overlay").css('display', 'block');
     });
 
-    jQuery(".slide-button").find('.btn-trailer').on('click', function () {
+    jQuery(".btn-trailer").closest(".slide-item").find('.btn-trailer').on('click', function () {
+        var colosest = jQuery(this).closest(".slide-item");
         jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')
         jQuery(".modal-trailer").css('display', 'block')
         jQuery(".overlay").css('display', 'block');
+
+        var attr = {
+            "image": colosest.find('.slide-thumb img').attr('src'),
+            "match": colosest.find(".percent-match").val(),
+            "limited": colosest.find(".limited").val(),
+            "description": colosest.find(".description").val(),
+            "actor": colosest.find(".actor").val(),
+            "theloai": colosest.find(".theloai").val(),
+            "rate": colosest.find(".rate").val(),
+        }
+        jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
+        jQuery(".modal-trailer .detail-in .match").text(attr.match);
+        jQuery(".modal-trailer .detail-in .descrip").text(attr.description);
+        jQuery(".modal-trailer .detail-in .limit").text(attr.limited);
+        jQuery(".modal-trailer .detail-in .actor-modal").text(attr.actor);
+        jQuery(".modal-trailer .detail-in .theloai-modal").text(attr.theloai);
+        var rateValue = parseFloat(attr.rate);
+        var starCount = Math.round(rateValue);
+        var starHtml = '';
+        for (var i = 1; i <= 5; i++) {
+            if (i <= starCount) {
+                starHtml += '<i class="fa-sharp fa-solid fa-star"></i>';
+            } else {
+                starHtml += '<i class="fa-sharp fa-regular fa-star"></i>';
+            }
+        }
+        jQuery('.rate-modal').html(starHtml);
     });
 
+    jQuery(".now-trailer").closest(".grid-item").find('.now-trailer').on('click', function () {
+        var colosest = jQuery(this).closest(".grid-item");
+        jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')
+        jQuery(".modal-trailer").css('display', 'block')
+        jQuery(".overlay").css('display', 'block');
+
+        var attr = {
+            "image": colosest.find('.entry-thumb img').attr('src'),
+            "match": colosest.find(".percent-match").val(),
+            "limited": colosest.find(".limited").val(),
+            "description": colosest.find(".description").val(),
+            "actor": colosest.find(".actor").val(),
+            "theloai": colosest.find(".theloai").val(),
+            "rate": colosest.find(".rate").val(),
+        }
+        console.log(attr);
+
+        jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
+        jQuery(".modal-trailer .detail-in .match").text(attr.match);
+        jQuery(".modal-trailer .detail-in .descrip").text(attr.description);
+        jQuery(".modal-trailer .detail-in .limit").text(attr.limited);
+        jQuery(".modal-trailer .detail-in .actor-modal").text(attr.actor);
+        jQuery(".modal-trailer .detail-in .theloai-modal").text(attr.theloai);
+        var rateValue = parseFloat(attr.rate);
+        var starCount = Math.round(rateValue);
+        var starHtml = '';
+        for (var i = 1; i <= 5; i++) {
+            if (i <= starCount) {
+                starHtml += '<i class="fa-sharp fa-solid fa-star"></i>';
+            } else {
+                starHtml += '<i class="fa-sharp fa-regular fa-star"></i>';
+            }
+        }
+        jQuery('.rate-modal').html(starHtml);
+    });
 
 
     // Toggle drop down user
