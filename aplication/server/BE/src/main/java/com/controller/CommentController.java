@@ -32,4 +32,10 @@ public class CommentController {
             return new ResponseEntity<>(comments, HttpStatus.OK);
         }
     }
+
+    @PostMapping(value = "/add")
+    public ResponseEntity<?> addComment(@RequestBody CommentDTO commentDTO) {
+        commentService.addNewComment(commentDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

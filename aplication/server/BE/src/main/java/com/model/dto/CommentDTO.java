@@ -1,19 +1,22 @@
 package com.model.dto;
 
-//TuHC
+
 public class CommentDTO {
     private long id;
     private String content;
-    private int seen;
-    private int movie;
-    private int account;
+    private int rate;
+    private int accountId;
+    private int movieId;
 
-    public CommentDTO(long id, String content, int seen, int movie, int account) {
+    public CommentDTO() {
+    }
+
+    public CommentDTO(long id, String content, int rate, int accountId, int movieId) {
         this.id = id;
         this.content = content;
-        this.seen = seen;
-        this.movie = movie;
-        this.account = account;
+        this.rate = rate;
+        this.accountId = accountId;
+        this.movieId = movieId;
     }
 
     public long getId() {
@@ -32,38 +35,27 @@ public class CommentDTO {
         this.content = content;
     }
 
-    public int isSeen() {
-        return seen;
+    public int getRate() {
+        return rate;
     }
 
-    public void setSeen(int seen) {
-        this.seen = seen;
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
-    public int getMovie() {
-        return movie;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setMovie(int movie) {
-        this.movie = movie;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
-    public int getAccount() {
-        return account;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setAccount(int account) {
-        this.account = account;
-    }
-
-    @Override
-    public String toString() {
-        return "CommentDTO{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", seen=" + seen +
-                ", movie=" + movie +
-                ", account=" + account +
-                '}';
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 }

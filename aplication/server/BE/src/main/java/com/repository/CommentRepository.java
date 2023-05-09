@@ -14,15 +14,15 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query(value = "SELECT * FROM movietheater.comment " +
+    @Query(value = "SELECT * FROM comment " +
             "where movie_id = :id", nativeQuery = true)
     List<Comment> findAllCommentByMovieId(@Param("id") long id);
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO `movietheater`.`comment` (`content`, `account_id`, `movie_id`, `seen`) " +
-            "VALUES (:content, :account, :movie, :seen)", nativeQuery = true)
-    void addNewComment(@Param("content") String content, @Param("account") int account,
-                       @Param("movie") int movie, @Param("seen") int seen);
+    @Query(value = "INSERT INTO comment(`content`, `rate`, `account_id`, `movie_id`) " +
+            "VALUES (:content, :rate, :accountId, :movieId)", nativeQuery = true)
+    void addNewComment(@Param("content") String content, @Param("rate") int rate, @Param("accountId") int account,
+                       @Param("movieId") int movie);
 
 }

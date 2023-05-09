@@ -154,4 +154,16 @@ public class Movie {
     public void setCreateAt(LocalDate createAt) {
         this.createAt = createAt;
     }
+
+
+    public Movie(String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
+        this.title = title;
+        this.cast = cast;
+        this.director = director;
+        this.releaseDate = releaseDate;
+        this.runningTime = runningTime;
+        this.production = production;
+        this.trailerUrl = trailerUrl;
+        this.content = content;
+    }
 }

@@ -1,65 +1,34 @@
-package com.model.dto.Hue;
+package com.model.dto.movie;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.List;
 
 
 public class MovieDTO {
     private long id;
-
     private String title;
-    private LocalDate showingFrom;
-    private LocalDate showingTo;
     private String cast;
     private String director;
     private LocalDate releaseDate;
-    private String rated;
     private int runningTime;
     private String production;
     private String trailerUrl;
     private String content;
-    private boolean is3D;
-    private long accountId;
-
-    private List<String> genres;
-    private List<String> movieImages;
-    private List<com.model.dto.Hue.ShowTimesDTO> showtime;
-
-//    private List<Comment> comments;
-
-    public List<String> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
-    }
-
-    public List<String> getMovieImages() {
-        return movieImages;
-    }
-
-    public void setMovieImages(List<String> movieImages) {
-        this.movieImages = movieImages;
-    }
-
-    public List<com.model.dto.Hue.ShowTimesDTO> getShowtime() {
-        return showtime;
-    }
-
-    public void setShowtime(List<com.model.dto.Hue.ShowTimesDTO> showtime) {
-        this.showtime = showtime;
-    }
-
+    private List<Integer> genre;
+    private List<String> imgUrl;
     public MovieDTO() {
     }
 
-    public boolean isIs3D() {
-        return is3D;
-    }
-
-    public void setIs3D(boolean is3D) {
-        this.is3D = is3D;
+    public MovieDTO(String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
+        this.title = title;
+        this.cast = cast;
+        this.director = director;
+        this.releaseDate = releaseDate;
+        this.runningTime = runningTime;
+        this.production = production;
+        this.trailerUrl = trailerUrl;
+        this.content = content;
     }
 
     public long getId() {
@@ -76,22 +45,6 @@ public class MovieDTO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public LocalDate getShowingFrom() {
-        return showingFrom;
-    }
-
-    public void setShowingFrom(LocalDate showingFrom) {
-        this.showingFrom = showingFrom;
-    }
-
-    public LocalDate getShowingTo() {
-        return showingTo;
-    }
-
-    public void setShowingTo(LocalDate showingTo) {
-        this.showingTo = showingTo;
     }
 
     public String getCast() {
@@ -116,14 +69,6 @@ public class MovieDTO {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public String getRated() {
-        return rated;
-    }
-
-    public void setRated(String rated) {
-        this.rated = rated;
     }
 
     public int getRunningTime() {
@@ -158,13 +103,19 @@ public class MovieDTO {
         this.content = content;
     }
 
-    public long getAccountId() {
-        return accountId;
+    public List<Integer> getGenre() {
+        return genre;
     }
 
-    public void setAccountId(long accountId) {
-        this.accountId = accountId;
+    public void setGenre(List<Integer> genre) {
+        this.genre = genre;
     }
 
+    public List<String> getImgUrl() {
+        return imgUrl;
+    }
 
+    public void setImgUrl(List<String> imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }

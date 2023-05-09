@@ -1,6 +1,9 @@
 package com.controller;
 
 
+import com.model.dto.movie.MovieDTO;
+import com.service.GenreService;
+import com.service.MovieImageService;
 import com.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,12 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private GenreService genreService;
+
+    @Autowired
+    private MovieImageService movieImageService;
 
     @GetMapping(value = "/getAllMovie")
     public ResponseEntity<Page<Movie>> getAllUser(@RequestParam("page") Integer page,
@@ -65,4 +74,16 @@ public class MovieController {
         }
     }
 
+    @PostMapping(value = "/add")
+    public ResponseEntity<?> addMovie(@RequestBody MovieDTO movie) {
+        Movie movie1 = new Movie(movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
+        Movie movies = movieService.saveMovie(movie1);
+        for (int i=0 ;i < movie.getGenre().size();i++) {
+            genreService.addGenreToMovie(movie.getGenre().get(i),movies.getId());
+        }
+        for (int i=0 ;i < movie.getImgUrl().size();i++) {
+            movieImageService.addImageByIdMovie(movie.getImgUrl().get(i),movies.getId());
+        }
+        return new ResponseEntity<>(movies, HttpStatus.OK);
+    }
 }

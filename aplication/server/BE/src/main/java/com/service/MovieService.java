@@ -14,4 +14,5 @@ public interface MovieService {
     List<Movie> findAllMovieShowing();
     List<Movie> findAllMovieComingSoon();
     Movie findOneMovieBestSeller();
+    Movie saveMovie(Movie movie);
 }

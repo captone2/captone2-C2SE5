@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void addNewComment(CommentDTO commentDTO) {
-        commentRepository.addNewComment(commentDTO.getContent(), commentDTO.getAccount(), commentDTO.getMovie(), commentDTO.isSeen());
+        commentRepository.addNewComment(commentDTO.getContent(), commentDTO.getRate() , commentDTO.getAccountId() , commentDTO.getAccountId());
     }
 
 }

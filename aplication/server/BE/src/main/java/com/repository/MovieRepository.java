@@ -13,6 +13,9 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
+
+
+
     Page<Movie> findAll(Pageable pageable);
 
     @Query(value = "SELECT * FROM movie WHERE id = ?1", nativeQuery = true)
