@@ -66,6 +66,7 @@ public class MovieController {
 
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {
+        System.out.println(keyword);
         List<Movie> movies = movieService.searchMovie(keyword);
         if (movies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
