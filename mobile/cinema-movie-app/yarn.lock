@@ -1810,6 +1810,13 @@
     prompts "^2.4.0"
     semver "^6.3.0"
 
+"@react-native-community/datetimepicker@^6.5.4":
+  version "6.7.5"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-6.7.5.tgz#214796f2d131b6af9cb9d4dea69d4a1981fa2236"
+  integrity sha512-E2Zh6mwvZ6CFEMKP++rdxxjJiB45fYPpdZhJwdZ2vUVwqovqu1cQRDLZmz4XrcHSyuacgR4WUnkYFf0F2nnNIg==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-community/masked-view@^0.1.11":
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
@@ -1879,6 +1886,14 @@
   version "1.3.17"
   resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-1.3.17.tgz#9cb95765940f2841916fc71686598c22a3e4067e"
   integrity sha512-sui8AzHm6TxeEvWT/NEXlz3egYvCUog4tlXA4Xlb2Vxvy3purVXDq/XsM56lJl344U5Aj/jDzkVanOTMWyk4UA==
+
+"@react-navigation/material-top-tabs@^6.6.2":
+  version "6.6.2"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-6.6.2.tgz#ff68e597451a86d26421d5f516a1aa7e1fb30048"
+  integrity sha512-qq0iyMzWApeSvhxovurhk5hluAH2VYbSObTZIKt4KbVXZ0KP8ir1tRQ+IAwkMea+hCnd26glpXRVQI+YqXH0Gw==
+  dependencies:
+    color "^4.2.3"
+    warn-once "^0.1.0"
 
 "@react-navigation/native-stack@^6.9.12":
   version "6.9.12"
@@ -9189,6 +9204,18 @@ react-native-iphone-x-helper@^1.3.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
+react-native-modal-datetime-picker@^14.0.0:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-14.0.1.tgz#d9c6df4ff85bf1cfbe108c756dc26dcca4cc5f2f"
+  integrity sha512-wQt4Pjxt2jiTsVhLMG0E7WrRTYBEQx2d/nUrFVCbRqJ7lrXocXaT5UZsyMpV93TnKcyut62OprbO88wYq/vh0g==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-pager-view@5.4.24:
+  version "5.4.24"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.24.tgz#8626e757ddc55e41eca66d2f8a8a75aec54591ee"
+  integrity sha512-dRMB7i3B+mu4NCeIN6gqbR/kC/rr2wzqO0gisXDdJwJr78G24sWoTNpLEDFo3G8TFHY9nTMutVl5CUvkN2dp6g==
+
 react-native-paper@^4.12.5:
   version "4.12.5"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.12.5.tgz#5ea4bbe02d416d17802a199de748700358c11d3a"
@@ -9230,6 +9257,13 @@ react-native-screens@^3.20.0:
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-tab-view@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-3.5.1.tgz#2ad454afc0e186b43ea8b89053f39180d480d48b"
+  integrity sha512-qdrS5t+AEhfuKQyuCXkwHu4IVppkuTvzWWlkSZKrPaSkjjIa32xrsGxt1UW9YDdro2w4AMw5hKn1hFmg/5mvzA==
+  dependencies:
+    use-latest-callback "^0.1.5"
 
 react-native@0.69.9:
   version "0.69.9"

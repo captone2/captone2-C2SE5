@@ -1,13 +1,16 @@
 import { Endpoints } from "../../api/endpoints";
-import { LoginInfo, UserState } from "../../redux/auth/type";
 import { responseBody } from "./../../api/axios";
 import axios from "axios";
 
 export class MovieService {
-  static prefix = "auth";
-  static login(body: LoginInfo): Promise<UserState> {
+  static prefix = "";
+  static findAllMovie(title?: string): Promise<any> {
     return axios
-      .post(Endpoints.PREFIX + `${this.prefix}/signin`, body)
+      .get(Endpoints.PREFIX + `list-movie?title=${title}`)
       .then(responseBody);
+  }
+
+  static findMovieById(id: number): Promise<any> {
+    return axios.get(Endpoints.PREFIX + `list/${id}`).then(responseBody);
   }
 }

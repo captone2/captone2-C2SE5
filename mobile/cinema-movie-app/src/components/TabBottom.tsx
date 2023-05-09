@@ -28,6 +28,7 @@ const TabBottom: FC = () => {
     <Tab.Navigator
       // initialRouteName="HomeStack"
       screenOptions={{
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
           borderTopColor: COLORS.green,

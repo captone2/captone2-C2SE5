@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { logoutAction } from "../../redux/auth/reducer";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { COLORS } from "../../utils/theme";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
   navigation?: any;
@@ -36,22 +37,24 @@ const Profile: FC<Props> = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Text>Full name: {user?.user.displayName}</Text>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-        }}
-      >
-        <Button
-          text="Logout"
-          disabled={loading}
-          loading={loading}
-          tintColor={COLORS.white}
-          onPress={logout}
-        />
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Text>Full name: {user?.user.displayName}</Text>
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+          }}
+        >
+          <Button
+            text="Logout"
+            disabled={loading}
+            loading={loading}
+            tintColor={COLORS.white}
+            onPress={logout}
+          />
+        </View>
+      </SafeAreaView>
     </View>
   );
 };
