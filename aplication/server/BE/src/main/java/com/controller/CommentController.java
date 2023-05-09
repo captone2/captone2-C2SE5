@@ -32,22 +32,4 @@ public class CommentController {
             return new ResponseEntity<>(comments, HttpStatus.OK);
         }
     }
-
-
-    @PostMapping(value = "/add-comment")
-    public ResponseEntity<CommentDTO> addNewComment(@RequestBody CommentDTO commentDTO) {
-        List<Movie> moviesSeen = movieService.findAllMovieSeenByAccount(commentDTO.getAccount());
-        for (Movie movie : moviesSeen){
-            if(commentDTO.getMovie() == movie.getId()){
-                commentDTO.setSeen(1);
-            }
-        }
-        if(commentDTO == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else {
-            commentService.addNewComment(commentDTO);
-            return new ResponseEntity(HttpStatus.OK);
-        }
-
-    }
 }

@@ -99,7 +99,5 @@ public class BookingTicketController {
         return new ResponseEntity<>(bookingCurrent, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/received-booking")
-    public 
 }
 

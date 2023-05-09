@@ -1,9 +1,9 @@
 package com.controller;
 
-import com.model.entity.Genre;
-import com.service.GenreService;
+
 import com.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,23 +13,26 @@ import com.model.entity.Movie;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/auth/movie")
 @CrossOrigin("http://localhost:4200")
 public class MovieController {
-    private LocalDate today = LocalDate.now();
 
-    @Autowired
-    private GenreService genreService;
+
     @Autowired
     private MovieService movieService;
 
     @GetMapping(value = "/getAllMovie")
-    public ResponseEntity<List<Genre>> getAllGenre() {
-        return ResponseEntity.ok(genreService.findAllGenre());
+    public ResponseEntity<Page<Movie>> getAllUser(@RequestParam("page") Integer page,
+                                                 @RequestParam("size") Integer size) {
+        try {
+            Page<Movie> userList = movieService.getAllMovie(page, size);
+            return new ResponseEntity<>(userList,HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/movie-showing")
@@ -54,7 +57,7 @@ public class MovieController {
 
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {
-        List<Movie> movies = movieService.searchMovie(keyword, today);
+        List<Movie> movies = movieService.searchMovie(keyword);
         if (movies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
