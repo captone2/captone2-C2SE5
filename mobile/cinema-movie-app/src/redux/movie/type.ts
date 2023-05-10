@@ -1,12 +1,14 @@
 export enum ActionType {
   FIND_ALL_MOVIE = "FIND_ALL_MOVIE",
   FIND_MOVIE_BY_ID = "FIND_MOVIE_BY_ID",
+  FIND_ALL_GENRE = "FIND_ALL_GENRE",
 }
 
 export type MovieState = {
   data: {
     movies: Movie[];
-    movieDetail?: any;
+    movieDetail?: Movie;
+    genre: Genre[];
   };
   errors: any;
 };
@@ -28,7 +30,7 @@ export interface Movie {
   movieImages: MovieImage[];
 }
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
 }

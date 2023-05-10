@@ -21,11 +21,11 @@ const MovieDetail = () => {
               justifyContent: "center",
               textAlign: "center",
               color: COLORS.white,
-              paddingTop: 5,
+              paddingTop: 10,
               paddingLeft: "20%",
             }}
           >
-            {data.text ?? ""}
+            {data?.title ?? ""}
           </Text>
         </View>
         <Tab.Navigator

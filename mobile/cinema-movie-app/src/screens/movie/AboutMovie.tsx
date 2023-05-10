@@ -1,74 +1,98 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { FC } from "react";
 import { COLORS } from "../../utils/theme";
 import { Button } from "../../components";
 import { useAppSelector } from "../../hooks/useAppSelector";
+import YoutubePlayer from "react-native-youtube-iframe";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 type Props = {
   navigation?: any;
-  route?: any;
 };
 
-const AboutMovie: FC<Props> = ({ navigation, route }) => {
+const AboutMovie: FC<Props> = ({ navigation }) => {
   // const item = route.params.item;
   const data = useAppSelector((state) => state.movieReducer.data.movieDetail);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.trailer}>
-        {/* //TODO: Video trailer */}
-        <View style={styles.video}>
-          <Image
-            source={{
-              uri: data.uri,
-            }}
-            style={{ width: "100%", height: 150 }}
-            resizeMode="stretch"
-          />
-        </View>
-        <View style={styles.feedback}>
-          <TouchableOpacity style={styles.wrapComment}>
-            <Text style={[styles.comment, { paddingHorizontal: 22 }]}>10</Text>
-            <Text style={styles.comment}>Bình luận</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.wrapComment}>
-            <Text style={[styles.comment, { paddingHorizontal: 22 }]}> 10</Text>
-            <Text style={styles.comment}> Đánh giá </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.detailMovie}>
-        <Text style={styles.textWhite}>
-          When the Riddler, a sadistic serial killer, begins murdering key
-          political figures in Gotham, Batman is forced to investigate the
-          city's hidden corruption and question his family's involvement.
-        </Text>
-        <View style={styles.wrapInfo}>
-          <View style={styles.verticalTitle}>
-            <Text style={styles.textGray}>When</Text>
-            <Text style={styles.textGray}>When</Text>
-            <Text style={styles.textGray}>When</Text>
-            <Text style={styles.textGray}>When</Text>
-            <Text style={styles.textGray}>When</Text>
-            <Text style={styles.textGray}>When</Text>
-          </View>
-          <View>
-            <Text style={styles.textWhite}>When</Text>
-            <Text style={styles.textWhite}>When</Text>
-            <Text style={styles.textWhite}>When</Text>
-            <Text style={styles.textWhite}>When</Text>
-            <Text style={styles.textWhite}>When</Text>
-            <Text style={styles.textWhite}>When</Text>
-          </View>
-        </View>
+  const getIdVideoTrailer = data?.trailerUrl.split("=").pop();
 
-        <Button
-          text="Đặt vé"
-          tintColor={COLORS.white}
-          onPress={() => navigation.navigate("SessionMovie")}
-        />
+  const hourRunning = data?.runningTime ?? 0 / 60;
+  const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
+  const timeRunning =
+    Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
+
+  const genres = data?.genres.map((el) => el.name).join(", ");
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.trailer}>
+          <View style={styles.video}>
+            <YoutubePlayer
+              height={200}
+              play={false}
+              videoId={getIdVideoTrailer}
+              onFullScreenChange={() => "large"}
+              useLocalHTML={false}
+            />
+          </View>
+          <View style={styles.feedback}>
+            <TouchableOpacity style={styles.wrapComment}>
+              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>
+                10
+              </Text>
+              <Icon name="commenting-o" size={18} style={styles.comment} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.wrapComment}>
+              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>
+                4.5
+              </Text>
+              <Icon
+                name="star"
+                size={18}
+                style={{ color: COLORS.color.yellow }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.detailMovie}>
+          <Text style={styles.textWhite}>{data?.content}</Text>
+          <View style={styles.wrapInfo}>
+            <View style={styles.row}>
+              <Text style={styles.verticalTitle}>Thời lượng</Text>
+              <Text style={styles.textWhite}>{timeRunning}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.verticalTitle}>Thể loại</Text>
+              <Text style={styles.textWhite}>{genres}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.verticalTitle}>Đạo diễn</Text>
+              <Text style={styles.textWhite}>{data?.director}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.verticalTitle}>Diễn Viên</Text>
+              <Text style={styles.textWhite}>{data?.cast}</Text>
+            </View>
+          </View>
+
+          <View style={{ paddingBottom: 30 }}>
+            <Button
+              text="Đặt vé"
+              tintColor={COLORS.white}
+              onPress={() => navigation.navigate("MovieDetail")}
+            />
+          </View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -77,10 +101,11 @@ export default AboutMovie;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
   },
   trailer: {},
   video: {
-    height: 150,
+    height: 200,
     backgroundColor: COLORS.color.primary,
     paddingHorizontal: 10,
   },
@@ -92,7 +117,7 @@ const styles = StyleSheet.create({
   },
   wrapComment: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     paddingVertical: 10,
   },
   comment: {
@@ -105,11 +130,12 @@ const styles = StyleSheet.create({
   },
   wrapInfo: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     marginVertical: 10,
   },
   verticalTitle: {
-    paddingRight: 40,
+    width: "30%",
+    color: COLORS.lightGrey,
   },
   textWhite: {
     color: COLORS.white,
@@ -118,5 +144,9 @@ const styles = StyleSheet.create({
   textGray: {
     color: COLORS.lightGrey,
     marginBottom: 5,
+  },
+  row: {
+    flexDirection: "row",
+    width: "70%",
   },
 });

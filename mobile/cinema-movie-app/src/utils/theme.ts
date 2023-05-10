@@ -6,6 +6,7 @@ export const COLORS = {
   ...DefaultTheme,
   color: {
     primary: "#1A2435",
+    yellow: "#FFFF35",
   },
   red: "#FC0303",
   blue: "#4096FE",

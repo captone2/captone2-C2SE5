@@ -1,5 +1,7 @@
 import {
+  Animated,
   FlatList,
+  GestureResponderEvent,
   Image,
   SectionList,
   StyleSheet,
@@ -9,158 +11,101 @@ import {
   View,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../../utils/theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { setMovieDetails } from "../../redux/movie/reducer";
-const genreList = [
-  {
-    id: 1,
-    name: "Hành động",
-  },
-  {
-    id: 2,
-    name: "Kinh dị",
-  },
-  {
-    id: 3,
-    name: "Gia đình",
-  },
-  {
-    id: 4,
-    name: "Hài ",
-  },
-  {
-    id: 5,
-    name: "Tình cảm",
-  },
-  {
-    id: 6,
-    name: "Tâm lý",
-  },
-];
+import { findAllGenres, findAllMovie } from "../../redux/movie/dispatcher";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { Movie } from "../../redux/movie/type";
 
-const SECTIONS = [
-  {
-    title: "Made for you",
-    horizontal: true,
-    data: [
-      {
-        key: "1",
-        text: "Item text 1",
-        uri: "https://picsum.photos/id/1/200",
-      },
-      {
-        key: "2",
-        text: "Item text 2",
-        uri: "https://picsum.photos/id/10/200",
-      },
-
-      {
-        key: "3",
-        text: "Item text 3",
-        uri: "https://picsum.photos/id/1002/200",
-      },
-      {
-        key: "4",
-        text: "Item text 4",
-        uri: "https://picsum.photos/id/1006/200",
-      },
-      {
-        key: "5",
-        text: "Item text 5",
-        uri: "https://picsum.photos/id/1008/200",
-      },
-    ],
-  },
-  {
-    title: "Punk and hardcore",
-    horizontal: true,
-    data: [
-      {
-        key: "1",
-        text: "Item text 1",
-        uri: "https://picsum.photos/id/1011/200",
-      },
-      {
-        key: "2",
-        text: "Item text 2",
-        uri: "https://picsum.photos/id/1012/200",
-      },
-
-      {
-        key: "3",
-        text: "Item text 3",
-        uri: "https://picsum.photos/id/1013/200",
-      },
-      {
-        key: "4",
-        text: "Item text 4",
-        uri: "https://picsum.photos/id/1015/200",
-      },
-      {
-        key: "5",
-        text: "Item text 5",
-        uri: "https://picsum.photos/id/1016/200",
-      },
-    ],
-  },
-  {
-    title: "Based on your recent listening",
-    // horizontal: true,
-    data: [
-      {
-        key: "1",
-        text: "Item text 1",
-        uri: "https://picsum.photos/id/1020/200",
-      },
-      {
-        key: "2",
-        text: "Item text 2",
-        uri: "https://picsum.photos/id/1024/200",
-      },
-
-      {
-        key: "3",
-        text: "Item text 3",
-        uri: "https://picsum.photos/id/1027/200",
-      },
-      {
-        key: "4",
-        text: "Item text 4",
-        uri: "https://picsum.photos/id/1035/200",
-      },
-      {
-        key: "5",
-        text: "Item text 5",
-        uri: "https://picsum.photos/id/1038/200",
-      },
-    ],
-  },
-];
+type ListItemProps = {
+  item: Movie;
+  onPress?: () => any;
+};
 
 const Home: FC = ({ navigation }) => {
+  const movieList = useAppSelector((state) => state.movieReducer.data.movies);
   const [keySearch, setKeySearch] = useState("");
-  const [data, setData] = useState(SECTIONS);
+  const [movieListFilter, setMovieListFilter] = useState<Movie[]>([]);
+  const genreList = useAppSelector((state) => state.movieReducer.data.genre);
+
+  const dataSections = [
+    {
+      title: "Tất cả Phim",
+      horizontal: true,
+      data: [...movieList],
+    },
+    {
+      title: "Phim đang chiếu",
+      horizontal: true,
+      data: [...movieList],
+    },
+    {
+      title: "Phim sắp chiếu",
+      horizontal: true,
+      data: [...movieList],
+    },
+  ];
+
   const [flag, setFlag] = useState(false);
   const dispatch = useAppDispatch();
 
+  const initial = async () => {
+    await Promise.all([
+      dispatch(findAllMovie(keySearch)),
+      dispatch(findAllGenres()),
+    ]);
+  };
+  useEffect(() => {
+    initial();
+  }, []);
+
   //require("../../../assets/icons/logo.png")
-  const ListItem = ({ item, onPress }) => {
+  const ListItem: FC<ListItemProps> = ({ item, onPress }) => {
+    const hourRunning = item.runningTime / 60;
+    const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
+    const timeRunning =
+      Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
+    const dateRelease = new Date(item.releaseDate);
+    const releaseDate =
+      " " +
+      dateRelease.getDate() +
+      " Th" +
+      dateRelease.getMonth() +
+      " " +
+      dateRelease.getFullYear();
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={{ margin: 10 }}>
+          {/* //TODO: chưa apply uri từ database */}
           <Image
             source={{
-              uri: item.uri,
+              uri: "https://reactnative.dev/img/tiny_logo.png",
             }}
-            style={{ width: 200, height: 200 }}
+            style={{ width: 170, height: 200 }}
             resizeMode="cover"
           />
-          <Text style={{ color: "rgba(255, 255, 255, 0.5)", marginTop: 5 }}>
-            {item.text}
+          {item.is3D && <Text style={[styles.is3D]}>3D</Text>}
+          <Text
+            style={{
+              color: COLORS.white,
+              marginTop: 5,
+              width: 170,
+              fontWeight: "bold",
+            }}
+          >
+            {item.title}
+          </Text>
+          <Text
+            style={{
+              color: "rgba(255, 255, 255, 0.5)",
+              width: 170,
+            }}
+          >
+            {timeRunning} {releaseDate}
           </Text>
         </View>
       </TouchableOpacity>
@@ -169,9 +114,11 @@ const Home: FC = ({ navigation }) => {
 
   const filterMovie = () => {
     setFlag(!flag);
-    const result = SECTIONS[0].data.filter((el) => el.text.includes(keySearch));
-
-    setData(result as any);
+    if (movieList.length < 0) {
+      return;
+    }
+    const result = movieList.filter((el) => el.title.includes(keySearch));
+    setMovieListFilter(result);
   };
 
   return (
@@ -188,7 +135,9 @@ const Home: FC = ({ navigation }) => {
             placeholder="Nhập tên phim tìm kiếm."
             style={styles.inputFilter}
             value={keySearch}
-            onChangeText={(text) => setKeySearch(text)}
+            onChange={(event) => {
+              setKeySearch(event.nativeEvent.text);
+            }}
           />
           <TouchableOpacity style={{ width: "10%" }} onPress={filterMovie}>
             <Icon name="search" size={18} style={styles.btnSearch} />
@@ -216,12 +165,12 @@ const Home: FC = ({ navigation }) => {
             }}
           />
         </View>
-
-        {!flag ? (
+        {!keySearch ? (
           <SectionList
             contentContainerStyle={{ paddingHorizontal: 10 }}
-            stickySectionHeadersEnabled={false}
-            sections={SECTIONS}
+            stickySectionHeadersEnabled={true}
+            showsHorizontalScrollIndicator
+            sections={dataSections}
             renderSectionHeader={({ section }) => (
               <>
                 <Text style={styles.sectionHeader}>{section.title}</Text>
@@ -233,7 +182,7 @@ const Home: FC = ({ navigation }) => {
                       <ListItem
                         item={item}
                         onPress={() => {
-                          navigation.navigate("MovieDetail", { item: item });
+                          navigation.navigate("MovieDetail");
                           dispatch(setMovieDetails(item));
                         }}
                       />
@@ -247,27 +196,51 @@ const Home: FC = ({ navigation }) => {
               return !section.horizontal ? (
                 <ListItem
                   item={item}
-                  onPress={() => console.log("item", item)}
+                  onPress={() => {
+                    navigation.navigate("MovieDetail", { item: item });
+                    dispatch(setMovieDetails(item));
+                  }}
                 />
               ) : null;
             }}
           />
-        ) : (
-          <FlatList
-            horizontal
-            data={data}
-            renderItem={({ item, index }) => (
-              <ListItem
-                item={item}
-                onPress={() => {
-                  navigation.navigate("MovieDetail", { item: item.data });
-                  dispatch(setMovieDetails(item.data));
-                }}
-              />
-            )}
-            // showsHorizontalScrollIndicator={false}
-          />
-        )}
+        ) : !(keySearch.length > 0 && movieListFilter.length > 0) ? (
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "row",
+              marginTop: 10,
+            }}
+          >
+            <Text style={styles.notFound}>Không tìm thấy.</Text>
+          </View>
+        ) : movieListFilter.length > 0 ? (
+          <>
+            <Text
+              style={[
+                { color: COLORS.white, paddingLeft: 10 },
+                styles.sectionHeader,
+              ]}
+            >
+              Tất cả phim
+            </Text>
+            <FlatList
+              horizontal
+              data={movieListFilter}
+              renderItem={({ item, index }) => (
+                <ListItem
+                  item={item}
+                  onPress={() => {
+                    navigation.navigate("MovieDetail");
+                    dispatch(setMovieDetails(item));
+                  }}
+                />
+              )}
+              // showsHorizontalScrollIndicator={false}
+            />
+          </>
+        ) : null}
       </SafeAreaView>
     </View>
   );
@@ -326,14 +299,13 @@ const styles = StyleSheet.create({
     borderColor: COLORS.colors.notification,
     borderWidth: 2,
     marginHorizontal: 3,
-
-    // shadowColor: COLORS.white,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 10,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.5,
+    shadowColor: COLORS.white,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
   },
   sectionHeader: {
     fontWeight: "800",
@@ -341,5 +313,19 @@ const styles = StyleSheet.create({
     color: "#f4f4f4",
     marginTop: 20,
     marginBottom: 5,
+  },
+
+  notFound: {
+    color: COLORS.white,
+  },
+  is3D: {
+    backgroundColor: COLORS.green,
+    position: "absolute",
+    zIndex: 1,
+    right: 0,
+    top: 0,
+    borderRadius: 5,
+    color: COLORS.black,
+    paddingHorizontal: 5,
   },
 });
