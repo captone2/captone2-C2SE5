@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AboutMovie from "./AboutMovie";
 import SessionMovie from "./SessionMovie";
@@ -7,10 +7,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import BackButton from "../../components/BackButton";
 import { COLORS } from "../../utils/theme";
 import { useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { findShowtimeByMovieId } from "../../redux/movie/dispatcher";
 
 const MovieDetail = () => {
   const Tab = createMaterialTopTabNavigator();
   const data = useAppSelector((state) => state.movieReducer.data.movieDetail);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(findShowtimeByMovieId(data?.id as number));
+  }, []);
   return (
     <>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.color.primary }}>

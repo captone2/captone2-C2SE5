@@ -23,7 +23,7 @@ const AboutMovie: FC<Props> = ({ navigation }) => {
 
   const getIdVideoTrailer = data?.trailerUrl.split("=").pop();
 
-  const hourRunning = data?.runningTime ?? 0 / 60;
+  const hourRunning = (data?.runningTime as number) / 60;
   const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
   const timeRunning =
     Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";

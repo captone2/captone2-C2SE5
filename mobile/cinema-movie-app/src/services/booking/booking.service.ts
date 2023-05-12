@@ -14,10 +14,10 @@ export class BookingService {
   }
 
   static setTicketBookingReceived(body: BookingRequest): Promise<any> {
-    console.log("body", body);
+    return axios.post(Endpoints.PREFIX + `${this.prefix}/received-booking`, { id: body }).then(responseBody);
+  }
 
-    return axios
-      .post(Endpoints.PREFIX + `${this.prefix}/received-booking`, { id: body })
-      .then(responseBody);
+  static seatBookedByShowTime(id: number): Promise<number[]> {
+    return axios.get(Endpoints.PREFIX + `${this.prefix}/seatByShowTime/${id}`).then(responseBody);
   }
 }

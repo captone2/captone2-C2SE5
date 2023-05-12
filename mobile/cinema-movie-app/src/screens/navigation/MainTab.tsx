@@ -2,14 +2,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import TabBottom from "../../components/TabBottom";
-import {
-  AboutMovie,
-  Login,
-  MovieComing,
-  MovieShowing,
-  SessionMovie,
-  Welcome,
-} from "..";
+import { AboutMovie, ChooseSeat, Login, SessionMovie, Welcome } from "..";
 
 const Stack = createNativeStackNavigator();
 const MainTab = () => {
@@ -22,10 +15,9 @@ const MainTab = () => {
       <Stack.Screen name="TabBottom" component={TabBottom} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="MovieShowing" component={MovieShowing} />
-      <Stack.Screen name="MovieComing" component={MovieComing} />
       <Stack.Screen name="AboutMovie" component={AboutMovie} />
       <Stack.Screen name="SessionMovie" component={SessionMovie} />
+      <Stack.Screen name="ChooseSeat" component={ChooseSeat} />
     </Stack.Navigator>
   );
 };

@@ -17,17 +17,21 @@ import { COLORS } from "../../utils/theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { setMovieDetails } from "../../redux/movie/reducer";
-import { findAllGenres, findAllMovie } from "../../redux/movie/dispatcher";
+import { findAllGenres, findAllMovie, findAllMovieComingSoon, findAllMovieShowing } from "../../redux/movie/dispatcher";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { Movie } from "../../redux/movie/type";
+import { format } from "date-fns";
 
 type ListItemProps = {
   item: Movie;
+  top?: boolean;
   onPress?: () => any;
 };
 
 const Home: FC = ({ navigation }) => {
   const movieList = useAppSelector((state) => state.movieReducer.data.movies);
+  const movieShowingList = useAppSelector((state) => state.movieReducer.data.movieShowing);
+  const movieComingSoonList = useAppSelector((state) => state.movieReducer.data.movieComingSoon);
   const [keySearch, setKeySearch] = useState("");
   const [movieListFilter, setMovieListFilter] = useState<Movie[]>([]);
   const genreList = useAppSelector((state) => state.movieReducer.data.genre);
@@ -35,16 +39,25 @@ const Home: FC = ({ navigation }) => {
   const dataSections = [
     {
       title: "Tất cả Phim",
+      top: false,
       horizontal: true,
       data: [...movieList],
     },
     {
       title: "Phim đang chiếu",
+      top: false,
       horizontal: true,
-      data: [...movieList],
+      data: [...movieShowingList],
     },
     {
       title: "Phim sắp chiếu",
+      top: false,
+      horizontal: true,
+      data: [...movieComingSoonList],
+    },
+    {
+      title: "Top 5 bán chạy nhất",
+      top: true,
       horizontal: true,
       data: [...movieList],
     },
@@ -57,6 +70,8 @@ const Home: FC = ({ navigation }) => {
     await Promise.all([
       dispatch(findAllMovie(keySearch)),
       dispatch(findAllGenres()),
+      dispatch(findAllMovieShowing()),
+      dispatch(findAllMovieComingSoon()),
     ]);
   };
   useEffect(() => {
@@ -64,19 +79,11 @@ const Home: FC = ({ navigation }) => {
   }, []);
 
   //require("../../../assets/icons/logo.png")
-  const ListItem: FC<ListItemProps> = ({ item, onPress }) => {
+  const ListItem: FC<ListItemProps> = ({ item, top = false, onPress }) => {
     const hourRunning = item.runningTime / 60;
     const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
-    const timeRunning =
-      Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
-    const dateRelease = new Date(item.releaseDate);
-    const releaseDate =
-      " " +
-      dateRelease.getDate() +
-      " Th" +
-      dateRelease.getMonth() +
-      " " +
-      dateRelease.getFullYear();
+    const timeRunning = Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
+
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={{ margin: 10 }}>
@@ -89,6 +96,7 @@ const Home: FC = ({ navigation }) => {
             resizeMode="cover"
           />
           {item.is3D && <Text style={[styles.is3D]}>3D</Text>}
+          {top && <Text style={[styles.isBest]}>Best</Text>}
           <Text
             style={{
               color: COLORS.white,
@@ -105,7 +113,7 @@ const Home: FC = ({ navigation }) => {
               width: 170,
             }}
           >
-            {timeRunning} {releaseDate}
+            {timeRunning} {format(new Date(item.releaseDate), "d 'Th'M yyyy")}
           </Text>
         </View>
       </TouchableOpacity>
@@ -117,7 +125,7 @@ const Home: FC = ({ navigation }) => {
     if (movieList.length < 0) {
       return;
     }
-    const result = movieList.filter((el) => el.title.includes(keySearch));
+    const result = movieList.filter((el) => el.title.toLowerCase().includes(keySearch.toLowerCase().trim()));
     setMovieListFilter(result);
   };
 
@@ -173,29 +181,35 @@ const Home: FC = ({ navigation }) => {
             sections={dataSections}
             renderSectionHeader={({ section }) => (
               <>
-                <Text style={styles.sectionHeader}>{section.title}</Text>
-                {section.horizontal ? (
-                  <FlatList
-                    horizontal
-                    data={section.data}
-                    renderItem={({ item, index }) => (
-                      <ListItem
-                        item={item}
-                        onPress={() => {
-                          navigation.navigate("MovieDetail");
-                          dispatch(setMovieDetails(item));
-                        }}
-                      />
-                    )}
-                    showsHorizontalScrollIndicator={false}
-                  />
-                ) : null}
+                {/* {section.data.length > 0 && ( */}
+                <>
+                  <Text style={styles.sectionHeader}>{section.title}</Text>
+                  {section.horizontal ? (
+                    <FlatList
+                      horizontal
+                      data={section.data}
+                      renderItem={({ item, index }) => (
+                        <ListItem
+                          item={item}
+                          top={section.top}
+                          onPress={() => {
+                            navigation.navigate("MovieDetail");
+                            dispatch(setMovieDetails(item));
+                          }}
+                        />
+                      )}
+                      showsHorizontalScrollIndicator={false}
+                    />
+                  ) : null}
+                </>
+                {/* )} */}
               </>
             )}
             renderItem={({ item, section }) => {
               return !section.horizontal ? (
                 <ListItem
                   item={item}
+                  top={section.top}
                   onPress={() => {
                     navigation.navigate("MovieDetail", { item: item });
                     dispatch(setMovieDetails(item));
@@ -217,14 +231,7 @@ const Home: FC = ({ navigation }) => {
           </View>
         ) : movieListFilter.length > 0 ? (
           <>
-            <Text
-              style={[
-                { color: COLORS.white, paddingLeft: 10 },
-                styles.sectionHeader,
-              ]}
-            >
-              Tất cả phim
-            </Text>
+            <Text style={[{ color: COLORS.white, paddingLeft: 10 }, styles.sectionHeader]}>Tất cả phim</Text>
             <FlatList
               horizontal
               data={movieListFilter}
@@ -320,6 +327,16 @@ const styles = StyleSheet.create({
   },
   is3D: {
     backgroundColor: COLORS.green,
+    position: "absolute",
+    zIndex: 1,
+    right: 2,
+    bottom: 48,
+    borderRadius: 5,
+    color: COLORS.black,
+    paddingHorizontal: 5,
+  },
+  isBest: {
+    backgroundColor: COLORS.white,
     position: "absolute",
     zIndex: 1,
     right: 0,

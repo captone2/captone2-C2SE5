@@ -2,13 +2,19 @@ export enum ActionType {
   FIND_ALL_MOVIE = "FIND_ALL_MOVIE",
   FIND_MOVIE_BY_ID = "FIND_MOVIE_BY_ID",
   FIND_ALL_GENRE = "FIND_ALL_GENRE",
+  FIND_MOVIE_BY_SHOWING = "FIND_MOVIE_BY_SHOWING",
+  FIND_MOVIE_BY_COMING_SOON = "FIND_MOVIE_BY_COMING_SOON",
+  GET_SHOWTIME_MOVIE_BY_ID = "GET_SHOWTIME_MOVIE_BY_ID",
 }
 
 export type MovieState = {
   data: {
     movies: Movie[];
     movieDetail?: Movie;
+    movieShowing: Movie[];
+    movieComingSoon: Movie[];
     genre: Genre[];
+    movieShowtime: MovieShowtime[];
   };
   errors: any;
 };
@@ -38,4 +44,30 @@ export interface Genre {
 interface MovieImage {
   id: number;
   imageUrl: string;
+}
+
+export interface Showtime {
+  id: number;
+  showTime: string;
+}
+
+export interface Screen {
+  id: number;
+  name: string;
+  totalSeat: number;
+  seats: Seat[];
+}
+
+export interface Seat {
+  id: number;
+  vip: boolean;
+  name: string;
+}
+
+export interface MovieShowtime {
+  id: number;
+  showDate: string;
+  showtime: Showtime;
+  movie: Movie;
+  screen: Screen;
 }

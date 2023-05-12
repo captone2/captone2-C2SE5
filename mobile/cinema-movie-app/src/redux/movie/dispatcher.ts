@@ -17,7 +17,35 @@ const findMovieById = createAsyncThunk(
 );
 
 const findAllGenres = createAsyncThunk(ActionType.FIND_ALL_GENRE, async () => {
-  return (await MovieService.findAllGenres()) ?? null;
+  return (await MovieService.findAllGenres()) ?? [];
 });
 
-export { findAllMovie, findMovieById, findAllGenres };
+const findAllMovieShowing = createAsyncThunk(
+  ActionType.FIND_MOVIE_BY_SHOWING,
+  async () => {
+    return (await MovieService.findAllMovieShowing()) ?? [];
+  }
+);
+
+const findAllMovieComingSoon = createAsyncThunk(
+  ActionType.FIND_MOVIE_BY_COMING_SOON,
+  async () => {
+    return (await MovieService.findAllMovieComingSoon()) ?? [];
+  }
+);
+
+const findShowtimeByMovieId = createAsyncThunk(
+  ActionType.GET_SHOWTIME_MOVIE_BY_ID,
+  async (id: number) => {
+    return (await MovieService.findShowtimeByMovieId(id)) ?? [];
+  }
+);
+
+export {
+  findAllMovie,
+  findMovieById,
+  findAllGenres,
+  findAllMovieShowing,
+  findAllMovieComingSoon,
+  findShowtimeByMovieId,
+};
