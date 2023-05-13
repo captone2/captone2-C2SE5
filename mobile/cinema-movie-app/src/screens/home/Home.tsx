@@ -1,15 +1,4 @@
-import {
-  Animated,
-  FlatList,
-  GestureResponderEvent,
-  Image,
-  SectionList,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Image, SectionList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -176,7 +165,6 @@ const Home: FC = ({ navigation }) => {
         {!keySearch ? (
           <SectionList
             contentContainerStyle={{ paddingHorizontal: 10 }}
-            stickySectionHeadersEnabled={true}
             showsHorizontalScrollIndicator
             sections={dataSections}
             renderSectionHeader={({ section }) => (
@@ -244,7 +232,7 @@ const Home: FC = ({ navigation }) => {
                   }}
                 />
               )}
-              // showsHorizontalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
             />
           </>
         ) : null}

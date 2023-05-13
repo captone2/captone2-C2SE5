@@ -3,6 +3,7 @@ import { combineReducers, compose, Reducer } from "redux";
 import { AppActionType } from "./types";
 import { userReducer } from "./auth/reducer";
 import { movieReducer } from "./movie/reducer";
+import { bookingReducer } from "./booking/reducer";
 // import { userReducer } from './user/reducer';
 declare global {
   interface Window {
@@ -13,6 +14,7 @@ declare global {
 const appReducers = combineReducers({
   user: userReducer,
   movieReducer,
+  bookingReducer,
 });
 
 export type RootState = ReturnType<typeof appReducers>;
@@ -39,8 +41,7 @@ export const resetStoreAction = () => ({
 const store = configureStore({
   reducer: rootReducer,
   // devTools: process.env.NODE_ENV !== "production",
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -13,7 +13,7 @@ export class BookingService {
       .then(responseBody);
   }
 
-  static setTicketBookingReceived(body: BookingRequest): Promise<any> {
+  static setTicketBookingReceived(body: BookingRequest): Promise<void> {
     return axios.post(Endpoints.PREFIX + `${this.prefix}/received-booking`, { id: body }).then(responseBody);
   }
 

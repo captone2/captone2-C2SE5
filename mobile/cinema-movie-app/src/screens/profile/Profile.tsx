@@ -13,7 +13,7 @@ type Props = {
 const Profile: FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user.user);
   const logout = () => {
     setLoading(true);
     dispatch(logoutAction());
@@ -35,10 +35,11 @@ const Profile: FC<Props> = ({ navigation }) => {
     //   },
     // ]);
   };
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Text>Full name: {user?.user.displayName}</Text>
+        <Text>Full name: {user.displayName}</Text>
         <View
           style={{
             position: "absolute",
@@ -46,13 +47,7 @@ const Profile: FC<Props> = ({ navigation }) => {
             width: "100%",
           }}
         >
-          <Button
-            text="Logout"
-            disabled={loading}
-            loading={loading}
-            tintColor={COLORS.white}
-            onPress={logout}
-          />
+          <Button text="Logout" disabled={loading} loading={loading} tintColor={COLORS.white} onPress={logout} />
         </View>
       </SafeAreaView>
     </View>

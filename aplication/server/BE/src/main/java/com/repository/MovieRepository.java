@@ -21,7 +21,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT * FROM movie WHERE id = ?1", nativeQuery = true)
     Movie findMovieById(Long id);
 
-    @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE %:title%", nativeQuery = true)
+    @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE %:title% order by create_at DESC", nativeQuery = true)
     List<Movie> searchMovieByTitle(@Param("title") String keyword);
 
 
@@ -34,7 +34,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT DISTINCT movie.* FROM movie \n" +
             "            INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
             "            INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
-            "            WHERE TIME(now()) <= TIME(showtime.show_time) AND movie_show_time.show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d');", nativeQuery = true)
+            "            WHERE movie_show_time.show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d');", nativeQuery = true)
     List<Movie> findAllMovieComingSoon();
 
     @Query(value = "SELECT movie.* FROM movie \n" +

@@ -1,26 +1,46 @@
 import { StyleSheet, Text, View, FlatList, ScrollView, TouchableOpacity } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { COLORS } from "../../utils/theme";
 import { BackButton } from "../../components";
 import { MovieShowtime, Seat } from "../../redux/movie/type";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { seatBookedByShowTime } from "../../redux/booking/dispatcher";
+import { useAppSelector } from "../../hooks/useAppSelector";
 import { BookingService } from "../../services/booking/booking.service";
 
 const ChooseSeat: FC = ({ navigation, route }) => {
   const movieShowtime: MovieShowtime = route.params.movieShowtime;
   const showtime: string = route.params.showtime;
+  const dispatch = useAppDispatch();
+  const seatBooked = useAppSelector((state) => state.bookingReducer.data.seatBooked);
 
-  const seatBooked = BookingService.seatBookedByShowTime(movieShowtime.id);
-  console.log(seatBooked);
+  useEffect(() => {
+    dispatch(seatBookedByShowTime(movieShowtime.id));
+  }, []);
 
-  const SeatItem = (seat: Seat) => {
-    const { id, name } = seat;
+  const SeatItem = ({ seat }) => {
+    const [selectedSeatStyle, setSelectedSeatStyle] = useState(false);
+
+    const [seatSelected, setSeatSelected] = useState<number | null>(null);
+
+    const handlePress = () => {
+      setSelectedSeatStyle(!selectedSeatStyle);
+      setSeatSelected(seatSelected !== seat.id ? seat.id : null);
+      console.log(seatSelected);
+    };
+
+    const seatStyle = selectedSeatStyle ? [styles.seat, styles.seatSelecting] : styles.seat;
 
     return (
-      <TouchableOpacity style={styles.seat} onPress={() => console.log(id)}>
+      <TouchableOpacity
+        style={[seatStyle, seatBooked.includes(seat.id) && styles.seatSelected]}
+        disabled={seatBooked.includes(seat.id)}
+        onPressIn={handlePress}
+      >
         <View>
-          <Text style={styles.seatText}>{name}</Text>
+          <Text style={styles.seatText}>{seat.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -48,10 +68,21 @@ const ChooseSeat: FC = ({ navigation, route }) => {
           </Text>
         </View>
       </View>
-      <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-        <Text>Đã đặt</Text>
-        <Text>Trống</Text>
-        <Text>Đang chọn</Text>
+      <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginVertical: 10 }}>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <View style={[{ width: 16, height: 16, justifyContent: "center" }, { backgroundColor: COLORS.gray }]}></View>
+          <Text style={[styles.textWhite, { fontSize: 12 }]}>Đã đặt</Text>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <View style={[{ width: 16, height: 16, justifyContent: "center" }, { backgroundColor: COLORS.white }]}></View>
+          <Text style={[styles.textWhite, { fontSize: 12 }]}>Trống</Text>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <View
+            style={[{ width: 16, height: 16, justifyContent: "center" }, { backgroundColor: COLORS.color.orange }]}
+          ></View>
+          <Text style={[styles.textWhite, { fontSize: 12 }]}>Đang chọn</Text>
+        </View>
       </View>
       <View style={styles.wrapScreen}>
         <View style={styles.screen}>
@@ -153,12 +184,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   seatSelecting: {
-    flex: 1,
-    aspectRatio: 1.2,
-    margin: 2,
     backgroundColor: COLORS.color.orange,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
   },
 });

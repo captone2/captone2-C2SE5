@@ -94,6 +94,9 @@ public class BookingTicketController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         Booking bookingCurrent = bookingRepository.getBookingByBookingCode(booking.getBookingCode());
+        if(bookingCurrent == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(bookingCurrent, HttpStatus.OK);
     }
 

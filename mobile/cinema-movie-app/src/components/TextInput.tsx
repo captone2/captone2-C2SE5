@@ -7,11 +7,7 @@ interface TextInputProps1 extends TextInputProps {
   errorText?: any;
   description?: string;
 }
-const TextInput: FC<TextInputProps1> = ({
-  errorText,
-  description,
-  ...props
-}) => {
+const TextInput: FC<TextInputProps1> = ({ errorText, description, ...props }) => {
   return (
     <View style={styles.container}>
       <Input
@@ -19,11 +15,11 @@ const TextInput: FC<TextInputProps1> = ({
         selectionColor={COLORS.lightGrey}
         underlineColor="transparent"
         mode="outlined"
+        right={<Text>1234</Text>}
         {...props}
       />
-      {description && !errorText ? (
-        <Text style={styles.description}>{description}</Text>
-      ) : null}
+
+      {description && !errorText ? <Text style={styles.description}>{description}</Text> : null}
       {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
     </View>
   );
@@ -38,7 +34,6 @@ const styles = StyleSheet.create({
   input: {
     minWidth: "100%",
     backgroundColor: COLORS.colors.surface,
-    borderRadius: 40,
   },
   description: {
     fontSize: 13,

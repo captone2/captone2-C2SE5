@@ -54,6 +54,16 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/movie-coming-soon")
+    public ResponseEntity<List<Movie>> findAllMovieComingSoon() {
+        List<Movie> movieComingSoon = movieService.findAllMovieComingSoon();
+        if (movieComingSoon.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(movieComingSoon, HttpStatus.OK);
+        }
+    }
+
     @GetMapping(value = "/detail-movie/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable("id") long id) {
         Movie movie = movieService.findMovieById(id);
