@@ -20,7 +20,7 @@ export class MovieService {
   }
 
   public getMovieShowing(): Observable<any> {
-    return this.httpClient.get(this.MOVIE_URL + '/movie-showing');
+    return this.httpClient.get(this.MOVIE_URL + '/movie-coming-soon');
   }
 
   public getAllGenre(): Observable<Genre[]> {

@@ -16,33 +16,30 @@
               <ul id="menu-mainnav" class="nav-menu">
                 <li id="menu-item-121"
                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-121">
-                  <a routerLink="/home">Home</a>
+                  <a routerLink="/home">Trang chủ</a>
                 </li>
                 <li id="menu-item-276"
                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-276">
-                  <a href="#">Movie</a>
+                  <a href="#">Phim</a>
                   <ul class="sub-menu">
                     <li id="menu-item-143"
                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143">
-                      <a routerLink="/now-playing">Now
-                        Playing</a>
+                      <a routerLink="/now-playing">Đang chiếu</a>
                     </li>
                     <li id="menu-item-134"
                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134">
-                      <a routerLink="/comming-soon">Coming
-                        Soon</a>
+                      <a routerLink="/comming-soon">Sắp chiếu</a>
                     </li>
                   </ul>
                 </li>
 
                 <li id="menu-item-278"
                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-278">
-                  <a routerLink="/show-time">Showtime</a>
+                  <a routerLink="/show-time">Lịch chiếu</a>
                 </li>
                 <li id="menu-item-146"
                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146">
-                  <a routerLink="/top-rate">Top
-                    rated</a>
+                  <a routerLink="/top-rate">Đánh giá</a>
                 </li>
               </ul>
             </div>
@@ -50,7 +47,7 @@
           <div id="amy-menu-toggle"><a><span></span></a></div>
         </div>
         <div class="login" style="margin-left: 50px; font-size: 14px; font-weight: 600; position: relative; left: 130px;">
-          <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+          <a *ngIf="!isLoggedIn" routerLink="/login">Đăng nhập</a>
       </div>
       <div *ngIf="isLoggedIn" class="user" style="position: relative; left: 130px;">
           <div class="img-user" style="width: 35px; cursor: pointer;">
@@ -60,11 +57,11 @@
               <ul>
                   <li routerLink="/profile">
                       <i class="fa-solid fa-gear"></i>
-                      Profile
+                      Hồ sơ
                   </li>
                   <li (click)="logout()">
                       <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                      Logout
+                      Đăng xuất
                   </li>
               </ul>
           </div>

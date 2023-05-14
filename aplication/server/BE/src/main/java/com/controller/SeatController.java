@@ -27,4 +27,7 @@ public class SeatController {
             return new ResponseEntity<>(seats, HttpStatus.OK);
         }
     }
+
+
+
 }

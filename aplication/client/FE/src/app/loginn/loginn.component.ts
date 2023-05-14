@@ -72,11 +72,13 @@ export class LoginnComponent implements OnInit {
         } else {
           const user = JSON.parse(sessionStorage.getItem('auth-user'))
           console.log(user)
-          const role = user.roles[0];
-          if (role == 'ROLE_USER') {
-            this.router.navigate(['/home']);
+          const role = user.roles;
+          if (role.includes("ROLE_ADMIN") || role.includes("ROLE_EMPLOYEE")) {
+            console.log("Admin")
+            this.router.navigate(['/admin/home']);
           } else{
-            this.router.navigate(['/admin']);
+            console.log("User")
+            this.router.navigate(['/home']);
           }
           
         }

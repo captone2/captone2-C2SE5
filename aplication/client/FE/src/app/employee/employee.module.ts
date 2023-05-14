@@ -33,26 +33,26 @@ import {AuthGuardService} from '../services/AuthGuardService';
 import {Role} from '../common/Role';
 
 const employeeRoutes: Routes = [
-  {
-    path: 'list-member', component: ListUserComponent,
-    canActivate: [AuthGuardService],
-    data: {expectedRole: [Role.Admin, Role.Mod]}
-  },
-  {
-    path: 'update-member/:id', component: UpdateUserComponent,
-    canActivate: [AuthGuardService],
-    data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
-  },
-  {
-    path: 'create-member', component: AddUserComponent,
-    canActivate: [AuthGuardService],
-    data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
-  },
-  {
-    path: 'detail-member/:id', component: DetailUserComponent,
-    canActivate: [AuthGuardService],
-    data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
-  }
+  // {
+  //   path: 'list-member', component: ListUserComponent,
+  //   canActivate: [AuthGuardService],
+  //   data: {expectedRole: [Role.Admin, Role.Mod]}
+  // },
+  // {
+  //   path: 'update-member/:id', component: UpdateUserComponent,
+  //   canActivate: [AuthGuardService],
+  //   data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
+  // },
+  // {
+  //   path: 'create-member', component: AddUserComponent,
+  //   canActivate: [AuthGuardService],
+  //   data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
+  // },
+  // {
+  //   path: 'detail-member/:id', component: DetailUserComponent,
+  //   canActivate: [AuthGuardService],
+  //   data: {expectedRole: [Role.Admin, Role.User, Role.Mod]}
+  // }
 ];
 
 @NgModule({

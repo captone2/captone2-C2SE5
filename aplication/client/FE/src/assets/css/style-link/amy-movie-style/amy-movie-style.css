@@ -4030,7 +4030,7 @@ body.hasresponsive .amy-primary-navigation {
  * ---------------------------------------------
  */
 .amy-site-footer {
-    background: url("../images/frontend/footer_bg.png") no-repeat;
+    background: url(http://demo.amytheme.com/movie/demo/elementor-single-cinema/wp-content/themes/amy-movie/images/frontend/footer_bg.png) no-repeat;
     background-size: cover;
     min-height: 514px;
     padding-top: 100px;

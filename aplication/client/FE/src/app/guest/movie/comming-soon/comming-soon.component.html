@@ -32,11 +32,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <!-- Row 1 -->
                             <div *ngFor="let movie of movieConvert; let i = index" class="row"
                                 style="margin-bottom: 30px;">
-                                <div class="header" style="margin-bottom: 10px;">
+                                <div class="header" style="margin-bottom: 10px; display: block;width: 100%;">
                                     <h5 style="text-transform: uppercase; margin: 0;">TUẦN {{movie?.week}}</h5>
                                     <span style="font-size: 16px;">{{movie?.day}}</span>
                                 </div>
@@ -52,7 +52,7 @@
                                                         alt="Norma – Royal Opera">
                                                 </a>
                                                 <!-- <span class="amy-movie-field-imdb pss">7.8</span> -->
-                                                <div style=" padding: 10px;">
+                                                <div style=" padding: 0px 10px 0 10px;">
                                                     <p style="font-weight: bold; font-size: 16px; margin: 0;">
                                                         {{movieDetail.movie.title}}</p>
                                                     <p>{{movieDetail.showDate | date: 'dd/MM'}}</p>

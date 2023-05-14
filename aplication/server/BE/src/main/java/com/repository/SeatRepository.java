@@ -17,4 +17,8 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     List<Seat> findAllSeatByShowtimeId(@Param("showtimeId") long showtimeId);
 
 
+    @Query(value = "    SELECT seat_id FROM booking_seat\n" +
+            "    JOIN  booking ON booking.id = booking_seat.booking_id\n" +
+            "    WHERE booking.movie_showtime_id = :id", nativeQuery = true)
+    List<Integer> getListSeatSoldByMovieShowTimeId(@Param("id") long movieShowtimeId);
 }

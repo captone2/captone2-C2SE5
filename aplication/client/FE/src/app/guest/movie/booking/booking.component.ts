@@ -496,4 +496,6 @@ closeModal() {
   checkSold(id: number) {
     return this.seatListSold.includes(id);
   }
+
+ 
 }

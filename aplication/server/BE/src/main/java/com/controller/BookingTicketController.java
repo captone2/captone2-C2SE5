@@ -6,6 +6,7 @@ import com.model.dto.BookingFoodDTO;
 import com.model.entity.Booking;
 import com.model.entity.Movie;
 import com.repository.BookingRepository;
+import com.repository.SeatRepository;
 import com.service.MovieService;
 import com.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class BookingTicketController {
 
     @Autowired
     private ShowtimeService showtimeService;
+
+    @Autowired
+    private SeatRepository seatRepository;
 
     @PostMapping(value = "/seat")
     public ResponseEntity<Object> postListNumbersAndId(@RequestBody Map<String, Object> requestData) {
