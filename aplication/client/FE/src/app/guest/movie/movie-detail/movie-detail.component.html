@@ -71,7 +71,7 @@
           <div class="col-md-8">
             <div class="page-content">
 
-              <article id="post-74" class="post-74 ">
+              <article id="post-74" class="post-74">
                 <div class="entry-top">
                   <div class="entry-poster">
                     <img class=""
@@ -92,6 +92,10 @@
                         <i class="fa fa-clock-o"></i>
                         {{convertTime(movieDetail?.runningTime)}}
                         </span>
+
+                        <div class="btn btn-comment">
+                          Đánh giá
+                        </div>
                     </div>
 
                     <ul class="info-list">
@@ -317,6 +321,67 @@
                 </div>
 
               </article>
+
+              <!-- Modal -->
+                <div class="overlay" style="display: none;"></div>
+                <div class="modal-binhluan" style="display: none;">
+                    <div class="modal-header">
+                        Đánh giá: {{movieDetail?.title}}
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="height: 350px;">
+                                    <img style="height: 100%; border-radius: 10px;"
+                                        src="{{movieDetail?.movieImages[0].imageUrl}}"
+                                        alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div style=" text-align: center;">
+                                    <p style="margin: 0;">Đánh giá</p>
+                                    <div class='rating-stars text-center' style="text-align: left;">
+                                        <ul id='stars'>
+                                            <li  class='star' (click)="handleStarClick($event)" title='Poor' data-value='1'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' (click)="handleStarClick($event)" title='Fair' data-value='2'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' (click)="handleStarClick($event)" title='Good' data-value='3'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                            <li class='star' (click)="handleStarClick($event)" title='Excellent' data-value='4'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li> 
+                                            <li class='star' (click)="handleStarClick($event)" title='WOW!!!' data-value='5'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="box-comment-bl">
+                                    <p>Review của bạn(có thể để trống)</p>
+                                    <div class="form-group">
+                                        <textarea placeholder="Đánh giá của bạn" name="comment" id="comment" cols="30" rows="10"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="btn btn-dang">Đăng</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="btn btn-huy cls">Hủy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <!-- Modal -->
             </div>
           </div>
           <div class="col-md-4 amy-sidebar-clear">

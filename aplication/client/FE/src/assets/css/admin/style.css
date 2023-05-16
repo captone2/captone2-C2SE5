@@ -54,3 +54,12 @@
 #pagination-container .next.current {
     background: #e04e60;
 }
+
+
+.preview-image {
+    position: relative;
+    margin-right: 5px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #3333;
+  }

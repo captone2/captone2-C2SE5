@@ -130,6 +130,11 @@ const adminRoutes: Routes = [
         , canActivate: [AuthGuardService],
         data: {expectedRole: [Role.Admin]},
       },
+      {
+        path: 'movie-add', component: MovieAddAdminComponent
+        , canActivate: [AuthGuardService],
+        data: {expectedRole: [Role.Admin]},
+      },
     ]
   }
 ];

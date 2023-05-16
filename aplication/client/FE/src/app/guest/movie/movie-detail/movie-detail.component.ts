@@ -13,6 +13,7 @@ import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Food } from '../../../shared/model/entity/Food';
 import { Genre } from 'src/app/shared/model/entity/Genre';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
@@ -29,9 +30,11 @@ export class MovieDetailComponent implements OnInit {
   foodList: Food[] = [];
   url = 'assets/js/main.js';
   loadAPI: any;
+  rate: number = 0;
+  comnentForm: FormGroup;
   private baseUrl = 'http://localhost:4200api/auth/booking';
   private readonly destroy$ = new Subject<void>();
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient, private movieService: MovieService, private activatedRoute: ActivatedRoute,
+  constructor(private form: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient, private movieService: MovieService, private activatedRoute: ActivatedRoute,
   ) {
   }
 
@@ -48,6 +51,12 @@ export class MovieDetailComponent implements OnInit {
         this.clearExpiredCookies();
       });
       this.getMovieDetail();
+
+      this.comnentForm = this.form.group({
+        content: ['', [Validators.required,
+        Validators.minLength(3), Validators.maxLength(50)]],
+
+      });
   }
   public loadScript() {
     const node = document.createElement('script');
@@ -282,4 +291,17 @@ export class MovieDetailComponent implements OnInit {
   convertGenre(arr: Genre[]) {
     return arr.map(genre => genre.name).join(', ');
   }
+
+  handleStarClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const dataValue = target.getAttribute('data-value');
+    if (dataValue) {
+      const value = parseInt(dataValue, 10);
+      this.rate = value
+      console.log(value);
+    }
+  }
+
+
+
 }

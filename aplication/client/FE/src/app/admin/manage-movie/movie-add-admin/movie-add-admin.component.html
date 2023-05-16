@@ -1,312 +1,141 @@
-<div style="margin-right: 0" class="row">
-<app-navbar-left></app-navbar-left>
+<div id="main-content">
+  <div class="block-header">
+    <div class="row clearfix">
+      <div class="col-md-6 col-sm-12">
+        <h2>Dashboard</h2>
+      </div>
+      <div class="col-md-6 col-sm-12 text-right">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ul>
 
-  <div class="col-md-10 nav_content">
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <h1 style="margin-bottom: 40px; margin-right: 180px; color: #FF8D1B;">THÊM MỚI PHIM
-      </h1>
-      <!-- /.content-header -->
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid ">
-          <div class="card shadow">
-            <div class="card-body">
-              <div class="table-responsive">
-                <div class="">
+      </div>
+    </div>
+  </div>
 
-                  <form class="form-horizontal" [formGroup]="createMovie" (ngSubmit)="onSubmitCreate()">
-                    <div class="row" style="padding-bottom: 30px">
-                      <div class="col-sm-8">
-                        <div class="form-group">
-                          <label for="inputNameMovie" class="col-sm-2 control-label">Tên phim <span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <input id="inputNameMovie" type="text" class="form-control" formControlName="title"
-                                   placeholder="Nhập tên phim" (change)="getIdMovieByName(createMovie.get('title'))">
-                            <ng-container *ngFor="let validation of validation_messages.title">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('title').hasError(validation.type)&&(createMovie.get('title').dirty || createMovie.get('title').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-
-                        <div class="form-group row" style="display: flex; align-items: center">
-                            <label for="inputDateStart" class="col-sm-2 control-label" style="padding-right: 30px;">Từ ngày <span class="star">*</span></label>
-                          <mat-form-field appearance="" style=" width: 60%">
-                              <mat-label>Chọn ngày bắt đầu</mat-label>
-                              <input id="inputDateStart" matInput type="date"  [min]="dateNow" formControlName="showingFrom" [(ngModel)]="showingFroms" (change)="changeDate(createMovie.get('showingFrom'))">
-
-                            </mat-form-field>
-                          <ng-container *ngFor="let validation of validation_messages.showingFrom">
-                            <small class="form-text text-danger"
-                                   *ngIf="createMovie.get('showingFrom').hasError(validation.type)&&(createMovie.get('showingFrom').dirty || createMovie.get('showingFrom').touched)">
-                              {{validation.message}}
-                            </small>
-                          </ng-container>
-                        </div>
-                        <div class="form-group row" style="display: flex; align-items: center">
-                          <label for="inputDateEnd" class="col-sm-2 control-label" style="padding-right: 30px;">Đến ngày <span class="star">*</span></label>
-                          <mat-form-field appearance="" style=" width: 60%" >
-                            <mat-label>Chọn ngày kết thúc</mat-label>
-                            <input id="inputDateEnd" matInput type="date" [min]="min" formControlName="showingTo" [(ngModel)]="showingTos" (change)="checkDate()">
-                          </mat-form-field>
-                          <ng-container *ngFor="let validation of validation_messages.showingTo">
-                            <small class="form-text text-danger"
-                                   *ngIf="createMovie.get('showingTo').hasError(validation.type)&&(createMovie.get('showingTo').dirty || createMovie.get('showingTo').touched)">
-                              {{validation.message}}
-                            </small>
-                          </ng-container>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="inputCast" class="col-sm-2 control-label">Diễn viên <span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <input id="inputCast" type="text" class="form-control" formControlName="cast"
-                                   placeholder="Nhập diễn viên">
-                            <ng-container *ngFor="let validation of validation_messages.cast">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('cast').hasError(validation.type)&&(createMovie.get('cast').dirty || createMovie.get('cast').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputFilmStudio" class="col-sm-2 control-label">Hãng phim <span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <input id="inputFilmStudio" type="text" class="form-control" formControlName="production"
-                                   placeholder="Nhập hãng phim">
-                            <ng-container *ngFor="let validation of validation_messages.production">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('production').hasError(validation.type)&&(createMovie.get('production').dirty || createMovie.get('production').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputDirector" class="col-sm-2 control-label">Đạo diễn <span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <input id="inputDirector" type="text" class="form-control" formControlName="director"
-                                   placeholder="Nhập đạo diễn">
-                            <ng-container *ngFor="let validation of validation_messages.director">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('director').hasError(validation.type)&&(createMovie.get('director').dirty || createMovie.get('director').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputTime" class="col-sm-2 control-label">Thời lượng<span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <input id="inputTime" type="number" class="form-control" formControlName="runningTime"
-                                   placeholder="Nhập số phút">
-                            <ng-container *ngFor="let validation of validation_messages.runningTime">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('runningTime').hasError(validation.type)&&(createMovie.get('runningTime').dirty || createMovie.get('runningTime').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="form-group" >
-                          <label class="col-sm-2 control-label">Phiên bản <span class="star">*</span></label>
-                          <mat-radio-group aria-label="Select an option" formControlName="is3D">
-                            <mat-radio-button value="false" style="padding: 0 20px">2D</mat-radio-button>
-                            <mat-radio-button value="true">3D</mat-radio-button>
-                          </mat-radio-group>
-                          <ng-container *ngFor="let validation of validation_messages.is3D">
-                            <small class="form-text text-danger"
-                                   *ngIf="createMovie.get('is3D').hasError(validation.type)&&(createMovie.get('is3D').dirty || createMovie.get('is3D').touched)">
-                              {{validation.message}}
-                            </small>
-                          </ng-container>
-                          <mat-form-field appearance="" style="margin-left: 20px">
-                            <mat-label>Giới hạn tuổi <span class="star">*</span></mat-label>
-                            <mat-select formControlName="rated">
-                              <mat-option value="1">1</mat-option>
-                              <mat-option value="2">2</mat-option>
-                              <mat-option value="3">3</mat-option>
-                              <mat-option value="4">4</mat-option>
-                              <mat-option value="5">5</mat-option>
-                              <mat-option value="6">6</mat-option>
-                              <mat-option value="7">7</mat-option>
-                              <mat-option value="8">8</mat-option>
-                              <mat-option value="9">9</mat-option>
-                              <mat-option value="10">10</mat-option>
-                              <mat-option value="11">11</mat-option>
-                              <mat-option value="12">12</mat-option>
-                              <mat-option value="13">13</mat-option>
-                              <mat-option value="14">14</mat-option>
-                              <mat-option value="15">15</mat-option>
-                              <mat-option value="16">16</mat-option>
-                              <mat-option value="17">17</mat-option>
-                              <mat-option value="18">18</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                          <ng-container *ngFor="let validation of validation_messages.rated">
-                            <small class="form-text text-danger"
-                                   *ngIf="createMovie.get('rated').hasError(validation.type)&&(createMovie.get('rated').dirty || createMovie.get('rated').touched)">
-                              {{validation.message}}
-                            </small>
-                          </ng-container>
-                        </div>
-                        <div class="form-group">
-                          <label for="inputTrailer" class="col-sm-2 control-label">Trailer <span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <input id="inputTrailer" type="text" class="form-control" formControlName="trailerUrl"
-                                   placeholder="Nhập trailer">
-                            <ng-container *ngFor="let validation of validation_messages.trailerUrl">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('trailerUrl').hasError(validation.type)&&(createMovie.get('trailerUrl').dirty || createMovie.get('trailerUrl').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="form-group row" style="display: flex; flex-direction: column">
-                          <label class="col-sm-2 control-label" style="padding-right: 30px;">Thể loại <span
-                            class="star">*</span></label>
-                          <div class="" style="padding-left: 150px">
-                            <ng-container *ngFor="let genre of genreList; let i = index" formArrayName="genres">
-                              <label>
-                                <input type="checkbox" [value]="genre.id" (change)="onCheckChange($event)">{{genre.name}}
-                              </label>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="row" style="display: flex; align-items: center; flex-wrap: wrap">
-                            <label for="inputReleaseDate" class="col-sm-2 control-label" style="padding-right: 30px;">Lịch chiếu <span class="star">*</span></label>
-                            <mat-form-field appearance="" style="margin-left: 20px; width: 60%">
-                              <mat-label>Chọn ngày khởi chiếu</mat-label>
-                              <input id="inputReleaseDate" matInput [matDatepicker]="releaseDate" [min]="dateNow" formControlName="releaseDate">
-                              <mat-datepicker-toggle matSuffix [for]="releaseDate"></mat-datepicker-toggle>
-                              <mat-datepicker #releaseDate></mat-datepicker>
-                            </mat-form-field>
-                            <ng-container *ngFor="let validation of validation_messages.releaseDate">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('releaseDate').hasError(validation.type)&&(createMovie.get('releaseDate').dirty || createMovie.get('releaseDate').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          <div class="row">
-                            <div class="add-showtime-form" >
-                              <ng-container formArrayName="showtimes">
-                                <ng-container *ngFor="let showtimeForms of showtimes.controls; let i = index">
-                                  <div class="showtime-form row" [formGroup]="showtimeForms">
-                                    <mat-form-field appearance="" >
-                                      <input matInput placeholder="Nhập giờ chiếu (hh:mm:ss)" formControlName="showtime" width="300px" type="time">
-                                    </mat-form-field>
-                                    <mat-form-field style="margin-left: 30px">
-                                      <mat-select formControlName="price">
-                                        <mat-option *ngFor="let price of priceList" [value]="price.id">{{price.price}} đồng</mat-option>
-                                      </mat-select>
-                                    </mat-form-field>
-                                    <mat-icon class="delete-btn" (click)="deleteShowtime(i)">delete_forever</mat-icon>
-                                  </div>
-                                </ng-container>
-                              </ng-container>
-                              <div style="margin-left: 50px;">
-                                <button type="button" mat-mini-fab (click)="addShowtime()">
-                                  <mat-icon class="add-course-btn">add</mat-icon>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-
-                        <div class="form-group">
-                          <label for="inputContent" class="col-sm-2 control-label">Nội dung <span
-                            class="star">*</span></label>
-                          <div class="col-sm-8">
-                            <textarea id="inputContent" class="form-control" formControlName="content"></textarea>
-                            <ng-container *ngFor="let validation of validation_messages.content">
-                              <small class="form-text text-danger"
-                                     *ngIf="createMovie.get('content').hasError(validation.type)&&(createMovie.get('content').dirty || createMovie.get('content').touched)">
-                                {{validation.message}}
-                              </small>
-                            </ng-container>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="row">
-
-<!--                          <div class="add-imageUrl-form">-->
-<!--                            <ng-container formArrayName="imageUrls">-->
-<!--                              <ng-container *ngFor="let imageUrlForm of imageUrls.controls; let i = index">-->
-<!--                                <div class="" [formGroup]="imageUrlForm">-->
-<!--                                  <mat-form-field>-->
-<!--                                    <input matInput type="file" formControlName="imageUrl" (change)="selectFiles($event)" width="400">-->
-<!--                                  </mat-form-field>-->
-<!--                                  <div class="">-->
-<!--                                      <mat-icon class="delete-btn" (click)="deleteImage(i)">remove_circle_outline</mat-icon>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                              </ng-container>-->
-<!--                            </ng-container>-->
-<!--                            <div style="margin-left: 50px;">-->
-<!--                              <button type="button" mat-mini-fab (click)="addImageUrls()">-->
-<!--                                <mat-icon class="add-course-btn">add</mat-icon>-->
-<!--                              </button>-->
-<!--                            </div>-->
-<!--                          </div>-->
-                          <div class="card card-user" style="height: 40%">
-                            <div class="card-body">
-                              <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                <ng-container >
-                                  <div class="fileinput-new thumbnail img-raised">
-                                    <img *ngFor="let image of imageUrl; let i = index" [src]="image" style="width: 40%; padding: 10px 0; border: 2px solid darkgoldenrod" alt="..." rel="nofollow">
-                                    <!--                                    <button type="button" mat-mini-fab (click)="deleteImage(i)">-->
-                                    <!--                                      <mat-icon class="delete-btn">remove_circle_outline</mat-icon>-->
-                                    <!--                                    </button>-->
-                                  </div>
-                                  <div style="margin-left: 30px">
-                                    <label for="flim">Chọn ảnh bìa</label>
-                                    <input id="flim" type="file" (change)="selectFiles($event)" accept=".jpg,.jpeg,.png" multiple>
-                                    <mat-spinner *ngIf="checkUpLoad"></mat-spinner>
-                                  </div>
-                                </ng-container>
-                                <ng-container *ngFor="let validation of validation_messages.imageUrl">
-                                  <small class="form-text text-danger"
-                                         *ngIf="!imageUrl">
-                                    {{validation.message}}
-                                  </small>
-                                </ng-container>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row" style="text-align: center">
-                      <div class="col-sm-6" style="text-align: right">
-                        <button type="button" class="btn btn-primary" routerLink="/list-movie">Quay lại</button>
-                      </div>
-                      <div class="col-sm-1" style="text-align: left">
-                        <input  type="submit" class="btn btn-success" value="Thêm mới">
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-              </div>
-            </div>
+  <div class="container-fluid">
+    <form [formGroup]="createMovie" (ngSubmit)="onSubmitCreate()">
+      <h2>Tạo mới phim</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" placeholder="Title" formControlName="title" />
+            <ng-container *ngFor="let validation of validation_messages.title">
+              <small class="form-text text-danger"
+                *ngIf="createMovie.get('title').hasError(validation.type)&&(createMovie.get('title').dirty || createMovie.get('title').touched)">
+                {{validation.message}}
+              </small>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label for="cast">Cast:</label>
+            <input formControlName="cast" type="text" class="form-control" name="cast" placeholder="Cast" />
+            <ng-container *ngFor="let validation of validation_messages.cast">
+              <small class="form-text text-danger"
+                *ngIf="createMovie.get('cast').hasError(validation.type)&&(createMovie.get('cast').dirty || createMovie.get('cast').touched)">
+                {{validation.message}}
+              </small>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea formControlName="content" class="form-control" name="content" placeholder="Content"></textarea>
+            <ng-container *ngFor="let validation of validation_messages.content">
+              <small class="form-text text-danger"
+                     *ngIf="createMovie.get('content').hasError(validation.type)&&(createMovie.get('content').dirty || createMovie.get('content').touched)">
+                {{validation.message}}
+              </small>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label for="director">Director:</label>
+            <input formControlName="director" type="text" class="form-control" name="director" placeholder="Director" />
+            <ng-container *ngFor="let validation of validation_messages.director">
+              <small class="form-text text-danger"
+                *ngIf="createMovie.get('director').hasError(validation.type)&&(createMovie.get('director').dirty || createMovie.get('director').touched)">
+                {{validation.message}}
+              </small>
+            </ng-container>
           </div>
         </div>
-      </section>
-    </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="production">Production:</label>
+            <input formControlName="production" type="text" class="form-control" name="production"
+              placeholder="Production" />
+            <ng-container *ngFor="let validation of validation_messages.production">
+              <small class="form-text text-danger"
+                *ngIf="createMovie.get('production').hasError(validation.type)&&(createMovie.get('production').dirty || createMovie.get('production').touched)">
+                {{validation.message}}
+              </small>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <label for="releaseDate">Release date:</label>
+            <input formControlName="releaseDate" type="date" class="form-control" name="releaseDate"
+              placeholder="Release date" />
+              <ng-container *ngFor="let validation of validation_messages.releaseDate">
+                <small class="form-text text-danger"
+                       *ngIf="createMovie.get('releaseDate').hasError(validation.type)&&(createMovie.get('releaseDate').dirty || createMovie.get('releaseDate').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container>
+          </div>
+          <div class="form-group">
+            <label for="runningTime">Running time:</label>
+            <input formControlName="runningTime" type="number" class="form-control" name="runningTime"
+              placeholder="Running time" />
+              <ng-container *ngFor="let validation of validation_messages.runningTime">
+                <small class="form-text text-danger"
+                  *ngIf="createMovie.get('runningTime').hasError(validation.type)&&(createMovie.get('runningTime').dirty || createMovie.get('runningTime').touched)">
+                  {{validation.message}}
+                </small>
+              </ng-container> 
+          </div>
+          <div class="form-group">
+            <label for="trailer">Trailer:</label>
+            <input formControlName="trailerUrl" type="text" class="form-control" name="trailer" placeholder="Trailer" />
+            <ng-container *ngFor="let validation of validation_messages.trailerUrl">
+              <small class="form-text text-danger"
+                     *ngIf="createMovie.get('trailerUrl').hasError(validation.type)&&(createMovie.get('trailerUrl').dirty || createMovie.get('trailerUrl').touched)">
+                {{validation.message}}
+              </small>
+            </ng-container>
+          </div>
+        </div>
+
+
+
+        <div class="col-md-12">
+          <input type="type" (change)="getAvatar($event)">
+          <img class="w-100" [src]="urlNoPoster" alt="avt">
+        </div>
+
+
+
+
+
+
+
+        <div class="col-md-12">
+          <label *ngFor="let genre of genreList">
+            <input [value]="genre" (change)="onCheckboxChange($event, genre?.id)" type="checkbox"> {{ genre.name }}
+
+          </label>
+        </div>
+        <p>Selected genres: {{ selectCheckbox }}</p>
+        <div class="col-md-12">
+          <div class="text-left">
+            <button [disabled]="createMovie.invalid" type="submit" class="btn btn-primary"
+              style="margin-right: 8px;">Create1</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
   </div>
 </div>

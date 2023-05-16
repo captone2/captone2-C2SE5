@@ -44,6 +44,7 @@ export class BookingComponent implements OnInit {
   checkStatusBook: boolean = false;
   bookingQRCode: any;
   seatListSold: number[] = [];
+  rate: number ;
   @ViewChild('modalMaxchair') modalMaxchair: ElementRef;
   private readonly destroy$ = new Subject<void>();
   constructor(private storage: AngularFireStorage, private elRef: ElementRef, private router: Router, private accountService: AccountUserServiceService, private cookieService: CookieService, private movieService: MovieService, private http: HttpClient, private activatedRoute: ActivatedRoute, private seatService: SeatService) { }

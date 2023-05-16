@@ -47,5 +47,14 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "LIMIT 1;", nativeQuery = true)
     Movie findOneMovieBestSeller();
 
+    @Query(value = "SELECT movie.* FROM movie \n" +
+            "JOIN movie_show_time ON movie.id = movie_show_time.movie_id\n" +
+            "JOIN booking ON booking.movie_showtime_id = movie_show_time.id\n" +
+            "WHERE MONTH(movie_show_time.show_date) = MONTH(NOW())\n" +
+            "GROUP BY movie_show_time.movie_id\n" +
+            "ORDER BY sum(booking.total_price) DESC\n" +
+            "LIMIT 5\n", nativeQuery = true)
+    List<Movie> findTop5MovieHighestRevenueOfMonth();
+
 }
 

@@ -16,7 +16,7 @@ public class MovieDTO {
     private String trailerUrl;
     private String content;
     private List<Integer> genre;
-    private List<String> imgUrl;
+    private String imgUrl;
     public MovieDTO() {
     }
 
@@ -111,11 +111,11 @@ public class MovieDTO {
         this.genre = genre;
     }
 
-    public List<String> getImgUrl() {
+    public String getImgUrl() {
         return imgUrl;
     }
 
-    public void setImgUrl(List<String> imgUrl) {
+    public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
 }
