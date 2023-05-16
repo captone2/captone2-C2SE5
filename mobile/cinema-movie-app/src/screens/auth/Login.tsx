@@ -151,7 +151,7 @@ const Login: FC<Props> = ({ navigation }) => {
           {/* <ActivityIndicator size="small" color="#0000ff" animating={loading} /> */}
         </View>
 
-        <Text style={{ paddingHorizontal: "31%", textDecorationLine: "underline" }}>Quên mật khẩu.</Text>
+        <Text style={{ paddingLeft: "30%", textDecorationLine: "underline" }}>Quên mật khẩu.</Text>
       </View>
       <View style={styles.box}></View>
     </View>

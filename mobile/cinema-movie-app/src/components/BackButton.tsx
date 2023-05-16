@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "./Icon";
 import { COLORS } from "../utils/theme";
 
-const BackButton = () => {
+const BackButton: FC = () => {
   const { goBack } = useNavigation();
   return (
     <View style={styles.container}>

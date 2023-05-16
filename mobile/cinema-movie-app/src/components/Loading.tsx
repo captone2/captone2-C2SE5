@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { Platform, View, ActivityIndicator } from "react-native";
 import { COLORS } from "../utils/theme";
 
-const Loading = () => (
+const Loading: FC = () => (
   <View style={{ marginVertical: Platform.OS === "ios" ? 10 : 5 }}>
     <ActivityIndicator
       color={COLORS.green}
