@@ -7,6 +7,8 @@ const initialState: BookingState = {
     booking: [],
     seatBooked: [],
     food: [],
+    foodSelected: [],
+    seatSelected: [],
   },
   errors: [],
 };
@@ -14,7 +16,14 @@ const initialState: BookingState = {
 const bookingSlice = createSlice({
   initialState: initialState,
   name: "booking",
-  reducers: {},
+  reducers: {
+    setSeatSelected: (state, data) => {
+      state.data.seatSelected = data.payload;
+    },
+    setFoodSelected: (state, data) => {
+      state.data.foodSelected = data.payload;
+    },
+  },
   extraReducers(builder) {
     builder.addCase(getBookingByBookingCode.fulfilled, (state, action) => {
       state.data.booking = action.payload;
@@ -31,4 +40,5 @@ const bookingSlice = createSlice({
 });
 
 const bookingReducer = bookingSlice.reducer;
+export const { setSeatSelected, setFoodSelected } = bookingSlice.actions;
 export { bookingReducer };

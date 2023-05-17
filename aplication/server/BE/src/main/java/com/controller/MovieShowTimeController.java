@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/auth/movie-showtime")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "**")
 public class MovieShowTimeController {
     @Autowired
     MovieShowTimeRepository movieShowTimeRepository;

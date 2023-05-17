@@ -5,10 +5,11 @@ import HomeStack from "../screens/navigation/HomeStack";
 import { COLORS } from "../utils/theme";
 import Icon from "./Icon";
 import { Profile } from "../screens";
-import GenerateQR from "./GenerateQR";
+import GenerateQR from "./ScanTicket";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { UserType } from "../redux/auth/type";
+import ProfileStack from "../screens/navigation/ProfileStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const getTabIcon =
 
 const TabBottom: FC = () => {
   const { user } = useAppSelector((state) => state.user);
-  const isAdmin = user.user.roles.includes(UserType.ADMIN);
+  const isAdmin = user.user.roles.includes(UserType.EMPLOYEE);
   return (
     <Tab.Navigator
       // initialRouteName="HomeStack"
@@ -40,23 +41,11 @@ const TabBottom: FC = () => {
         tabBarInactiveTintColor: COLORS.lightGrey,
       }}
     >
-      <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
-        options={{ tabBarIcon: getTabIcon("home") }}
-      />
+      <Tab.Screen name="HomeStack" component={HomeStack} options={{ tabBarIcon: getTabIcon("home") }} />
       {isAdmin ? (
-        <Tab.Screen
-          name="GenerateQR"
-          component={GenerateQR}
-          options={{ tabBarIcon: getFontAweSomeIcon("qrcode") }}
-        />
+        <Tab.Screen name="GenerateQR" component={GenerateQR} options={{ tabBarIcon: getFontAweSomeIcon("qrcode") }} />
       ) : null}
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{ tabBarIcon: getTabIcon("user") }}
-      />
+      <Tab.Screen name="ProfileStack" component={ProfileStack} options={{ tabBarIcon: getTabIcon("user") }} />
     </Tab.Navigator>
   );
 };

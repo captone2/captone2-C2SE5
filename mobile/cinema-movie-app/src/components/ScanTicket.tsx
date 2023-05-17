@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { BookingService } from "../services/booking/booking.service";
 
-const GenerateQR: FC = () => {
+const ScanTicket: FC = () => {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
 
@@ -64,18 +64,13 @@ const GenerateQR: FC = () => {
         style={StyleSheet.absoluteFillObject}
       />
       <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
-        {scanned && (
-          <Button
-            title={"Tap to Scan Again"}
-            onPress={() => setScanned(false)}
-          />
-        )}
+        {scanned && <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />}
       </View>
     </View>
   );
 };
 
-export default GenerateQR;
+export default ScanTicket;
 
 const styles = StyleSheet.create({
   container: {

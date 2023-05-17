@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/auth/movie")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class MovieController {
 
 
@@ -84,16 +84,16 @@ public class MovieController {
         }
     }
 
-    @PostMapping(value = "/add")
-    public ResponseEntity<?> addMovie(@RequestBody MovieDTO movie) {
-        Movie movie1 = new Movie(movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
-        Movie movies = movieService.saveMovie(movie1);
-        for (int i=0 ;i < movie.getGenre().size();i++) {
-            genreService.addGenreToMovie(movie.getGenre().get(i),movies.getId());
-        }
-        for (int i=0 ;i < movie.getImgUrl().size();i++) {
-            movieImageService.addImageByIdMovie(movie.getImgUrl().get(i),movies.getId());
-        }
-        return new ResponseEntity<>(movies, HttpStatus.OK);
-    }
+//    @PostMapping(value = "/add")
+//    public ResponseEntity<?> addMovie(@RequestBody MovieDTO movie) {
+//        Movie movie1 = new Movie(movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
+//        Movie movies = movieService.saveMovie(movie1);
+//        for (int i=0 ;i < movie.getGenre().size();i++) {
+//            genreService.addGenreToMovie(movie.getGenre().get(i),movies.getId());
+//        }
+//        for (int i=0 ;i < movie.getImgUrl().size();i++) {
+//            movieImageService.addImageByIdMovie(movie.getImgUrl().get(i),movies.getId());
+//        }
+//        return new ResponseEntity<>(movies, HttpStatus.OK);
+//    }
 }

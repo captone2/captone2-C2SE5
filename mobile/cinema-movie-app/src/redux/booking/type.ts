@@ -1,3 +1,5 @@
+import { Seat } from "../movie/type";
+
 export enum ActionType {
   GET_BOOKING_BY_BOOKING_CODE = "GET_BOOKING_BY_BOOKING_CODE",
   SET_TICKET_BOOKING_RECEIVED = "SET_TICKET_BOOKING_RECEIVED",
@@ -10,6 +12,8 @@ export type BookingState = {
     booking: any;
     seatBooked: number[];
     food: FoodResponse[];
+    foodSelected: FoodResponse[];
+    seatSelected: Seat[];
   };
   errors: any;
 };

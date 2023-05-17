@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/screen")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class ScreenController {
     @Autowired
     ScreenService screenService;

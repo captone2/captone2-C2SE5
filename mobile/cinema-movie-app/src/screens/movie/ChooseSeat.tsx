@@ -10,6 +10,7 @@ import {
   Image,
   TextInput,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -22,9 +23,14 @@ import { getAllFood, seatBookedByShowTime } from "../../redux/booking/dispatcher
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { Button } from "../../components/";
 import { FoodResponse } from "../../redux/booking/type";
+import Countdown from "react-native-countdown-component";
+import { setSeatSelected } from "../../redux/booking/reducer";
+
+type SeatItem = {
+  seat: Seat;
+};
 
 const ChooseSeat: FC = ({ navigation, route }) => {
-  const [timeLeft, setTimeLeft] = useState(5 * 60); // 5 minutes in seconds
   const movieShowtime: MovieShowtime = route.params.movieShowtime;
   const showtime: string = route.params.showtime;
   const dispatch = useAppDispatch();
@@ -32,9 +38,7 @@ const ChooseSeat: FC = ({ navigation, route }) => {
   const foodList: FoodResponse[] = useAppSelector((state) => state.bookingReducer.data.food);
   const [modalVisible, setVisiBle] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [sumTotal, setSumTotal] = useState(0);
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
+  const seatSelect: Seat[] = [];
 
   const initial = async () => {
     await Promise.all([dispatch(seatBookedByShowTime(movieShowtime.id)), dispatch(getAllFood())]);
@@ -42,28 +46,24 @@ const ChooseSeat: FC = ({ navigation, route }) => {
 
   useEffect(() => {
     initial();
-    const interval = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    seatSelect.slice(0, seatSelect.length);
+  }, [seatSelect.length]);
 
-  useEffect(() => {
-    if (timeLeft === 0) {
-      Alert.alert("Thời gian phiên đặt ghế của bạn đã hết.");
-      navigation.navigate("MovieDetail");
-    }
-  }, [timeLeft, navigation]);
-
-  const SeatItem = ({ seat }) => {
+  const SeatItem: FC<SeatItem> = ({ seat }) => {
     const [selectedSeatStyle, setSelectedSeatStyle] = useState(false);
-
-    const [seatSelected, setSeatSelected] = useState<number | null>(null);
 
     const handlePress = () => {
       setSelectedSeatStyle(!selectedSeatStyle);
-      setSeatSelected(seatSelected !== seat.id ? seat.id : null);
-      console.log(seatSelected);
+      if (!selectedSeatStyle) {
+        if (!seatSelect.includes(seat)) {
+          seatSelect.push(seat);
+        }
+      } else {
+        const index = seatSelect.findIndex((el) => el.id === seat.id);
+        if (index > -1) {
+          seatSelect.slice(index, 1);
+        }
+      }
     };
 
     const seatStyle = selectedSeatStyle ? [styles.seat, styles.seatSelecting] : styles.seat;
@@ -113,18 +113,6 @@ const ChooseSeat: FC = ({ navigation, route }) => {
             textAlign="center"
             value={value}
             onChangeText={(text: string) => setTest({ value: text, index: index })}
-            // onEndEditing={(e) => {
-            //   const newQuantity = parseInt(e.nativeEvent.text);
-            //   if (!isNaN(newQuantity)) {
-            //     updateFoodQuantity(newQuantity);
-            //   }
-            // }}
-            // onChange={(e) => {
-            //   const newQuantity = parseInt(e.nativeEvent.text);
-            //   if (!isNaN(newQuantity)) {
-            //     updateFoodQuantity(newQuantity);
-            //   }
-            // }}
             autoCapitalize="none"
             returnKeyType="done"
             autoComplete="name"
@@ -188,83 +176,117 @@ const ChooseSeat: FC = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.head}>
-        <BackButton />
-        <Text style={styles.headTitle}>{movieShowtime.movie.title}</Text>
-      </View>
-      <View style={styles.wrapDate}>
-        <View style={[styles.datePicker]}>
-          <View>
-            <Icon name="calendar" color={COLORS.white} size={18} />
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.head}>
+          <BackButton />
+          <Text style={styles.headTitle}>{movieShowtime.movie.title}</Text>
+        </View>
+        <View style={styles.wrapDate}>
+          <View style={[styles.datePicker]}>
+            <View>
+              <Icon name="calendar" color={COLORS.white} size={18} />
+            </View>
+            <Text style={styles.textWhite}>{movieShowtime.showDate}</Text>
           </View>
-          <Text style={styles.textWhite}>{movieShowtime.showDate}</Text>
-        </View>
-        <View style={styles.datePicker}>
-          <View>
-            <Icon name="clock-o" color={COLORS.white} size={18} />
+          <View style={styles.datePicker}>
+            <View>
+              <Icon name="clock-o" color={COLORS.white} size={18} />
+            </View>
+            <Text style={styles.textWhite}>
+              {showtime.length > 5 ? showtime.substring(0, 5) : showtime.substring(0, 4)}
+            </Text>
           </View>
-          <Text style={styles.textWhite}>
-            {showtime.length > 5 ? showtime.substring(0, 5) : showtime.substring(0, 4)}
-          </Text>
         </View>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginHorizontal: 20,
-          borderWidth: 1,
-          paddingHorizontal: 20,
-          paddingVertical: 5,
-          opacity: 0.8,
-        }}
-      >
-        <View>
-          <Text style={styles.textWhite}>Tổng đơn hàng</Text>
-          <Text style={styles.textWhite}>{`${sumTotal} đ`}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginHorizontal: 20,
+            borderWidth: 1,
+            paddingHorizontal: 20,
+            paddingVertical: 5,
+            opacity: 0.8,
+          }}
+        >
+          {/* <View>
+            <Text style={styles.textWhite}>Tổng đơn hàng</Text>
+            <Text style={styles.textWhite}>{`${sumTotal} đ`}</Text>
+          </View> */}
+          <View style={{ marginHorizontal: "38%" }}>
+            <Text style={styles.textWhite}>Thời gian</Text>
+            <Countdown
+              until={5 * 60} // 5 minutes in seconds
+              onFinish={() => {
+                Alert.alert("Thông báo", "Thời gian đặt vé đã hết.", [
+                  {
+                    text: "quay lại",
+                    onPress: () => {
+                      navigation.goBack();
+                    },
+                  },
+                ]);
+              }}
+              showSeparator={false}
+              timeLabels={{}}
+              size={16}
+              timeToShow={["M", "S"]}
+              digitStyle={{ backgroundColor: "transparent" }}
+              digitTxtStyle={{ color: COLORS.white }}
+            />
+          </View>
         </View>
-        <View>
-          <Text style={styles.textWhite}>Thời gian</Text>
-          <Text style={[styles.textWhite, { paddingLeft: 40 }]}>
-            {timeLeft > 0 && `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
-          </Text>
-        </View>
-      </View>
 
-      <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginVertical: 10 }}>
-        <View style={{ display: "flex", flexDirection: "row" }}>
-          <View style={[{ width: 16, height: 16, justifyContent: "center" }, { backgroundColor: COLORS.gray }]}></View>
-          <Text style={[styles.textWhite, { fontSize: 12 }]}>Đã đặt</Text>
+        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginVertical: 10 }}>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <View style={[styles.styleSeat, { backgroundColor: COLORS.red }]}></View>
+            <Text style={[styles.textWhite, { fontSize: 12 }]}>Vip</Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <View style={[styles.styleSeat, { backgroundColor: COLORS.gray }]}></View>
+            <Text style={[styles.textWhite, { fontSize: 12 }]}>Đã đặt</Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <View style={[styles.styleSeat, { backgroundColor: COLORS.white }]}></View>
+            <Text style={[styles.textWhite, { fontSize: 12 }]}>Trống</Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <View style={[styles.styleSeat, { backgroundColor: COLORS.color.orange }]}></View>
+            <Text style={[styles.textWhite, { fontSize: 12 }]}>Đang chọn</Text>
+          </View>
         </View>
-        <View style={{ display: "flex", flexDirection: "row" }}>
-          <View style={[{ width: 16, height: 16, justifyContent: "center" }, { backgroundColor: COLORS.white }]}></View>
-          <Text style={[styles.textWhite, { fontSize: 12 }]}>Trống</Text>
+        <View style={styles.wrapScreen}>
+          <View style={styles.screen}>
+            <Text style={styles.textScreen}>Màn hình</Text>
+          </View>
         </View>
-        <View style={{ display: "flex", flexDirection: "row" }}>
-          <View
-            style={[{ width: 16, height: 16, justifyContent: "center" }, { backgroundColor: COLORS.color.orange }]}
-          ></View>
-          <Text style={[styles.textWhite, { fontSize: 12 }]}>Đang chọn</Text>
+        <View style={styles.wrapSeat}>
+          <FlatList
+            data={movieShowtime.screen.seats}
+            renderItem={({ item }) => <SeatItem seat={item} />}
+            keyExtractor={(_, index) => index.toString()}
+            ListFooterComponent={() => {
+              return (
+                <View style={{ marginHorizontal: 10, marginVertical: 20 }}>
+                  <Button text="Thêm combo/bắp nước" tintColor={COLORS.white} onPress={() => setVisiBle(true)} />
+                  <View style={{ marginBottom: 10 }}></View>
+                  <Button
+                    text="Thanh toán"
+                    tintColor={COLORS.white}
+                    onPress={() =>
+                      navigation.navigate("ChoosePayment", {
+                        movie: movieShowtime,
+                        showtime: showtime,
+                        seats: seatSelect,
+                      })
+                    }
+                  />
+                </View>
+              );
+            }}
+            numColumns={8}
+          />
         </View>
-      </View>
-      <View style={styles.wrapScreen}>
-        <View style={styles.screen}>
-          <Text style={styles.textScreen}>Màn hình</Text>
-        </View>
-      </View>
-      <View style={styles.wrapSeat}>
-        <FlatList
-          data={movieShowtime.screen.seats}
-          renderItem={({ item }) => <SeatItem seat={item} />}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={8}
-        />
-      </View>
-      <View style={{ marginHorizontal: 10, marginVertical: 20 }}>
-        <Button text="Chọn dịch vụ khác" tintColor={COLORS.white} onPress={() => setVisiBle(true)} />
-        <View style={{ marginBottom: 10 }}></View>
-        <Button text="Thanh toán" tintColor={COLORS.white} onPress={() => navigation.navigate("Payment")} />
-      </View>
+      </ScrollView>
 
       {/* modal show food */}
       <Modal
@@ -276,7 +298,7 @@ const ChooseSeat: FC = ({ navigation, route }) => {
         <SafeAreaView style={[styles.container]}>
           <View style={{ flex: 1 }}>
             <View style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-              <Text style={{ fontSize: 20, color: COLORS.white, fontWeight: "700" }}>Chọn dịch vụ đi kèm</Text>
+              <Text style={{ fontSize: 20, color: COLORS.white, fontWeight: "700" }}>Thêm combo/bắp nước</Text>
             </View>
             <FlatList
               data={foodList}
@@ -380,6 +402,9 @@ const styles = StyleSheet.create({
   seatSelecting: {
     backgroundColor: COLORS.color.orange,
   },
+  seatVip: {
+    backgroundColor: COLORS.red,
+  },
   modal: {
     justifyContent: "center",
     alignItems: "center",
@@ -416,5 +441,11 @@ const styles = StyleSheet.create({
     marginHorizontal: "12%",
     marginVertical: "15%",
     color: COLORS.color.primary,
+  },
+  styleSeat: {
+    width: 16,
+    height: 16,
+    justifyContent: "center",
+    borderRadius: 5,
   },
 });

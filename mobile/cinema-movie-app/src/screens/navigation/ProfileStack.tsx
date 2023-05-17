@@ -2,12 +2,17 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Profile } from "..";
 
-const Stack = createStackNavigator();
-
-const ProfileStack = () => (
-  <Stack.Navigator initialRouteName="Profile">
-    <Stack.Screen name="profile" component={Profile} />
-  </Stack.Navigator>
-);
+const ProfileStack = () => {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Profile" component={Profile} />
+    </Stack.Navigator>
+  );
+};
 
 export default ProfileStack;

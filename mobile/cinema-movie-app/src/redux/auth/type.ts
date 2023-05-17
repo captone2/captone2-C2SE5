@@ -8,7 +8,7 @@ export enum ActionType {
 export enum UserType {
   CUSTOMER = "ROLE_USER",
   ADMIN = "ROLE_ADMIN",
-  MODERATOR = "ROLE_MODERATOR",
+  EMPLOYEE = "ROLE_EMPLOYEE",
 }
 
 export interface LoginInfo {

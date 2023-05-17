@@ -3,13 +3,15 @@ import { useNavigation } from "@react-navigation/native";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "./Icon";
 import { COLORS } from "../utils/theme";
-
-const BackButton: FC = () => {
+type Props = {
+  color?: string;
+};
+const BackButton: FC<Props> = ({ color = COLORS.white }) => {
   const { goBack } = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setTimeout(goBack, 0)}>
-        <Icon large={true} name="arrow-left" color={COLORS.white} />
+        <Icon large={true} name="arrow-left" color={color} />
       </TouchableOpacity>
     </View>
   );

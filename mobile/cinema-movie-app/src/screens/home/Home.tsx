@@ -1,4 +1,14 @@
-import { FlatList, Image, SectionList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Animated,
+  FlatList,
+  Image,
+  SectionList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -55,6 +65,34 @@ const Home: FC = ({ navigation }) => {
   const [flag, setFlag] = useState(false);
   const dispatch = useAppDispatch();
 
+  const opacityValue = useRef(new Animated.Value(1)).current;
+  const opacityValue1 = useRef(new Animated.Value(2)).current;
+  const startAnimation = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(opacityValue, {
+          toValue: 0,
+          duration: 400,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityValue, {
+          toValue: 1,
+          duration: 400,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityValue1, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityValue1, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  };
   const initial = async () => {
     await Promise.all([
       dispatch(findAllMovie(keySearch)),
@@ -65,6 +103,7 @@ const Home: FC = ({ navigation }) => {
   };
   useEffect(() => {
     initial();
+    startAnimation();
   }, []);
 
   //require("../../../assets/icons/logo.png")
@@ -79,13 +118,21 @@ const Home: FC = ({ navigation }) => {
           {/* //TODO: chưa apply uri từ database */}
           <Image
             source={{
-              uri: "https://reactnative.dev/img/tiny_logo.png",
+              uri: item.movieImages[0].imageUrl,
             }}
             style={{ width: 170, height: 200 }}
             resizeMode="cover"
           />
-          {item.is3D && <Text style={[styles.is3D]}>3D</Text>}
-          {top && <Text style={[styles.isBest]}>Best</Text>}
+          {item.is3D && (
+            <Animated.View style={[{ opacity: opacityValue1 }, styles.is3D]}>
+              <Text style={{ color: COLORS.white, fontSize: 12, padding: 2 }}>3d</Text>
+            </Animated.View>
+          )}
+          {top && (
+            <Animated.View style={[{ opacity: opacityValue }, styles.isBest]}>
+              <Text style={{ color: COLORS.white, paddingVertical: 2 }}>Best</Text>
+            </Animated.View>
+          )}
           <Text
             style={{
               color: COLORS.white,
@@ -148,8 +195,21 @@ const Home: FC = ({ navigation }) => {
             data={genreList}
             horizontal
             renderItem={({ item, index }) => {
+              const filterMovieByGenre = () => {
+                console.log(item.name);
+
+                const result = movieList.reduce((pre, cur) => {
+                  const a = cur.genres.filter((el) => el.name.includes(item.name));
+                  if (a.length > 0) {
+                    return pre;
+                  }
+                  return cur;
+                });
+                console.log(result);
+                // setMovieListFilter(result);
+              };
               return (
-                <View style={styles.genre}>
+                <TouchableOpacity style={styles.genre} onPress={filterMovieByGenre}>
                   <Text
                     style={{
                       color: COLORS.colors.surface,
@@ -157,7 +217,7 @@ const Home: FC = ({ navigation }) => {
                   >
                     {item.name}
                   </Text>
-                </View>
+                </TouchableOpacity>
               );
             }}
           />
@@ -324,7 +384,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   isBest: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.color.orange,
     position: "absolute",
     zIndex: 1,
     right: 0,

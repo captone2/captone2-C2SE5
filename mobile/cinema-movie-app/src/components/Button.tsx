@@ -1,12 +1,8 @@
 import React, { FC } from "react";
-import {
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { Platform, StyleSheet, TouchableOpacity, ActivityIndicator, View } from "react-native";
 import { Text } from "react-native-paper";
 import { COLORS } from "../utils/theme";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 interface defaultProps {
   text?: string;
@@ -15,6 +11,7 @@ interface defaultProps {
   transparent?: boolean;
   color?: string;
   tintColor?: string;
+  children?: any;
   onPress?: () => any;
 }
 
@@ -26,6 +23,7 @@ const Button: FC<defaultProps> = ({
   disabled = false,
   tintColor = COLORS.black,
   transparent = false,
+  children,
 }) => {
   const { container } = styles;
   const buttonContainerStyle = [container];
@@ -37,11 +35,7 @@ const Button: FC<defaultProps> = ({
   }
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={buttonContainerStyle}
-      disabled={disabled || loading}
-    >
+    <TouchableOpacity onPress={onPress} style={buttonContainerStyle} disabled={disabled || loading}>
       {loading ? (
         <ActivityIndicator
           color={COLORS.white}
@@ -49,11 +43,10 @@ const Button: FC<defaultProps> = ({
           style={{ marginVertical: Platform.OS === "ios" ? 10 : 0 }}
         />
       ) : (
-        <Text
-          style={{ textAlign: "center", fontWeight: "bold", color: tintColor }}
-        >
-          {text}
-        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <Text style={{ textAlign: "center", fontWeight: "bold", color: tintColor }}>{text}</Text>
+          {children}
+        </View>
       )}
     </TouchableOpacity>
   );

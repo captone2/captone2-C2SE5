@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/auth/booking")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "**")
 public class BookingTicketController {
     @Autowired
     private MovieService movieService;

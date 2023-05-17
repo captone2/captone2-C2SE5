@@ -1,246 +1,143 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from "react-native";
-import React, { useEffect, useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { Button, Icon } from "../../components";
-import { ScrollView } from "react-native-gesture-handler";
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import React, { FC, useEffect, useState } from "react";
+import WebView from "react-native-webview";
 import { COLORS } from "../../utils/theme";
-import { numberWithPoint } from "../../utils/format";
+import { StatusBar } from "expo-status-bar";
+import { BackButton } from "../../components";
 
-const Payment = ({ navigation, route }) => {
-  const [choosePayment, setChoosePayment] = useState({
-    atm: false,
-    visa: false,
-    momo: false,
-    zalo: false,
-    shoppe: false,
+const Payment: FC = ({ navigation, route }) => {
+  const [accessToken, setAccessToken] = useState("");
+  const [payment, setPayment] = useState({
+    paymentId: "",
+    approvalURL: "",
   });
-  useEffect(() => {}, []);
+  const sumTotal = route.params.sumTotal;
 
-  const handlePayment = () => {};
+  useEffect(() => {
+    handlePayment();
+  }, []);
+  const paymentDetail = {
+    intent: "sale",
+    payer: {
+      payment_method: "paypal",
+    },
+    transactions: [
+      {
+        amount: {
+          total: sumTotal,
+          currency: "USD",
+          details: {
+            subtotal: sumTotal,
+            tax: "0",
+            shipping: "0",
+            handling_fee: "0",
+            shipping_discount: "0",
+            insurance: "0",
+          },
+        },
+      },
+    ],
+    redirect_urls: {
+      return_url: "exp://192.168.55.101:19000",
+      cancel_url: "exp://192.168.55.101:19000",
+    },
+  };
+  const handlePayment = async () => {
+    try {
+      const tokenResponse = await fetch("https://api-m.sandbox.paypal.com/v1/oauth2/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization:
+            "Bearer A21AAKmgEMfm9S1dOWE-hotOIPBo7GWLBtaQp8m53a34iRVSnBfSjyGB41lEfi38y1IaZhz1Yqqvd6XAQkopKiOBqDz6xTtBA",
+        },
+        body: "grant_type=client_credentials",
+      });
+      const tokenData = await tokenResponse.json();
+      const accessToken = tokenData.access_token;
+
+      const paymentResponse = await fetch("https://api.sandbox.paypal.com/v1/payments/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+        body: JSON.stringify(paymentDetail),
+      });
+
+      const paymentData = await paymentResponse.json();
+      const { id, links } = paymentData;
+
+      const approvalURL = links.find((data) => data.rel === "approval_url");
+      setPayment({
+        paymentId: id,
+        approvalURL: approvalURL.href,
+      });
+      console.log(payment.approvalURL);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const onNavigationStateChange = (webViewState) => {
+    console.log("webViewState", webViewState);
+
+    setPayment({
+      approvalURL: "",
+      paymentId: payment.paymentId,
+    });
+    const { PayerID, paymentId } = webViewState.url;
+    fetch(`https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}`, {
+      method: "POST",
+      body: { payer_id: PayerID },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.name === "INVALID_RESOURCE_ID") {
+          Alert.alert("Thông báo", "Thanh toán thất bại. Vui lòng thử lại!", [{ text: "Oke" }]);
+          setPayment({
+            paymentId: payment.paymentId,
+            approvalURL: "",
+          });
+          navigation.pop();
+        }
+        Alert.alert("Thông báo", "Thanh toán thành công.", [
+          {
+            text: "Oke",
+            onPress: () => {
+              navigation.navigate("Home");
+            },
+          },
+        ]);
+      });
+  };
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
-      <View style={styles.head}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon large={true} name="arrow-left" color={COLORS.gray} />
-        </TouchableOpacity>
-        <Text style={styles.headTitle}>Thanh toán</Text>
-      </View>
-      <ScrollView>
-        <View style={styles.backgroundGrayLight}>
-          <Text style={styles.textGray}>THÔNG TIN VÉ</Text>
-        </View>
-        <View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Số lượng</Text>
-            <Text style={styles.paddingHorizontal}>3</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Tổng</Text>
-            <Text style={styles.paddingHorizontal}>{numberWithPoint(300000)} đ</Text>
-          </View>
-        </View>
-        {/* //TODO: Flatlist here */}
-        <View>
-          <View style={styles.backgroundGrayLight}>
-            <Text style={{ fontWeight: "bold", paddingLeft: 7 }}> Thêm combo/bắp nước</Text>
-          </View>
-          <View style={{ backgroundColor: COLORS.blue, height: 100, width: "100%" }}></View>
-        </View>
-
-        <View>
-          <View style={styles.backgroundGrayLight}>
-            <Text style={styles.textGray}> PHƯƠNG THỨC GIẢM GIÁ</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Voucher</Text>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Coupon</Text>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Điểm</Text>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Thẻ quà tặng</Text>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.paddingHorizontal}>Thẻ ưu tiên</Text>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View>
-          <View style={styles.backgroundGrayLight}>
-            <Text style={styles.textGray}> Tổng lại</Text>
-          </View>
-          <View>
-            <View style={styles.row}>
-              <Text style={styles.paddingHorizontal}>Tổng cộng bao gồm VAT</Text>
-              <Text style={styles.paddingHorizontal}>{numberWithPoint(300000)} đ</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.paddingHorizontal}>Giảm giá</Text>
-              <Text style={styles.paddingHorizontal}>0 đ</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.paddingHorizontal}>Còn lại</Text>
-              <Text style={styles.paddingHorizontal}>{numberWithPoint(300000)} đ</Text>
-            </View>
-          </View>
-        </View>
-
-        <View>
-          <View style={styles.backgroundGrayLight}>
-            <Text style={styles.textGray}> thanh toán</Text>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={[styles.row, { paddingHorizontal: 10, alignItems: "center" }]}
-              onPress={() =>
-                setChoosePayment({
-                  atm: !choosePayment.atm,
-                  visa: false,
-                  momo: false,
-                  zalo: false,
-                  shoppe: false,
-                })
-              }
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Image
-                  source={require("../../../assets/icons/atm.jpeg")}
-                  style={{ width: 30, height: 28 }}
-                  resizeMode="cover"
-                />
-                <Text>ATM Card(thẻ nội địa)</Text>
-              </View>
-              {choosePayment.atm && <Icon large={false} name="check" color={COLORS.gray} />}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.row, { paddingHorizontal: 10 }]}
-              onPress={() =>
-                setChoosePayment({
-                  atm: false,
-                  visa: !choosePayment.visa,
-                  momo: false,
-                  zalo: false,
-                  shoppe: false,
-                })
-              }
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Image
-                  source={require("../../../assets/icons/visa.png")}
-                  style={{ width: 30, height: 28 }}
-                  resizeMode="cover"
-                />
-                <Text>Thẻ quốc tế (Visa, Master, Amex, JCB)</Text>
-              </View>
-              {choosePayment.visa && <Icon large={false} name="check" color={COLORS.gray} />}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.row, { paddingHorizontal: 10 }]}
-              onPress={() =>
-                setChoosePayment({
-                  atm: false,
-                  visa: false,
-                  momo: !choosePayment.momo,
-                  zalo: false,
-                  shoppe: false,
-                })
-              }
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Image
-                  source={require("../../../assets/icons/momo.png")}
-                  style={{ width: 30, height: 28 }}
-                  resizeMode="cover"
-                />
-                <Text>Ví MoMo</Text>
-              </View>
-              {choosePayment.momo && <Icon large={false} name="check" color={COLORS.gray} />}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.row, { paddingHorizontal: 10 }]}
-              onPress={() =>
-                setChoosePayment({
-                  atm: false,
-                  visa: false,
-                  momo: false,
-                  zalo: !choosePayment.zalo,
-                  shoppe: false,
-                })
-              }
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Image
-                  source={require("../../../assets/icons/zalo.png")}
-                  style={{ width: 30, height: 28 }}
-                  resizeMode="cover"
-                />
-                <Text>ZaloPay</Text>
-              </View>
-              {choosePayment.zalo && <Icon large={false} name="check" color={COLORS.gray} />}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.row, { paddingHorizontal: 10 }]}
-              onPress={() =>
-                setChoosePayment({
-                  atm: false,
-                  visa: false,
-                  momo: false,
-                  zalo: false,
-                  shoppe: !choosePayment.shoppe,
-                })
-              }
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Image
-                  source={require("../../../assets/icons/shoppePay.png")}
-                  style={{ width: 30, height: 28 }}
-                  resizeMode="cover"
-                />
-                <Text>ShoppePay</Text>
-              </View>
-              {choosePayment.shoppe && <Icon large={false} name="check" color={COLORS.gray} />}
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={[styles.backgroundGrayLight, { paddingHorizontal: 10, paddingBottom: 10 }]}>
-          <Text>
-            Tôi đồng ý với
-            <Text>
-              <Text style={{ color: COLORS.red, textDecorationLine: "underline" }}> Điều khoản sửa dụng </Text>
-            </Text>
-            và đang mua vé cho người có độ tuổi phù hợp
+      <View style={{ marginTop: 10 }}></View>
+      <BackButton color={COLORS.black} />
+      {payment.approvalURL ? (
+        <WebView
+          style={{ height: "100%", width: "100%", marginTop: 40 }}
+          source={{ uri: payment.approvalURL }}
+          //   javaScriptEnabled
+          //   domStorageEnabled
+          startInLoadingState={false}
+          onNavigationStateChange={onNavigationStateChange}
+        />
+      ) : (
+        <View style={styles.container}>
+          <Text style={{ color: COLORS.black, fontSize: 22, alignSelf: "center" }}>
+            Không nhấn quay lại hoặc làm mới trang
           </Text>
-          <View style={{ marginVertical: 15 }}>
-            <Button text="TÔI ĐỒNG Ý VÀ TIẾP TỤC" tintColor={COLORS.white} onPress={handlePayment} />
-          </View>
+          <ActivityIndicator color={COLORS.black} size={"large"} />
         </View>
-        <View></View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+    </View>
   );
 };
 
@@ -249,43 +146,6 @@ export default Payment;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
   },
-  backgroundGrayLight: {
-    backgroundColor: "#D8D7CA",
-    paddingVertical: 10,
-  },
-  textGray: {
-    color: COLORS.darkGrey,
-    opacity: 0.6,
-    paddingLeft: 10,
-    textTransform: "uppercase",
-  },
-  head: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    marginTop: 10,
-  },
-  headTitle: {
-    paddingRight: 10,
-    fontSize: 16,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 8,
-    backgroundColor: COLORS.white,
-    marginBottom: 3,
-  },
-  iconRightArrow: {
-    width: 14,
-    height: 14,
-    tintColor: COLORS.lightGrey,
-    marginRight: 10,
-  },
-  paddingHorizontal: {
-    paddingHorizontal: 10,
-  },
-  iconLogo: {},
 });
