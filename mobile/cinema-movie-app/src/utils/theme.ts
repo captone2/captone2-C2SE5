@@ -8,6 +8,7 @@ export const COLORS = {
     primary: "#1A2435",
     yellow: "#FFFF35",
     orange: "#FF9316",
+    lightGrey: "#E0E0E0",
   },
   red: "#FC0303",
   blue: "#4096FE",

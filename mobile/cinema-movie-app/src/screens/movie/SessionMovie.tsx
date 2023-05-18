@@ -1,11 +1,12 @@
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { FC, useState } from "react";
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View, LogBox } from "react-native";
+import React, { FC, useEffect, useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { COLORS } from "../../utils/theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { MovieShowtime } from "../../redux/movie/type";
 import format from "date-fns/format";
+import { EventEmitter } from "stream";
 
 const SessionMovie: FC = ({ navigation }) => {
   const [date, setDate] = useState<Date>();
@@ -34,6 +35,10 @@ const SessionMovie: FC = ({ navigation }) => {
 
     hideDatePicker();
   };
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["EventEmitter.removeListener"]);
+  }, []);
 
   return (
     <View style={styles.container}>

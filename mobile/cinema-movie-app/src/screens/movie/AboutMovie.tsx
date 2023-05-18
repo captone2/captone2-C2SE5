@@ -1,11 +1,4 @@
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { FC } from "react";
 import { COLORS } from "../../utils/theme";
 import { Button } from "../../components";
@@ -25,8 +18,7 @@ const AboutMovie: FC<Props> = ({ navigation }) => {
 
   const hourRunning = (data?.runningTime as number) / 60;
   const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
-  const timeRunning =
-    Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
+  const timeRunning = Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
 
   const genres = data?.genres.map((el) => el.name).join(", ");
 
@@ -45,20 +37,12 @@ const AboutMovie: FC<Props> = ({ navigation }) => {
           </View>
           <View style={styles.feedback}>
             <TouchableOpacity style={styles.wrapComment}>
-              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>
-                10
-              </Text>
+              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>10</Text>
               <Icon name="commenting-o" size={18} style={styles.comment} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.wrapComment}>
-              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>
-                4.5
-              </Text>
-              <Icon
-                name="star"
-                size={18}
-                style={{ color: COLORS.color.yellow }}
-              />
+              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>4.5</Text>
+              <Icon name="star" size={18} style={{ color: COLORS.color.yellow }} />
             </TouchableOpacity>
           </View>
         </View>
@@ -84,11 +68,7 @@ const AboutMovie: FC<Props> = ({ navigation }) => {
           </View>
 
           <View style={{ paddingBottom: 30 }}>
-            <Button
-              text="Đặt vé"
-              tintColor={COLORS.white}
-              onPress={() => navigation.navigate("MovieDetail")}
-            />
+            <Button text="Đặt vé" tintColor={COLORS.white} onPress={() => navigation.navigate("MovieDetail")} />
           </View>
         </View>
       </View>

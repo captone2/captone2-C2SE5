@@ -33,6 +33,7 @@ export interface Movie {
   is3D: boolean;
   genres: Genre[];
   comments: any[];
+  screen: Screen;
   movieImages: MovieImage[];
 }
 

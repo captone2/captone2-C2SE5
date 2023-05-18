@@ -43,7 +43,7 @@ public class MovieController {
 
     @GetMapping(value = "/getAllMovie")
     public ResponseEntity<Page<Movie>> getAllMovie(@RequestParam("page") Integer page,
-                                                  @RequestParam("size") Integer size) {
+                                                   @RequestParam("size") Integer size) {
         try {
             Page<Movie> movieList = movieService.getAllMovie(page, size);
             return new ResponseEntity<>(movieList,HttpStatus.OK);

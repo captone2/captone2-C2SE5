@@ -1,5 +1,5 @@
 import { Endpoints } from "../../api/endpoints";
-import { BookingRequest } from "../../redux/booking/type";
+import { BookingRequest, FoodResponse } from "../../redux/booking/type";
 import { responseBody } from "./../../api/axios";
 import axios from "axios";
 
@@ -19,5 +19,9 @@ export class BookingService {
 
   static seatBookedByShowTime(id: number): Promise<number[]> {
     return axios.get(Endpoints.PREFIX + `${this.prefix}/seatByShowTime/${id}`).then(responseBody);
+  }
+
+  static getAllFood(): Promise<FoodResponse[]> {
+    return axios.get(`https://5c5a-14-238-236-37.ngrok-free.app/api/auth/food/findAll`).then(responseBody);
   }
 }
