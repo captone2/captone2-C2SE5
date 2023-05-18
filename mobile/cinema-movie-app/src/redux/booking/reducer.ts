@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BookingState } from "./type";
-import { getAllFood, getBookingByBookingCode, seatBookedByShowTime } from "./dispatcher";
+import { getAllBookingByAccount, getAllFood, getBookingByBookingCode, seatBookedByShowTime } from "./dispatcher";
 
 const initialState: BookingState = {
   data: {
@@ -9,6 +9,7 @@ const initialState: BookingState = {
     food: [],
     foodSelected: [],
     seatSelected: [],
+    bookedByAccount: [],
   },
   errors: [],
 };
@@ -35,6 +36,9 @@ const bookingSlice = createSlice({
       state.data.food = action.payload.map((el) => {
         return { ...el, quantity: 0 };
       });
+    });
+    builder.addCase(getAllBookingByAccount.fulfilled, (state, action) => {
+      state.data.bookedByAccount = action.payload;
     });
   },
 });

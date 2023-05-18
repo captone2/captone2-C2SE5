@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import StorageUtils from "../utils/storage";
 import HttpStatusCode from "./HttpStatusCode";
 import { ApiHandler } from "../utils/api";
-import { trackPromise } from "react-promise-tracker";
+// import { trackPromise } from "react-promise-tracker";
 
 export const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -64,38 +64,38 @@ axiosClient.interceptors.response.use(
 
 export const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
-class RequestService {
-  get<T>(url: string, config?: AxiosRequestConfig) {
-    if (ApiHandler.isApiWithoutLoading(url)) {
-      return axiosClient.get<T>(url, config).then(responseBody);
-    }
-    return trackPromise(axiosClient.get<T>(url, config).then(responseBody));
-  }
-  post<T>(url: string, body: {}, config?: AxiosRequestConfig) {
-    if (ApiHandler.isApiWithoutLoading(url)) {
-      return axiosClient.post<T>(url, body, config).then(responseBody);
-    }
+// class RequestService {
+//   get<T>(url: string, config?: AxiosRequestConfig) {
+//     if (ApiHandler.isApiWithoutLoading(url)) {
+//       return axiosClient.get<T>(url, config).then(responseBody);
+//     }
+//     return trackPromise(axiosClient.get<T>(url, config).then(responseBody));
+//   }
+//   post<T>(url: string, body: {}, config?: AxiosRequestConfig) {
+//     if (ApiHandler.isApiWithoutLoading(url)) {
+//       return axiosClient.post<T>(url, body, config).then(responseBody);
+//     }
 
-    return trackPromise(
-      axiosClient.post<T>(url, body, config).then(responseBody)
-    );
-  }
+//     return trackPromise(
+//       axiosClient.post<T>(url, body, config).then(responseBody)
+//     );
+//   }
 
-  put<T>(url: string, body: {}, config?: AxiosRequestConfig) {
-    if (ApiHandler.isApiWithoutLoading(url)) {
-      return axiosClient.put<T>(url, body, config).then(responseBody);
-    }
-    return trackPromise(
-      axiosClient.put<T>(url, body, config).then(responseBody)
-    );
-  }
+//   put<T>(url: string, body: {}, config?: AxiosRequestConfig) {
+//     if (ApiHandler.isApiWithoutLoading(url)) {
+//       return axiosClient.put<T>(url, body, config).then(responseBody);
+//     }
+//     return trackPromise(
+//       axiosClient.put<T>(url, body, config).then(responseBody)
+//     );
+//   }
 
-  del<T>(url: string, config?: AxiosRequestConfig) {
-    if (ApiHandler.isApiWithoutLoading(url)) {
-      return axiosClient.delete<T>(url, config).then(responseBody);
-    }
-    return trackPromise(axiosClient.delete<T>(url, config).then(responseBody));
-  }
-}
+//   del<T>(url: string, config?: AxiosRequestConfig) {
+//     if (ApiHandler.isApiWithoutLoading(url)) {
+//       return axiosClient.delete<T>(url, config).then(responseBody);
+//     }
+//     return trackPromise(axiosClient.delete<T>(url, config).then(responseBody));
+//   }
+// }
 
-export default new RequestService();
+// export default new RequestService();

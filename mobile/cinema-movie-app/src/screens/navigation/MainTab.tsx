@@ -2,8 +2,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import TabBottom from "../../components/TabBottom";
-import { AboutMovie, ChooseSeat, Login, ChoosePayment, SessionMovie, Welcome, Payment } from "..";
-import ProfileStack from "./ProfileStack";
+import { AboutMovie, ChooseSeat, Login, ChoosePayment, SessionMovie, Welcome, Payment, ShowQRCode } from "..";
 
 const Stack = createNativeStackNavigator();
 const MainTab = () => {
@@ -21,6 +20,7 @@ const MainTab = () => {
       <Stack.Screen name="ChooseSeat" component={ChooseSeat} />
       <Stack.Screen name="ChoosePayment" component={ChoosePayment} />
       <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
     </Stack.Navigator>
   );
 };

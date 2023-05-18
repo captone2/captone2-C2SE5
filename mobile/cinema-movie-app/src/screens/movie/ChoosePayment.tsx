@@ -9,6 +9,7 @@ import { FoodResponse } from "../../redux/booking/type";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { TextInput } from "react-native-paper";
 import { Seat } from "../../redux/movie/type";
+import { getPriceTicket } from "../../utils/priceTicket";
 
 const ChoosePayment: FC = ({ navigation, route }) => {
   const [choosePayment, setChoosePayment] = useState({
@@ -25,7 +26,9 @@ const ChoosePayment: FC = ({ navigation, route }) => {
   const seats: Seat[] = route.params.seats;
   const movie = route.params.movie;
   const showtime = route.params.showtime;
-  const priceTicket = 45000;
+  // console.log(format(new Date("2023-30-04"), "dd/mm/yyyy"));
+
+  const priceTicket = getPriceTicket(movie.showDate, showtime);
 
   const sumTotal = seats.length * priceTicket;
 
@@ -70,6 +73,17 @@ const ChoosePayment: FC = ({ navigation, route }) => {
       </View>
     );
   };
+
+  useEffect(() => {
+    setChoosePayment({
+      paypal: false,
+      atm: false,
+      visa: false,
+      momo: false,
+      zalo: false,
+      shoppe: false,
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -325,7 +339,7 @@ const ChoosePayment: FC = ({ navigation, route }) => {
             <Button
               text="TÔI ĐỒNG Ý VÀ TIẾP TỤC"
               tintColor={COLORS.white}
-              onPress={() => navigation.navigate("Payment", { sumTotal: sumTotal })}
+              onPress={() => navigation.navigate("ShowQRCode", { sumTotal: sumTotal })}
               disabled={!Object.values(choosePayment).includes(true)}
             />
           </View>

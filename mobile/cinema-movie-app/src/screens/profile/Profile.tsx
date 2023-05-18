@@ -1,5 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { BackButton, Button } from "../../components";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { logoutAction } from "../../redux/auth/reducer";
@@ -8,6 +8,7 @@ import { COLORS } from "../../utils/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { numberWithPoint } from "../../utils/format";
+import { getAllBookingByAccount } from "../../redux/booking/dispatcher";
 
 type Props = {
   navigation?: any;
@@ -38,6 +39,9 @@ const Profile: FC<Props> = ({ navigation }) => {
     // ]);
   };
 
+  useEffect(() => {
+    dispatch(getAllBookingByAccount(user.id));
+  }, []);
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -140,7 +144,7 @@ const Profile: FC<Props> = ({ navigation }) => {
           <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
             <Text style={styles.paddingHorizontal}>Lịch sử giao dịch</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("HistoryOrder")}>
             <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
           </TouchableOpacity>
         </View>

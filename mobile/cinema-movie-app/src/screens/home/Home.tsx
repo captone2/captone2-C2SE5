@@ -196,8 +196,6 @@ const Home: FC = ({ navigation }) => {
             horizontal
             renderItem={({ item, index }) => {
               const filterMovieByGenre = () => {
-                console.log(item.name);
-
                 const result = movieList.reduce((pre, cur) => {
                   const a = cur.genres.filter((el) => el.name.includes(item.name));
                   if (a.length > 0) {

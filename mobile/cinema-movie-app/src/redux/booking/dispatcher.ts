@@ -24,4 +24,7 @@ const seatBookedByShowTime = createAsyncThunk(ActionType.SEAT_BOOKED_BY_SHOW_TIM
   return (await BookingService.seatBookedByShowTime(id)) ?? [];
 });
 
-export { getBookingByBookingCode, setTicketBookingReceived, seatBookedByShowTime, getAllFood };
+const getAllBookingByAccount = createAsyncThunk(ActionType.GET_ALL_BOOKING_BY_ACCOUNT, async (id: number) => {
+  return (await BookingService.getAllBookingByAccount(id)) ?? [];
+});
+export { getBookingByBookingCode, setTicketBookingReceived, seatBookedByShowTime, getAllFood, getAllBookingByAccount };

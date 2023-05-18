@@ -17,7 +17,7 @@ export interface LoginInfo {
 }
 
 interface UserInfo2 {
-  id: string;
+  id: number;
   displayName: string;
   email: string;
   roles: string[];

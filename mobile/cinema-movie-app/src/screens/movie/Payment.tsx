@@ -55,7 +55,7 @@ const Payment: FC = ({ navigation, route }) => {
       });
       const tokenData = await tokenResponse.json();
       const accessToken = tokenData.access_token;
-
+      setAccessToken(accessToken);
       const paymentResponse = await fetch("https://api.sandbox.paypal.com/v1/payments/payment", {
         method: "POST",
         headers: {
@@ -109,7 +109,7 @@ const Payment: FC = ({ navigation, route }) => {
           {
             text: "Oke",
             onPress: () => {
-              navigation.navigate("Home");
+              navigation.navigate("ShowQRCode");
             },
           },
         ]);

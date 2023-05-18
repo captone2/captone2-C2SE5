@@ -8,7 +8,7 @@ const initialState: UserState = {
     accessToken:
       "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgyNzgzMDg0LCJleHAiOjE2ODM2NDcwODR9.o79FGTqUDA8xXZh9Wttwpkl5LJzaawGJojBlZX-uFzaZIA9sAbuWjS70oT8S0es2cOErDPUvsg6gl4HnWgECVA",
     user: {
-      id: "1",
+      id: 2,
       displayName: "Nguyen Van Sy",
       email: "admin@gmail.com",
       roles: ["ROLE_MODERATOR", "ROLE_USER"],
