@@ -4,19 +4,19 @@
     <div class="steps-booking">
       <div class="steps choose-chair active-step" data-id="1">
         <i class="fa-solid fa-table-cells-large"></i>
-        <p>Choose a chair</p>
+        <p>Chọn ghế</p>
       </div>
       <div class="steps water-corn" data-id="2">
         <i class="fa-solid fa-bag-shopping"></i>
-        <p>Water corn</p>
+        <p>Chọn đồ ăn</p>
       </div>
       <div class="steps payment-st" data-id="3">
         <i class="fa-regular fa-credit-card"></i>
-        <p>Payment</p>
+        <p>Thanh toán</p>
       </div>
       <div class="steps st-info" data-id="4">
         <i class="fa-solid fa-info"></i>
-        <p>Ticket infomation</p>
+        <p>Thông tin vé</p>
       </div>
     </div>
     <div class="wrapper booking-main">
@@ -27,21 +27,21 @@
             <div class="row-book row">
               <div class="single">
                 <span></span>
-                <p>Single Chair</p>
+                <p>Ghế đơn</p>
               </div>
               <div class="choice">
                 <span></span>
-                <p>Selected Seats</p>
+                <p>Ghế chọn</p>
               </div>
               <div class="sold">
                 <span></span>
-                <p>Sold</p>
+                <p>Ghế đã bán</p>
               </div>
             </div>
             
           </div>
           <div class="row-book">
-            <div class="screen">Screen</div>
+            <div class="screen">Màn hình</div>
           </div>
           <div class="chair">
             <div>
@@ -89,8 +89,8 @@
           <table class="tb-food table">
             <tr>
               <th class="text-start" style="padding: 15px;">COMBO</th>
-              <th class="text-right">PRICE</th>
-              <th class="text-right">NUMBER</th>
+              <th class="text-right">GIÁ</th>
+              <th class="text-right">SỐ LƯỢNG</th>
             </tr>
             <tr class="thum-combo">
               <td colspan="3" style="padding: 15px;">COMBO</td>
@@ -120,17 +120,16 @@
           <div class="order-summary">
             <table class="tb-pay table ">
               <tr class="thum-combo">
-                <td colspan="3" class="pay-sum" style="border-top: 0px; padding: 15px;">Order
-                  Summary</td>
+                <td colspan="3" class="pay-sum" style="border-top: 0px; padding: 15px;">Tóm tắt theo thứ tự</td>
               </tr>
               <tr>
-                <th class="text-start">DESCRIBE</th>
-                <th class="text-right">QUANTITY</th>
-                <th class="text-right">INTO MONEY</th>
+                <th class="text-start">MÔ TẢ</th>
+                <th class="text-right">SỐ LƯỢNG</th>
+                <th class="text-right">THÀNH TIỀN</th>
               </tr>
               <tr>
                 <td class="text-start">
-                  <p class="chair-pay">Single Chair</p>
+                  <p class="chair-pay">Ghế đơn</p>
                 </td>
                 <td class="text-right">
                   <p style="padding-right: 18px;">{{ bookingDTO?.seatId?.length }}</p>
@@ -213,11 +212,11 @@
             <div class="card">
               <div class="card-header">
                 <span class="pay-sum">
-                  Personal information</span>
+                  Thông tin cá nhân</span>
               </div>
               <div class="card-body">
                 <div class="form-group">
-                  <label for="fullname">Full Name</label>
+                  <label for="fullname">Họ và tên</label>
                   <input type="text" class="form-control" id="fullname">
                 </div>
                 <div class="form-group">
@@ -225,7 +224,7 @@
                   <input type="email" class="form-control" id="email">
                 </div>
                 <div class="form-group">
-                  <label for="phone_number">Phone number</label>
+                  <label for="phone_number">Số điện thoại</label>
                   <input type="text" class="form-control" id="phone_number">
                 </div>
                 <div class="form-group form-check">
@@ -243,26 +242,26 @@
           <div class="info">
             <div class="event-name">{{bookingDTO?.movieName}}</div>
             <div class="location">Starlight Da Nang</div>
-            <div class="date-time">Showtime {{bookingDTO?.showtime}} - {{bookingDTO?.showDate | date: 'dd/MM/yyyy'}}
+            <div class="date-time">Giờ chiếu {{bookingDTO?.showtime}} - {{bookingDTO?.showDate | date: 'dd/MM/yyyy'}}
             </div>
-            <div class="room-seat">Screening room {{movieShowtime?.screen.id}} - Seats <span class="select-chair">{{seatContext}}</span></div>
+            <div class="room-seat">Màn hình {{movieShowtime?.screen.id}} - Ghế ngồi <span class="select-chair">{{seatContext}}</span></div>
           </div>
           <div class="total">
             <div class="total-chair">
-              <span>TOTAL ORDER</span>
+              <span>TỔNG ĐƠN HÀNG</span>
               <p class="total-price">{{bookingDTO?.totalPrice | number:'1.0-0'}}</p>
             </div>
             <div class="time-chair">
-              <span>SEAT HOLDING TIME</span>
+              <span>THỜI GIAN GIAO DỊCH</span>
               <p>{{getDuration(bookingDTO?.dayTimeCookie)}}</p>
             </div>
           </div>
           <div class="description" style="display: none;">
-            <p>Tickets purchased cannot be exchanged or refunded.</p>
-            <p>Ticket code will be sent <b>01</b> time via the phone number and email entered. Please
-              double check the information before continuing.</p>
+            <p>Vé đã mua không được đổi hoặc hoàn tiền.</p>
+            <p>Mã vé sẽ được gửi <b>01</b> lần qua số điện thoại và email đã nhập. Vui lòng
+               kiểm tra lại thông tin trước khi tiếp tục.</p>
           </div>
-          <div class="btun btn-next" (click)="updateValueCookie()">Next</div>
+          <div class="btun btn-next" (click)="updateValueCookie()">Tiếp tục</div>
           <div (click)="showInfoBooking()" class="btun btn-pay" style="display: none;">pay
           </div>
         </div>

@@ -2,6 +2,8 @@ package com.controller;
 
 
 import com.model.dto.movie.MovieDTO;
+import com.repository.MovieImageRepository;
+import com.repository.MovieRepository;
 import com.service.GenreService;
 import com.service.MovieImageService;
 import com.service.MovieService;
@@ -20,12 +22,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/auth/movie")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class MovieController {
 
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
+    private MovieImageRepository movieImageRepository;
 
     @Autowired
     private GenreService genreService;
@@ -34,11 +42,21 @@ public class MovieController {
     private MovieImageService movieImageService;
 
     @GetMapping(value = "/getAllMovie")
-    public ResponseEntity<Page<Movie>> getAllUser(@RequestParam("page") Integer page,
+    public ResponseEntity<Page<Movie>> getAllMovie(@RequestParam("page") Integer page,
                                                   @RequestParam("size") Integer size) {
         try {
-            Page<Movie> userList = movieService.getAllMovie(page, size);
-            return new ResponseEntity<>(userList,HttpStatus.OK);
+            Page<Movie> movieList = movieService.getAllMovie(page, size);
+            return new ResponseEntity<>(movieList,HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<List<Movie>> getAll() {
+        try {
+            List<Movie> movies = movieRepository.findAll();
+            return new ResponseEntity<>(movies,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -86,14 +104,59 @@ public class MovieController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<?> addMovie(@RequestBody MovieDTO movie) {
+        MovieDTO movieDTO = movie;
         Movie movie1 = new Movie(movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
         Movie movies = movieService.saveMovie(movie1);
-        for (int i=0 ;i < movie.getGenre().size();i++) {
-            genreService.addGenreToMovie(movie.getGenre().get(i),movies.getId());
+        List<Integer> gernes = movie.getGenre();
+        for (int i=0 ;i < gernes.size();i++) {
+
+            genreService.addGenreToMovie(gernes.get(i),movies.getId());
         }
-        for (int i=0 ;i < movie.getImgUrl().size();i++) {
-            movieImageService.addImageByIdMovie(movie.getImgUrl().get(i),movies.getId());
-        }
+        movieImageService.addImageByIdMovie(movie.getImgUrl(),movies.getId());
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
+
+
+    @PostMapping(value = "/update")
+    public ResponseEntity<?> updateMovie(@RequestBody MovieDTO movie) {
+        MovieDTO movieDTO = movie;
+        Movie movie1 = new Movie(movie.getId(),movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
+        Movie movies = movieService.saveMovie(movie1);
+        List<Integer> genres = movie.getGenre();
+        List<Integer> genreByMovieId = movieImageRepository.getGenreByMovieId(movies.getId());
+
+
+        for (int i=0 ;i < genres.size();i++) {
+            for (int j=0 ;j < genreByMovieId.size();j++) {
+                if(genres.get(i) == genreByMovieId.get(j)) {
+                    genres.remove(i);
+                    genreByMovieId.remove(j);
+                    i--;
+                    break;
+                } else {
+                    if (j == genreByMovieId.size()-1) {
+                        genreService.addGenreToMovie(genres.get(i),movies.getId());
+                        genres.remove(i);
+                        i--;
+                    }
+                }
+            }
+
+        }
+
+        if (genreByMovieId.size() >0) {
+            for (int j=0 ;j < genreByMovieId.size();j++) {
+
+                System.out.println(genreByMovieId.get(j));
+                System.out.println(movie.getId());
+                movieImageRepository.deleteGenreMovie(genreByMovieId.get(j),movie.getId());
+            }
+        }
+
+
+
+        movieImageRepository.updateImage(movie.getImgUrl(),movies.getId());
+        return new ResponseEntity<>(movies, HttpStatus.OK);
+    }
+
 }

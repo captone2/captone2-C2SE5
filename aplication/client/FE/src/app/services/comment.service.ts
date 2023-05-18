@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Comment} from '../shared/model/entity/Comment';
+import {CommentDTO} from '../shared/model/entity/CommentDTO';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -12,13 +12,13 @@ export class CommentService {
   constructor(private httpClient: HttpClient) {
   }
 
-  //  TuHC - lay comment cua 1 bo phim
+ 
   public getCommentByMovieId(id: number): Observable<any> {
     return this.httpClient.get(this.COMMENT_URL + '/get-comment/' + id);
   }
 
-// TuHC - them comment
-  public addComment(comment: Comment) {
-    return this.httpClient.post(this.COMMENT_URL + '/add-comment', comment);
+
+  public addComment(comment: CommentDTO) {
+    return this.httpClient.post(this.COMMENT_URL + '/add', comment);
   }
 }

@@ -27,7 +27,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -56,6 +56,7 @@ import {authInterceptorProviders} from './_helpers/auth.interceptor';
     MatDialogModule,
     StaticPageModule,
     NgbModule,
+    NgxPaginationModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       progressBar: true,

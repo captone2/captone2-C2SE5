@@ -87,7 +87,6 @@ export class ChangePasswordComponent implements OnInit {
 
       this.accountUpdateForm = this.formBuilder.group({
           id: [(this.accountUpdate.id)],
-          accountCode: [this.accountUpdate.accountCode],
           username: [this.accountUpdate.username],
           // tslint:disable-next-line:max-line-length
           password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,32}$')]],

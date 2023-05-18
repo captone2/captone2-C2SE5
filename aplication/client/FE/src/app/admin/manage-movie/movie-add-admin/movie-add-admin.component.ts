@@ -22,6 +22,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./movie-add-admin.component.css']
 })
 export class MovieAddAdminComponent implements OnInit {
+
   constructor(
     private movieService: ManagerMovieService,
     private movieService1: MovieService,
@@ -101,15 +102,21 @@ export class MovieAddAdminComponent implements OnInit {
   };
 
 
-
+  websiteList: any = [
+    { id: 1, name: 'ItSolutionStuff.com' },
+    { id: 2, name: 'HDTuto.com' },
+    { id: 3, name: 'NiceSnippets.com' }
+  ];
   ngOnInit(): void {
+    this.getListGenre();
+    // this.toastService.error('Đăng nhập thất bại!', 'Error: ');
     this.createMovie = this.form.group({
       title: ['', [Validators.required,
       Validators.minLength(3), Validators.maxLength(50)]],
       cast: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
       Validators.minLength(3), Validators.maxLength(50)]],
-      // director: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
-      // Validators.minLength(3), Validators.maxLength(50)]],
+      director: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
+      Validators.minLength(3), Validators.maxLength(50)]],
       releaseDate: ['', [Validators.required]],
       runningTime: ['', [Validators.required, Validators.pattern('^[0-9]{1,6}$'),
       Validators.minLength(1), Validators.maxLength(6)]],
@@ -120,41 +127,43 @@ export class MovieAddAdminComponent implements OnInit {
       Validators.minLength(3), Validators.maxLength(200)]],
       // images: this.form.array([])
     });
-    this.getListGenre();
-    this.active.paramMap.subscribe((paramMap) => {
-      // tslint:disable-next-line:radix
-      this.id = parseInt(paramMap.get('id'));
-      console.log(this.id);
-    });
+
   }
 
   onSubmitCreate() {
+    console.log("Create")
+    console.log(this.uploadedAvatar)
+    console.log(this.selectCheckbox)
+    const movie = new MovieDTO1();
+    movie.title = this.createMovie.value.title;
+    movie.cast = this.createMovie.value.cast;
+    movie.director = this.createMovie.value.director;
+    movie.releaseDate = this.createMovie.value.releaseDate;
+    movie.runningTime = this.createMovie.value.runningTime;
+    movie.production = this.createMovie.value.production;
+    movie.trailerUrl = this.createMovie.value.trailerUrl;
+    movie.content = this.createMovie.value.content;
+    movie.genre = this.selectCheckbox;
 
     if (this.selectCheckbox.length == 0) {
-      this.toastService.error('Vui lòng lựa chọn thể loại phim!', 'Error: ');
+      this.toastService.error('Vui lòng lựa chọn thể loại phim!', 'Lỗi: ');
     } else {
-      const movie = new MovieDTO1();
-      movie.title = this.createMovie.value.title;
-        movie.cast = this.createMovie.value.cast;
-        movie.director = this.createMovie.value.director;
-        movie.releaseDate = this.createMovie.value.releaseDate;
-        movie.runningTime = this.createMovie.value.runningTime;
-        movie.production = this.createMovie.value.production;
-        movie.trailerUrl = this.createMovie.value.trailerUrl;
-        movie.content = this.createMovie.value.content;
-        movie.genres = this.selectCheckbox;
+
       // Upload img & download url
       if (this.uploadedAvatar !== null) {
+        console.log("Có poster")
+        console.log(movie)
         const avatarName = this.getCurrentDateTime() + this.uploadedAvatar.name;
         const fileRef = this.storage.ref(avatarName);
         this.storage.upload(avatarName, this.uploadedAvatar).snapshotChanges().pipe(
           finalize(() => {
             fileRef.getDownloadURL().subscribe(url => {
-              movie.movieImage = url;
+              movie.imgUrl = url;
               this.addMovie(movie).subscribe(
                 (data) => {
                   this.toastService.success('Thêm mới thành công!', 'Success: ');
                   this.ngOnInit();
+                  this.router.navigateByUrl('/admin/movie')
                 },
                 (error: HttpErrorResponse) => {
                   this.toastService.error('Thêm mới thất bài!', 'Error: ');
@@ -164,7 +173,8 @@ export class MovieAddAdminComponent implements OnInit {
           })
         ).subscribe();
       } else {
-        movie.movieImage = this.urlNoPoster;
+        console.log("Không có poster")
+        movie.imgUrl = this.urlNoPoster;
         this.addMovie(movie).subscribe(
           (data) => {
             this.toastService.success('Thêm mới thành công!', 'Success: ');
@@ -186,7 +196,7 @@ export class MovieAddAdminComponent implements OnInit {
   }
 
   onCheckboxChange(event: any, id: number) {
-
+    console.log(id)
     if (event.target.checked) {
       console.log("Check")
       this.selectCheckbox.push(id);
@@ -210,7 +220,9 @@ export class MovieAddAdminComponent implements OnInit {
   getAvatar(event: any) {
     this.uploadedAvatar = event.target.files[0];
     const type = event.target.files[0].type;
+    console.log(type)
     if (type !== 'image/jpeg' && type !== 'image/png') {
+      console.log("Lỗi")
       this.toastService.error('Định dạng tệp được yêu cầu không chính xác!', 'Error: ');
     } else {
       if (this.uploadedAvatar) {
@@ -222,4 +234,6 @@ export class MovieAddAdminComponent implements OnInit {
       }
     }
   }
+
+
 }

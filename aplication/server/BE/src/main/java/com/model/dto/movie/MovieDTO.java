@@ -1,6 +1,6 @@
 package com.model.dto.movie;
 
-import javax.persistence.Column;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class MovieDTO {
     }
 
     public MovieDTO(String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
+
         this.title = title;
         this.cast = cast;
         this.director = director;

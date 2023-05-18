@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../../../services/movie.service';
 import { AuthService } from '../../../services/authe.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Movie } from '../../../shared/model/entity/Movie';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,8 +13,10 @@ import { Transaction } from 'src/app/shared/model/dto/Transaction';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Food } from '../../../shared/model/entity/Food';
+import { CommentDTO } from '../../../shared/model/entity/CommentDTO';
 import { Genre } from 'src/app/shared/model/entity/Genre';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommentService } from 'src/app/services/comment.service';
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
@@ -31,10 +34,11 @@ export class MovieDetailComponent implements OnInit {
   url = 'assets/js/main.js';
   loadAPI: any;
   rate: number = 0;
-  comnentForm: FormGroup;
+  commentForm: FormGroup;
   private baseUrl = 'http://localhost:4200api/auth/booking';
   private readonly destroy$ = new Subject<void>();
-  constructor(private form: FormBuilder, private authService: AuthService, private router: Router, private http: HttpClient, private movieService: MovieService, private activatedRoute: ActivatedRoute,
+  constructor( private toastService: ToastrService, private form: FormBuilder, private authService: AuthService,
+     private router: Router, private http: HttpClient, private movieService: MovieService, private activatedRoute: ActivatedRoute, private commentService : CommentService
   ) {
   }
 
@@ -52,9 +56,9 @@ export class MovieDetailComponent implements OnInit {
       });
       this.getMovieDetail();
 
-      this.comnentForm = this.form.group({
+      this.commentForm = this.form.group({
         content: ['', [Validators.required,
-        Validators.minLength(3), Validators.maxLength(50)]],
+        Validators.minLength(3), Validators.maxLength(200)]],
 
       });
   }
@@ -302,6 +306,26 @@ export class MovieDetailComponent implements OnInit {
     }
   }
 
+  checkLogin() {
+    if (!this.authService.isUserLoggedIn()) {
+      sessionStorage.setItem('requestedPage', '/movie-detail/' + this.id);
+      const requestedPage = sessionStorage.getItem('requestedPage');
+      this.router.navigateByUrl('/login');
+    } 
+  }
+  
+  onSubmit() {
+    const user = JSON.parse(sessionStorage.getItem('auth-user'))
+    const comment = new CommentDTO();
+    comment.content = this.commentForm.value.content;
+    comment.rate = this.rate;
+    comment.movieId = this.id;
+    comment.accountId = user.id;
+    console.log(comment)
+   this.commentService.addComment(comment).subscribe(data => {
+    this.toastService.error('!', 'Lỗi: ');
+   })
 
+  }
 
 }

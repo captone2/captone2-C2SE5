@@ -9,7 +9,7 @@ import {Account} from '../shared/model/entity/Account';
 })
 export class EmployeeAccountService {
 
-  private readonly API_URL_EMPLOYEE_ACCOUNT_LIST = 'http://localhost:8080/api/employee-account-list';
+  private readonly API_URL_EMPLOYEE_ACCOUNT_LIST = 'http://localhost:8080/api/employee-list';
   private readonly API_URL_EMPLOYEE_ACCOUNT_CREATE = 'http://localhost:8080/api/employee-account-create';
   private readonly API_URL_EMPLOYEE_ACCOUNT_UPDATE = 'http://localhost:8080/api/employee-account-edit';
   private readonly API_URL_EMPLOYEE_ACCOUNT_DELETE = 'http://localhost:8080/api/employee-account-delete';
@@ -22,27 +22,27 @@ export class EmployeeAccountService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // Lấy thông tin nhân viên theo id (HoangLV)
+ 
   getEmployeeById(id: number): Observable<Account> {
     return this.httpClient.get<Account>(this.API_URL_EMPLOYEE_ACCOUNT_BY_ID + '/' + (id));
   }
 
-  // Lấy tất cả thông tin nhân viên (HoangLV)
-  getAllEmployee() {
-    return this.httpClient.get(this.API_URL_EMPLOYEE_ACCOUNT_LIST);
+
+  getAllEmployee(): Observable<Account[]>{
+    return this.httpClient.get<Account[]>(this.API_URL_EMPLOYEE_ACCOUNT_LIST);
   }
 
-  // Thêm mới thông tin nhân viên  (HoangLV)
+ 
   createEmployeeAccount(employee: any): Observable<any> {
     return this.httpClient.post(this.API_URL_EMPLOYEE_ACCOUNT_CREATE, employee);
   }
 
-  // Xóa thông tin nhân viên (HoangLV)
+
   deleteEmployee(id: number): Observable<any> {
     return this.httpClient.delete(this.API_URL_EMPLOYEE_ACCOUNT_DELETE + '/' + id);
   }
 
-  // Sửa thông tin nhân viên theo id (HoangLV)
+ 
   updateEmployee(employee: any) {
     return this.httpClient.put<any>(this.API_URL_EMPLOYEE_ACCOUNT_UPDATE, employee);
   }

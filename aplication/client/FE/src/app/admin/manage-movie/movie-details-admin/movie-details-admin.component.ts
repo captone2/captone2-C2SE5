@@ -23,6 +23,7 @@ export class MovieDetailsAdminComponent implements OnInit {
     public sanitizer: DomSanitizer
   ) { }
   movieDetail: Movie;
+  videoUrl = 'https://www.youtube.com/embed/uLmfetpadoU';
   genres: Genre[];
   showtimes: Showtime[];
   images: MovieImage[];

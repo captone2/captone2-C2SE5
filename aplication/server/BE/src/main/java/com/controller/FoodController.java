@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/auth/food")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class FoodController {
     @Autowired
     FoodService foodService;

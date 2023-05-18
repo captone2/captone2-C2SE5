@@ -97,11 +97,7 @@ public class AccountController {
 
 
 
-
-
-
-    // danh sánh nhân viên (HoangLV)
-    @GetMapping("employee-account-list")
+    @GetMapping("employee-list")
     public ResponseEntity<List<Account>> getAllEmployee() {
         List<Account> listEmployeeDTOS = accountService.getAllEmployeeAccount();
         if (listEmployeeDTOS.isEmpty()) {

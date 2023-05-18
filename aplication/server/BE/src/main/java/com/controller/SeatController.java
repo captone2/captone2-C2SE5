@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/seat")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class SeatController {
     @Autowired
     private SeatService seatService;

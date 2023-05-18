@@ -152,7 +152,7 @@ closeModal() {
   }
 
   addSeat(target: any, idSeat: number, nameSeat: string) {
-    console.log(this.bookingDTO)
+    const price =50000;
     if  (this.bookingDTO.seatId.length == 5) {
       this.modalMaxchair.nativeElement.style.animation = 'downtop 0.5s ease-in-out forwards';
       this.modalMaxchair.nativeElement.style.display = 'block';
@@ -162,11 +162,11 @@ closeModal() {
       if (indexId !== -1) {
         this.bookingDTO.seatId.splice(indexId, 1);
         target.classList.remove('active-seat');
-        this.bookingDTO.totalPrice -= 50000;
+        this.bookingDTO.totalPrice -= price;
       } else {
         this.bookingDTO.seatId.push(idSeat);
         target.classList.add('active-seat');
-        this.bookingDTO.totalPrice += 50000;
+        this.bookingDTO.totalPrice += price;
       }
       const indexName = this.bookingDTO.seatName.indexOf(nameSeat);
       if (indexName !== -1) {
@@ -434,8 +434,23 @@ closeModal() {
     return this.http.post(url, booking);
   }
 
-  priceBooking() {
-    return ""
+   calculateTicketPrice(time: string, date: string): number {
+    const price : number = 50000;
+    const specialDates = ['01-01', '02-09', '30-04', '01-05'];
+  
+    const currentTime = new Date(date + 'T' + time);
+    const currentHour = currentTime.getHours();
+    const currentDate = currentTime.toISOString().slice(0, 10).split('-').reverse().join('-');
+  
+    if (currentHour >= 19 && specialDates.includes(currentDate)) {
+      return price + 25000;
+    } else if (currentHour < 19 && specialDates.includes(currentDate)) {
+      return price + 20000;
+    } else if (currentHour >= 19) {
+      return price + 10000;
+    } else {
+      return price;
+    }
   }
 
   generateRandomString(length: number): string {

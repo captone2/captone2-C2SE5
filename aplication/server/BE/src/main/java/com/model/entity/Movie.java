@@ -168,4 +168,16 @@ public class Movie {
         this.trailerUrl = trailerUrl;
         this.content = content;
     }
+
+    public Movie(Long id, String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
+        this.title = title;
+        this.id = id;
+        this.cast = cast;
+        this.director = director;
+        this.releaseDate = releaseDate;
+        this.runningTime = runningTime;
+        this.production = production;
+        this.trailerUrl = trailerUrl;
+        this.content = content;
+    }
 }

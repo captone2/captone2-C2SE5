@@ -118,22 +118,37 @@ const adminRoutes: Routes = [
     path: 'admin',
     component: AdminHomeComponent,
     canActivate: [AuthGuardService],
-    data: {expectedRole: [Role.Admin]},
+    data: { expectedRole: [Role.Admin] },
     children: [
       {
         path: 'home', component: DashboardComponent,
         canActivate: [AuthGuardService],
-        data: {expectedRole: [Role.Admin,Role.Employee]},
+        data: { expectedRole: [Role.Admin, Role.Employee] },
       },
       {
         path: 'movie', component: MovieListAdminComponent
         , canActivate: [AuthGuardService],
-        data: {expectedRole: [Role.Admin]},
+        data: { expectedRole: [Role.Admin] },
+      },
+      {
+        path: 'movie/detail', component: MovieDetailsAdminComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
       },
       {
         path: 'movie-add', component: MovieAddAdminComponent
+        // , canActivate: [AuthGuardService],
+        // data: { expectedRole: [Role.Admin] },
+      },
+      {
+        path: 'movie-update/:id', component: MovieUpdateAdminComponent
         , canActivate: [AuthGuardService],
-        data: {expectedRole: [Role.Admin]},
+        data: { expectedRole: [Role.Admin] },
+      },
+      {
+        path: 'employee', component: EmployeeListAdminComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
       },
     ]
   }
@@ -195,12 +210,8 @@ const adminRoutes: Routes = [
     NgxPaginationModule,
     MatButtonModule,
     MatPaginatorModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: false,
-    }),
     MatIconModule,
+    NgxPaginationModule,
     MatProgressSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // firestore

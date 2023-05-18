@@ -8,6 +8,13 @@
   background-size: cover;
   background: url('https://springboard-cdn.appadvice.com/wp-content/appadvice-v2-media/2016/11/Netflix-background_860c8ece6b34fb4f43af02255ca8f225-xl.jpg') center;
 }
+
+
+.background_img::after {
+  content: "";
+  position: absolute;
+  opacity: 0.6;
+}
 .background_img:after{
   /*position: absolute;*/
   content: '';
@@ -19,13 +26,13 @@
 }
 .content{
   position: absolute;
-  top: 30%;
-  left: 40%;
-  transform: translate(-50% -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   text-align: center;
   z-index: 999;
   padding: 60px 32px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.75);
   box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.75) ;
   width: 370px;
 }

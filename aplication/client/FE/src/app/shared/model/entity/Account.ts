@@ -1,10 +1,9 @@
-import {AccountRole} from './AccountRole';
-import {Comment} from './Comment';
+import { AccountRole } from './AccountRole';
+
 
 export class Account {
   id: number;
   username: string;
-  accountCode: string;
   password: string;
   fullname: string;
   birthday: string;
@@ -15,9 +14,8 @@ export class Account {
   gender: string;
   totalPoint: number;
   imageUrl: string;
-  deleted: boolean;
-  accountRoles: AccountRole[];
-  comments: Comment[];
-  newPassword: string;
-  confirmPassword: string;
+  isEnabled: number;
+  
+ 
+
 }

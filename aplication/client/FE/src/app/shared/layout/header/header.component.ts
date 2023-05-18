@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   keyword = '';
   url = 'assets/js/main.js';
   loadAPI: any;
+  movieListSearch: Movie[];
   movieSearches: Movie[];
   idAccount: any;
   private roles: string[];
@@ -69,4 +70,12 @@ export class HeaderComponent implements OnInit {
   // searchMovie(){
   //   this.router.navigateByUrl('/movie-search?keyword=' + this.keyword);
   // }
+
+  searchMovie(value: string) {
+    console.log(value)
+    this.movieService.getMovieByTitle(value).subscribe((data) => {
+      this.movieListSearch = data;
+      console.log(data)
+   });
+  }
 }

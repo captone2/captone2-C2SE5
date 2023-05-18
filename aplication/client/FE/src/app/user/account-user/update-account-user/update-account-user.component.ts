@@ -107,7 +107,7 @@ export class UpdateAccountUserComponent implements OnInit {
 
       this.accountUpdateForm = this.formBuilder.group({
         id: [(this.accountUpdate.id)],
-        accountCode: [this.accountUpdate.accountCode],
+        // accountCode: [this.accountUpdate.accountCode],
         username: [this.accountUpdate.username],
         password: [this.accountUpdate.password ],
    /*     password: [this.accountUpdate.password, compareValidator('12345')],*/

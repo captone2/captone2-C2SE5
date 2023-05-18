@@ -13,8 +13,10 @@ import {JsogService} from 'jsog-typescript';
 })
 export class EmployeeListAdminComponent implements OnInit {
     employeeList: Account[];
-    page: 1;
+  
     keyWord = null;
+    pageSize: number = 5; 
+    currentPage: number = 1; 
   constructor( private employeeAccountService: EmployeeAccountService ,
                private dialog: MatDialog,
                private toastService: ToastrService,
@@ -23,33 +25,19 @@ export class EmployeeListAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeAccountService.getAllEmployee().subscribe((data) => {
-     // @ts-ignore
-      this.employeeList = this.jsogService.deserializeArray(data, Account) ;
-      console.log(data);
+    this.employeeList = data;
+    console.log(data)
     });
   }
 
-  openDialogDelete(id) {
-    this.employeeAccountService.getEmployeeById(id).subscribe(data => {
-      // console.log(data);
-      const dialogRef = this.dialog.open(EmployeeDeleteAdminComponent, {
-        width: '500px',
-        data: {data1: data},
-        disableClose: true
-
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.ngOnInit();
-      });
-    });
-  }
+ 
 
   searchKeyWord(){
     console.log(this.keyWord);
     this.employeeAccountService.searchEmployee(this.keyWord).subscribe((data) => {
       console.log(data);
       this.employeeList = data ;
-      this.page = 1;
+      // this.page = 1;
       if (this.employeeList.length === 0) {
         this.toastService.error('Không tìm thấy', 'Thông báo');
       }

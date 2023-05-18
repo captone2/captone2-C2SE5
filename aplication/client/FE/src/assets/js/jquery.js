@@ -193,11 +193,7 @@ jQuery(document).ready(function () {
         jQuery(".overlay").css('display', 'block');
     });
 
-    jQuery(".slide-button").find('.btn-trailer').on('click', function () {
-        jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')
-        jQuery(".modal-trailer").css('display', 'block')
-        jQuery(".overlay").css('display', 'block');
-    });
+   
 
 
 

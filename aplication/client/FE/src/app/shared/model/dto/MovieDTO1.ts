@@ -1,3 +1,4 @@
+import { Genre } from './../entity/Genre';
 export class MovieDTO1 {
   id: number;
   title: string;
@@ -8,6 +9,6 @@ export class MovieDTO1 {
   production: string;
   trailerUrl: string;
   content: string;
-  genres: number[];
-  movieImage: string;
+  genre: number[];
+  imgUrl: string;
 }

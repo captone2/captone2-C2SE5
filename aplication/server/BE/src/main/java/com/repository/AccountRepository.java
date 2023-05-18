@@ -96,8 +96,8 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
 
 
     Account findAccountById(long id);
-    @Query(value = "select * from account inner join account_role on account.id = account_role.account_id " +
-            "where account.deleted = true  and (account_role.role_id = 3 or account_role.role_id = 2)", nativeQuery = true)
+    @Query(value = "select account.* from account inner join account_role on account.id = account_role.account_id \n" +
+            "            where account.is_enabled= 1  and (account_role.role_id = 3 )", nativeQuery = true)
     List<Account> getAllAccountEmployee();
 
     @Transactional

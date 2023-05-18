@@ -20,7 +20,9 @@ export class MovieService {
   }
 
 
-  
+  public getAllMovie(): Observable<Movie[]> {
+    return this.httpClient.get<Movie[]>(this.MOVIE_URL + '/getAll');
+  }
 
   public getMovieShowing(): Observable<any> {
     return this.httpClient.get(this.MOVIE_URL + '/movie-coming-soon');

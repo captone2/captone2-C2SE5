@@ -4438,6 +4438,51 @@ jQuery('.nav-item').hover(function () {
 
 
 
+// Chat bot =======================================
+
+
+// Chat mode
+jQuery("body").on('click', '.chat-mode-1', function () {
+})
+
+jQuery("body").on('click', '.chat-mode div', function () {
+  let user_message;
+  let clicked_id = jQuery(this).attr("class");
+  switch (clicked_id) {
+    case "chat-mode-1":
+      user_message = jQuery(".chat-mode-1").text();
+      break;
+    case "chat-mode-2":
+      user_message = jQuery(".chat-mode-2").text();;
+      break;
+    case "chat-mode-3":
+      user_message = jQuery(".chat-mode-3").text();;
+      break;
+    case "chat-mode-4":
+      user_message = jQuery(".chat-mode-4").text();;
+      break;
+    case "chat-mode-5":
+      user_message = jQuery(".chat-mode-5").text();;
+      break;
+    case "chat-mode-6":
+      user_message = jQuery(".chat-mode-6").text();;
+      break;
+    case "chat-mode-7":
+      user_message = jQuery(".chat-mode-7").text();;
+      break;
+  }
+  jQuery('.chatbot-message-container').append(
+    "<div class='chatbot-message user-message'><span>" + user_message + "</span></div> <div class='chatbot-message bot-message'><span>Bot's response here.</span></div>"
+  ).animate({
+    scrollTop: jQuery('.chatbot-message-container')[0].scrollHeight
+  }, 500);
+
+
+});
+
+
+jQuery(".chatbot-message-container").css("padding-bottom", jQuery(".chat-mode").height());
+
 
 
 jQuery('#stars li').on('mouseover', function () {
@@ -4465,8 +4510,16 @@ jQuery('#stars li').on('click', function () {
   }
 });
 
+// jQuery(".cls").on('click', function () {
+//   jQuery(".modal-binhluan").css('animation', 'topdown 0.5s ease-in-out forwards')
+//   jQuery(".overlay").css('display', 'none');
+// });
 jQuery(".cls").on('click', function () {
   jQuery(".modal-binhluan").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-maxchair").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-rebuy").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
   jQuery(".overlay").css('display', 'none');
 });
 
@@ -4479,4 +4532,98 @@ jQuery(".btn-comment").on('click', function () {
   jQuery(".modal-binhluan").css('animation', 'downtop 0.5s ease-in-out forwards')
   jQuery(".modal-binhluan").css('display', 'block')
   jQuery(".overlay").css('display', 'block');
+});
+jQuery(".btn-trailer").closest(".slide-item").find('.btn-trailer').on('click', function () {
+  var colosest = jQuery(this).closest(".slide-item");
+  jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')
+  jQuery(".modal-trailer").css('display', 'block')
+  jQuery(".overlay").css('display', 'block');
+
+  var attr = {
+      "image": colosest.find('.slide-thumb img').attr('src'),
+      "match": colosest.find(".percent-match").val(),
+      "limited": colosest.find(".limited").val(),
+      "description": colosest.find(".description").val(),
+      "actor": colosest.find(".actor").val(),
+      "theloai": colosest.find(".theloai").val(),
+      "rate": colosest.find(".rate").val(),
+  }
+  jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
+  jQuery(".modal-trailer .detail-in .match").text(attr.match);
+  jQuery(".modal-trailer .detail-in .descrip").text(attr.description);
+  jQuery(".modal-trailer .detail-in .limit").text(attr.limited);
+  jQuery(".modal-trailer .detail-in .actor-modal").text(attr.actor);
+  jQuery(".modal-trailer .detail-in .theloai-modal").text(attr.theloai);
+  var rateValue = parseFloat(attr.rate);
+  var starCount = Math.round(rateValue);
+  var starHtml = '';
+  for (var i = 1; i <= 5; i++) {
+      if (i <= starCount) {
+          starHtml += '<i class="fa-sharp fa-solid fa-star"></i>';
+      } else {
+          starHtml += '<i class="fa-sharp fa-regular fa-star"></i>';
+      }
+  }
+  jQuery('.rate-modal').html(starHtml);
+});
+
+
+
+
+
+
+jQuery(".btn-trailer-detail").on('click', function () {
+  jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')
+  jQuery(".modal-trailer").css('display', 'block')
+  jQuery(".overlay").css('display', 'block');
+
+  var attr = {
+      "image": jQuery('.thumb-detail-img').attr('src'),
+      "match": jQuery(".percent-match").val(),
+      "limited": jQuery(".limited").val(),
+      "description": jQuery(".description").val(),
+      "actor": jQuery(".actor").val(),
+      "theloai": jQuery(".theloai").val(),
+      "rate": jQuery(".rate").val(),
+  }
+  jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
+  jQuery(".modal-trailer .detail-in .match").text(attr.match);
+  jQuery(".modal-trailer .detail-in .descrip").text(attr.description);
+  jQuery(".modal-trailer .detail-in .limit").text(attr.limited);
+  jQuery(".modal-trailer .detail-in .actor-modal").text(attr.actor);
+  jQuery(".modal-trailer .detail-in .theloai-modal").text(attr.theloai);
+  var rateValue = parseFloat(attr.rate);
+  var starCount = Math.round(rateValue);
+  var starHtml = '';
+  for (var i = 1; i <= 5; i++) {
+      if (i <= starCount) {
+          starHtml += '<i class="fa-sharp fa-solid fa-star"></i>';
+      } else {
+          starHtml += '<i class="fa-sharp fa-regular fa-star"></i>';
+      }
+  }
+  jQuery('.rate-modal').html(starHtml);
+});
+
+
+
+
+var readURL = function (input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          jQuery('.profile-pic').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
+jQuery(".file-upload").on('change', function () {
+  readURL(this);
+});
+
+jQuery(".upload-button").on('click', function () {
+  jQuery(".file-upload").click();
 });

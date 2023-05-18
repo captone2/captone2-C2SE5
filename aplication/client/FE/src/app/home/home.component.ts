@@ -6,6 +6,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Genre } from '../shared/model/entity/Genre';
 import { SlidesOutputData } from 'ngx-owl-carousel-o';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,30 +14,25 @@ import { SlidesOutputData } from 'ngx-owl-carousel-o';
 ]
 })
 export class HomeComponent implements OnInit {
-
+ 
   public movieList: Movie[];
-  movieListSearch: Movie[];
+  createMovie: FormGroup;
   @ViewChild('overlay') overlay: ElementRef;
   @ViewChild('modalPayment') modalPayment: ElementRef;
   @ViewChild('modalTrailer') modalTrailer: ElementRef;
   @ViewChild('videoMain') videoMain: ElementRef;
-  constructor(private movieService : MovieService, private tokenStorage: TokenStorageService,) { }
+  constructor(private form: FormBuilder ,private movieService : MovieService, private tokenStorage: TokenStorageService,) { }
 
   ngOnInit(): void {
-   
+
+
     this.movieService.getMovieShowing().subscribe((data) => {
        this.movieList = data;
       console.log(data)
     });
   }
 
-  searchMovie(value: string) {
-    console.log(value)
-    this.movieService.getMovieByTitle(value).subscribe((data) => {
-      this.movieListSearch = data;
-      console.log(data)
-   });
-  }
+ 
 
   closeModal() {
     this.modalPayment.nativeElement.style.animation = 'topdown 0.5s ease-in-out forwards';
