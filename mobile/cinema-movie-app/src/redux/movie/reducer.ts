@@ -7,6 +7,7 @@ import {
   findAllMovieShowing,
   findMovieById,
   findShowtimeByMovieId,
+  getFiveMovieHighestOfMonth,
 } from "./dispatcher";
 
 const initialState: MovieState = {
@@ -17,6 +18,7 @@ const initialState: MovieState = {
     movieShowing: [],
     movieComingSoon: [],
     movieShowtime: [],
+    fiveMovieHighestOfMonth: [],
   },
   errors: [],
 };
@@ -47,6 +49,9 @@ const movieSlice = createSlice({
     });
     builder.addCase(findShowtimeByMovieId.fulfilled, (state, action) => {
       state.data.movieShowtime = action.payload;
+    });
+    builder.addCase(getFiveMovieHighestOfMonth.fulfilled, (state, action) => {
+      state.data.fiveMovieHighestOfMonth = action.payload;
     });
   },
 });

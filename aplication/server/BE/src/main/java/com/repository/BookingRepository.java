@@ -37,6 +37,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     void saveBookingFood(@Param("total") Integer total,@Param("bookingId") Long bookingId, @Param("foodId") Integer foodId);
 
     @Query(value = "select booking_seat.seat_id from booking_seat\n" +
+            "join booking on booking.id = booking_seat.booking_id\n" +
             "join seat on booking_seat.seat_id = seat.id\n" +
             "join movie_show_time on movie_show_time.screen_id = seat.screen_id\n" +
             "where movie_show_time.id = :id", nativeQuery = true)

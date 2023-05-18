@@ -159,4 +159,13 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
+    @GetMapping(value ="/top-five-movie")
+    public ResponseEntity<List<Movie>> findTop5MovieHighestRevenueOfMonth(){
+        List<Movie> listFiveMovie = movieService.findTop5MovieHighestRevenueOfMonth();
+        if (listFiveMovie.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(listFiveMovie, HttpStatus.OK);
+        }
+    }
 }

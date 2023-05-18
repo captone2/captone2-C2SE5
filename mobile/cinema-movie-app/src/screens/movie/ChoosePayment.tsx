@@ -339,7 +339,7 @@ const ChoosePayment: FC = ({ navigation, route }) => {
             <Button
               text="TÔI ĐỒNG Ý VÀ TIẾP TỤC"
               tintColor={COLORS.white}
-              onPress={() => navigation.navigate("ShowQRCode", { sumTotal: sumTotal })}
+              onPress={() => navigation.navigate("Payment", { sumTotal: sumTotal })}
               disabled={!Object.values(choosePayment).includes(true)}
             />
           </View>
