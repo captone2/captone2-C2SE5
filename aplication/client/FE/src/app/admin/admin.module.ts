@@ -56,6 +56,9 @@ import { OrderModule } from 'ngx-order-pipe';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CssComponent } from './css/css.component';
+import { FoodAddComponent } from './manage-food/food-add/food-add.component';
+import { ShowtimeListComponent } from './manage-showtime/showtime-list/showtime-list.component';
+import { ShowtimeAddComponent } from './manage-showtime/showtime-add/showtime-add.component';
 
 const adminRoutes: Routes = [
   // {
@@ -150,6 +153,33 @@ const adminRoutes: Routes = [
         , canActivate: [AuthGuardService],
         data: { expectedRole: [Role.Admin] },
       },
+      {
+        path: 'employee-add', component: EmployeeAddAdminComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+
+      {
+        path: 'employee/detail', component: EmployeeDetailAdminComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+      {
+        path: 'food-add', component: FoodAddComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+
+      {
+        path: 'screen', component: ScreenListComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+      {
+        path: 'showtime-add', component: ShowtimeAddComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
     ]
   }
 ];
@@ -188,7 +218,10 @@ const adminRoutes: Routes = [
     NavbarLeftComponent,
     AdminHomeComponent,
     DashboardComponent,
-    CssComponent
+    CssComponent,
+    FoodAddComponent,
+    ShowtimeListComponent,
+    ShowtimeAddComponent
   ],
   exports: [
     EmployeeListAdminComponent,

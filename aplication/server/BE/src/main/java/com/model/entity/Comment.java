@@ -14,7 +14,7 @@ public class Comment {
     private long id;
     private String content;
 
-    @Type(type = "org.hibernate.type.NumericBooleanType")
+
     private Integer rate;
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "id")

@@ -168,43 +168,7 @@
                 <span class="pay-sum">
                   Payments</span>
               </div>
-              <div class="card-body">
-                <div class="payment-gateway active-pay">
-                  <i class="fa-regular fa-circle-check active-icon-pay"></i>
-                  <div class="pg-info">
-                    <img src="/assets/images/pay-icon/paypal-icon.png">
-                  </div>
-                  <div class="pg-text">Paypal</div>
-                </div>
-                <div class="payment-gateway ">
-                  <i class="fa-regular fa-circle-check"></i>
-                  <div class="pg-info">
-                    <img src="/assets/images/pay-icon/foxpay-icon.png">
-                  </div>
-                  <div class="pg-text">Foxpay Wallet</div>
-                </div>
-                <div class="payment-gateway ">
-                  <i class="fa-regular fa-circle-check"></i>
-                  <div class="pg-info">
-                    <img src="/assets/images/pay-icon/moveek-icon.png">
-                  </div>
-                  <div class="pg-text">Bank Transfer / Internet Banking</div>
-                </div>
-                <div class="payment-gateway ">
-                  <i class="fa-regular fa-circle-check"></i>
-                  <div class="pg-info">
-                    <img src="/assets/images/pay-icon/payoo-icon.png">
-                  </div>
-                  <div class="pg-text">Visa, Master, JCB</div>
-                </div>
-                <div class="payment-gateway ">
-                  <i class="fa-regular fa-circle-check"></i>
-                  <div class="pg-info">
-                    <img src="/assets/images/pay-icon/shopeepay-icon.png">
-                  </div>
-                  <div class="pg-text">ShopeePay Wallet</div>
-                </div>
-              </div>
+
             </div>
           </div>
           <!-- Infomation -->
@@ -262,7 +226,7 @@
                kiểm tra lại thông tin trước khi tiếp tục.</p>
           </div>
           <div class="btun btn-next" (click)="updateValueCookie()">Tiếp tục</div>
-          <div (click)="showInfoBooking()" class="btun btn-pay" style="display: none;">pay
+          <div (click)="showInfoBooking()" class="btun btn-pay" style="display: none;">Thanh toán
           </div>
         </div>
       </div>
@@ -272,12 +236,12 @@
         <div class="row-book">
           <div class="col-md-3" style="border: 1px solid rgb(242 230 237);">
             <div class="payment-title">
-              <h1>Information line</h1>
+              <h1>Thông tin vé</h1>
             </div>
             <div class="payment-detail">
               <div class="box-detail">
                 <h4>
-                  <p>Theater</p>
+                  <p>Rạp</p>
                 </h4>
                 <div class="two-box">
                   <p class="merchant-name" style="font-weight: 400;">Starlight Da Nang</p>
@@ -287,7 +251,7 @@
               <div class="line-detail"></div>
               <div class="box-detail">
                 <h4>
-                  <p>Movie</p>
+                  <p>Phim</p>
                 </h4>
                 <p style="font-weight: 400;">
                   {{bookingDTO?.movieName}}</p>
@@ -295,7 +259,7 @@
               <div class="line-detail"></div>
               <div class="box-detail">
                 <h4>
-                  <p>Showtime</p>
+                  <p>Giờ chiếu</p>
                 </h4>
                 <p style="font-weight: 400;">{{bookingDTO?.showtime}} - {{bookingDTO?.showDate | date: 'dd/MM/yyyy'}}
                 </p>
@@ -303,7 +267,7 @@
               <div class="line-detail"></div>
               <div class="box-detail">
                 <h4>
-                  <p>Chair</p>
+                  <p>Ghế</p>
                 </h4>
                 <p style="font-weight: 400;">
                   {{seatContext}}</p>
@@ -311,7 +275,7 @@
               <div class="line-detail"></div>
               <div class="box-detail">
                 <h4>
-                  <p>Personal Infomation</p>
+                  <p>Thông tin cá nhân</p>
                 </h4>
                 <div style="font-weight: 400;">
                   <div>{{account?.fullname}}</div>
@@ -374,30 +338,30 @@
   <div (click)="handleOverlayClick()" class="overlay" style="display: none;"></div>
   <div class="modal-payment modal-wrap" style="display: none;">
     <div class="modal-header">
-      <h4 class="title">Order confirmation</h4>
+      <h4 class="title">Xác nhận đơn hàng</h4>
       <div (click)="handleOverlayClick()" class="cls">
         <i class="fa-solid fa-xmark"></i>
       </div>
     </div>
     <div class="modal-body">
       <div>
-        <div>Theater</div>
+        <div>Rạp</div>
         <div>Starlight Da Nang</div>
       </div>
       <div>
-        <div>Movie</div>
+        <div>Phim</div>
         <div>{{bookingDTO?.movieName}}</div>
       </div>
       <div>
-        <div>Showtime</div>
+        <div>Giờ chiếu</div>
         <div><b>{{bookingDTO?.showtime | slice:0:5}}</b> <b> {{ bookingDTO?.showDate | date}}</b></div>
       </div>
       <div>
-        <div>Chair</div>
+        <div>Ghế</div>
         <div>{{seatContext}}</div>
       </div>
       <div>
-        <div>Personal Infomation</div>
+        <div>Thông tin cá nhân</div>
         <div>
           <p>{{account?.fullname}}</p>
           <p>{{account?.email}}</p>
@@ -405,13 +369,13 @@
         </div>
       </div>
       <div>
-        <div>Pay</div>
+        <div>Hình thức thanh toán</div>
         <div>Paypal</div>
       </div>
     </div>
     <div class="modal-footer">
       <br>
-      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      <ngx-paypal style="width: 100%;" [config]="payPalConfig"></ngx-paypal>
     </div>
   </div>
 
@@ -425,7 +389,7 @@
     </div>
   </div>
   <div class="modal-body" style="padding-top: 30px;">
-    Hết thời gian giữ ghế, Vui lòng thực hiện lại sau 5 phút
+    Hết thời gian đặt vé, Vui lòng thực hiện lại 
   </div>
   <div class="modal-footer">
     <button type="button" class="btn-rebuy"><a routerLink="/home" style="color: #fff;">Đặt lại vé</a></button>

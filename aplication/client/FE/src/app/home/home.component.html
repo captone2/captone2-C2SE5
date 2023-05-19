@@ -306,8 +306,8 @@
                               <div class="entry-date">
                                 Khởi chiếu: {{movie.releaseDate | date}} </div>
                               <div class="entry-button">
-                                <a href="#">
-                                  <i aria-hidden="true" class="fa fa-play"></i>
+                                <a class="btn-trailer">
+                                  <i  aria-hidden="true" class="fa fa-play"></i>
                                   Trailer </a>
                                 <a>
                                   <i aria-hidden="true" class="fa fa-exclamation"></i>
@@ -1294,16 +1294,17 @@
       <div class="cls">
         <i class="fa-solid fa-xmark"></i>
       </div>
-      <video class="video-main" src="../assets/videos/video.mp4" controls></video>
-      <div class="detail-img" style="background: url('../assets/images/test2.webp') ;">
-        <div class="btn-play">
+      <!-- <video class="video-main" src="../assets/videos/video.mp4" controls></video> -->
+      <div class="video-src" style="position: absolute; width: 97.1%;  z-index:99999;">
+        <iframe style="border-radius: 10px; height:420px;" width="560" height="420"
+          src="https://www.youtube.com/embed/MVj0NnV-cG8" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+      <div class="detail-img" >
+        <!-- <div class="btn-play">
           <i class="fa-solid fa-play"></i>
-        </div>
-        <div class="image">
-          <img alt="Shadow and Bone" class="title-logo "
-            src="http://occ-0-395-58.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABbRPKnzbWFQH_l8JMsZaH-eOYMTFndLYqZus-KSrNgURNqSqrs5ojCv3MfeDitYzKLHwJfpaI55dgnFVan3wQ7pZBHjlVsSy8Ps_oT-i8i01QiGtBF6yRVXl0VWLsCjF0YijxFVt4gAq1HbLuH2fNZJCuNqPTxJ03t_eKPVf_gWEO3rNAHZLnA.webp?r=f26"
-            title="Shadow and Bone">
-        </div>
+        </div> -->
         <!-- <div class="box">
           <a href="#" class=" btn bg-white font-bold"><span>Buy
               Ticket</span>

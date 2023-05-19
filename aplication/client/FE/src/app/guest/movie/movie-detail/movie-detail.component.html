@@ -74,7 +74,7 @@
               <article id="post-74" class="post-74">
                 <div class="entry-top">
                   <div class="entry-poster">
-                    <img class="thumb-detail-img" src="{{movieDetail?.movieImages[0].imageUrl}}"
+                    <img style="width: 210px;" class="thumb-detail-img" src="{{movieDetail?.movieImages[0].imageUrl}}"
                       alt="Jumanji: Welcome to the Jungle" />
                   </div>
                   <div class="entry-info">
@@ -266,6 +266,51 @@
               </div>
               <!-- Modal -->
             </div>
+
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-infinite" style="padding: 0 10px;">
+                  <h1 class="h2 text-center">
+                    Cộng đồng
+                    <span class="text-secondary">(12)</span>
+                  </h1>
+                  <div class="card card-sm article mb-3">
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <div class="row align-items-center">
+                          <div class="col-auto">
+                            <a class="avatar is-phone-verification-needed" href="#">
+                              <img style="width: 50px;" src="https://moveek.com/bundles/ornweb/img/no-avatar.png" alt="hieupham95"
+                                class="avatar-img rounded-circle">
+                            </a>
+                          </div>
+                          <div class="col ml-n2">
+                            <h4 class="card-title mb-1">
+                              <a class="is-phone-verification-needed" href="#">hieupham95</a>
+                              <span>
+                                <i class="icon-star text-warning"></i>
+                                10
+                              </span>
+                            </h4>
+
+                            <!-- Time -->
+                            <p class="card-text small text-muted">
+                              <time datetime="2023-05-17 08:15:17">1 ngày trước</time>
+                            </p>
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                      <div class="">
+                        <div class="review-content">
+                          Phim rất ý nghĩa, nếu có điều kiện các bạn nên xem định dạng imax để thưởng thức hết được kỹ xảo
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-md-4 amy-sidebar-clear">
             <div class="amy-page-sidebar amy-sidebar-right">
@@ -409,25 +454,22 @@
           <div class="cls">
             <i class="fa-solid fa-xmark"></i>
           </div>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/MVj0NnV-cG8" title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen></iframe>
-          <!-- <video class="video-main" src="{{movieDetail?.trailerUrl}}" controls></video> -->
-          <div class="detail-img" style="background: url('../assets/images/test2.webp') ;">
-            <div class="btn-play">
+          <!-- <video class="video-main" src="../assets/videos/video.mp4" controls></video> -->
+          <div class="video-src" style="position: absolute; width: 97.1%; z-index:99999;">
+            <iframe style="border-radius: 10px; height:420px;" width="560" height="420"
+              src="https://www.youtube.com/embed/MVj0NnV-cG8" title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="detail-img" >
+            <!-- <div class="btn-play">
               <i class="fa-solid fa-play"></i>
-            </div>
-            <div class="image">
-              <img alt="Shadow and Bone" class="title-logo "
-                src="http://occ-0-395-58.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABbRPKnzbWFQH_l8JMsZaH-eOYMTFndLYqZus-KSrNgURNqSqrs5ojCv3MfeDitYzKLHwJfpaI55dgnFVan3wQ7pZBHjlVsSy8Ps_oT-i8i01QiGtBF6yRVXl0VWLsCjF0YijxFVt4gAq1HbLuH2fNZJCuNqPTxJ03t_eKPVf_gWEO3rNAHZLnA.webp?r=f26"
-                title="Shadow and Bone">
-            </div>
-            <div class="box">
+            </div> -->
+            <!-- <div class="box">
               <a href="#" class=" btn bg-white font-bold"><span>Buy
                   Ticket</span>
               </a>
-            </div>
+            </div> -->
             <div class="momo"></div>
           </div>
           <div class="detail-in text-white">

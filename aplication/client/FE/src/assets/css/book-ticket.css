@@ -459,6 +459,9 @@ td {
 .tb-food p {
     line-height: 0.8;
 }
+.tb-food p {
+    line-height: 20px
+}
 
 .tb-food .head {
     padding: 10px 0 0 0px;

@@ -405,6 +405,8 @@ closeModal() {
 
 
   showBookingSusses() {
+    this.checkStatusBook == true;
+    this.clearCookie();
     this.elRef.nativeElement.querySelector('.qr-success').style.display = 'block';
     this.elRef.nativeElement.querySelector('.booking-main').style.display = 'none';
     this.elRef.nativeElement.querySelector('.modal-payment').style.animation = 'topdown 0.5s ease-in-out forwards';
@@ -513,5 +515,11 @@ closeModal() {
     return this.seatListSold.includes(id);
   }
 
- 
+
+
+   
+  clearCookie() {
+    const cookieName : any = this.activatedRoute.snapshot.params['transactionId']
+    this.cookieService.delete(cookieName);
+  }
 }

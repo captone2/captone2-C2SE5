@@ -14,15 +14,15 @@ jQuery(document).ready(function () {
     });
 
 
-    // Play Video
-    jQuery('.btn-play').on('click', function () {
-        jQuery('.video-main').css('display', 'block');
-        jQuery('.video-main')[0].play();
-    });
+// // Play Video
+// jQuery('.btn-play').on('click', function () {
+//     jQuery('.video-main').css('display', 'block');
+//     jQuery('.video-main')[0].play();
+// });
 
-    jQuery('.video-main').on('ended', () => {
-        jQuery('.video-main').css('display', 'none');
-    });
+// jQuery('.video-main').on('ended', () => {
+//     jQuery('.video-main').css('display', 'none');
+// });
 
     // if (!jQuery('.modal').hasClass('is-visible')) {
     //     jQuery('.video-main')[0].pause();

@@ -19,16 +19,15 @@
                         </div>
                         <input class="file-upload" type="file" accept="image/*" />
                     </div>
-                    <div
-                        style="text-align: center;display: inline-block;position: relative;top: -30px;right: -30px;">
-                        <h1>{{account?.fullname}} 
+                    <div style="text-align: center;display: inline-block;position: relative;top: -30px;right: -30px;">
+                        <h1>{{account?.fullname}}
                         </h1>
 
                     </div>
                     <div class="row align-items-center">
                         <div class="col">
                             <!-- Nav -->
-                            <ul class="nav nav-tabs nav-overflow header-tabs">
+                            <ul class="nav nav-tabs nav-overflow header-tabs" style="left: 20px;">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link dropdown-toggle " value="taikhoan"
                                         data-toggle="dropdown">Tài khoản</a>
@@ -38,7 +37,7 @@
                                             khẩu</a>
                                     </div>
                                 </li>
-                            
+
                                 <li class="nav-item">
                                     <a href="#" class="nav-link active" value="ve">
                                         Vé
@@ -58,28 +57,29 @@
                                     style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="fullname">Fullname:</label><br>
-                                            <input disabled value="{{account?.fullname}}" class="form-control" type="text" id="fullname"
-                                                name="fullname" />
+                                            <label for="fullname">Họ và tên:</label><br>
+                                            <input disabled value="{{account?.fullname}}" class="form-control"
+                                                type="text" id="fullname" name="fullname" />
                                         </div>
                                         <div class="form-group">
-                                            <label for="address">Address:</label><br>
-                                            <input disabled value="{{account?.address}}" class="form-control" type="text" id="address"
-                                                name="address" />
+                                            <label for="address">Địa chỉ:</label><br>
+                                            <input disabled value="{{account?.address}}" class="form-control"
+                                                type="text" id="address" name="address" />
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email:</label><br>
-                                            <input disabled value="{{account?.email}}" class="form-control" type="text" id="email" name="email" />
+                                            <input disabled value="{{account?.email}}" class="form-control" type="text"
+                                                id="email" name="email" />
                                         </div>
                                         <div class="form-group">
-                                            <label for="birthday">Birthday:</label><br>
-                                            <input disabled value="{{account?.birthday}}" class="form-control" type="date" id="birthday"
-                                                name="birthday" />
+                                            <label for="birthday">Ngày sinh:</label><br>
+                                            <input disabled value="{{account?.birthday}}" class="form-control"
+                                                type="date" id="birthday" name="birthday" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="gender">Gender:</label><br>
+                                            <label for="gender">Giới tính:</label><br>
                                             <select disabled style="border-radius: 10px;" name="gender" id="gender">
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
@@ -87,8 +87,9 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="phone">Phone:</label><br>
-                                            <input disabled value="{{account?.phone}}"  class="form-control" type="text" id="phone" name="phone" />
+                                            <label for="phone">Số điện thoại:</label><br>
+                                            <input disabled value="{{account?.phone}}" class="form-control" type="text"
+                                                id="phone" name="phone" />
                                         </div>
                                     </div>
                                     <!-- <div class="col-md-12">
@@ -109,31 +110,40 @@
                                 <div class="col-md-9"
                                     style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 10px; padding: 20px;">
                                     <div class="form-group">
-                                        <label for="current-pass">Password Current</label>
-                                        <input formControlName="oldPassword" type="password" id="current-pass" name="current-pass"
-                                            class="form-control">
-                                            <small class="text-danger" *ngIf="passwordForm.get('oldPassword').hasError('required') && (passwordForm.get('oldPassword')?.touched || passwordForm.get('oldPassword')?.dirty)">Password Current can not be left blank</small>
+                                        <label for="current-pass">Mật khẩu hiện tại</label>
+                                        <input formControlName="oldPassword" type="password" id="current-pass"
+                                            name="current-pass" class="form-control">
+                                        <small class="text-danger"
+                                            *ngIf="passwordForm.get('oldPassword').hasError('required') && (passwordForm.get('oldPassword')?.touched || passwordForm.get('oldPassword')?.dirty)">Password
+                                            Current can not be left blank</small>
 
                                     </div>
                                     <div formGroupName="passwordGroup">
-                                    <div class="form-group">
-                                        <label for="new-pass">Password New</label>
-                                        <input formControlName="newPassword" type="password" id="new-pass" name="new-pass"
-                                            class="form-control">
-                                            <small class="text-danger" *ngIf="passwordForm.get('passwordGroup').get('newPassword').errors?.required && (passwordForm.get('passwordGroup').get('newPassword').touched || passwordForm.get('passwordGroup').get('newPassword').dirty)">Password New can not be blank</small>
+                                        <div class="form-group">
+                                            <label for="new-pass">Mật khẩu mới</label>
+                                            <input formControlName="newPassword" type="password" id="new-pass"
+                                                name="new-pass" class="form-control">
+                                            <small class="text-danger"
+                                                *ngIf="passwordForm.get('passwordGroup').get('newPassword').errors?.required && (passwordForm.get('passwordGroup').get('newPassword').touched || passwordForm.get('passwordGroup').get('newPassword').dirty)">Password
+                                                New can not be blank</small>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="verify">Verify</label>
-                                        <input formControlName="confirmPassword" type="password" id="verify" name="verify" class="form-control">
-                                        <small class="text-danger" *ngIf="passwordForm.hasError('invalidConfirmation',['passwordGroup']) && (passwordForm.get('passwordGroup').get('confirmPassword').touched || passwordForm.get('passwordGroup').get('confirmPassword').dirty)">Password do not match</small>
-                                        <small class="text-danger" *ngIf="passwordForm.get('passwordGroup').get('confirmPassword').errors?.required && (passwordForm.get('passwordGroup').get('confirmPassword').touched || passwordForm.get('passwordGroup').get('confirmPassword').touched)">Confirm password can not be blank</small>
-                                    </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="verify">Nhập lại mật khẩu</label>
+                                            <input formControlName="confirmPassword" type="password" id="verify"
+                                                name="verify" class="form-control">
+                                            <small class="text-danger"
+                                                *ngIf="passwordForm.hasError('invalidConfirmation',['passwordGroup']) && (passwordForm.get('passwordGroup').get('confirmPassword').touched || passwordForm.get('passwordGroup').get('confirmPassword').dirty)">Password
+                                                do not match</small>
+                                            <small class="text-danger"
+                                                *ngIf="passwordForm.get('passwordGroup').get('confirmPassword').errors?.required && (passwordForm.get('passwordGroup').get('confirmPassword').touched || passwordForm.get('passwordGroup').get('confirmPassword').touched)">Confirm
+                                                password can not be blank</small>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <button [disabled]="passwordForm.invalid" class="btn btn-confirm"
                                             style="display: inline-block;cursor: pointer; padding: 10px 15px;">
-                                            Update Password
+                                            Cập nhật mật khẩu
                                         </button>
                                     </div>
                                 </div>
@@ -143,31 +153,32 @@
                 </div>
                 <!-- Vé -->
                 <div class="row" id="ve" style="display: block;">
-                    <div class="col-12 col-xl-8">
+                    <div class="col-12 col-xl-12">
                         <!-- <div class="card"
                             style="background: #f0bd5fd6; color: #000; padding: 10px; margin-bottom: 10px;">
                             Bạn chưa có giao dịch nào trước đây.<br>
                             Để bắt đầu mua vé xem phim, vui lòng làm theo các bước sau.
                         </div> -->
-                        <div *ngFor="let booking of bookingList" class="history">
+                        <div *ngFor="let booking of bookingList" class="history"
+                            style="max-height: 200px; margin-bottom: 20px;">
                             <div class="fim-history">
                                 <div class="img-history">
-                                    <img src="{{booking?.movieShowTime.movie.movieImages[0].imageUrl}}"
-                                        alt="">
+                                    <img src="{{booking?.movieShowTime.movie.movieImages[0].imageUrl}}" alt="">
                                 </div>
                                 <div class="detail-history">
-                                    <p>{{booking?.movieShowTime.movie.title}}</p>
-                                    <p>Suất <b>{{booking?.movieShowTime.showtime.showTime | slice:0:5}}</b> ngày <b>{{booking?.movieShowTime.showDate| date}}</b> </p>
-                                    <p>Màn hình <b>{{booking?.movieShowTime.screen.id}}</b> - Ghế <b>{{convertSeat(booking?.seats)}}</b></p>
-                                    <p>Start Light</p>
+                                    <p style="margin: 0;">{{booking?.movieShowTime.movie.title}}</p>
+                                    <p style="margin: 0;">Suất <b>{{booking?.movieShowTime.showtime.showTime |
+                                            slice:0:5}}</b> ngày <b>{{booking?.movieShowTime.showDate| date}}</b> </p>
+                                    <p style="margin: 0;">Màn hình <b>{{booking?.movieShowTime.screen.id}}</b> - Ghế
+                                        <b>{{convertSeat(booking?.seats)}}</b></p>
+                                    <p style="margin: 0;">Start Light</p>
                                 </div>
                             </div>
                             <div class="time-history">
-                                <img src="{{booking?.imgQrCode}}"
-                                    alt="qr">
+                                <img src="{{booking?.imgQrCode}}" alt="qr">
                             </div>
                             <div class="price-history">
-                                <h3>{{booking?.totalPrice | number:'1.0-0'}} đ</h3>
+                                <h4>{{booking?.totalPrice | number:'1.0-0'}} đ</h4>
                                 <p style="text-align: right;">Tổng đơn hàng</p>
                             </div>
                         </div>

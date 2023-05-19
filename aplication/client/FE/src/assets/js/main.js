@@ -4525,7 +4525,11 @@ jQuery(".cls").on('click', function () {
 
 jQuery(".overlay").on('click', function () {
   jQuery(".modal-binhluan").css('animation', 'topdown 0.5s ease-in-out forwards')
-  jQuery(this).css('display', 'none');
+  jQuery(".modal-payment").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-maxchair").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-rebuy").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery(".modal-trailer").css('animation', 'topdown 0.5s ease-in-out forwards')
+  jQuery('.overlay').css('display', 'none');
 });
 
 jQuery(".btn-comment").on('click', function () {
@@ -4540,7 +4544,7 @@ jQuery(".btn-trailer").closest(".slide-item").find('.btn-trailer').on('click', f
   jQuery(".overlay").css('display', 'block');
 
   var attr = {
-      "image": colosest.find('.slide-thumb img').attr('src'),
+      // "image": colosest.find('.slide-thumb img').attr('src'),
       "match": colosest.find(".percent-match").val(),
       "limited": colosest.find(".limited").val(),
       "description": colosest.find(".description").val(),
@@ -4548,7 +4552,7 @@ jQuery(".btn-trailer").closest(".slide-item").find('.btn-trailer').on('click', f
       "theloai": colosest.find(".theloai").val(),
       "rate": colosest.find(".rate").val(),
   }
-  jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
+  // jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
   jQuery(".modal-trailer .detail-in .match").text(attr.match);
   jQuery(".modal-trailer .detail-in .descrip").text(attr.description);
   jQuery(".modal-trailer .detail-in .limit").text(attr.limited);
@@ -4578,7 +4582,7 @@ jQuery(".btn-trailer-detail").on('click', function () {
   jQuery(".overlay").css('display', 'block');
 
   var attr = {
-      "image": jQuery('.thumb-detail-img').attr('src'),
+      // "image": jQuery('.thumb-detail-img').attr('src'),
       "match": jQuery(".percent-match").val(),
       "limited": jQuery(".limited").val(),
       "description": jQuery(".description").val(),
@@ -4586,7 +4590,7 @@ jQuery(".btn-trailer-detail").on('click', function () {
       "theloai": jQuery(".theloai").val(),
       "rate": jQuery(".rate").val(),
   }
-  jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
+  // jQuery(".modal-trailer .detail-img").css("background-image", "url('" + attr.image + "')");
   jQuery(".modal-trailer .detail-in .match").text(attr.match);
   jQuery(".modal-trailer .detail-in .descrip").text(attr.description);
   jQuery(".modal-trailer .detail-in .limit").text(attr.limited);
@@ -4627,3 +4631,103 @@ jQuery(".file-upload").on('change', function () {
 jQuery(".upload-button").on('click', function () {
   jQuery(".file-upload").click();
 });
+
+
+
+
+
+// //eye password
+// jQuery('.toggle-password-new').click(function () {
+//   if (jQuery('.new-password').attr('type') === "password") {
+//     jQuery('.new-password').attr('type', 'text')
+//   } else {
+//     jQuery('.new-password').attr('type', 'password')
+//   }
+// })
+
+
+
+// const newPassword = jQuery('.new-password')
+// const confirmPassword = jQuery('.confirm-password')
+
+// // validate change password
+// newPassword.keyup(function () {
+//   var upperCase = new RegExp('[A-Z]');
+//   var lowerCase = new RegExp('[a-z]');
+//   var numbers = new RegExp('[0-9]');
+//   var regex = new RegExp('[#?!@$%^&*]');
+//   let password = false;
+//   let upercase = false;
+//   let lowercase = false;
+//   let number = false;
+//   let special = false;
+
+
+//   // validate special character password
+//   if (jQuery(this).val().match(regex)) {
+//     jQuery('.least-special').addClass('line-active')
+//     special = !special;
+//   } else {
+//     jQuery('.least-special').removeClass('line-active')
+//   }
+
+//   // validate length password
+//   if (jQuery(this).val().length >= 8 && jQuery(this).val().length <= 20) {
+//     jQuery('.least-six').addClass('line-active')
+//     password = !password;
+//   } else {
+//     jQuery('.least-six').removeClass('line-active')
+//   }
+
+//   // validate upeercase
+//   if (jQuery(this).val().match(upperCase)) {
+//     jQuery('.least-upper').addClass('line-active')
+//     upercase = !upercase;
+//   } else {
+//     jQuery('.least-upper').removeClass('line-active')
+//   }
+
+//   // validate lowercase
+//   if (jQuery(this).val().match(lowerCase)) {
+//     jQuery('.least-lower').addClass('line-active')
+//     lowercase = !lowercase;
+//   } else {
+//     jQuery('.least-lower').removeClass('line-active')
+//   }
+
+//   //validate only number
+//   if (jQuery(this).val().match(numbers)) {
+//     jQuery('.least-number').addClass('line-active')
+//     number = !number;
+//   } else {
+//     jQuery('.least-number').removeClass('line-active')
+//   }
+
+//   // validate clear all
+//   if (jQuery(this).val() === '') {
+//     jQuery('.least-six').removeClass('line-active')
+//     jQuery('.least-upper').removeClass('line-active')
+//     jQuery('.least-lower').removeClass('line-active')
+//     jQuery('.least-number').removeClass('line-active')
+//     jQuery('.least-special').removeClass('line-active')
+//   }
+
+//   // check success
+//   if (password && number && lowerCase && upercase && special) {
+//     jQuery('.icon-check-new').removeClass('check-active')
+//   } else {
+//     jQuery('.icon-check-new').addClass('check-active')
+//   }
+
+//   confirmPassword.val("");
+
+// })
+
+// // validate confirm password
+// confirmPassword.keyup(function () {
+//   if (jQuery(this).val() === newPassword.val()) {
+//     jQuery('.icon-check-confirm').removeClass('check-active')
+//   } else {
+//     jQuery('.icon-check-confirm').addClass('check-active')
+//   }
+// })

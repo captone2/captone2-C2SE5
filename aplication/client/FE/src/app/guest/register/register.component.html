@@ -7,6 +7,7 @@
         <div class="input-box">
           <span class="details">Họ và Tên <span class="star">*</span></span>
           <input type="text" placeholder="Nhập Họ và Tên" formControlName="fullName" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.fullName">
             <small class="form-text text-danger"
                    *ngIf="register.get('fullName').hasError(validation.type)&& (register.get('fullName').touched ||
@@ -24,6 +25,7 @@
         <div class="input-box">
           <span class="details">Tài Khoản <span class="star">*</span></span>
           <input type="text" placeholder="Nhập tên tài khoản" formControlName="username" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.username">
             <small class="form-text text-danger"
                    *ngIf="register.get('username').hasError(validation.type)&& (register.get('username').touched ||
@@ -43,6 +45,7 @@
         <div class="input-box">
           <span class="details">Email <span class="star">*</span></span>
           <input type="text" placeholder="Nhập email" formControlName="email" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.email">
             <small class="form-text text-danger"
                    *ngIf="register.get('email').hasError(validation.type)&& (register.get('email').touched ||
@@ -59,6 +62,7 @@
         <div class="input-box">
           <span class="details">Mật Khẩu <span class="star">*</span></span>
           <input type="password" class="password" placeholder="Nhập mật khẩu" formControlName="password"  required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.password">
             <small class="form-text text-danger"
                    *ngIf="register.get('password').hasError(validation.type)&& (register.get('password').touched ||
@@ -78,6 +82,7 @@
         <div class="input-box">
           <span class="details">Số Điện Thoại <span class="star">*</span></span>
           <input type="text" placeholder="Nhập số điện thoại" formControlName="phone" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.phone">
             <small class="form-text text-danger"
                    *ngIf="register.get('phone').hasError(validation.type)&& (register.get('phone').touched ||
@@ -94,6 +99,7 @@
         <div class="input-box">
           <span class="details">Xác Nhận Mật Khẩu <span class="star">*</span></span>
           <input type="password" placeholder="Nhập mật khẩu" formControlName="matchingPassword" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.matchingPassword">
             <small class="form-text text-danger"
                    *ngIf="register.get('matchingPassword').hasError(validation.type)&& (register.get('matchingPassword').touched ||
@@ -116,6 +122,7 @@
         <div class="input-box">
           <span class="details">Địa Chỉ </span>
           <input type="text" placeholder="Nhập địa chỉ" formControlName="address" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.address">
             <small class="form-text text-danger"
                    *ngIf="register.get('address').hasError(validation.type)&& (register.get('address').touched ||
@@ -128,6 +135,7 @@
         <div class="input-box">
           <span class="details">Ngày Sinh <span class="star">*</span></span>
           <input type="date" placeholder="dd/MM/yy" formControlName="birthday" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.birthday">
             <small class="form-text text-danger"
                    *ngIf="register.get('birthday').hasError(validation.type)&& (register.get('birthday').touched ||
@@ -147,6 +155,7 @@
         <div class="input-box">
           <span class="details">CMND <span class="star">*</span></span>
           <input type="text" placeholder="Nhập CMND" formControlName="idCard" required>
+          <span></span>
           <ng-container *ngFor="let validation of validationMessages.idCard">
             <small class="form-text text-danger"
                    *ngIf="register.get('idCard').hasError(validation.type)&& (register.get('idCard').touched ||
@@ -172,16 +181,16 @@
           <small class="form-text text-danger">Vui lòng chọn giới tính.</small>
         </div>
         <div class="category">
-          <label for="dot-1">
+          <label for="dot-1" style="margin-right: 10px">
             <span class="dot one"></span>
             <span class="gender">Nam</span>
           </label>
-          <label for="dot-2">
+          <label for="dot-2" style="margin-right: 10px">
             <span class="dot two"></span>
             <span class="gender">Nữ</span>
           </label>
 
-          <label for="dot-3">
+          <label for="dot-3" style="margin-right: 10px">
             <span class="dot three"></span>
             <span class="gender">Khác</span>
           </label>

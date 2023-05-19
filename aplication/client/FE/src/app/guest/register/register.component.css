@@ -1,30 +1,33 @@
-
-.body{
+.body {
   display: flex;
   /*height: 100vh;*/
   justify-content: center;
   align-items: center;
   padding: 0px;
-  background: url('https://springboard-cdn.appadvice.com/wp-content/appadvice-v2-media/2016/11/Netflix-background_860c8ece6b34fb4f43af02255ca8f225-xl.jpg') center;
-  margin:0 0 0 0;
+  background: url('https://springboard-cdn.appadvice.com/wp-content/appadvice-v2-media/2016/11/Netflix-background_860c8ece6b34fb4f43af02255ca8f225-xl.jpg') top center / cover no-repeat;
+  margin: 0 0 0 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-.container{
+
+.container {
   border-radius: 5px;
   padding: 25px 30px 0px 30px;
   max-width: 700px;
   width: 100%;
-  background: #f0f0f0;
+  background: rgba(0, 0, 0, 0.75);
   margin-top: 45px;
   margin-bottom: 45px;
+  color: #fff;
 }
-.container .title{
+
+.container .title {
   font-size: 35px;
   font-weight: 500;
   position: relative;
 }
-.container .title::before{
+
+.container .title::before {
   content: '';
   position: absolute;
   left: 0;
@@ -33,24 +36,28 @@
   width: 30px;
   background: darkgoldenrod;
 }
-.container form .user-details{
+
+.container form .user-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0 12px 0;
 
 }
-form .user-details .input-box{
+
+form .user-details .input-box {
   margin-bottom: 15px;
   width: calc(100%/ 2 - 20px);
 }
-.user-details .input-box .details{
+
+.user-details .input-box .details {
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
   font-size: 14px;
 }
-.user-details .input-box input{
+
+.user-details .input-box input {
   height: 45px;
   width: 100%;
   outline: none;
@@ -61,25 +68,29 @@ form .user-details .input-box{
   border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
+
 .user-details .input-box input:focus,
-.user-details .input-box input:valid{
-  border-color: #BD9B04 ;
+.user-details .input-box input:valid {
+  border-color: #BD9B04;
 }
-form .gender-details .gender-title{
+
+form .gender-details .gender-title {
   font-size: 20px;
   font-weight: 500;
 }
-form .gender-details .category{
+
+form .gender-details .category {
   display: flex;
   width: 80%;
   margin: 14px 0;
-  justify-content: space-between;
 }
-.gender-details .category label{
+
+.gender-details .category label {
   display: flex;
   align-items: center;
 }
-.gender-details .category .dot{
+
+.gender-details .category .dot {
   height: 18px;
   width: 18px;
   background: #d9d9d9;
@@ -88,22 +99,26 @@ form .gender-details .category{
   border: 1px solid transparent;
   transition: all 0.3s ease;
 }
-#dot-1:checked ~ .category label .one,
-#dot-2:checked ~ .category label .two,
-#dot-3:checked ~ .category label .three{
+
+#dot-1:checked~.category label .one,
+#dot-2:checked~.category label .two,
+#dot-3:checked~.category label .three {
   border-color: #d9d9d9;
   background: darkgoldenrod;
 }
-form input[type="radio"]{
+
+form input[type="radio"] {
   display: none;
 }
-form .button{
+
+form .button {
   height: 45px;
   margin: 30px 0;
   justify-content: center;
   align-items: center;
 }
-form .button input{
+
+form .button input {
   height: 40px;
   width: 100%;
   outline: none;
@@ -119,39 +134,54 @@ form .button input{
   /* justify-content: space-between; */
   margin-left: 5px;
 }
-form .button input:hover{
+
+form .button input:hover {
   background: #967B03;
 }
-form .button input[type="button"]{
+
+form .button input[type="button"] {
   background: #117a8b;
 }
-form .button input[type="button"]:hover{
+
+form .button input[type="button"]:hover {
   background: #0f6674;
 }
+
 @media (max-width: 584px) {
-  .container{
+  .container {
     max-width: 100%;
   }
-  form .user-details .input-box{
+
+  form .user-details .input-box {
     width: 100%;
     margin-bottom: 15px;
   }
-  form .gender-details .category{
+
+  form .gender-details .category {
     width: 100%;
   }
-  .container  form .user-details{
+
+  .container form .user-details {
     /*max-height: 300px;*/
     overflow-y: scroll;
   }
-  .user-details::-webkit-scrollbar{
+
+  .user-details::-webkit-scrollbar {
     width: 100%;
   }
 }
-.star{
+
+.star {
   color: red;
 }
-.messageError{
+
+.messageError {
   font-size: 15px;
   color: red;
   margin-top: 1px;
+}
+
+
+.input-box {
+  min-height: 92px;
 }

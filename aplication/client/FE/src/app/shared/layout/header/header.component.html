@@ -40,7 +40,7 @@
                   <a routerLink="/show-time">Lịch chiếu</a>
                 </li>
                 <li id="menu-item-146" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-146">
-                  <a routerLink="/top-rate">Đánh giá</a>
+                  <a routerLink="/top-rate">Top phim</a>
                 </li>
 
               </ul>
@@ -53,20 +53,28 @@
                 <input (keyup)=(searchMovie(inputName.value)) #inputName type="text" class="input-search"
                   placeholder="Type to Search...">
                 <!-- list search -->
-                <div class="show-search" style="display: none; text-align: left;padding: 10px 15px;  border-radius: 5px;">
+                <style>
+                  .item-list:hover {
+                    background: #3333;
+                    cursor: pointer;
+                    transition: all 0.3s linear;
+                  }
+                </style>
+                <div class="show-search"
+                  style="overflow-y: scroll;height: 380px;display: none; text-align: left;padding: 10px 15px;  border-radius: 5px;">
                   <li *ngIf="movieListSearch == null">Không tìm thấy kết quả</li>
-                  <div *ngFor="let movie of movieListSearch" [routerLink]="['/movie-detail', movie?.id]" style="display: flex; align-items: center;">
+                  <div class="item-list" *ngFor="let movie of movieListSearch" [routerLink]="['/movie-detail', movie?.id]"
+                    style="transition: all 0.3s linear; display: flex; align-items: center; margin-bottom: 8px;">
                     <div>
-                        <img style="width: 60px; height: 60px;"
-                            src="https://scontent.fdad7-1.fna.fbcdn.net/v/t1.15752-9/346131260_193960676447462_5145684838912125944_n.png?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=UJBLEG_6Mi4AX_ZzPL5&_nc_ht=scontent.fdad7-1.fna&oh=03_AdRDAEuDaECJvrapYcS0xNORnlmeb7yBfIPAaVFlIkU9nw&oe=648C4521"
-                            alt="">
+                      <img style="width: 60px; height: 60px;" src="{{movie?.movieImages[0].imageUrl}}" alt="">
                     </div>
                     <div style="margin-left: 10px;">
-                        <h6 style="margin: 0;font-size: 14px;">{{movie?.title}}</h6>
-                        <p style="margin: 0; font-size: 13px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi, tempore.
-                        </p>
+                      <h6 style="margin: 0;font-size: 14px;">{{movie?.title}}</h6>
+                      <p style="margin: 0; font-size: 13px;">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        Nisi, tempore.
+                      </p>
                     </div>
-                </div>
+                  </div>
                 </div>
               </div>
             </div>
