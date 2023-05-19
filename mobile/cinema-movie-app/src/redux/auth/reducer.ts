@@ -1,30 +1,32 @@
 import { Error } from "../types";
-import { loginAsync } from "./dispatcher";
+import { getAccountById, loginAsync } from "./dispatcher";
 import { UserInfo, UserState } from "./type";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: UserState = {
-  user: {
-    accessToken:
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgyNzgzMDg0LCJleHAiOjE2ODM2NDcwODR9.o79FGTqUDA8xXZh9Wttwpkl5LJzaawGJojBlZX-uFzaZIA9sAbuWjS70oT8S0es2cOErDPUvsg6gl4HnWgECVA",
-    user: {
-      id: 2,
-      displayName: "Nguyen Van Sy",
-      email: "admin@gmail.com",
-      roles: ["ROLE_MODERATOR", "ROLE_USER"],
-    },
-  },
-  errors: [],
   // user: {
-  //   accessToken: "",
+  //   accessToken:
+  //     "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgyNzgzMDg0LCJleHAiOjE2ODM2NDcwODR9.o79FGTqUDA8xXZh9Wttwpkl5LJzaawGJojBlZX-uFzaZIA9sAbuWjS70oT8S0es2cOErDPUvsg6gl4HnWgECVA",
   //   user: {
-  //     id: "",
-  //     displayName: "",
-  //     email: "",
-  //     roles: [],
+  //     id: 2,
+  //     displayName: "Nguyen Van Sy",
+  //     email: "admin@gmail.com",
+  //     roles: ["ROLE_MODERATOR", "ROLE_USER"],
   //   },
+  //   userCurrent: null,
   // },
   // errors: [],
+  user: {
+    accessToken: "",
+    user: {
+      id: 0,
+      displayName: "",
+      email: "",
+      roles: [],
+    },
+    userCurrent: null,
+  },
+  errors: [],
 };
 
 const userSlice = createSlice({
@@ -41,6 +43,9 @@ const userSlice = createSlice({
     });
     builder.addCase(loginAsync.rejected, (state, action) => {
       state.errors = action.payload as Error[];
+    });
+    builder.addCase(getAccountById.fulfilled, (state, action) => {
+      state.user.userCurrent = action.payload;
     });
   },
 });

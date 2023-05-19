@@ -16,7 +16,7 @@ type Props = {
 const Login: FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const { user, errors } = useAppSelector((state) => state.user);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState({
     email: "",

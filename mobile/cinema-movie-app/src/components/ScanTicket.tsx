@@ -1,4 +1,4 @@
-import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, View, ToastAndroid } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { BookingService } from "../services/booking/booking.service";
@@ -34,11 +34,27 @@ const ScanTicket: FC = () => {
           NumberSeat: bookingCurrent?.seats.length,
           Seat: bookingCurrent?.seats.map((el) => el.name),
         };
+        ToastAndroid.show(
+          `Your ticket:
+        \n${ticket.Movie}
+        \n${ticket.Screen}${ticket.Date}
+        \n${ticket.Time}
+        \n${ticket.NumberSeat}
+        \n${ticket.Seat}`,
+          ToastAndroid.LONG
+        );
         Alert.alert(
-          `Your ticket: ${ticket.Movie}\n${ticket.Screen}${ticket.Date}\n${ticket.Time}${ticket.NumberSeat}\n${ticket.Seat}`
+          `Your ticket: ${ticket.Movie}
+          ${ticket.Screen}${ticket.Date}
+          \n${ticket.Time}
+          ${ticket.NumberSeat}
+          \n${ticket.Seat}`
         );
         console.log("ticket");
-        await BookingService.setTicketBookingReceived(bookingCurrent.id);
+        await BookingService.setTicketBookingReceived({
+          id: bookingCurrent.id,
+          bookingCode: bookingCurrent.bookingCode,
+        });
       } else {
         Alert.alert(`QR-Code invalid!`);
       }

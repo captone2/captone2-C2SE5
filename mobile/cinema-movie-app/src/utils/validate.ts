@@ -2,21 +2,15 @@ export class ValidateService {
   static emailValidator(email) {
     const re = /\S+@\S+\.\S+/;
     // email = email.trim();
-    if (!email) return "Email can't be empty.";
-    if (!re.test(email))
-      return (
-        "Please include '@' in the email address. " + email + " is missing '@'."
-      );
+    if (!email) return "Email không được để trống.";
+    if (!re.test(email)) return "Email không đúng định dạng. (zxc123@gmail.com).";
     return "";
   }
   static passwordValidator(password) {
-    const re =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*\\.\\_\\-])(?=.{5,30})/;
-    if (!password) return "Password can't be empty.";
-    if (password.length < 6)
-      return "Password must be at least 6 characters long.";
-    if (password.length > 30)
-      return "Password can't be more than 30 characters.";
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*\\.\\_\\-])(?=.{5,30})/;
+    if (!password) return "Mật khẩu không được để trống.";
+    if (password.length < 6) return "Mật khẩu tối thiểu 6 kí tự.";
+    if (password.length > 15) return "Mật khẩu tối đa 15 kí tự.";
     // if (!re.test(password)) return "Password is invalid. Ex: Abcd@123!";
     return "";
   }

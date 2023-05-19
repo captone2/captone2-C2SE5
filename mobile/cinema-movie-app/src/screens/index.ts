@@ -12,6 +12,7 @@ import ShowQRCode from "./ShowQRCode";
 import HistoryOrder from "./profile/HistoryOrder";
 import BookingReceived from "./profile/BookingReceived";
 import Booked from "./profile/Booked";
+import CommentMovie from "./movie/CommentMovie";
 
 export {
   Login,
@@ -28,4 +29,5 @@ export {
   HistoryOrder,
   Booked,
   BookingReceived,
+  CommentMovie,
 };

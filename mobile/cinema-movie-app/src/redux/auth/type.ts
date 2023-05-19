@@ -3,6 +3,7 @@ import { Error } from "../types";
 export enum ActionType {
   LOGIN = "LOGIN",
   SESSION = "SESSION",
+  GET_ACCOUNT_BY_ID = "GET_ACCOUNT_BY_ID",
 }
 
 export enum UserType {
@@ -25,9 +26,16 @@ interface UserInfo2 {
 export interface UserInfo {
   accessToken: string;
   user: UserInfo2;
+  userCurrent: any;
 }
 
 export interface UserState {
   user: UserInfo;
   errors: Error[];
+}
+
+export interface Password {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 }

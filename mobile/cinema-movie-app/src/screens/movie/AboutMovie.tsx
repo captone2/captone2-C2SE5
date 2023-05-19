@@ -1,26 +1,29 @@
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { COLORS } from "../../utils/theme";
 import { Button } from "../../components";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import YoutubePlayer from "react-native-youtube-iframe";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { getRateByMovieId } from "../../redux/movie/dispatcher";
 
 type Props = {
   navigation?: any;
 };
 
 const AboutMovie: FC<Props> = ({ navigation }) => {
-  // const item = route.params.item;
   const data = useAppSelector((state) => state.movieReducer.data.movieDetail);
-
   const getIdVideoTrailer = data?.trailerUrl.split("=").pop();
-
   const hourRunning = (data?.runningTime as number) / 60;
   const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
   const timeRunning = Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
-
   const genres = data?.genres.map((el) => el.name).join(", ");
+  const dispatch = useAppDispatch();
+  const numberRateMovie = useAppSelector((state) => state.movieReducer.data.rateByMovieId);
+  useEffect(() => {
+    dispatch(getRateByMovieId(data.id));
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -37,17 +40,31 @@ const AboutMovie: FC<Props> = ({ navigation }) => {
           </View>
           <View style={styles.feedback}>
             <TouchableOpacity style={styles.wrapComment}>
-              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>10</Text>
-              <Icon name="commenting-o" size={18} style={styles.comment} />
+              {data.comments.length > 0 ? (
+                <>
+                  <Text style={[styles.comment, { paddingHorizontal: 10 }]}>{data.comments.length}</Text>
+                  <Icon name="commenting-o" size={18} style={styles.comment} />
+                </>
+              ) : (
+                <></>
+              )}
             </TouchableOpacity>
             <TouchableOpacity style={styles.wrapComment}>
-              <Text style={[styles.comment, { paddingHorizontal: 10 }]}>4.5</Text>
-              <Icon name="star" size={18} style={{ color: COLORS.color.yellow }} />
+              {numberRateMovie <= 0 ? (
+                <Text style={[styles.comment, { paddingHorizontal: 10 }]}>chưa có đánh giá</Text>
+              ) : (
+                <>
+                  <Text style={[styles.comment, { paddingHorizontal: 10 }]}>{numberRateMovie}</Text>
+                  <Icon name="star" size={18} style={{ color: COLORS.color.yellow }} />
+                </>
+              )}
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.detailMovie}>
-          <Text style={styles.textWhite}>{data?.content}</Text>
+          <View style={{ minHeight: 60 }}>
+            <Text style={styles.textWhite}>{data?.content}.</Text>
+          </View>
           <View style={styles.wrapInfo}>
             <View style={styles.row}>
               <Text style={styles.verticalTitle}>Thời lượng</Text>
@@ -101,12 +118,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   comment: {
-    color: COLORS.white,
+    color: COLORS.lightGrey,
   },
   detailMovie: {
     backgroundColor: COLORS.color.primary,
     height: "100%",
     paddingHorizontal: 12,
+    minHeight: 300,
   },
   wrapInfo: {
     display: "flex",

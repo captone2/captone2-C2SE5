@@ -1,12 +1,14 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { FC } from "react";
 import { BackButton } from "../../components";
 import { COLORS } from "../../utils/theme";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Booked from "./Booked";
 import BookingReceived from "./BookingReceived";
-
-const HistoryOrder = ({ navigation }) => {
+type Props = {
+  navigation?: any;
+};
+const HistoryOrder: FC<Props> = ({ navigation }) => {
   const Tab = createMaterialTopTabNavigator();
 
   return (

@@ -2,10 +2,11 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import StorageUtils from "../utils/storage";
 import HttpStatusCode from "./HttpStatusCode";
 import { ApiHandler } from "../utils/api";
+import { Endpoints } from "./endpoints";
 // import { trackPromise } from "react-promise-tracker";
 
 export const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: Endpoints.PREFIX,
 });
 
 export const sleep = (delay: number) => {
@@ -24,43 +25,43 @@ axiosClient.interceptors.request.use((config: any) => {
   return config;
 });
 
-axiosClient.interceptors.response.use(
-  async (response) => {
-    const accessToken = response.data?.data?.accessToken;
-    if (accessToken) {
-      StorageUtils.set("crf_tk", accessToken);
-    }
+// axiosClient.interceptors.response.use(
+//   async (response) => {
+//     const accessToken = response.data?.data?.accessToken;
+//     if (accessToken) {
+//       StorageUtils.set("crf_tk", accessToken);
+//     }
 
-    return response.data;
-  },
-  async (error: AxiosError) => {
-    if (process.env.NODE_ENV === "development") {
-      await sleep(1000);
-    }
-    if (error.response) {
-      const { status } = error.response;
-      if (status === HttpStatusCode.UNAUTHORIZED) {
-        StorageUtils.remove("crf_tk");
-        return;
-      }
-      if (status === HttpStatusCode.NOT_FOUND) {
-        return;
-      }
-      if (status === HttpStatusCode.FORBIDDEN) {
-        return;
-      }
-      if (status === HttpStatusCode.SERVICE_UNAVAILABLE) {
-        return;
-      }
-      if (status === HttpStatusCode.INTERNAL_SERVER_ERROR) {
-        return;
-      }
-      return Promise.reject(error);
-    } else {
-      return;
-    }
-  }
-);
+//     return response.data;
+//   },
+//   async (error: AxiosError) => {
+//     if (process.env.NODE_ENV === "development") {
+//       await sleep(1000);
+//     }
+//     if (error.response) {
+//       const { status } = error.response;
+//       if (status === HttpStatusCode.UNAUTHORIZED) {
+//         StorageUtils.remove("crf_tk");
+//         return;
+//       }
+//       if (status === HttpStatusCode.NOT_FOUND) {
+//         return;
+//       }
+//       if (status === HttpStatusCode.FORBIDDEN) {
+//         return;
+//       }
+//       if (status === HttpStatusCode.SERVICE_UNAVAILABLE) {
+//         return;
+//       }
+//       if (status === HttpStatusCode.INTERNAL_SERVER_ERROR) {
+//         return;
+//       }
+//       return Promise.reject(error);
+//     } else {
+//       return;
+//     }
+//   }
+// );
 
 export const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 

@@ -8,17 +8,40 @@ import {
   findMovieById,
   findShowtimeByMovieId,
   getFiveMovieHighestOfMonth,
+  getRateByMovieId,
 } from "./dispatcher";
 
 const initialState: MovieState = {
   data: {
     movies: [],
-    movieDetail: undefined,
+    movieDetail: {
+      id: 0,
+      title: "",
+      cast: "",
+      director: "",
+      releaseDate: "",
+      runningTime: 0,
+      production: "",
+      trailerUrl: "",
+      createAt: "",
+      content: "",
+      is3D: false,
+      genres: [],
+      comments: [],
+      screen: {
+        id: 0,
+        name: "",
+        totalSeat: 0,
+        seats: [],
+      },
+      movieImages: [],
+    },
     genre: [],
     movieShowing: [],
     movieComingSoon: [],
     movieShowtime: [],
     fiveMovieHighestOfMonth: [],
+    rateByMovieId: 0,
   },
   errors: [],
 };
@@ -52,6 +75,9 @@ const movieSlice = createSlice({
     });
     builder.addCase(getFiveMovieHighestOfMonth.fulfilled, (state, action) => {
       state.data.fiveMovieHighestOfMonth = action.payload;
+    });
+    builder.addCase(getRateByMovieId.fulfilled, (state, action) => {
+      state.data.rateByMovieId = action.payload;
     });
   },
 });

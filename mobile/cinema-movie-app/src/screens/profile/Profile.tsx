@@ -9,6 +9,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { numberWithPoint } from "../../utils/format";
 import { getAllBookingByAccount } from "../../redux/booking/dispatcher";
+import * as ImagePicker from "expo-image-picker";
+import { getAccountById } from "../../redux/auth/dispatcher";
 
 type Props = {
   navigation?: any;
@@ -17,6 +19,9 @@ const Profile: FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const { user } = useAppSelector((state) => state.user.user);
+  const [imageFromGallery, setImageFromGallery] = useState("");
+  const bookedList = useAppSelector((state) => state.bookingReducer.data.bookedByAccount);
+
   const logout = () => {
     setLoading(true);
     dispatch(logoutAction());
@@ -39,38 +44,61 @@ const Profile: FC<Props> = ({ navigation }) => {
     // ]);
   };
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      // aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      console.log("result", result.uri);
+      setImageFromGallery(result.uri);
+    }
+  };
+
+  const initial = async () => {
+    await Promise.all([dispatch(getAllBookingByAccount(user.id)), dispatch(getAccountById(user.id))]);
+  };
   useEffect(() => {
-    dispatch(getAllBookingByAccount(user.id));
+    initial();
   }, []);
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <BackButton color={COLORS.colors.error} />
-          <TouchableOpacity style={{ right: 40, position: "absolute" }}>
+          <TouchableOpacity
+            style={{ right: 40, position: "absolute" }}
+            onPress={() => navigation.navigate("HistoryOrder")}
+          >
             <FontAwesome name="ticket" size={20} color={COLORS.colors.error} />
           </TouchableOpacity>
         </View>
 
+        {/* avatar */}
         <View style={{ alignSelf: "center" }}>
-          <Image
-            source={require("../../../assets/images/avt/avt.jpeg")}
-            style={{ height: 80, width: 80, borderRadius: 40 }}
-            resizeMode="cover"
-          />
-          <FontAwesome
-            name="camera"
-            size={10}
-            style={{
-              backgroundColor: COLORS.colors.background,
-              width: 16,
-              padding: 3,
-              borderRadius: 10,
-              right: 18,
-              bottom: 30,
-              position: "absolute",
-            }}
-          />
+          {imageFromGallery ? (
+            <Image style={styles.avt_image} source={{ uri: imageFromGallery }} />
+          ) : (
+            <Image source={require("../../../assets/images/avt/avt.jpeg")} style={styles.avt_image} />
+          )}
+          <TouchableOpacity onPress={pickImage}>
+            <FontAwesome
+              name="camera"
+              size={10}
+              style={{
+                backgroundColor: COLORS.colors.background,
+                width: 16,
+                padding: 3,
+                borderRadius: 10,
+                right: 18,
+                bottom: 10,
+                position: "absolute",
+              }}
+            />
+          </TouchableOpacity>
           <Text style={{ fontWeight: "bold", marginTop: 5 }}>{user.displayName}</Text>
         </View>
 
@@ -79,7 +107,9 @@ const Profile: FC<Props> = ({ navigation }) => {
         >
           <View style={styles.titlePoint}>
             <Text>Tổng chi tiêu năm 2023</Text>
-            <Text style={styles.point}>{numberWithPoint(0)} đ</Text>
+            <Text style={styles.point}>
+              {numberWithPoint(bookedList.reduce((sum, obj) => sum + obj.totalPrice, 0))} đ
+            </Text>
           </View>
           <View style={styles.titlePoint}>
             <Text>Điểm thưởng</Text>
@@ -93,7 +123,7 @@ const Profile: FC<Props> = ({ navigation }) => {
               <FontAwesome name="id-card-o" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
               <Text style={styles.paddingHorizontal}>Thông tin tài khoản</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("MyInformation")}>
               <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
             </TouchableOpacity>
           </View>
@@ -103,7 +133,7 @@ const Profile: FC<Props> = ({ navigation }) => {
 
               <Text style={styles.paddingHorizontal}>Thay đổi mật khẩu</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")}>
               <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
             </TouchableOpacity>
           </View>
@@ -207,8 +237,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   backgroundGrayLight: {
-    height: 50,
+    height: 40,
     width: "100%",
     backgroundColor: "#D8D7CA",
+  },
+  avt_image: {
+    height: 80,
+    width: 80,
+    borderRadius: 40,
   },
 });

@@ -30,6 +30,10 @@ const getFiveMovieHighestOfMonth = createAsyncThunk(ActionType.GET_FIVE_MOVIE_HI
   return (await MovieService.getFiveMovieHighestOfMonth()) ?? [];
 });
 
+const getRateByMovieId = createAsyncThunk(ActionType.GET_RATE_BY_MOVIE_ID, async (id: number) => {
+  return await MovieService.getRateByMovieId(id);
+});
+
 export {
   findAllMovie,
   findMovieById,
@@ -38,4 +42,5 @@ export {
   findAllMovieComingSoon,
   findShowtimeByMovieId,
   getFiveMovieHighestOfMonth,
+  getRateByMovieId,
 };
