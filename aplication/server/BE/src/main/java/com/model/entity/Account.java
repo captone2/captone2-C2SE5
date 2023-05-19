@@ -6,6 +6,7 @@ import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class Account {
     private int totalPoint;
     private String imageUrl;
     private String provider;
-
+    private LocalDateTime createAt;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Comment> comments;
@@ -49,6 +50,11 @@ public class Account {
 
     public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        createAt = LocalDateTime.now();
     }
 
     @ManyToMany
@@ -182,6 +188,14 @@ public class Account {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 
     public Account() {

@@ -55,11 +55,17 @@ public class MovieController {
     @GetMapping(value = "/getAll")
     public ResponseEntity<List<Movie>> getAll() {
         try {
-            List<Movie> movies = movieRepository.findAll();
+            List<Movie> movies = movieRepository.findAllMovie();
             return new ResponseEntity<>(movies,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable("id") long id) {
+        movieRepository.deleteMovie(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/movie-showing")
@@ -91,6 +97,8 @@ public class MovieController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+
 
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {

@@ -14,6 +14,7 @@ public class Food {
     private String title;
     private String description;
     private double price;
+    private Boolean isEnabled;
 
     public long getId() {
         return id;
@@ -45,5 +46,13 @@ public class Food {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 }
