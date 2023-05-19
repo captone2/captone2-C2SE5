@@ -5,7 +5,7 @@ import axios from "axios";
 
 export class BookingService {
   static prefix = "auth/booking";
-  static getBookingByBookingCode(body: BookingRequest): Promise<any> {
+  static getBookingByBookingCode(body: BookingRequest): Promise<BookingDTO> {
     return axios
       .post(Endpoints.PREFIX + `${this.prefix}/get-booking-by-code`, {
         bookingCode: body,

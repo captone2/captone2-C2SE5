@@ -59,4 +59,9 @@ public class MovieServiceImpl implements MovieService {
     public Movie saveMovie(Movie movie) {
         return movieRepository.save(movie);
     }
+
+    @Override
+    public List<Movie> findTop5MovieHighestRevenueOfMonth() {
+        return movieRepository.findTop5MovieHighestRevenueOfMonth();
+    }
 }

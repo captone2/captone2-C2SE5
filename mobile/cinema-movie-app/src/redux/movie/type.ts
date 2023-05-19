@@ -5,6 +5,7 @@ export enum ActionType {
   FIND_MOVIE_BY_SHOWING = "FIND_MOVIE_BY_SHOWING",
   FIND_MOVIE_BY_COMING_SOON = "FIND_MOVIE_BY_COMING_SOON",
   GET_SHOWTIME_MOVIE_BY_ID = "GET_SHOWTIME_MOVIE_BY_ID",
+  GET_FIVE_MOVIE_HIGHEST_OF_MONTH = "GET_FIVE_MOVIE_HIGHEST_OF_MONTH",
 }
 
 export type MovieState = {
@@ -15,6 +16,7 @@ export type MovieState = {
     movieComingSoon: Movie[];
     genre: Genre[];
     movieShowtime: MovieShowtime[];
+    fiveMovieHighestOfMonth: Movie[];
   };
   errors: any;
 };

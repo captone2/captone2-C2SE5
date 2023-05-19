@@ -6,38 +6,30 @@ import axios from "axios";
 export class MovieService {
   static prefix = "auth/movie";
   static findAllMovie(keyword?: string): Promise<Movie[]> {
-    return axios
-      .get(Endpoints.PREFIX + `${this.prefix}/search-movie?keyword=${keyword}`)
-      .then(responseBody);
+    return axios.get(Endpoints.PREFIX + `${this.prefix}/search-movie?keyword=${keyword}`).then(responseBody);
   }
 
   static findAllMovieComingSoon(keyword?: string): Promise<Movie[]> {
-    return axios
-      .get(Endpoints.PREFIX + `${this.prefix}/movie-coming-soon`)
-      .then(responseBody);
+    return axios.get(Endpoints.PREFIX + `${this.prefix}/movie-coming-soon`).then(responseBody);
   }
 
   static findAllMovieShowing(keyword?: string): Promise<Movie[]> {
-    return axios
-      .get(Endpoints.PREFIX + `${this.prefix}/movie-showing`)
-      .then(responseBody);
+    return axios.get(Endpoints.PREFIX + `${this.prefix}/movie-showing`).then(responseBody);
   }
 
   static findMovieById(id: number): Promise<Movie> {
-    return axios
-      .get(Endpoints.PREFIX + `${this.prefix}/detail-movie/${id}`)
-      .then(responseBody);
+    return axios.get(Endpoints.PREFIX + `${this.prefix}/detail-movie/${id}`).then(responseBody);
   }
 
   static findAllGenres(): Promise<Genre[]> {
-    return axios
-      .get(Endpoints.PREFIX + `${this.prefix}-showtime/genre`)
-      .then(responseBody);
+    return axios.get(Endpoints.PREFIX + `${this.prefix}-showtime/genre`).then(responseBody);
   }
 
   static findShowtimeByMovieId(id: number): Promise<MovieShowtime[]> {
-    return axios
-      .get(Endpoints.PREFIX + `${this.prefix}-showtime/${id}`)
-      .then(responseBody);
+    return axios.get(Endpoints.PREFIX + `${this.prefix}-showtime/${id}`).then(responseBody);
+  }
+
+  static getFiveMovieHighestOfMonth(): Promise<Movie[]> {
+    return axios.get(Endpoints.PREFIX + `${this.prefix}/top-five-movie`).then(responseBody);
   }
 }

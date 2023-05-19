@@ -16,7 +16,13 @@ import { COLORS } from "../../utils/theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { setMovieDetails } from "../../redux/movie/reducer";
-import { findAllGenres, findAllMovie, findAllMovieComingSoon, findAllMovieShowing } from "../../redux/movie/dispatcher";
+import {
+  findAllGenres,
+  findAllMovie,
+  findAllMovieComingSoon,
+  findAllMovieShowing,
+  getFiveMovieHighestOfMonth,
+} from "../../redux/movie/dispatcher";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { Movie } from "../../redux/movie/type";
 import { format } from "date-fns";
@@ -31,6 +37,7 @@ const Home: FC = ({ navigation }) => {
   const movieList = useAppSelector((state) => state.movieReducer.data.movies);
   const movieShowingList = useAppSelector((state) => state.movieReducer.data.movieShowing);
   const movieComingSoonList = useAppSelector((state) => state.movieReducer.data.movieComingSoon);
+  const fiveMovieHighestOfMonth = useAppSelector((state) => state.movieReducer.data.fiveMovieHighestOfMonth);
   const [keySearch, setKeySearch] = useState("");
   const [movieListFilter, setMovieListFilter] = useState<Movie[]>([]);
   const genreList = useAppSelector((state) => state.movieReducer.data.genre);
@@ -58,7 +65,7 @@ const Home: FC = ({ navigation }) => {
       title: "Top 5 bán chạy nhất",
       top: true,
       horizontal: true,
-      data: [...movieList],
+      data: [...fiveMovieHighestOfMonth],
     },
   ];
 
@@ -99,6 +106,7 @@ const Home: FC = ({ navigation }) => {
       dispatch(findAllGenres()),
       dispatch(findAllMovieShowing()),
       dispatch(findAllMovieComingSoon()),
+      dispatch(getFiveMovieHighestOfMonth()),
     ]);
   };
   useEffect(() => {
