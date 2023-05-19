@@ -457,7 +457,7 @@
           <!-- <video class="video-main" src="../assets/videos/video.mp4" controls></video> -->
           <div class="video-src" style="position: absolute; width: 97.1%; z-index:99999;">
             <iframe style="border-radius: 10px; height:420px;" width="560" height="420"
-              src="https://www.youtube.com/embed/MVj0NnV-cG8" title="YouTube video player" frameborder="0"
+              src="{{movieDetail?.trailerUrl}}" title="YouTube video player" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen></iframe>
           </div>
@@ -480,14 +480,12 @@
                   <span class="m-2  text-white">Limited Series</span>
                   <span class="border  hd text-white">HD</span>
                 </section>
-                Các cư dân tham vọng khôn cùng ở khu căn hộ sang trọng nhất Seoul vứt bỏ đạo đức
-                qua một bên để leo
-                lên đỉnh cao chót vót của sự giàu có và quyền lực.
+                {{movieDetail?.content}}
               </div>
               <div class="dt-right">
                 <div>
-                  <p> <span>Diễn Viên:</span> Nguyen Kon Chim </p>
-                  <p> <span>Thể Loại:</span> Đấm nhau, Kịch Liệt </p>
+                  <p> <span>Diễn Viên:</span> {{movieDetail?.cast}} </p>
+                  <p> <span>Thể Loại:</span>{{convertGenre(movieDetail?.genres)}}</p>
                   <p>
                     <span>Đánh Giá:</span>
                     <i class="fa-sharp fa-solid fa-star"></i>

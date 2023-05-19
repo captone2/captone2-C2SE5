@@ -21,8 +21,8 @@ public class Movie {
     private int runningTime;
     private String production;
     private String trailerUrl;
-
-    private LocalDate createAt;
+    private Boolean isEnabled;
+    private LocalDateTime createAt;
 
     @Column(columnDefinition="LONGTEXT")
     private String content;
@@ -147,12 +147,26 @@ public class Movie {
         this.movieImages = movieImages;
     }
 
-    public LocalDate getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(LocalDate createAt) {
+    public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        createAt = LocalDateTime.now();
+    }
+
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 
     public Movie() {
@@ -180,4 +194,6 @@ public class Movie {
         this.trailerUrl = trailerUrl;
         this.content = content;
     }
+
+
 }

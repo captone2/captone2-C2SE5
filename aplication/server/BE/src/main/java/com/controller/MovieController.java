@@ -146,9 +146,6 @@ public class MovieController {
 
         if (genreByMovieId.size() >0) {
             for (int j=0 ;j < genreByMovieId.size();j++) {
-
-                System.out.println(genreByMovieId.get(j));
-                System.out.println(movie.getId());
                 movieImageRepository.deleteGenreMovie(genreByMovieId.get(j),movie.getId());
             }
         }
@@ -167,5 +164,12 @@ public class MovieController {
         } else {
             return new ResponseEntity<>(listFiveMovie, HttpStatus.OK);
         }
+    }
+
+
+    @GetMapping(value ="/{id}/rate")
+    public ResponseEntity<Integer> getRateByMovie(@PathVariable("id") long id){
+        Integer rate = movieRepository.getRateByMovieId(id);
+        return new ResponseEntity<>(rate, HttpStatus.OK);
     }
 }

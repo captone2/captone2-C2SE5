@@ -8,10 +8,6 @@ import java.util.Set;
 
 public class CreateEmployeeAccount {
     private long id;
-
-    private String username;
-    private String accountCode;
-    private String password;
     private String fullname;
     private LocalDate birthday;
     private String idCard;
@@ -20,26 +16,20 @@ public class CreateEmployeeAccount {
     private String email;
     private String gender;
     private String imageUrl;
-//    private long role;
-    private int totalPoint;
-    private boolean deleted ;
-    private boolean enable ;
-//    private Set<Role> roles;
-
-//    public Set<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Role> roles) {
-//        this.roles = roles;
-//    }
-
-    public boolean isEnable() {
-        return enable;
+    private String password;
+    public CreateEmployeeAccount() {
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public CreateEmployeeAccount(long id, String fullname, LocalDate birthday, String idCard, String address, String phone, String email, String gender, String imageUrl) {
+        this.id = id;
+        this.fullname = fullname;
+        this.birthday = birthday;
+        this.idCard = idCard;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.imageUrl = imageUrl;
     }
 
     public long getId() {
@@ -48,30 +38,6 @@ public class CreateEmployeeAccount {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getAccountCode() {
-        return accountCode;
-    }
-
-    public void setAccountCode(String accountCode) {
-        this.accountCode = accountCode;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFullname() {
@@ -138,27 +104,11 @@ public class CreateEmployeeAccount {
         this.imageUrl = imageUrl;
     }
 
-//    public long getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(long role) {
-//        this.role = role;
-//    }
-
-    public int getTotalPoint() {
-        return totalPoint;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTotalPoint(int totalPoint) {
-        this.totalPoint = totalPoint;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

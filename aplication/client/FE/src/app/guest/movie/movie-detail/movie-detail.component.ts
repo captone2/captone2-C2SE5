@@ -327,5 +327,10 @@ export class MovieDetailComponent implements OnInit {
    })
 
   }
-
+  getRate() {
+    this.id = parseInt(this.activatedRoute.snapshot.params['id']);
+    this.movieService.getRateByMovieId(this.id).subscribe(data => {
+      this.rate = data.toFixed(0)
+    })
+  }
 }

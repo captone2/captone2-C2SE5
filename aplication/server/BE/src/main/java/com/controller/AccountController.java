@@ -107,7 +107,7 @@ public class AccountController {
         }
     }
 
-    // tìm kiếm nhân viên (HoangLV)
+
     @GetMapping("search-employee")
     public ResponseEntity<List<Account>> searchMeetingRoomByName(@RequestParam(required = false) String keyWord) {
         List<Account> accounts = accountService.findEmployeeAccountByFullNameOrAccountCode(keyWord);
@@ -115,7 +115,6 @@ public class AccountController {
     }
 
 
-    // get nhân viên theo id (HoangLV)
     @GetMapping("employee-account/{id}")
     public ResponseEntity<Account> getEmployeeById(@PathVariable("id") long id) {
         Account account = accountService.getAccountById(id);
@@ -126,33 +125,25 @@ public class AccountController {
     }
 
 
-    // sửa thông tin nhân viên (HoangLV)
     @PutMapping("employee-account-edit")
-    public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeAccount updateEmployeeAccount) {
-        updateEmployeeAccount.setPassword(passwordEncoder.encode(updateEmployeeAccount.getPassword()));
-        accountService.updateEmployeeAccount(updateEmployeeAccount);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> updateEmployee(@RequestBody CreateEmployeeAccount account) {
+        String passwordEncode = passwordEncoder.encode(account.getPassword());
+        Account account1 = new Account(account.getId(),true,account.getFullname() ,account.getBirthday(),account.getIdCard(),account.getAddress(), account.getPhone(),account.getEmail(),account.getGender(), account.getImageUrl(),passwordEncode);
+        accountRepository.save(account1);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    // thêm mới nhân viên (HoangLV)
-    @PostMapping(value = "employee-account-create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeAccount createEmployeeAccount) {
-        if (createEmployeeAccount.getAccountCode() != null && createEmployeeAccount.getUsername() != null && createEmployeeAccount.getPassword() != null
-                && createEmployeeAccount.getBirthday() != null && createEmployeeAccount.getGender() != null && createEmployeeAccount.getIdCard() != null
-                && createEmployeeAccount.getEmail() != null && createEmployeeAccount.getAddress() != null && createEmployeeAccount.getFullname() != null
-                && createEmployeeAccount.getIdCard() != null && createEmployeeAccount.getPhone() != null && createEmployeeAccount.getImageUrl() != null) {
-            createEmployeeAccount.setDeleted(true);
-            createEmployeeAccount.setEnable(true);
-            createEmployeeAccount.setTotalPoint(0);
-            createEmployeeAccount.setPassword(passwordEncoder.encode(createEmployeeAccount.getPassword()));
-            accountService.createEmployeeAccount(createEmployeeAccount);
+
+    @PostMapping(value = "employee-account-create")
+    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeAccount account ) {
+            String passwordEncode = passwordEncoder.encode(account.getPassword());
+            Account account1 = new Account(passwordEncode,true,account.getFullname() ,account.getBirthday(),account.getIdCard(),account.getAddress(), account.getPhone(),account.getEmail(),account.getGender(), account.getImageUrl());
+            Account account2 = accountRepository.save(account1);
+            accountRepository.createAccountRole(account2.getId(),3);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
-    // Xóa nhân viên theo id  nhân viên
+
     @DeleteMapping(value = "employee-account-delete/{id}")
     public ResponseEntity<?> deleteByEmployeeId(@PathVariable Long id) {
         if (id == null) {

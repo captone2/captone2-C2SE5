@@ -107,7 +107,7 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update `account` set account.deleted = 0 where account.id=?1", nativeQuery = true)
+    @Query(value = "update `account` set enable = 0 where id=?1", nativeQuery = true)
     void deleteEmployeeAccountById(Long id);
 
     @Query(value = "SELECT username from  movietheater.account where username = ?1", nativeQuery = true)

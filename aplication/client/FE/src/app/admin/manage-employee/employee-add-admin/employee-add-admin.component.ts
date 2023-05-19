@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {EmployeeAccountService} from '../../../services/employee-account.service';
 import {formatDate} from '@angular/common';
@@ -33,6 +33,7 @@ export class EmployeeAddAdminComponent implements OnInit {
     private employeeAccountService: EmployeeAccountService,
     private toastrService: ToastrService,
     private router: Router,
+    private form: FormBuilder,
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
     public dialog: MatDialog) {
   }
@@ -101,156 +102,135 @@ export class EmployeeAddAdminComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    this.employeeCreateForm = new FormGroup({
-        accountCode: new FormControl(null,
-          [Validators.required,
-            Validators.pattern(/NV-\d{4}/)
-          ]),
-        username: new FormControl(null, [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(32),
-          Validators.pattern(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,32}$/)
-        ]),
-        password: new FormControl(null, [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(32)]),
-        matchingPassword: new FormControl(null, [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(32),
-          compareValidator('password')]),
-        fullname: new FormControl(null, [
-          Validators.required,
-          Validators.maxLength(32),
-          Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/)
-        ]),
-        birthday: new FormControl('', Validators.required),
-        idCard: new FormControl(null, [
-          Validators.required,
-          Validators.pattern('^[0-9]{12}$')
-        ]),
-        address: new FormControl(null, [
-          Validators.required,
-          Validators.maxLength(50)
-        ]),
-        phone: new FormControl(null,
-          [Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10),
-            Validators.pattern('^[0-9]{10}$')
-          ]),
-        email: new FormControl(null, [
-          Validators.email,
-          Validators.required
-        ]),
-        gender: new FormControl(null,
-          [Validators.required]),
-        imageUrl: new FormControl(null,
-          [Validators.required])
-      },
-    );
-  }
-
-
-  // submit form
-  onSubmit(employeeCreateForm: FormGroup): any {
-    this.clickSubmit = true;
-    console.log(this.filePath);
-    if (employeeCreateForm.get('email').value != null) {
-      this.employeeAccountService.checkEmail(employeeCreateForm.get('email').value).subscribe(email => {
-        console.log(email);
-        if (email === true) {
-          this.notification('Email đã tồn tại');
-          this.router.navigateByUrl('/employee-create');
-          // stop();
-        }else {
-          if (employeeCreateForm.get('accountCode').value != null) {
-            this.employeeAccountService.checkAccountCode(employeeCreateForm.get('accountCode').value).subscribe(accountCode => {
-              console.log(accountCode);
-              if (accountCode === true) {
-                this.notification('Mã nhân viên đã tồn tại');
-                // stop();
-              }else{
-                if (employeeCreateForm.get('username').value != null) {
-                  this.employeeAccountService.checkUsername(employeeCreateForm.get('username').value).subscribe(username => {
-                    console.log(username);
-                    if (username === true) {
-                      this.notification('Tên tài khoảng đã tồn tại');
-                      // stop();
-                    }else {
-                      const imageName = formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US') + this.inputImage.name;
-                      const fileRef = this.storage.ref(imageName);
-                      this.storage.upload(imageName, this.inputImage).snapshotChanges().pipe(
-                        finalize(() => {
-                          fileRef.getDownloadURL().subscribe((url) => {
-                            this.employeeCreateForm.patchValue({imageUrl: url});
-
-                            this.employeeAccountService.createEmployeeAccount(employeeCreateForm.value).subscribe(data => {
-                                // this.employeeCreateForm = data;
-                                this.isSuccessful = true;
-                                this.isSignUpFailed = false;
-                                this.notification('Đăng kí thành công!');
-                                this.router.navigateByUrl('employee-list');
-                              }
-                            );
-                          });
-                        })
-                      ).subscribe();
-                    }
-                  });
-                }
-              }
-            });
-          }
-        }
-      });
-    }
-  }
-
-
-  // lấy và lưu địa chỉ ảnh vào firebase
-  selectImage(event) {
-    this.inputImage = event.target.files[0];
-    this.employeeCreateForm.get('imageUrl').updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.filePath = reader.result as string;
-    };
-    reader.readAsDataURL(this.inputImage);
-  }
-
-
-  // hiển thị ảnh từ firebase
-  getImageUrl() {
-    if (this.filePath != null) {
-      return this.filePath;
-    }
-    if (this.employeeCreateForm.value.imageUrl != null) {
-      return this.employeeCreateForm.value.imageUrl;
-    }
-    return this.defaultImage;
-  }
-
-
-  notification(message: string) {
-    const dialogRef = this.dialog.open(NotifyEmployeeComponent,
-      {
-        data: {
-          message
-        },
-        width: '400px'
-      }
-    );
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.ngOnInit();
+    this.employeeCreateForm = this.form.group({
+      title: ['', [Validators.required,
+      Validators.minLength(3), Validators.maxLength(50)]],
+      cast: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
+      Validators.minLength(3), Validators.maxLength(50)]],
+      director: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
+      Validators.minLength(3), Validators.maxLength(50)]],
+      releaseDate: ['', [Validators.required]],
+      runningTime: ['', [Validators.required, Validators.pattern('^[0-9]{1,6}$'),
+      Validators.minLength(1), Validators.maxLength(6)]],
+      production: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;]*$/),
+      Validators.minLength(3), Validators.maxLength(50)]],
+      trailerUrl: ['', [Validators.required]],
+      content: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;]*$/),
+      Validators.minLength(3), Validators.maxLength(200)]],
+      // images: this.form.array([])
     });
+
+
+
+
+
+
+    // this.employeeCreateForm = new FormGroup({
+    //     accountCode: new FormControl(null,
+    //       [Validators.required,
+    //         Validators.pattern(/NV-\d{4}/)
+    //       ]),
+    //     username: new FormControl(null, [
+    //       Validators.required,
+    //       Validators.minLength(4),
+    //       Validators.maxLength(32),
+    //       Validators.pattern(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,32}$/)
+    //     ]),
+    //     password: new FormControl(null, [
+    //       Validators.required,
+    //       Validators.minLength(6),
+    //       Validators.maxLength(32)]),
+    //     matchingPassword: new FormControl(null, [
+    //       Validators.required,
+    //       Validators.minLength(4),
+    //       Validators.maxLength(32),
+    //       compareValidator('password')]),
+    //     fullname: new FormControl(null, [
+    //       Validators.required,
+    //       Validators.maxLength(32),
+    //       Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/)
+    //     ]),
+    //     birthday: new FormControl('', Validators.required),
+    //     idCard: new FormControl(null, [
+    //       Validators.required,
+    //       Validators.pattern('^[0-9]{12}$')
+    //     ]),
+    //     address: new FormControl(null, [
+    //       Validators.required,
+    //       Validators.maxLength(50)
+    //     ]),
+    //     phone: new FormControl(null,
+    //       [Validators.required,
+    //         Validators.minLength(10),
+    //         Validators.maxLength(10),
+    //         Validators.pattern('^[0-9]{10}$')
+    //       ]),
+    //     email: new FormControl(null, [
+    //       Validators.email,
+    //       Validators.required
+    //     ]),
+    //     gender: new FormControl(null,
+    //       [Validators.required]),
+    //   },
+    // );
   }
+
+
+
+  // onSubmit(employeeCreateForm: FormGroup): any {
+  //   this.clickSubmit = true;
+  //   console.log(this.filePath);
+  //   if (employeeCreateForm.get('email').value != null) {
+  //     this.employeeAccountService.checkEmail(employeeCreateForm.get('email').value).subscribe(email => {
+  //       console.log(email);
+  //       if (email === true) {
+  //         this.notification('Email đã tồn tại');
+  //         this.router.navigateByUrl('/employee-create');
+  //         // stop();
+  //       }else {
+  //         if (employeeCreateForm.get('accountCode').value != null) {
+  //           this.employeeAccountService.checkAccountCode(employeeCreateForm.get('accountCode').value).subscribe(accountCode => {
+  //             console.log(accountCode);
+  //             if (accountCode === true) {
+  //               this.notification('Mã nhân viên đã tồn tại');
+  //               // stop();
+  //             }else{
+  //               if (employeeCreateForm.get('username').value != null) {
+  //                 this.employeeAccountService.checkUsername(employeeCreateForm.get('username').value).subscribe(username => {
+  //                   console.log(username);
+  //                   if (username === true) {
+  //                     this.notification('Tên tài khoảng đã tồn tại');
+  //                     // stop();
+  //                   }else {
+  //                     const imageName = formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US') + this.inputImage.name;
+  //                     const fileRef = this.storage.ref(imageName);
+  //                     this.storage.upload(imageName, this.inputImage).snapshotChanges().pipe(
+  //                       finalize(() => {
+  //                         fileRef.getDownloadURL().subscribe((url) => {
+  //                           this.employeeCreateForm.patchValue({imageUrl: url});
+
+  //                           this.employeeAccountService.createEmployeeAccount(employeeCreateForm.value).subscribe(data => {
+  //                               // this.employeeCreateForm = data;
+  //                               this.isSuccessful = true;
+  //                               this.isSignUpFailed = false;
+  //                               this.notification('Đăng kí thành công!');
+  //                               this.router.navigateByUrl('employee-list');
+  //                             }
+  //                           );
+  //                         });
+  //                       })
+  //                     ).subscribe();
+  //                   }
+  //                 });
+  //               }
+  //             }
+  //           });
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
+
+
+ 
 }

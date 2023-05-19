@@ -184,5 +184,36 @@ public class Account {
         this.provider = provider;
     }
 
+    public Account() {
+    }
+
+    public Account(long id, Boolean isEnabled, String fullname, LocalDate birthday, String idCard, String address, String phone, String email, String gender, String imageUrl, String password) {
+        this.id = id;
+        this.isEnabled = isEnabled;
+        this.fullname = fullname;
+        this.birthday = birthday;
+        this.idCard = idCard;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.imageUrl = imageUrl;
+        this.password = password;
+    }
+
+    public Account(String password, Boolean isEnabled, String fullname, LocalDate birthday, String idCard, String address, String phone, String email, String gender, String imageUrl) {
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.fullname = fullname;
+        this.birthday = birthday;
+        this.idCard = idCard;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.imageUrl = imageUrl;
+    }
+
+
 }
 

@@ -95,5 +95,9 @@ export class MovieService {
     return this.httpClient.get(this.MOVIE_URL + '/all-movie');
   }
 
+  
+  public getRateByMovieId(id: number): Observable<any> {
+    return this.httpClient.get(this.MOVIE_URL + "/" +id + "/rate");
+  }
 
 }

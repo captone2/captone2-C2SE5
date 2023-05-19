@@ -45,7 +45,7 @@ const guestRoutes: Routes = [
   {path: 'movie-detail/:id', component: MovieDetailComponent},
   {path: 'profile', component: ProfileUserComponent,
   canActivate: [AuthGuardService],
-  data: {expectedRole: [Role.Admin, Role.User]}
+  data: {expectedRole: [Role.User]}
 },
   {path: 'booking/:movieShowTimeId/:transactionId', component: BookingComponent, 
   canActivate: [AuthGuardService],
@@ -53,7 +53,7 @@ const guestRoutes: Routes = [
 },
   {path: 'transaction' , component: TransactionComponent,
   canActivate: [AuthGuardService],
-  data: {expectedRole: [Role.Admin, Role.User]}
+  data: {expectedRole: [Role.User]}
 },
   {path: 'register' , component: RegisterComponent},
   {path: 'booking-not-exist' , component: BookingNoExistComponent},

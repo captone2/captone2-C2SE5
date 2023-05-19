@@ -1,5 +1,6 @@
 package com.repository;
 
+import ch.qos.logback.core.boolex.EvaluationException;
 import com.model.entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +19,22 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     Page<Movie> findAll(Pageable pageable);
 
+    @Query(value = "SELECT * FROM movie where is_enabled = 1;", nativeQuery = true)
+    List<Movie> findAllMovie();
+
     @Query(value = "SELECT * FROM movie WHERE id = ?1", nativeQuery = true)
     Movie findMovieById(Long id);
 
     @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE %:title% order by create_at DESC", nativeQuery = true)
     List<Movie> searchMovieByTitle(@Param("title") String keyword);
 
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE movie\n" +
+            "    SET is_enabled = 0\n" +
+            "    WHERE id = :id", nativeQuery = true)
+    void deleteMovie(@Param("id") Long id);
 
     @Query(value = "SELECT DISTINCT movie.* FROM movie " +
             "INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
@@ -55,6 +66,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "ORDER BY sum(booking.total_price) DESC\n" +
             "LIMIT 5\n", nativeQuery = true)
     List<Movie> findTop5MovieHighestRevenueOfMonth();
+
+    @Query(value = " SELECT ROUND(AVG(rate), 1) as RATE  FROM comment\n" +
+            "    WHERE movie_id = :id", nativeQuery = true)
+    Integer getRateByMovieId(@Param("id") Long id);
+
+
 
 }
 

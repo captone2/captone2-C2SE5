@@ -134,7 +134,7 @@ const adminRoutes: Routes = [
         data: { expectedRole: [Role.Admin] },
       },
       {
-        path: 'movie/detail', component: MovieDetailsAdminComponent
+        path: 'movie-detail/:id', component: MovieDetailsAdminComponent
         , canActivate: [AuthGuardService],
         data: { expectedRole: [Role.Admin] },
       },
