@@ -45,11 +45,7 @@ const ChooseSeat: FC = ({ navigation, route }) => {
 
   useEffect(() => {
     initial();
-  }, [seatSelect.length]);
-
-  useEffect(() => {
-    seatSelect.splice(0, seatSelect.length);
-  }, [seatSelect.length]);
+  }, []);
 
   const SeatItem: FC<SeatItem> = ({ seat }) => {
     const [selectedSeatStyle, setSelectedSeatStyle] = useState(false);

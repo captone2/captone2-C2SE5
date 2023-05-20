@@ -44,11 +44,12 @@ const ScanTicket: FC = () => {
           ToastAndroid.LONG
         );
         Alert.alert(
-          `Your ticket: ${ticket.Movie}
-          ${ticket.Screen}${ticket.Date}
-          \n${ticket.Time}
-          ${ticket.NumberSeat}
-          \n${ticket.Seat}`
+          `Your ticket:
+        \n${ticket.Movie}
+        \n${ticket.Screen}${ticket.Date}
+        \n${ticket.Time}
+        \n${ticket.NumberSeat}
+        \n${ticket.Seat}`
         );
         console.log("ticket");
         await BookingService.setTicketBookingReceived({

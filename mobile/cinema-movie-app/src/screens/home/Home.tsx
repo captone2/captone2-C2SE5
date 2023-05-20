@@ -123,7 +123,6 @@ const Home: FC = ({ navigation }) => {
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={{ margin: 10 }}>
-          {/* //TODO: chưa apply uri từ database */}
           <Image
             source={{
               uri: item.movieImages[0].imageUrl,

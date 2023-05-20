@@ -1,9 +1,15 @@
-import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Linking, LogBox, StyleSheet, Text, ToastAndroid, View } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import WebView from "react-native-webview";
 import { COLORS } from "../../utils/theme";
 import { StatusBar } from "expo-status-bar";
 import { BackButton } from "../../components";
+import { generateRandomString } from "../../utils/format";
+import { AddBookingRequest } from "../../redux/booking/type";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { BookingService } from "../../services/booking/booking.service";
+import { format } from "date-fns";
+import { Seat } from "../../redux/movie/type";
 
 const Payment: FC = ({ navigation, route }) => {
   const [accessToken, setAccessToken] = useState("");
@@ -12,10 +18,13 @@ const Payment: FC = ({ navigation, route }) => {
     approvalURL: "",
   });
   const sumTotal = route.params.sumTotal;
-
+  const movieShowtimeId = route.params.movieShowtimeId;
+  const seats: Seat[] = route.params.seats;
+  const { user } = useAppSelector((state) => state.user.user);
   useEffect(() => {
     handlePayment();
   }, []);
+  LogBox.ignoreLogs([`Setting a timer for a long period`]);
   const paymentDetail = {
     intent: "sale",
     payer: {
@@ -24,10 +33,10 @@ const Payment: FC = ({ navigation, route }) => {
     transactions: [
       {
         amount: {
-          total: sumTotal,
+          total: Number((sumTotal / 23000).toFixed(2)),
           currency: "USD",
           details: {
-            subtotal: sumTotal,
+            subtotal: Number((sumTotal / 23000).toFixed(2)),
             tax: "0",
             shipping: "0",
             handling_fee: "0",
@@ -44,18 +53,20 @@ const Payment: FC = ({ navigation, route }) => {
   };
   const handlePayment = async () => {
     try {
+      //TODO: change Authorization Bearer #######
       const tokenResponse = await fetch("https://api-m.sandbox.paypal.com/v1/oauth2/token", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization:
-            "Bearer A21AAKmgEMfm9S1dOWE-hotOIPBo7GWLBtaQp8m53a34iRVSnBfSjyGB41lEfi38y1IaZhz1Yqqvd6XAQkopKiOBqDz6xTtBA",
+            "Bearer A21AAIlUy2FtP_omz_Mgonow8-BIVXHXgZ3nK_ntG66EhQ2vWwKwuWBINo53EmG5CfPnyUfcvy3-Mp68Sybbo7UCrKyvsWF_Q",
         },
         body: "grant_type=client_credentials",
       });
       const tokenData = await tokenResponse.json();
       const accessToken = tokenData.access_token;
-      setAccessToken(accessToken);
+
+      // setAccessToken(accessToken);
       const paymentResponse = await fetch("https://api.sandbox.paypal.com/v1/payments/payment", {
         method: "POST",
         headers: {
@@ -67,7 +78,6 @@ const Payment: FC = ({ navigation, route }) => {
 
       const paymentData = await paymentResponse.json();
       const { id, links } = paymentData;
-
       const approvalURL = links.find((data) => data.rel === "approval_url");
       setPayment({
         paymentId: id,
@@ -79,53 +89,91 @@ const Payment: FC = ({ navigation, route }) => {
     }
   };
 
-  const onNavigationStateChange = (webViewState) => {
-    console.log("webViewState", webViewState);
-
+  const onNavigationStateChange = async (webViewState) => {
     setPayment({
       approvalURL: "",
       paymentId: payment.paymentId,
     });
     const { PayerID, paymentId } = webViewState.url;
-    fetch(`https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}`, {
-      method: "POST",
-      body: { payer_id: PayerID },
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.name === "INVALID_RESOURCE_ID") {
-          Alert.alert("Thông báo", "Thanh toán thất bại. Vui lòng thử lại!", [{ text: "Oke" }]);
-          setPayment({
-            paymentId: payment.paymentId,
-            approvalURL: "",
-          });
-          navigation.pop();
-        }
+    console.log("webViewState.url", webViewState.url);
+
+    try {
+      const res = await fetch(`https://api.sandbox.paypal.com/v1/payments/payment/${paymentId}`, {
+        method: "POST",
+        body: JSON.stringify({ payer_id: PayerID }),
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const response = await res.json();
+
+      if (response.name === "INVALID_RESOURCE_ID") {
+        Alert.alert("Thông báo", "Thanh toán thất bại. Vui lòng thử lại!", [{ text: "Oke" }]);
+        setPayment({
+          paymentId,
+          approvalURL: "",
+        });
+        navigation.pop();
+      } else {
         Alert.alert("Thông báo", "Thanh toán thành công.", [
           {
             text: "Oke",
-            onPress: () => {
-              navigation.navigate("ShowQRCode");
+            onPress: async () => {
+              const hashCode = generateRandomString();
+              const bookingDto: AddBookingRequest = {
+                accountId: user.id,
+                bookingCode: hashCode,
+                dayTimeBooking: format(new Date(), "yyy-MM-dd HH:mm:ss"),
+                totalPrice: sumTotal,
+                movieShowTimeId: movieShowtimeId,
+                urlQrCode: "",
+              };
+              try {
+                await BookingService.addBooking(bookingDto);
+
+                await BookingService.addSeatByBookingCode({
+                  numbers: seats.map((el) => el.id),
+                  id: hashCode,
+                });
+
+                console.log("booking added");
+              } catch (err) {
+                console.log("booking error");
+              }
+
+              //TODO: call api add booking
+              navigation.navigate("ShowQRCode", {
+                hashCode,
+              });
             },
           },
         ]);
-      });
+      }
+    } catch (err) {
+      ToastAndroid.show("Thanh toán lỗi", ToastAndroid.LONG);
+      setTimeout(() => navigation.goBack(), 1000);
+    }
   };
+
+  const OpenURLButton = ({ url }) => {
+    Linking.openURL(url);
+    return <></>;
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <StatusBar style="auto" />
       <View style={{ marginTop: 10 }}></View>
       <BackButton color={COLORS.black} />
       {payment.approvalURL ? (
+        // <OpenURLButton url={payment.approvalURL} />
         <WebView
           style={{ height: "100%", width: "100%", marginTop: 40 }}
           source={{ uri: payment.approvalURL }}
-          //   javaScriptEnabled
-          //   domStorageEnabled
+          javaScriptEnabled
+          domStorageEnabled
           startInLoadingState={false}
           onNavigationStateChange={onNavigationStateChange}
         />

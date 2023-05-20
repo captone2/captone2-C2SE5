@@ -1,22 +1,49 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import CryptoJS from "crypto-js";
-import { QRCode } from "react-native-custom-qr-codes-expo";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { FC, useRef } from "react";
+import SvgQRCode from "react-native-qrcode-svg";
+import { COLORS } from "../utils/theme";
+import { Button } from "../components";
+import storage from "@react-native-firebase/storage";
 
-const ShowQRCode = () => {
-  const generateRandomString = () => {
-    const timestamp = new Date().getTime().toString();
-    const randomNum = Math.random().toString(36).substr(2, 9);
-    // Generate a random number and convert it to base 36
-    return timestamp + randomNum;
+const ShowQRCode: FC = ({ navigation, route }) => {
+  const hashCode = route.params.hashCode;
+  const qrCodeRef = useRef<any>(null);
+
+  const uploadImageToFirebase = async (imageUri) => {
+    const fileName = "qr_code.png"; // Set a desired file name
+    const storageRef = storage().ref().child(fileName);
+
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
+
+    await storageRef.put(blob);
+    const imageUrl = await storageRef.getDownloadURL();
+
+    return imageUrl;
   };
-  const hashCode = CryptoJS.SHA256(generateRandomString()).toString();
+
+  const handleGetQRCodeUrl = () => {
+    if (qrCodeRef.current) {
+      const svgXmlData = qrCodeRef.current.toDataURL();
+      console.log("SVG QR Code URL:", svgXmlData);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* <QRCode
-        value={hashCode}
-        logo={{ uri: "https://firebasestorage.googleapis.com/v0/b/dtu-event.appspot.com/o/qr_code_1684391144426.png?alt=media&token=5ab588bc-40e8-428e-a08a-439b0a699d48" }}
-      /> */}
+      <View style={{ alignSelf: "center", marginTop: 20 }}>
+        <SvgQRCode value={hashCode} size={322} />
+      </View>
+      <View style={{ position: "absolute", bottom: 20, width: "100%" }}>
+        <Button
+          text="Trở về trang chủ "
+          tintColor={COLORS.white}
+          onPress={() => {
+            navigation.navigate("Home");
+            handleGetQRCodeUrl();
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -26,5 +53,6 @@ export default ShowQRCode;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.colors.surface,
   },
 });

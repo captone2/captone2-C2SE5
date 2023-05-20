@@ -6,7 +6,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { MovieShowtime } from "../../redux/movie/type";
 import format from "date-fns/format";
-import { EventEmitter } from "stream";
 
 const SessionMovie: FC = ({ navigation }) => {
   const [date, setDate] = useState<Date>();

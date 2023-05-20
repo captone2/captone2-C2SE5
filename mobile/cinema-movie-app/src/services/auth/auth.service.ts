@@ -1,6 +1,6 @@
 import { Endpoints } from "../../api/endpoints";
 import { LoginInfo, Password, UserState } from "../../redux/auth/type";
-import { axiosClient, responseBody } from "./../../api/axios";
+import { axiosClient, responseBody } from "../../api/axios";
 import axios from "axios";
 
 export class UserService {

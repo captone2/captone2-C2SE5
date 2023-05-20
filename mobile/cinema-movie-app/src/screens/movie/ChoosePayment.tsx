@@ -24,11 +24,10 @@ const ChoosePayment: FC = ({ navigation, route }) => {
   const foodList: FoodResponse[] = useAppSelector((state) => state.bookingReducer.data.food);
   //** get data from route */
   const seats: Seat[] = route.params.seats;
-  const movie = route.params.movie;
+  const movieShowtime = route.params.movie;
   const showtime = route.params.showtime;
-  // console.log(format(new Date("2023-30-04"), "dd/mm/yyyy"));
 
-  const priceTicket = getPriceTicket(movie.showDate, showtime);
+  const priceTicket = getPriceTicket(movieShowtime.showDate, showtime);
 
   const sumTotal = seats.length * priceTicket;
 
@@ -105,10 +104,10 @@ const ChoosePayment: FC = ({ navigation, route }) => {
             />
           </View>
           <View style={{ flexDirection: "column", paddingLeft: 10 }}>
-            <Text style={{ fontWeight: "bold", fontSize: 16 }}>{movie.movie.title}</Text>
-            <Text>Ngày: {movie.showDate}</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 16 }}>{movieShowtime.movie.title}</Text>
+            <Text>Ngày: {movieShowtime.showDate}</Text>
             <Text>Giờ: {showtime.length > 5 ? showtime.substring(0, 5) : showtime.substring(0, 4)}</Text>
-            <Text>Phòng: {movie.screen.name}</Text>
+            <Text>Phòng: {movieShowtime.screen.name}</Text>
             <Text>Ghế: {seats.map((el) => el.name).join(", ")}</Text>
             <Text style={{ color: COLORS.red, fontWeight: "bold" }}>
               Tổng thanh toán: {numberWithPoint(sumTotal)} đ
@@ -339,7 +338,9 @@ const ChoosePayment: FC = ({ navigation, route }) => {
             <Button
               text="TÔI ĐỒNG Ý VÀ TIẾP TỤC"
               tintColor={COLORS.white}
-              onPress={() => navigation.navigate("Payment", { sumTotal: sumTotal })}
+              onPress={() =>
+                navigation.navigate("Payment", { sumTotal: sumTotal, movieShowtimeId: movieShowtime.id, seats: seats })
+              }
               disabled={!Object.values(choosePayment).includes(true)}
             />
           </View>

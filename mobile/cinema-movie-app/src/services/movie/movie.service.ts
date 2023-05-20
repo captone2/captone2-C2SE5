@@ -1,6 +1,6 @@
 import { Endpoints } from "../../api/endpoints";
 import { Genre, Movie, MovieShowtime } from "../../redux/movie/type";
-import { axiosClient, responseBody } from "./../../api/axios";
+import { axiosClient, responseBody } from "../../api/axios";
 import axios from "axios";
 
 export class MovieService {

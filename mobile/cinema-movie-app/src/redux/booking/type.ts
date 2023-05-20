@@ -53,3 +53,12 @@ type Payment = {
   id: number;
   name: string;
 };
+
+export type AddBookingRequest = {
+  dayTimeBooking: string;
+  totalPrice: number;
+  accountId: number;
+  movieShowTimeId: number;
+  bookingCode: string;
+  urlQrCode: string;
+};
