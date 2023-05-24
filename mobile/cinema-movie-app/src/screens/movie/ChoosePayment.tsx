@@ -1,4 +1,14 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, ActivityIndicator, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+  Alert,
+  ToastAndroid,
+} from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, Icon } from "../../components";
@@ -10,6 +20,7 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 import { TextInput } from "react-native-paper";
 import { Seat } from "../../redux/movie/type";
 import { getPriceTicket } from "../../utils/priceTicket";
+import { BookingService } from "../../services/booking/booking.service";
 
 const ChoosePayment: FC = ({ navigation, route }) => {
   const [choosePayment, setChoosePayment] = useState({
@@ -28,14 +39,12 @@ const ChoosePayment: FC = ({ navigation, route }) => {
   const showtime = route.params.showtime;
 
   const priceTicket = getPriceTicket(movieShowtime.showDate, showtime);
-
   const sumTotal = seats.length * priceTicket;
 
   //TODO: add combo food
   const FoodItem = ({ item, index }) => {
     const updateFoodQuantity = (newQuantity) => {
       foodList[index].quantity = newQuantity;
-      console.log("foodListHasQuantity", foodList);
     };
     const [test, setTest] = useState({ value: "", index: -1 });
 
@@ -73,6 +82,7 @@ const ChoosePayment: FC = ({ navigation, route }) => {
     );
   };
 
+  //**reset status of button method payment */
   useEffect(() => {
     setChoosePayment({
       paypal: false,
@@ -338,9 +348,27 @@ const ChoosePayment: FC = ({ navigation, route }) => {
             <Button
               text="TÔI ĐỒNG Ý VÀ TIẾP TỤC"
               tintColor={COLORS.white}
-              onPress={() =>
-                navigation.navigate("Payment", { sumTotal: sumTotal, movieShowtimeId: movieShowtime.id, seats: seats })
-              }
+              onPress={async () => {
+                try {
+                  const seatIdBooked = await BookingService.seatBookedByShowTime(movieShowtime.id);
+                  const check = seats.some((seat) => seatIdBooked.map((obj) => obj).includes(seat.id));
+                  console.log("check seat", check);
+
+                  if (check) {
+                    ToastAndroid.show(
+                      "Ghế bạn vừa chọn đã có người khác thanh toán. Vui lòng chọn ghế khác.",
+                      ToastAndroid.LONG
+                    );
+                    navigation.navigate("MovieDetail");
+                  } else {
+                    navigation.navigate("Payment", {
+                      sumTotal: sumTotal,
+                      movieShowtimeId: movieShowtime.id,
+                      seats: seats,
+                    });
+                  }
+                } catch (e) {}
+              }}
               disabled={!Object.values(choosePayment).includes(true)}
             />
           </View>

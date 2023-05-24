@@ -80,52 +80,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> findAllMember() {
-        return accountRepository.findAllMember();
-    }
-
-    @Override
-    public void updateMember(AccountMemberDTO accountMemberDTO, long id) {
-
-    }
-
-    @Override
-    public void createMember(AccountMemberDTO accountMemberDTO) {
-
-    }
-
-    @Override
-    public void deleteMember(long id) {
-        accountRepository.deleteMember(id);
-    }
-
-    @Override
-    public Account findByIdMember(long id) {
-        return accountRepository.findByIdMember(id);
-    }
-
-    @Override
-    public List<Account> findByNameMember(String name) {
-        return accountRepository.searchNameMember(name);
-    }
-
-    @Override
-    public boolean checkEmailMember(String email) {
-        return accountRepository.existsByEmail(email);
-    }
-
-    @Override
-    public boolean checkPhoneMember(String phone) {
-        return accountRepository.existsByPhone(phone);
-    }
-
-    @Override
-    public boolean checkUsernameMember(String username) {
-        return accountRepository.existsByUsername(username);
-    }
-
-
-    @Override
     public List<Account> getAllEmployeeAccount() {
         List<Account> list = accountRepository.getAllAccountEmployee();
         System.out.println(list.size());
@@ -144,7 +98,6 @@ public class AccountServiceImpl implements AccountService {
     public void updateEmployeeAccount(UpdateEmployeeAccount updateEmployeeAccount) {
 
     }
-
 
     @Override
     public void createEmployeeAccount(CreateEmployeeAccount createEmployeeAccount) {

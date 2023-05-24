@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.model.dto.Sy.ManagerBooking;
+import com.model.dto.employeeAccount.UpdateAccountDTO;
 import com.model.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -36,26 +37,6 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Transactional
     @Query(value = "UPDATE account SET password = ?2 WHERE id = ?1", nativeQuery = true)
     void changePassword(Long id,String password);
-
-    @Query(value = "select * from account inner join account_role on account.id = account_role.account_id " +
-            "where account.deleted = true  and (account_role.role_id = 1) and (account_role.role_id != 3) and (account_role.role_id != 2)" , nativeQuery = true)
-    List<Account> findAllMember();
-
-
-
-    @Transactional
-    @Modifying
-    @Query(value = "update `account` set account.deleted = 1 where account.id=?1", nativeQuery = true)
-    void deleteMember(long id);
-
-
-    @Query(value = "select * from account where account.id= ?1", nativeQuery = true)
-    Account findByIdMember(long id);
-
-
-    @Query(value = "select * from account where account.fullname like %?1%", nativeQuery = true)
-    List<Account> searchNameMember(String name);
-
 
     @Transactional
     @Query(value = "SELECT * FROM account where id = ?1", nativeQuery = true)
@@ -124,4 +105,8 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Query(value = "update account set password =?1,verification_code=null where verification_code=?2 ",nativeQuery = true)
     void saveNewPassword(String password, String code);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE account SET address=?1, birthday=?2, fullname=?3, gender=?4, phone=?5 WHERE (id = ?6)", nativeQuery = true)
+    void updateAccountForApp(String address, LocalDate birthday, String fullname, String gender, String phone, long id);
 }

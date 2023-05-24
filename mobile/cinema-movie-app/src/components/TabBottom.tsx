@@ -24,7 +24,8 @@ const getTabIcon =
 
 const TabBottom: FC = () => {
   const { user } = useAppSelector((state) => state.user);
-  const isAdmin = user.user.roles.includes(UserType.EMPLOYEE);
+  const isEmployee = user.user.roles.includes(UserType.EMPLOYEE);
+  const isUser = user.user.roles.includes(UserType.CUSTOMER);
   return (
     <Tab.Navigator
       // initialRouteName="HomeStack"
@@ -41,8 +42,10 @@ const TabBottom: FC = () => {
         tabBarInactiveTintColor: COLORS.lightGrey,
       }}
     >
-      <Tab.Screen name="HomeStack" component={HomeStack} options={{ tabBarIcon: getTabIcon("home") }} />
-      {isAdmin ? (
+      {isUser ? (
+        <Tab.Screen name="HomeStack" component={HomeStack} options={{ tabBarIcon: getTabIcon("home") }} />
+      ) : null}
+      {isEmployee ? (
         <Tab.Screen name="GenerateQR" component={GenerateQR} options={{ tabBarIcon: getFontAweSomeIcon("qrcode") }} />
       ) : null}
       <Tab.Screen name="ProfileStack" component={ProfileStack} options={{ tabBarIcon: getTabIcon("user") }} />

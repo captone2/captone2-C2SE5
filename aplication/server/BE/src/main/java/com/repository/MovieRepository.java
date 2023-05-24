@@ -39,13 +39,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT DISTINCT movie.* FROM movie " +
             "INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
             "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
-            "WHERE TIME(now()) >= TIME(showtime.show_time)+2 AND movie_show_time.show_date = DATE_FORMAT(NOW(), '%Y-%m-%d'); ", nativeQuery = true)
+            "WHERE movie.is_enabled=true AND TIME(now()) >= TIME(showtime.show_time)+2 AND movie_show_time.show_date = DATE_FORMAT(NOW(), '%Y-%m-%d'); ", nativeQuery = true)
     List<Movie> findAllMovieShowing();
 
     @Query(value = "SELECT DISTINCT movie.* FROM movie \n" +
             "            INNER JOIN movie_show_time ON  movie_show_time.movie_id = movie.id\n" +
             "            INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
-            "            WHERE movie_show_time.show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d');", nativeQuery = true)
+            "            WHERE movie.is_enabled=true AND movie_show_time.show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d');", nativeQuery = true)
     List<Movie> findAllMovieComingSoon();
 
     @Query(value = "SELECT movie.* FROM movie \n" +
@@ -53,6 +53,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "INNER JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
             "INNER JOIN seat ON seat.screen_id = movie_show_time.screen_id\n" +
             "INNER JOIN booking_seat ON booking_seat.seat_id = seat.id\n" +
+            "WHERE movie.is_enabled=true\n" +
             "GROUP BY movie.id \n" +
             "ORDER BY count(movie.id) DESC \n" +
             "LIMIT 1;", nativeQuery = true)
@@ -61,7 +62,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT movie.* FROM movie \n" +
             "JOIN movie_show_time ON movie.id = movie_show_time.movie_id\n" +
             "JOIN booking ON booking.movie_showtime_id = movie_show_time.id\n" +
-            "WHERE MONTH(movie_show_time.show_date) = MONTH(NOW())\n" +
+            "WHERE movie.is_enabled=true AND MONTH(movie_show_time.show_date) = MONTH(NOW())\n" +
             "GROUP BY movie_show_time.movie_id\n" +
             "ORDER BY sum(booking.total_price) DESC\n" +
             "LIMIT 5\n", nativeQuery = true)

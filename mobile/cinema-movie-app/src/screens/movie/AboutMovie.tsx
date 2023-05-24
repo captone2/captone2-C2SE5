@@ -98,7 +98,6 @@ export default AboutMovie;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: "100%",
   },
   trailer: {},
   video: {
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.color.primary,
     height: "100%",
     paddingHorizontal: 12,
-    minHeight: 300,
+    minHeight: 500,
   },
   wrapInfo: {
     display: "flex",

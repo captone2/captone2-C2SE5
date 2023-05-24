@@ -6,20 +6,15 @@ import axios from "axios";
 export class BookingService {
   static prefix = "auth/booking";
   static getBookingByBookingCode(body: BookingRequest): Promise<BookingDTO> {
-    return axiosClient
-      .post(Endpoints.PREFIX + `${this.prefix}/get-booking-by-code`,  body,
-      )
-      .then(responseBody);
+    return axiosClient.post(Endpoints.PREFIX + `${this.prefix}/get-booking-by-code`, body).then(responseBody);
   }
 
   static setTicketBookingReceived(body: BookingRequest): Promise<void> {
-    console.log("body", body);
-
     return axiosClient.post(Endpoints.PREFIX + `${this.prefix}/received-booking`, body).then(responseBody);
   }
 
-  static seatBookedByShowTime(id: number): Promise<number[]> {
-    return axiosClient.get(Endpoints.PREFIX + `${this.prefix}/seatByShowTime/${id}`).then(responseBody);
+  static seatBookedByShowTime(showtimeId: number): Promise<number[]> {
+    return axiosClient.get(Endpoints.PREFIX + `seat/get-seat/${showtimeId}`).then(responseBody);
   }
 
   static getAllFood(): Promise<FoodResponse[]> {

@@ -83,7 +83,6 @@ const ChooseSeat: FC = ({ navigation, route }) => {
   const FoodItem = ({ item, index }) => {
     const updateFoodQuantity = (newQuantity) => {
       foodList[index].quantity = newQuantity;
-      console.log("foodListHasQuantity", foodList);
     };
     const [test, setTest] = useState({ value: "", index: -1 });
 
@@ -202,7 +201,7 @@ const ChooseSeat: FC = ({ navigation, route }) => {
                         {
                           text: "quay lại",
                           onPress: () => {
-                            navigation.goBack();
+                            navigation.navigate("MovieDetail");
                           },
                         },
                       ]);

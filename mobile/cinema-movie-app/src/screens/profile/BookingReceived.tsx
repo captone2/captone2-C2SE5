@@ -67,7 +67,7 @@ const BookingReceived: FC = ({ navigation }) => {
       <View style={{}}>
         {/* //TODO: change =>> true */}
         <FlatList
-          data={bookedList.filter((booking) => booking.received === false)}
+          data={bookedList.filter((booking) => booking.received === true)}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => <RenderItem item={item} />}
         />

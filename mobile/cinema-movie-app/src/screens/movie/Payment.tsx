@@ -59,7 +59,7 @@ const Payment: FC = ({ navigation, route }) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization:
-            "Bearer A21AAIlUy2FtP_omz_Mgonow8-BIVXHXgZ3nK_ntG66EhQ2vWwKwuWBINo53EmG5CfPnyUfcvy3-Mp68Sybbo7UCrKyvsWF_Q",
+            "Bearer A21AALIzNZzg54LNz3xe3ueQ7GEBsZKJd6OZuQUzUQjUTkZvJ4ZKuKsRZSmtuLu1-ET2K6b03VPt1I_kSF32nNloPuqtCdn_A",
         },
         body: "grant_type=client_credentials",
       });

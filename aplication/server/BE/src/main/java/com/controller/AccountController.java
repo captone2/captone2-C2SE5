@@ -7,6 +7,7 @@ import com.model.dto.Sy.AccountUserDTO;
 import com.model.dto.Sy.ManagerBooking;
 
 import com.model.dto.employeeAccount.CreateEmployeeAccount;
+import com.model.dto.employeeAccount.UpdateAccountDTO;
 import com.model.dto.employeeAccount.UpdateEmployeeAccount;
 
 import com.model.entity.Account;
@@ -83,20 +84,6 @@ public class AccountController {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @GetMapping("employee-list")
     public ResponseEntity<List<Account>> getAllEmployee() {
         List<Account> listEmployeeDTOS = accountService.getAllEmployeeAccount();
@@ -153,7 +140,6 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @PostMapping("/check-email-employee")
     public boolean checkEmailEmployee(@RequestBody String email) {
         return accountService.checkEmailEmployee(email);
@@ -171,69 +157,7 @@ public class AccountController {
         return accountService.checkUsernameEmployee(username);
     }
 
-    @GetMapping("/list-member")
-    public ResponseEntity<List<Account>> getAllMember() {
-        List<Account> accounts = accountService.findAllMember();
-        if (accounts.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<List<Account>>(accounts, HttpStatus.OK);
-    }
-
-
-    @PutMapping("/update-member/{id}")
-    public ResponseEntity<?> updateMember(@PathVariable("id") long id, @RequestBody AccountMemberDTO accountMemberDTO) {
-        accountMemberDTO.setPassword(passwordEncoder.encode(accountMemberDTO.getPassword()));
-        accountService.updateMember(accountMemberDTO, id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-    @PostMapping("/create-member")
-    public ResponseEntity<?> createMember(@RequestBody AccountMemberDTO accountMemberDTO) {
-        passwordEncoder.encode(accountMemberDTO.getPassword());
-        accountService.createMember(accountMemberDTO);
-        return new ResponseEntity<AccountMemberDTO>(HttpStatus.CREATED);
-    }
-
-
-    @GetMapping("/public/findById-member/{id}")
-    public ResponseEntity<Account> getIdMember(@PathVariable("id") long id) {
-        Account accounts = accountService.findByIdMember(id);
-        System.out.println();
-        return new ResponseEntity<Account>(accounts, HttpStatus.OK);
-    }
-
-    @DeleteMapping("delete-member/{id}")
-    public ResponseEntity<Void> deleteMember(@PathVariable("id") long id) {
-        accountService.deleteMember(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("searchName-member")
-    public ResponseEntity<List<Account>> searchNameMember(@RequestParam("name") String name) {
-        List<Account> accounts = accountService.findByNameMember(name);
-        return new ResponseEntity<List<Account>>(accounts, HttpStatus.OK);
-    }
-
-    @PostMapping("/check-emailMember")
-    public boolean checkEmailMember(@RequestBody String email) {
-        return accountService.checkEmailMember(email);
-
-    }
-
-    @PostMapping("/check-phoneMember")
-    public boolean checkPhoneMember(@RequestBody String phone) {
-        return accountService.checkPhoneMember(phone);
-    }
-
-    @PostMapping("/check-usernameMember")
-    public boolean checkUsernameMember(@RequestBody String username) {
-        return accountService.checkUsernameMember(username);
-    }
-
     // lấy thông tin tài khoản bằng id
-
     @GetMapping(value = "/accountFindById/{id}")
     public ResponseEntity<Account> getUserById(@PathVariable long id) {
         System.out.print(id);
@@ -308,6 +232,25 @@ public class AccountController {
     public ResponseEntity<?> doResetPassword(@RequestBody ResetPassRequest resetPassRequest) {
         accountService.saveNewPassword(passwordEncoder.encode(resetPassRequest.getPassword()), resetPassRequest.getCode());
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/auth/update/{id}")
+    public ResponseEntity<?> updateAccountForApp(@PathVariable("id") long id, @RequestBody UpdateAccountDTO accountUserDTO) {
+        Account account = accountService.findAccountUpdateById(id);
+
+        if (account == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            accountRepository.updateAccountForApp(
+                    accountUserDTO.getAddress().trim(),
+                    accountUserDTO.getBirthday(),
+                    accountUserDTO.getFullname().trim(),
+                    accountUserDTO.getGender().trim(),
+                    accountUserDTO.getPhone().trim(),
+                    id
+            );
+            return new ResponseEntity<>(account, HttpStatus.CREATED);
+        }
     }
 }
 

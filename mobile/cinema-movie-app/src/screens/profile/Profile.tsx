@@ -11,6 +11,7 @@ import { numberWithPoint } from "../../utils/format";
 import { getAllBookingByAccount } from "../../redux/booking/dispatcher";
 import * as ImagePicker from "expo-image-picker";
 import { getAccountById } from "../../redux/auth/dispatcher";
+import { UserType } from "../../redux/auth/type";
 
 type Props = {
   navigation?: any;
@@ -67,117 +68,135 @@ const Profile: FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <BackButton color={COLORS.colors.error} />
-          <TouchableOpacity
-            style={{ right: 40, position: "absolute" }}
-            onPress={() => navigation.navigate("HistoryOrder")}
-          >
-            <FontAwesome name="ticket" size={20} color={COLORS.colors.error} />
-          </TouchableOpacity>
-        </View>
+        {!user.roles.includes(UserType.ADMIN) ? (
+          <>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <BackButton color={COLORS.colors.error} />
+              <TouchableOpacity
+                style={{ right: 40, position: "absolute" }}
+                onPress={() => navigation.navigate("HistoryOrder")}
+              >
+                <FontAwesome name="ticket" size={20} color={COLORS.colors.error} />
+              </TouchableOpacity>
+            </View>
 
-        {/* avatar */}
-        <View style={{ alignSelf: "center" }}>
-          {imageFromGallery ? (
-            <Image style={styles.avt_image} source={{ uri: imageFromGallery }} />
-          ) : (
-            <Image source={require("../../../assets/images/avt/avt.jpeg")} style={styles.avt_image} />
-          )}
-          <TouchableOpacity onPress={pickImage}>
-            <FontAwesome
-              name="camera"
-              size={10}
+            {/* avatar */}
+            <View style={{ alignItems: "center" }}>
+              {imageFromGallery ? (
+                <Image style={styles.avt_image} source={{ uri: imageFromGallery }} />
+              ) : (
+                <Image source={require("../../../assets/images/avt/avt.jpeg")} style={styles.avt_image} />
+              )}
+              <TouchableOpacity onPress={pickImage}>
+                <FontAwesome
+                  name="camera"
+                  size={10}
+                  style={{
+                    backgroundColor: COLORS.colors.background,
+                    width: 16,
+                    padding: 3,
+                    borderRadius: 10,
+                    right: -40,
+                    bottom: 10,
+                    position: "absolute",
+                  }}
+                />
+              </TouchableOpacity>
+              <Text style={{ fontWeight: "bold", marginTop: 5 }}>{user.displayName.toLocaleUpperCase()}</Text>
+            </View>
+
+            <View
               style={{
-                backgroundColor: COLORS.colors.background,
-                width: 16,
-                padding: 3,
-                borderRadius: 10,
-                right: 18,
-                bottom: 10,
-                position: "absolute",
+                flexDirection: "row",
+                marginHorizontal: 40,
+                justifyContent: "space-between",
+                marginVertical: 20,
               }}
-            />
-          </TouchableOpacity>
-          <Text style={{ fontWeight: "bold", marginTop: 5 }}>{user.displayName}</Text>
-        </View>
+            >
+              <View style={styles.titlePoint}>
+                <Text>Tổng chi tiêu năm 2023</Text>
+                <Text style={styles.point}>
+                  {numberWithPoint(bookedList.reduce((sum, obj) => sum + obj.totalPrice, 0))} đ
+                </Text>
+              </View>
+              <View style={styles.titlePoint}>
+                <Text>Điểm thưởng</Text>
+                <Text style={styles.point}>0</Text>
+              </View>
+            </View>
 
-        <View
-          style={{ flexDirection: "row", marginHorizontal: 40, justifyContent: "space-between", marginVertical: 20 }}
-        >
-          <View style={styles.titlePoint}>
-            <Text>Tổng chi tiêu năm 2023</Text>
-            <Text style={styles.point}>
-              {numberWithPoint(bookedList.reduce((sum, obj) => sum + obj.totalPrice, 0))} đ
-            </Text>
-          </View>
-          <View style={styles.titlePoint}>
-            <Text>Điểm thưởng</Text>
-            <Text style={styles.point}>0</Text>
-          </View>
-        </View>
+            <View>
+              <View style={styles.row}>
+                <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
+                  <FontAwesome name="id-card-o" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
+                  <Text style={styles.paddingHorizontal}>Thông tin tài khoản</Text>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("MyInformation")}>
+                  <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.row}>
+                <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
+                  <FontAwesome name="lock" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
 
-        <View>
-          <View style={styles.row}>
-            <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
-              <FontAwesome name="id-card-o" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
-              <Text style={styles.paddingHorizontal}>Thông tin tài khoản</Text>
+                  <Text style={styles.paddingHorizontal}>Thay đổi mật khẩu</Text>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")}>
+                  <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
+                </TouchableOpacity>
+              </View>
+              {!user.roles.includes(UserType.EMPLOYEE) ? (
+                <>
+                  <View style={styles.row}>
+                    <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
+                      <FontAwesome name="cc-paypal" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
+                      <Text style={styles.paddingHorizontal}>Cài đặt mật mã thanh toán</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.row}>
+                    <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
+                      <FontAwesome name="user" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
+                      <Text style={styles.paddingHorizontal}>Thẻ thành viên</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
+                    </TouchableOpacity>
+                  </View>
+                </>
+              ) : null}
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate("MyInformation")}>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
-              <FontAwesome name="lock" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
 
-              <Text style={styles.paddingHorizontal}>Thay đổi mật khẩu</Text>
-            </View>
-            <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")}>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
-              <FontAwesome name="cc-paypal" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
-              <Text style={styles.paddingHorizontal}>Cài đặt mật mã thanh toán</Text>
-            </View>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
-              <FontAwesome name="user" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
-              <Text style={styles.paddingHorizontal}>Thẻ thành viên</Text>
-            </View>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-        </View>
+            <View style={styles.backgroundGrayLight}></View>
+            {!user.roles.includes(UserType.EMPLOYEE) ? (
+              <>
+                <View style={{}}>
+                  <View style={styles.row}>
+                    <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
+                      <FontAwesome name="gift" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
+                      <Text style={styles.paddingHorizontal}>Thẻ quà tặng | Voucher | Coupon</Text>
+                    </View>
+                    <TouchableOpacity>
+                      <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={styles.backgroundGrayLight}></View>
+                <View style={styles.row}>
+                  <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
+                    <Text style={styles.paddingHorizontal}>Lịch sử giao dịch</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => navigation.navigate("HistoryOrder")}>
+                    <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
+                  </TouchableOpacity>
+                </View>
+              </>
+            ) : null}
+          </>
+        ) : null}
 
-        <View style={styles.backgroundGrayLight}></View>
-        <View style={{}}>
-          <View style={styles.row}>
-            <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
-              <FontAwesome name="gift" size={20} style={{ width: 30 }} color={COLORS.colors.error} />
-              <Text style={styles.paddingHorizontal}>Thẻ quà tặng | Voucher | Coupon</Text>
-            </View>
-            <TouchableOpacity>
-              <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.backgroundGrayLight}></View>
-        <View style={styles.row}>
-          <View style={{ flexDirection: "row", paddingLeft: 10, alignItems: "center" }}>
-            <Text style={styles.paddingHorizontal}>Lịch sử giao dịch</Text>
-          </View>
-          <TouchableOpacity onPress={() => navigation.navigate("HistoryOrder")}>
-            <Image source={require("../../../assets/icons/right-arrow.png")} style={styles.iconRightArrow} />
-          </TouchableOpacity>
-        </View>
         <View
           style={{
             position: "absolute",
@@ -186,7 +205,7 @@ const Profile: FC<Props> = ({ navigation }) => {
           }}
         >
           <Button
-            text="Logout"
+            text="Đăng xuất"
             disabled={loading}
             loading={loading}
             tintColor={COLORS.white}

@@ -39,3 +39,11 @@ export interface Password {
   newPassword: string;
   confirmPassword: string;
 }
+
+export interface UpdateAccount {
+  address: string;
+  birthday: Date;
+  fullname: string;
+  gender: string;
+  phone: string;
+}

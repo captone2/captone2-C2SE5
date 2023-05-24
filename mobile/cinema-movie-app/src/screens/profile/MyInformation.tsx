@@ -18,7 +18,7 @@ const MyInformation: FC<Props> = ({ navigation }) => {
   const [oldPassword, setOldPassword] = useState({ value: "", error: "" });
   const { userCurrent } = useAppSelector((state) => state.user.user);
   const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [info, setInfo] = useState({
     name: userCurrent.fullname,
@@ -42,7 +42,6 @@ const MyInformation: FC<Props> = ({ navigation }) => {
   const handlePasswordCurrent = () => {
     isMatchPassword();
   };
-  console.log("info", info.birthday);
 
   const handleGenderChange = (value: boolean) => {
     setInfo({
