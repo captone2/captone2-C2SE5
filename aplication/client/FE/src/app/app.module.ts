@@ -6,6 +6,7 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
 import {ToastrModule} from 'ngx-toastr';
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -28,7 +29,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HomeComponent,
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
     CommonModule,
     BrowserModule,
     JwtModule.forRoot({
@@ -81,7 +83,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
       positionClass: 'toast-top-right',
       preventDuplicates: false,
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    NgxYoutubePlayerModule.forRoot(),
+   
   ],
   providers: [authInterceptorProviders,
     JsogService

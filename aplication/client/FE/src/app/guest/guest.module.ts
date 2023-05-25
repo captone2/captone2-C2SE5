@@ -35,6 +35,7 @@ import { ShowTimeComponent } from './movie/show-time/show-time.component';
 import { CommingSoonComponent } from './movie/comming-soon/comming-soon.component';
 import { NowPlayingComponent } from './movie/now-playing/now-playing.component';
 import { ProfileUserComponent } from './movie/profile-user/profile-user.component';
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 const guestRoutes: Routes = [
 
   {path: 'cinema', component: MovieListComponent},
@@ -99,7 +100,8 @@ const guestRoutes: Routes = [
         MatInputModule,
         MatAutocompleteModule,
         NgxPayPalModule,
-        SharedModule
+        SharedModule,
+        NgxYoutubePlayerModule,
     ]
 })
 export class GuestModule {

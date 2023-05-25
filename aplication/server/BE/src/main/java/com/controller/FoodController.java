@@ -1,5 +1,7 @@
 package com.controller;
 
+import com.model.dto.employeeAccount.CreateEmployeeAccount;
+import com.model.entity.Account;
 import com.model.entity.Food;
 import com.model.entity.Movie;
 import com.repository.FoodRepository;
@@ -21,17 +23,21 @@ public class FoodController {
 
     @GetMapping(value = "/getAll")
     public ResponseEntity<List<Food>> getAll() {
-        try {
-            List<Food> foodList = foodRepository.findAllFood();
-            return new ResponseEntity<>(foodList,HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        List<Food> foodList = foodRepository.findAllFood();
+        return new ResponseEntity<>(foodList,HttpStatus.OK);
+
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteFood(@PathVariable("id") long id) {
-        foodRepository.deleteMovie(id);
+        foodRepository.deleteFood(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/create")
+    public ResponseEntity<?> createFood(@RequestBody Food food ) {
+        food.setEnabled(true);
+        foodRepository.save(food);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

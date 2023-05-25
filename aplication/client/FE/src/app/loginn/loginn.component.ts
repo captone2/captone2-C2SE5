@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppConstants } from '../common/app.constants';
 import { AuthService } from '../services/authe.service';
 import { TokenStorageService } from '../services/token-storage.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { NotificationRegisterComponent } from '../guest/register/notification-register/notification-register.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -71,14 +71,16 @@ export class LoginnComponent implements OnInit {
           sessionStorage.removeItem('requestedPage');
         } else {
           const user = JSON.parse(sessionStorage.getItem('auth-user'))
-          console.log(user)
+          const navigationExtras: NavigationExtras = {
+            replaceUrl: true,
+          };
           const role = user.roles;
           if (role.includes("ROLE_ADMIN") || role.includes("ROLE_EMPLOYEE")) {
-            console.log("Admin")
-            this.router.navigate(['/admin/home']);
+           
+            this.router.navigate(['/admin/home'], navigationExtras);
           } else{
             console.log("User")
-            this.router.navigate(['/home']);
+            this.router.navigate(['/home'], navigationExtras);
           }
           
         }

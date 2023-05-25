@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../../services/authe.service';
@@ -15,20 +15,7 @@ export class VerifyResetPasswordComponent implements OnInit {
   isSendMail: boolean;
   isSubmited: true;
   code: string;
-  formGroup: FormGroup;
-
-  // tslint:disable-next-line:variable-name
-  validationMessage = {
-    newPassword: [
-      {type: 'required', message: 'Mật khẩu không được để trống.'},
-      {type: 'compare', message: 'Mật khẩu mới không được trùng với mật khẩu cũ.'},
-      {type: 'pattern', message: 'Vui lòng nhập mật khẩu đúng định dạng trên 8 ký tự gồm chữ hoa,thường và ký tự đặc biệt.'}
-    ],
-    confirmPassword: [
-      {type: 'required', message: 'Mật khẩu không được để trống.'},
-      {type: 'compare', message: 'Mật khẩu không khớp xin vui lòng thử lại.'},]
-  };
-
+  formResetPassword: FormGroup;
   constructor(private route: ActivatedRoute,
               private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -37,10 +24,12 @@ export class VerifyResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      // tslint:disable-next-line:max-line-length
-      newPassword: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,32}$')]],
-      confirmPassword: ['', [Validators.required, compareValidator('newPassword')]],
+    this.formResetPassword = this.formBuilder.group({
+      passwordGroup: this.formBuilder.group({
+        // tslint:disable-next-line:max-line-length
+        newPassword: ['', [Validators.required, Validators.pattern('^(?=^.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#=?^&])[A-Za-z\\d@$!=%*#^?&]{8,20}$')]],
+        confirmPassword: ['', [Validators.required]]
+      }, {validator: this.comparePassword}),
     });
     this.route.queryParams.subscribe(params => {
       const code = params.code;
@@ -62,21 +51,24 @@ export class VerifyResetPasswordComponent implements OnInit {
   }
 
 
-  onSubmitt() {
-    if (this.formGroup.value.newPassword === this.formGroup.value.confirmPassword) {
+  onSubmit() {
+    console.log(this.formResetPassword.value.passwordGroup.newPassword);
+    console.log(this.formResetPassword.value.passwordGroup.confirmPassword);
+    if (this.formResetPassword.value.passwordGroup.newPassword === this.formResetPassword.value.passwordGroup.confirmPassword) {
       this.route.queryParams.subscribe(params => {
         this.code = params.code;
       });
-      this.authService.doResetPassword(this.formGroup.value.newPassword, this.code).subscribe(data => {
-        this.toastr.success('Mật khẩu đã được thay đổi!', 'Thành công');
-        this.router.navigateByUrl('/');
+      this.authService.doResetPassword(this.formResetPassword.value.passwordGroup.newPassword, this.code).subscribe(data => {
+        this.toastr.success('Password has been changed!', 'Success: ');
+        this.router.navigateByUrl('/login');
       });
     } else {
-      this.toastr.error('Trường nhập lại mật khẩu và mật khẩu không giống nhau!', 'Lỗi: ', {
-        timeOut: 3500,
-        extendedTimeOut: 1500
-      });
+      this.toastr.error('Enter verify password does not match!', 'Error: ');
     }
   }
 
+  comparePassword(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    return (value.newPassword === value.confirmPassword) ? null : {invalidConfirmation: true};
+  }
 }

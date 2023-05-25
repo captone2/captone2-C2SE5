@@ -55,4 +55,22 @@ public class Food {
     public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
     }
+
+    public Food(long id, String title, String description, double price, Boolean isEnabled) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.isEnabled = isEnabled;
+    }
+
+    public Food(String title, String description, double price, Boolean isEnabled) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.isEnabled = isEnabled;
+    }
+
+    public Food() {
+    }
 }

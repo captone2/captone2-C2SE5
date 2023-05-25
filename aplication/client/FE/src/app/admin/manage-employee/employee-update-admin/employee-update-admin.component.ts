@@ -4,10 +4,13 @@ import {EmployeeAccountService} from '../../../services/employee-account.service
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 import {compareValidator} from '../validateCustomEmployee/ConfirmedValidator';
+import { AccountEmployeeDTO } from 'src/app/shared/model/dto/AccountEmployeeDTO';
+import { Account } from 'src/app/shared/model/entity/Account';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-employee-update-admin',
@@ -15,227 +18,198 @@ import {compareValidator} from '../validateCustomEmployee/ConfirmedValidator';
   styleUrls: ['./employee-update-admin.component.css']
 })
 export class EmployeeUpdateAdminComponent implements OnInit {
-
+  uploadedAvatar = null;
+  employeeCreateForm: FormGroup;
+  urlNoPoster = 'https://firebasestorage.googleapis.com/v0/b/dtu-event.appspot.com/o/wallpaper-for-facebook-profile-photo-e1440624505574.jpg?alt=media&token=986ad864-f3f1-4664-9e30-44b1bbd1f404'
   clickSubmit = false;
   idEmployee: number;
   employeeUpdateForm: FormGroup;
   filePath: string = null;
   inputImage: any = null;
   id: number;
-  defaultImage = 'https://epicattorneymarketing.com/wp-content/uploads/2016/07/Headshot-Placeholder-1.png';
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private employeeService: EmployeeAccountService,
-    private toastrService: ToastrService,
-    private route: ActivatedRoute,
-    @Inject(AngularFireStorage) private storage: AngularFireStorage) {
-  }
+  employee : Account;
 
   validationMessage = {
 
-    accountCode: [
-      {type: 'required', message: 'Mã nhân viên không được để trống!'},
-      {type: 'pattern', message: 'Mã nhân viên là NV-XXXX.'}
-    ],
-
-    username: [
-      {type: 'required', message: 'Tên đăng nhập không được để trống!'},
-      {type: 'minlength', message: 'Tên đăng nhập tối thiểu 4 ký tự'},
-      {type: 'maxlength', message: 'Tên đăng nhập tối đa 32 ký tự!  '},
-      {type: 'pattern', message: 'Tên đăng nhập không chứa  ký tự đặc biệt'}
-    ],
-
-    password: [
-      {type: 'required', message: 'Mật khẩu không được để trống!'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 6 ký tự'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 32 ký tự'}
-    ],
-
-    matchingPassword: [
-      {type: 'required', message: 'Vui lòng nhập xác nhận mật khẩu.'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 4 ký tự'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 32 ký tự'}
-    ],
-
-    birthday: [
-      {type: 'required', message: 'Ngày sinh không được để trống!'}
-    ],
     fullname: [
-      {type: 'required', message: 'Họ và tên không được để trống!'},
-      {type: 'maxlength', message: 'Họ và tên dài tối đa 100 ký tự'},
-      {type: 'pattern', message: 'Họ và tên không chứa ký tự số hoặc ký tự đặc biệt'}
+      { type: 'required', message: 'First and last name cannot be left blank!' },
+      { type: 'maxlength', message: 'First and last name up to 100 characters' },
+      { type: 'pattern', message: 'First and last name do not contain numbers or special characters' }
     ],
-    email: [
-      {type: 'required', message: 'Email không được để trống!'},
-      {type: 'email', message: 'Email không đúng định dạng'}
-    ],
-    gender: [
-      {type: 'required', message: 'Giới tính không được để trống!'}
+    birthday: [
+      { type: 'required', message: 'Date of birth cannot be blank!' },
     ],
     idCard: [
-      {type: 'required', message: 'Vui lòng nhập số CMND.'},
-      {type: 'pattern', message: 'Số CMND gồm 9 số.'},
+      { type: 'required', message: 'Please enter the CCCD number.' },
+      { type: 'pattern', message: 'CCCD number consists of 12 digits.' },
     ],
-    address: [
-      {type: 'required', message: 'Đia chỉ không được để trống!'},
-      {type: 'maxlength', message: 'Địa chỉ tối đa 50 kí tự.'},
-      {type: 'pattern', message: 'Không được nhập kí tự đặc biệt. (!@#$%^&)'}
-    ],
+
     phone: [
-      {type: 'required', message: 'Vui lòng nhập số điện thoại.'},
-      {type: 'minlength', message: 'Số điện thoại có 10 chữ số'},
-      {type: 'maxlength', message: 'Số điện thoại có 10 chữ số'},
-      {type: 'pattern', message: 'Vui lòng nhập số điện thoại.'}
+      { type: 'required', message: 'Please enter the phone number.' },
+      { type: 'pattern', message: 'Please enter the phone number in the correct format.' }
     ],
-    imageUrl: [
-      {type: 'required', message: 'Hình ảnh không được để trống!'}
-    ]
+
+    email: [
+      { type: 'required', message: 'Email cannot be blank!' },
+      { type: 'email', message: 'Email invalidate' }
+    ],
+
+
+
+    password: [
+      { type: 'required', message: 'Password can not be blank!' },
+      { type: 'pattern', message: 'The password is not in the correct format.' }
+    ],
+
+
+    gender: [
+      { type: 'required', message: 'Gender cannot be left blank!' }
+    ],
+
+
+
+    address: [
+      { type: 'required', message: 'The address cannot be left blank!' },
+      { type: 'maxlength', message: 'Addresses up to 50 characters.' },
+      { type: 'pattern', message: 'Do not enter special characters. (!@#$%^&)' }
+    ],
   };
+  constructor(private form: FormBuilder, private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private toastService: ToastrService,
+    private http: HttpClient,
+    private employeeService : EmployeeAccountService,
+    @Inject(AngularFireStorage) private storage: AngularFireStorage) {
+
+      this.employeeCreateForm = this.form.group({
+        id: [''],
+        fullname: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
+        Validators.maxLength(100)]],
+        birthday: ['', [Validators.required]],
+        idCard: ['', [Validators.required, Validators.pattern('^[0-9]{12}$')]],
+        address: ['', [Validators.required]],
+        phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$'),
+        ]],
+        email: ['', [Validators.email,
+        Validators.required]],
+        gender: [''],
+        password: ['', [Validators.pattern('^(?=^.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#=?^&])[A-Za-z\\d@$!=%*#^?&]{8,20}$')]],
+  
+      });
+  }
+
+ 
 
 
   ngOnInit(): void {
-    this.employeeUpdateForm = this.formBuilder.group({
-      id: this.formBuilder.control(''),
-      username: this.formBuilder.control('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(32),
-        Validators.pattern(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,32}$/)
-      ]),
-      accountCode: this.formBuilder.control('', [Validators.required, Validators.pattern(/NV-\d{4}/)]),
-      password: this.formBuilder.control('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(32)]),
-      matchingPassword: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(32),
-        compareValidator('password')]),
-      fullname: this.formBuilder.control('', [
-        Validators.required,
-        Validators.maxLength(32),
-        Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/)
-      ]),
-      birthday: this.formBuilder.control('', [Validators.required]),
-      idCard: this.formBuilder.control('', [
-        Validators.required,
-        Validators.pattern('^[0-9]{9}$')
-      ]),
-      address: this.formBuilder.control('', [
-        Validators.required,
-        Validators.maxLength(50)
-      ]),
-      phone: this.formBuilder.control('', [Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.pattern('^[0-9]{10}$')
-      ]),
-      email: this.formBuilder.control('', [
-        Validators.email,
-        Validators.required
-      ]),
-      gender: this.formBuilder.control('', [Validators.required]),
-      imageUrl: this.formBuilder.control('', [Validators.required])
+     this.getEmployee();
+  }
+
+
+
+  
+  getEmployee() {
+    const idAccount = parseInt(this.activatedRoute.snapshot.params['id']);
+    this.employeeService.getEmployeeById(idAccount).subscribe(data => {
+      this.employee = data;
+      console.log(data)
+      this.employeeCreateForm.controls.id.setValue(this.employee.id);
+      this.employeeCreateForm.controls.fullname.setValue(this.employee.fullname);
+      this.employeeCreateForm.controls.birthday.setValue(this.employee.birthday);
+      this.employeeCreateForm.controls.idCard.setValue(this.employee.idCard);
+      this.employeeCreateForm.controls.address.setValue(this.employee.address);
+      this.employeeCreateForm.controls.phone.setValue(this.employee.phone);
+      this.employeeCreateForm.controls.email.setValue(this.employee.email);
+      this.employeeCreateForm.controls.gender.setValue(this.employee.gender);
+    }, (error) => {
+      this.toastService.error('Employee do not exist!', 'Error: ');
+      this.router.navigate(['/admin/employee']);
     });
-
-
-    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
-    //   // tslint:disable-next-line:radix
-    //   this.idEmployee = parseInt(paramMap.get('id'));
-    //   this.employeeService.getEmployeeById(this.idEmployee).subscribe((data) => {
-    //     // @ts-ignore
-    //     this.employee = data;
-    //     this.filePath = this.employee.imageUrl;
-    //     console.log(this.employeeUpdateForm);
-    //     this.employeeUpdateForm.patchValue({
-    //       id: this.employee.id,
-    //       username: this.employee.username,
-    //       accountCode: this.employee.accountCode,
-    //       password: this.employee.password,
-    //       fullname: this.employee.fullname,
-    //       birthday: this.employee.birthday,
-    //       idCard: this.employee.idCard,
-    //       address: this.employee.address,
-    //       phone: this.employee.phone,
-    //       email: this.employee.email,
-    //       gender: this.employee.gender,
-    //       imageUrl: this.employee.imageUrl
-    //     });
-    //   });
-    // });
   }
 
 
-  selectImage(event) {
-    this.inputImage = event.target.files[0];
-    this.employeeUpdateForm.get('imageUrl').updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.filePath = reader.result as string;
-    };
-    reader.readAsDataURL(this.inputImage);
-  }
 
-  getImageUrl() {
-    if (this.filePath != null) {
-      return this.filePath;
+  getAvatar(event: any) {
+    this.uploadedAvatar = event.target.files[0];
+    const type = event.target.files[0].type;
+    console.log(type)
+    if (type !== 'image/jpeg' && type !== 'image/png') {
+      console.log("Lỗi")
+      this.toastService.error('The requested file format is incorrect!', 'Error: ');
+    } else {
+      if (this.uploadedAvatar) {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.uploadedAvatar);
+        reader.onload = (e: any) => {
+          this.urlNoPoster = e.target.result;
+        };
+      }
     }
-    return this.defaultImage;
   }
 
+  onSubmitCreate() {
+    console.log("Create")
+    const employee = new AccountEmployeeDTO();
+    employee.id = this.employeeCreateForm.value.id;
+    employee.fullname = this.employeeCreateForm.value.fullname;
+    employee.birthday = this.employeeCreateForm.value.birthday;
+    employee.idCard = this.employeeCreateForm.value.idCard;
+    employee.address = this.employeeCreateForm.value.address;
+    employee.phone = this.employeeCreateForm.value.phone;
+    employee.email = this.employeeCreateForm.value.email;
+    employee.gender = this.employeeCreateForm.value.gender;
+    employee.password = this.employeeCreateForm.value.password;
+    
 
-  onSubmit(employeeUpdateForm: FormGroup) {
-    this.clickSubmit = true;
-    if (this.inputImage != null) {
-      const imageName = formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US') + this.inputImage.name;
-      const fileRef = this.storage.ref(imageName);
-      this.storage.upload(imageName, this.inputImage).snapshotChanges().pipe(
+
+
+    // Upload img & download url
+    if (this.uploadedAvatar !== null) {
+      console.log("Có poster")
+      console.log(employee)
+      const avatarName = this.getCurrentDateTime() + this.uploadedAvatar.name;
+      const fileRef = this.storage.ref(avatarName);
+      this.storage.upload(avatarName, this.uploadedAvatar).snapshotChanges().pipe(
         finalize(() => {
-          fileRef.getDownloadURL().subscribe((url) => {
-
-            this.employeeService.updateEmployee({...employeeUpdateForm.value, imageUrl: url}).subscribe(
-              () => {
-                this.router.navigateByUrl('/employee-list').then(
-                  r => this.toastrService.success(
-                    'Chỉnh sửa thành công',
-                    'Thông báo',
-                    {timeOut: 5000, extendedTimeOut: 2500})
-                );
+          fileRef.getDownloadURL().subscribe(url => {
+            employee.imageUrl = url;
+            this.addEmployee(employee).subscribe(
+              (data) => {
+                this.toastService.success('Update successful!', 'Success: ');
+                this.ngOnInit();
+                this.router.navigateByUrl('/admin/employee')
               },
               (error: HttpErrorResponse) => {
-                this.router.navigateByUrl('/employee-list').then(
-                  r => this.toastrService.error(
-                    'Chỉnh sửa thất bại',
-                    'Thông báo',
-                    {timeOut: 3000, extendedTimeOut: 1500})
-                );
-              });
+                this.toastService.error('Update fail!', 'Error: ');
+              }
+            );
           });
         })
       ).subscribe();
     } else {
-      this.employeeService.updateEmployee(employeeUpdateForm.value).subscribe(
-        () => {
-          this.router.navigateByUrl('/employee-list').then(
-            r => this.toastrService.success(
-              'Chỉnh sửa thành công',
-              'Thông báo',
-              {timeOut: 3000, extendedTimeOut: 1500})
-          );
+      console.log(employee)
+      console.log("Không có poster")
+      employee.imageUrl = this.urlNoPoster;
+      this.addEmployee(employee).subscribe(
+        (data) => {
+          this.toastService.success('Update successful!', 'Success: ');
+          this.router.navigateByUrl('/admin/employee')
         },
         (error: HttpErrorResponse) => {
-          this.router.navigateByUrl('/employee-list').then(
-            r => this.toastrService.error(
-              'Chỉnh sửa thất bại',
-              'Thông báo',
-              {timeOut: 3000, extendedTimeOut: 1500})
-          );
-        });
+          this.toastService.error('Update fail!', 'Error: ');
+        }
+      );
     }
 
   }
 
+
+  addEmployee(employee: AccountEmployeeDTO): Observable<any> {
+    const url = `http://localhost:8080/api/employee-account-edit`;
+    return this.http.put(url, employee);
+  }
+
+  private getCurrentDateTime() {
+    return new Date().getTime();
+  }
 }

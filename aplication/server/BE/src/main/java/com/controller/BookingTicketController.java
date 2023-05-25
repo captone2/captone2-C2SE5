@@ -3,6 +3,7 @@ package com.controller;
 import com.model.dto.BookingCheck;
 import com.model.dto.BookingDTOMain;
 import com.model.dto.BookingFoodDTO;
+import com.model.dto.TicketFoodDTO;
 import com.model.entity.Booking;
 import com.model.entity.Movie;
 import com.repository.BookingRepository;
@@ -92,6 +93,12 @@ public class BookingTicketController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/seatSoldByShowTime/{id}")
+    public ResponseEntity<List<Integer>> getSeatSoldByMovieShowings(@PathVariable("id") Integer id) {
+        List<Integer> list = seatRepository.getListSeatSoldByMovieShowTimeId(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/get-booking-by-code", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Booking> getBookingByCodeNotReceived(@RequestBody BookingCheck booking) {
         if(booking == null){
@@ -113,5 +120,34 @@ public class BookingTicketController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/revenue-last")
+    public ResponseEntity<Integer[]> getRevenueLastYear() {
+        Integer[] list = bookingRepository.getRevenueLastYear();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/revenue-now")
+    public ResponseEntity<Integer[]> getRevenueNowYear() {
+        Integer[] list = bookingRepository.getRevenueNowYear();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/account-month")
+    public ResponseEntity<Integer> getAccountMonth() {
+        Integer account = bookingRepository.getAccountRegisterByMonth();
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/ticket-food")
+    public ResponseEntity<TicketFoodDTO> getTicketFood() {
+        try {
+            TicketFoodDTO ticketFoodData = bookingRepository.getTicketFood();
+            return new ResponseEntity<>(ticketFoodData, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }
 

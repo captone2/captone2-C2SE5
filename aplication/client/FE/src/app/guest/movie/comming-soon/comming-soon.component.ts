@@ -72,9 +72,10 @@ export class CommingSoonComponent implements OnInit {
       });
     });
     this.movieConvert = this.movieConvert.filter((movie) => movie.movieShowTime.length > 0);
+   
+    this.movieConvert = this.mergeMovieShowtimes1(this.movieConvert)
     
 
-  
     console.log(this.movieConvert)
   }
 
@@ -93,4 +94,38 @@ export class CommingSoonComponent implements OnInit {
         this.getListMovieGenre(genreId)
       }
   }
+
+
+  mergeMovieShowtimes1(movieConvert: CommingSoonDTO[]): CommingSoonDTO[] {
+    const mergedMovieConvert: CommingSoonDTO[] = [];
+  
+   
+    movieConvert.forEach((movieObj: CommingSoonDTO) => {
+      const mergedMovieObj: CommingSoonDTO = { ...movieObj };
+  
+      
+      const uniqueMovieShowTimes: MovieShowtime[] = movieObj.movieShowTime.reduce(
+        (uniqueArr: MovieShowtime[], showtimeObj: MovieShowtime) => {
+          const isDuplicate = uniqueArr.some(
+            (item) => item.movie.title === showtimeObj.movie.title
+          );
+  
+          if (!isDuplicate) {
+            uniqueArr.push(showtimeObj);
+          }
+  
+          return uniqueArr;
+        },
+        []
+      );
+  
+      mergedMovieObj.movieShowTime = uniqueMovieShowTimes;
+  
+      mergedMovieConvert.push(mergedMovieObj);
+    });
+  
+    return mergedMovieConvert;
+  }
+
+
 }

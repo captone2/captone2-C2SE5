@@ -17,7 +17,7 @@ public class Seat {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean vip;
     private String name;
-
+    private Boolean isEnabled;
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "screen_id", referencedColumnName = "id")
@@ -67,5 +67,13 @@ public class Seat {
 
     public void setBookings(Set<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 }

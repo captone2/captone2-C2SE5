@@ -1,6 +1,7 @@
 package com.repository;
 
 
+import com.model.dto.dto.CommentDTO;
 import com.model.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,5 +25,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "VALUES (:content, :rate, :accountId, :movieId)", nativeQuery = true)
     void addNewComment(@Param("content") String content, @Param("rate") int rate, @Param("accountId") int account,
                        @Param("movieId") int movie);
+
 
 }

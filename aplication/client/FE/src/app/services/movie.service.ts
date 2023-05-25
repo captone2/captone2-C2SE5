@@ -15,10 +15,32 @@ export class MovieService {
   private readonly MOVIE_URL = 'http://localhost:8080/api/auth/movie';
   private readonly MOVIE_SHOWTIME_URL = 'http://localhost:8080/api/auth/movie-showtime/';
   private readonly FOOD_URL = 'http://localhost:8080/api/auth/food/';
-
+  private readonly SCREEN_URL = 'http://localhost:8080/api/screen/list';
+  private readonly COMMENT_URL = 'http://localhost:8080/api/auth/comment';
   constructor(private httpClient: HttpClient) {
   }
 
+
+  public getMovieTimeByDateAndScreen(body: any): Observable<MovieShowtime[]> {
+    return this.httpClient.post<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'find-date-screen', body);
+  }
+
+  public addMovieShowTime(body: any): Observable<void> {
+    return this.httpClient.post<void>(this.MOVIE_SHOWTIME_URL +'add', body);
+  }
+
+
+  public getAllScreen(): Observable<any> {
+    return this.httpClient.get(this.SCREEN_URL);
+  }
+
+  public getAllShowTime(): Observable<any> {
+    return this.httpClient.get(this.MOVIE_SHOWTIME_URL + 'show-time');
+  }
+
+  public deleteMovie(id: number): Observable<any> {
+    return this.httpClient.get(this.MOVIE_URL + '/delete/' + id);
+  }
 
   public getAllMovie(): Observable<Movie[]> {
     return this.httpClient.get<Movie[]>(this.MOVIE_URL + '/getAll');
@@ -34,6 +56,10 @@ export class MovieService {
 
   public getMovieNow(): Observable<MovieShowtime[]> {
     return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'now');
+  }
+
+  public getAllMovieShowtime(): Observable<MovieShowtime[]> {
+    return this.httpClient.get<MovieShowtime[]>(this.MOVIE_SHOWTIME_URL +'getAll');
   }
 
   public getMovieNowByGenre(id: string): Observable<MovieShowtime[]> {
@@ -60,11 +86,11 @@ export class MovieService {
   }
 
   public getSeatSold(id: number): Observable<number[]> {
-    return this.httpClient.get<number[]>('http://localhost:8080/api/auth/booking/seatByShowTime/' + id);
+    return this.httpClient.get<number[]>('http://localhost:8080/api/auth/booking/seatSoldByShowTime/' + id);
   }
 
   public getAllFood(): Observable<Food[]> {
-    return this.httpClient.get<Food[]>(this.FOOD_URL + 'findAll');
+    return this.httpClient.get<Food[]>(this.FOOD_URL + 'getAll');
   }
 
   public getMovieShowtimeByMovieId(id: number): Observable<any> {

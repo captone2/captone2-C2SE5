@@ -4,12 +4,12 @@
   <div class="block-header">
     <div class="row clearfix">
       <div class="col-md-6 col-sm-12">
-        <h2>Dashboard</h2>
+        <h2></h2>
       </div>
       <div class="col-md-6 col-sm-12 text-right">
         <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.html"><i class=""></i></a></li>
+          <li class="breadcrumb-item active"></li>
         </ul>
 
       </div>
@@ -43,26 +43,26 @@
               <table class="table table-hover js-basic-example dataTable table-custom mb-0 tb-create">
                 <thead class="thead-dark">
                   <tr>
-                    <th class="text-center">Id</th>
-                    <th class="text-center">Ngày chiếu</th>
-                    <th class="text-center">Movie ID</th>
-                    <th class="text-center">Screen ID</th>
-                    <th class="text-center">Showtime ID</th>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Show date</th>
+                    <th class="text-center">Movie I/th>
+                    <th class="text-center">Screen </th>
+                    <th class="text-center">Showtime </th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
-                    <td class="text-center">1</td>
-                    <td class="text-center">02/05/2000</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">2</td>
-                    <td class="text-center">3</td>
-                    <td class="text-center align-middle">
+                  <tr *ngFor="let movie of movieShowTimeList | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                    <td class="text-center">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                    <td class="text-center">{{movie?.showDate}}</td>
+                    <td class="text-center">{{movie?.movie.title}}</td>
+                    <td class="text-center">{{movie?.screen.id}}</td>
+                    <td class="text-center">{{movie?.showtime.showTime}}</td>
+                    <td class="text-center align-middle" style="display: flex; align-items: center;">
                       <button class="btn btn-sm round btn-outline-success"
-                        style="display: block;    width: 100%; margin-bottom: 10px;">Update</button>
+                        style="display: block;border:none;outline: none;width: 50%; margin-right: 5px; background: rgb(96, 96, 128);">Update</button>
                       <button class="btn btn-sm round btn-outline-danger"
-                        style="display: block;     width: 100%;">Remove</button>
+                        style="display: block;border:none;outline: none;width: 50%; background: red;">Delete</button>
                     </td>
                   </tr>
 
@@ -70,7 +70,7 @@
                 </tbody>
               </table>
               <div style="text-align: center;padding: 30px 0;">
-                <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
+                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
             </div>
 

@@ -772,6 +772,7 @@ img.emoji {
     transition: all 0.3s ease-in-out;
 }
 
+#modal-update-food,
 .modal-trailer {
     position: fixed;
     top: 50%;
@@ -785,7 +786,7 @@ img.emoji {
     z-index: 99999;
 }
 
-
+#modal-update-food .cls,
 .modal-trailer .cls {
     position: absolute;
     right: 10px;

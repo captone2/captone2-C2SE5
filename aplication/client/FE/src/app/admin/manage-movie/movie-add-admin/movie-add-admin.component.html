@@ -2,12 +2,12 @@
   <div class="block-header">
     <div class="row clearfix">
       <div class="col-md-6 col-sm-12">
-        <h2>Dashboard</h2>
+        <h2></h2>
       </div>
       <div class="col-md-6 col-sm-12 text-right">
         <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.html"><i class="-home"></i></a></li>
+          <!-- <li class="breadcrumb-item"></li> -->
         </ul>
 
       </div>
@@ -15,9 +15,9 @@
   </div>
 
   <div class="container-fluid">
-    <div><i class="fa-solid fa-arrow-left"></i></div>
+    <div routerLink="/admin/movie"><i class="fa-solid fa-arrow-left"></i></div>
     <form [formGroup]="createMovie" (ngSubmit)="onSubmitCreate()">
-      <h2>Tạo mới phim</h2>
+      <h2>Create Movie</h2>
       <div class="row">
         <div class="col-md-3">
           <div>
@@ -27,12 +27,11 @@
           margin:65px 30px;">
             <input type="file"  -->
 
-            <div class="avatar-wrapper" style="margin: 10px auto;">
-              <img class="profile-pic" [src]="urlNoPoster" />
-              <div class="upload-button">
-              </div>
-              <input class="file-upload" type="file" (change)="getAvatar($event)"> accept="image/*" />
-            </div>
+            <img class="w-100" [src]="urlNoPoster" alt="avt" style="width: 50%!important;
+        transform: scale(1.5);
+          margin:65px 30px;">
+            <input type="file" (change)="getAvatar($event)">
+          
           </div>
         </div>
 
@@ -130,7 +129,7 @@
             </div>
 
             <div class="col-md-12">
-              <label>Thể loại</label>
+              <label>Genre</label>
               <div style="display:  flex; align-items: center;">
                 <div *ngFor="let genre of genreList">
                   <div class="form-group" style="margin-right: 10px;display: flex;align-items: center">
@@ -144,7 +143,7 @@
             <div class="col-md-12">
               <div class="text-right">
                 <button [disabled]="createMovie.invalid" type="submit" class="btn btn-primary"
-                  style="margin-right: 8px;">Create</button>
+                  style="margin-right: 8px;background-color: #3265b9" >Create</button>
               </div>
             </div>
           </div>

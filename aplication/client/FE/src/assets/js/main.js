@@ -4537,6 +4537,8 @@ jQuery(".btn-comment").on('click', function () {
   jQuery(".modal-binhluan").css('display', 'block')
   jQuery(".overlay").css('display', 'block');
 });
+
+
 jQuery(".btn-trailer").closest(".slide-item").find('.btn-trailer').on('click', function () {
   var colosest = jQuery(this).closest(".slide-item");
   jQuery(".modal-trailer").css('animation', 'downtop 0.5s ease-in-out forwards')

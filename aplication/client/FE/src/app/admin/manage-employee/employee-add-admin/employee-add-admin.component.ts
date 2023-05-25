@@ -1,15 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {EmployeeAccountService} from '../../../services/employee-account.service';
-import {formatDate} from '@angular/common';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {finalize} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {compareValidator} from '../validateCustomEmployee/ConfirmedValidator';
-import {NotifyEmployeeComponent} from '../notifyEmployee/notify-employee/notify-employee.component';
-import {MatDialog} from '@angular/material/dialog';
-import {checkDateOfBirth} from '../validateCustomEmployee/checkDateOfBirth';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { EmployeeAccountService } from '../../../services/employee-account.service';
+import { formatDate } from '@angular/common';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { compareValidator } from '../validateCustomEmployee/ConfirmedValidator';
+import { NotifyEmployeeComponent } from '../notifyEmployee/notify-employee/notify-employee.component';
+import { MatDialog } from '@angular/material/dialog';
+import { checkDateOfBirth } from '../validateCustomEmployee/checkDateOfBirth';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AccountEmployeeDTO } from 'src/app/shared/model/dto/AccountEmployeeDTO';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -18,7 +21,8 @@ import {checkDateOfBirth} from '../validateCustomEmployee/checkDateOfBirth';
   styleUrls: ['./employee-add-admin.component.css']
 })
 export class EmployeeAddAdminComponent implements OnInit {
-
+  uploadedAvatar = null;
+  urlNoPoster = 'https://firebasestorage.googleapis.com/v0/b/dtu-event.appspot.com/o/wallpaper-for-facebook-profile-photo-e1440624505574.jpg?alt=media&token=986ad864-f3f1-4664-9e30-44b1bbd1f404'
   isSuccessful = false;
   isSignUpFailed = false;
   employeeCreateForm: FormGroup;
@@ -30,8 +34,10 @@ export class EmployeeAddAdminComponent implements OnInit {
 
 
   constructor(
+    private employeeAccount: EmployeeAccountService,
+    private http: HttpClient,
     private employeeAccountService: EmployeeAccountService,
-    private toastrService: ToastrService,
+    private toastService: ToastrService,
     private router: Router,
     private form: FormBuilder,
     @Inject(AngularFireStorage) private storage: AngularFireStorage,
@@ -40,142 +46,148 @@ export class EmployeeAddAdminComponent implements OnInit {
 
   validationMessage = {
 
-    accountCode: [
-      {type: 'required', message: 'Mã nhân viên không được để trống!'},
-      {type: 'pattern', message: 'Mã nhân viên là NV-XXXX.'}
-    ],
-
-    username: [
-      {type: 'required', message: 'Tên đăng nhập không được để trống!'},
-      {type: 'minlength', message: 'Tên đăng nhập tối thiểu 4 ký tự'},
-      {type: 'maxlength', message: 'Tên đăng nhập tối đa 32 ký tự!  '},
-      {type: 'pattern', message: 'Tên đăng nhập không chứa  ký tự đặc biệt'}
-    ],
-
-    password: [
-      {type: 'required', message: 'Mật khẩu không được để trống!'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 6 ký tự'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 32 ký tự'}
-    ],
-
-    matchingPassword: [
-      {type: 'required', message: 'Vui lòng nhập xác nhận mật khẩu.'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 4 ký tự'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 32 ký tự'}
-    ],
-
-    birthday: [
-      {type: 'required', message: 'Ngày sinh không được để trống!'},
-      {type: 'checkAge', message: 'Tuổi phải trên 16.'}
-    ],
     fullname: [
-      {type: 'required', message: 'Họ và tên không được để trống!'},
-      {type: 'maxlength', message: 'Họ và tên dài tối đa 100 ký tự'},
-      {type: 'pattern', message: 'Họ và tên không chứa ký tự số hoặc ký tự đặc biệt'}
+      { type: 'required', message: 'First and last name cannot be left blank!' },
+      { type: 'maxlength', message: 'First and last name up to 100 characters' },
+      { type: 'pattern', message: 'First and last name do not contain numbers or special characters' }
     ],
-    email: [
-      {type: 'required', message: 'Email không được để trống!'},
-      {type: 'email', message: 'Email không đúng định dạng'}
-    ],
-    gender: [
-      {type: 'required', message: 'Giới tính không được để trống!'}
+    birthday: [
+      { type: 'required', message: 'Date of birth cannot be blank!' },
     ],
     idCard: [
-      {type: 'required', message: 'Vui lòng nhập số CMND.'},
-      {type: 'pattern', message: 'Số CMND gồm 12 số.'},
+      { type: 'required', message: 'Please enter the CCCD number.' },
+      { type: 'pattern', message: 'CCCD number consists of 12 digits.' },
     ],
-    address: [
-      {type: 'required', message: 'Đia chỉ không được để trống!'},
-      {type: 'maxlength', message: 'Địa chỉ tối đa 50 kí tự.'},
-      {type: 'pattern', message: 'Không được nhập kí tự đặc biệt. (!@#$%^&)'}
-    ],
+
     phone: [
-      {type: 'required', message: 'Vui lòng nhập số điện thoại.'},
-      {type: 'minlength', message: 'Số điện thoại có 10 chữ số'},
-      {type: 'maxlength', message: 'Số điện thoại có 10 chữ số'},
-      {type: 'pattern', message: 'Vui lòng nhập số điện thoại.'}
+      { type: 'required', message: 'Please enter the phone number.' },
+      { type: 'pattern', message: 'Please enter the phone number in the correct format.' }
     ],
-    imageUrl: [
-      {type: 'required', message: 'Hình ảnh không được để trống!'}
-    ]
+
+    email: [
+      { type: 'required', message: 'Email cannot be blank!' },
+      { type: 'email', message: 'Email invalidate' }
+    ],
+
+
+
+    password: [
+      { type: 'required', message: 'Password can not be blank!' },
+      { type: 'pattern', message: 'The password is not in the correct format.' }
+    ],
+
+
+    gender: [
+      { type: 'required', message: 'Gender cannot be left blank!' }
+    ],
+
+
+
+    address: [
+      { type: 'required', message: 'The address cannot be left blank!' },
+      { type: 'maxlength', message: 'Addresses up to 50 characters.' },
+      { type: 'pattern', message: 'Do not enter special characters. (!@#$%^&)' }
+    ],
   };
 
 
   ngOnInit(): void {
     this.employeeCreateForm = this.form.group({
-      title: ['', [Validators.required,
-      Validators.minLength(3), Validators.maxLength(50)]],
-      cast: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
-      Validators.minLength(3), Validators.maxLength(50)]],
-      director: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
-      Validators.minLength(3), Validators.maxLength(50)]],
-      releaseDate: ['', [Validators.required]],
-      runningTime: ['', [Validators.required, Validators.pattern('^[0-9]{1,6}$'),
-      Validators.minLength(1), Validators.maxLength(6)]],
-      production: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;]*$/),
-      Validators.minLength(3), Validators.maxLength(50)]],
-      trailerUrl: ['', [Validators.required]],
-      content: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;]*$/),
-      Validators.minLength(3), Validators.maxLength(200)]],
-      // images: this.form.array([])
+      fullname: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
+      Validators.maxLength(100)]],
+      birthday: ['', [Validators.required]],
+      idCard: ['', [Validators.required, Validators.pattern('^[0-9]{12}$')]],
+      address: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$'),
+      ]],
+      email: ['', [Validators.email,
+      Validators.required]],
+      gender: ['1'],
+      password: ['', [ Validators.required, Validators.pattern('^(?=^.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#=?^&])[A-Za-z\\d@$!=%*#^?&]{8,20}$')]],
+
     });
+  }
+
+  getAvatar(event: any) {
+    this.uploadedAvatar = event.target.files[0];
+    const type = event.target.files[0].type;
+    console.log(type)
+    if (type !== 'image/jpeg' && type !== 'image/png') {
+      console.log("Lỗi")
+      this.toastService.error('The requested file format is incorrect!', 'Error: ');
+    } else {
+      if (this.uploadedAvatar) {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.uploadedAvatar);
+        reader.onload = (e: any) => {
+          this.urlNoPoster = e.target.result;
+        };
+      }
+    }
+  }
+
+  onSubmitCreate() {
+    console.log("Create")
+    const employee = new AccountEmployeeDTO();
+    employee.fullname = this.employeeCreateForm.value.fullname;
+    employee.birthday = this.employeeCreateForm.value.birthday;
+    employee.idCard = this.employeeCreateForm.value.idCard;
+    employee.address = this.employeeCreateForm.value.address;
+    employee.phone = this.employeeCreateForm.value.phone;
+    employee.email = this.employeeCreateForm.value.email;
+    employee.gender = this.employeeCreateForm.value.gender;
+    employee.password = this.employeeCreateForm.value.password;
 
 
 
+    // Upload img & download url
+    if (this.uploadedAvatar !== null) {
+      console.log("Có poster")
+      console.log(employee)
+      const avatarName = this.getCurrentDateTime() + this.uploadedAvatar.name;
+      const fileRef = this.storage.ref(avatarName);
+      this.storage.upload(avatarName, this.uploadedAvatar).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(url => {
+            employee.imageUrl = url;
+            this.addEmployee(employee).subscribe(
+              (data) => {
+                this.toastService.success('Add new successful!', 'Success: ');
+                this.ngOnInit();
+                this.router.navigateByUrl('/admin/employee')
+              },
+              (error: HttpErrorResponse) => {
+                this.toastService.error('Add new fail!', 'Error: ');
+              }
+            );
+          });
+        })
+      ).subscribe();
+    } else {
+      console.log("Không có poster")
+      employee.imageUrl = this.urlNoPoster;
+      this.addEmployee(employee).subscribe(
+        (data) => {
+          this.toastService.success('Add new successful!', 'Success: ');
+          this.router.navigateByUrl('/admin/employee')
+        },
+        (error: HttpErrorResponse) => {
+          this.toastService.error('Add new fail!', 'Error: ');
+        }
+      );
+    }
 
-
-
-    // this.employeeCreateForm = new FormGroup({
-    //     accountCode: new FormControl(null,
-    //       [Validators.required,
-    //         Validators.pattern(/NV-\d{4}/)
-    //       ]),
-    //     username: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.minLength(4),
-    //       Validators.maxLength(32),
-    //       Validators.pattern(/^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,32}$/)
-    //     ]),
-    //     password: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.minLength(6),
-    //       Validators.maxLength(32)]),
-    //     matchingPassword: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.minLength(4),
-    //       Validators.maxLength(32),
-    //       compareValidator('password')]),
-    //     fullname: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.maxLength(32),
-    //       Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/)
-    //     ]),
-    //     birthday: new FormControl('', Validators.required),
-    //     idCard: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.pattern('^[0-9]{12}$')
-    //     ]),
-    //     address: new FormControl(null, [
-    //       Validators.required,
-    //       Validators.maxLength(50)
-    //     ]),
-    //     phone: new FormControl(null,
-    //       [Validators.required,
-    //         Validators.minLength(10),
-    //         Validators.maxLength(10),
-    //         Validators.pattern('^[0-9]{10}$')
-    //       ]),
-    //     email: new FormControl(null, [
-    //       Validators.email,
-    //       Validators.required
-    //     ]),
-    //     gender: new FormControl(null,
-    //       [Validators.required]),
-    //   },
-    // );
   }
 
 
+  addEmployee(employee: AccountEmployeeDTO): Observable<any> {
+    const url = `http://localhost:8080/api/employee-account-create`;
+    return this.http.post(url, employee);
+  }
+
+  private getCurrentDateTime() {
+    return new Date().getTime();
+  }
 
   // onSubmit(employeeCreateForm: FormGroup): any {
   //   this.clickSubmit = true;
@@ -230,7 +242,4 @@ export class EmployeeAddAdminComponent implements OnInit {
   //     });
   //   }
   // }
-
-
- 
 }

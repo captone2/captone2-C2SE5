@@ -2,12 +2,12 @@
     <div class="block-header">
       <div class="row clearfix">
         <div class="col-md-6 col-sm-12">
-          <h2>Dashboard</h2>
+          <h2></h2>
         </div>
         <div class="col-md-6 col-sm-12 text-right">
           <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class=""></i></a></li>
+            <li class="breadcrumb-item "></li>
           </ul>
 
         </div>
@@ -15,50 +15,117 @@
     </div>
 
     <div class="container-fluid">
-      <form action="#">
-        <h2>Tạo mới Employee</h2>
+      <div routerLink="/admin/employee"><i class="fa-solid fa-arrow-left"></i></div>
+      <form [formGroup]="employeeCreateForm" (ngSubmit)="onSubmitCreate()">
+        <h2>Create Employee</h2>
         <div class="row">
           <div class="col-md-3">
-            <div class="avatar-wrapper" style="margin: 10px auto;">
-              <img class="profile-pic" src="" />
-              <div class="upload-button">
-              </div>
-              <input class="file-upload" type="file" accept="image/*" />
+            <div>
+              <!-- 
+              <img class="w-100"  alt="avt" style="width: 50%!important;
+          transform: scale(1.5);
+            margin:65px 30px;">
+              <input type="file"  -->
+  
+              <img class="w-100" [src]="urlNoPoster" alt="avt" style="width: 50%!important;
+          transform: scale(1.5);
+            margin:65px 30px;">
+              <input type="file" (change)="getAvatar($event)">
+            
             </div>
           </div>
           <div class="col-md-9">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Họ và Tên:</label>
-                  <input type="text" class="form-control" placeholder="Nguyen Van A" />
+                  <label>Full name:</label>
+                  <input formControlName="fullname" type="text" class="form-control" placeholder="Full name" />
+                  <ng-container *ngFor="let validation of validationMessage.fullname">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('fullname').hasError(validation.type)&&(employeeCreateForm.get('fullname').dirty || employeeCreateForm.get('fullname').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
                 </div>
                 <div class="form-group">
-                  <label>Địa chỉ:</label>
-                  <input type="text" class="form-control" placeholder="Địa chỉ" />
+                  <label>Address:</label>
+                  <input formControlName="address" type="text" class="form-control" placeholder="Address" />
+                  <ng-container *ngFor="let validation of validationMessage.address">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('address').hasError(validation.type)&&(employeeCreateForm.get('address').dirty || employeeCreateForm.get('address').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
                 </div>
                 <div class="form-group">
-                  <label>Ngày sinh:</label>
-                  <input type="date" class="form-control">
+                  <label>Birthday:</label>
+                  <input formControlName="birthday" type="date" class="form-control">
+                  <ng-container *ngFor="let validation of validationMessage.birthday">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('birthday').hasError(validation.type)&&(employeeCreateForm.get('birthday').dirty || employeeCreateForm.get('birthday').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
+                </div>
+                <div class="form-group">
+                  <label>Password:</label>
+                  <input formControlName="password" type="password" class="form-control">
+                  <ng-container *ngFor="let validation of validationMessage.password">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('password').hasError(validation.type)&&(employeeCreateForm.get('password').dirty || employeeCreateForm.get('password').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Email:</label>
-                  <input type="email" class="form-control" placeholder="Email" />
+                  <input formControlName="email" type="email" class="form-control" placeholder="Email" />
+                  <ng-container *ngFor="let validation of validationMessage.email">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('email').hasError(validation.type)&&(employeeCreateForm.get('email').dirty || employeeCreateForm.get('email').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
                 </div>
                 <div class="form-group">
-                  <label for="production">Số điện thoại:</label>
-                  <input type="text" class="form-control" placeholder="012345678" />
+                  <label for="production">Phone:</label>
+                  <input formControlName="phone" type="text" class="form-control" placeholder="Phone" />
+                  <ng-container *ngFor="let validation of validationMessage.phone">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('phone').hasError(validation.type)&&(employeeCreateForm.get('phone').dirty || employeeCreateForm.get('phone').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
                 </div>
                 <div class="form-group">
-                  <label for="releaseDate">Căn cước công dân:</label>
-                  <input type="text" class="form-control" placeholder="012316327878678" />
+                  <label for="releaseDate">ID card:</label>
+                  <input formControlName="idCard" type="text" class="form-control" placeholder="ID card" />
+                  <ng-container *ngFor="let validation of validationMessage.idCard">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('idCard').hasError(validation.type)&&(employeeCreateForm.get('idCard').dirty || employeeCreateForm.get('idCard').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
+                </div>
+                <div class="form-group">
+                  <label for="releaseDate">Gender:</label>
+                  <select style="font-size: 14px" class="form-control" id="exampleFormControlSelect2" formControlName="gender">
+                    <option style="font-size: 14px" value="1">Male</option>
+                    <option style="font-size: 14px"  value="0">Female</option>
+                  </select>
+                  <ng-container *ngFor="let validation of validationMessage.gender">
+                    <small class="form-text text-danger"
+                      *ngIf="employeeCreateForm.get('gender').hasError(validation.type)&&(employeeCreateForm.get('gender').dirty || employeeCreateForm.get('gender').touched)">
+                      {{validation.message}}
+                    </small>
+                  </ng-container>
                 </div>
               </div>
               <div class="col-md-12">
-                <div class="text-right">
-                  <button type="submit" class="btn btn-primary" style="margin-right: 8px;">Create</button>
+                <div class="text-right ">
+                  <button [disabled]="employeeCreateForm.invalid" type="submit" class="btn btn-primary" style="margin-right: 8px;background-color: #3265b9">Create</button>
                 </div>
               </div>
             </div>
@@ -66,6 +133,4 @@
         </div>
       </form>
     </div>
-
-
   </div>

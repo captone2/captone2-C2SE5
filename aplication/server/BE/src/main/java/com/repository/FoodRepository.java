@@ -14,13 +14,13 @@ import java.util.List;
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Long> {
 
-    @Query(value = "SELECT * FROM food where is_enabled = 1;", nativeQuery = true)
+    @Query(value = "SELECT * FROM food where is_enabled = 1 ORDER BY id DESC", nativeQuery = true)
     List<Food> findAllFood();
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE fodd\n" +
+    @Query(value = "UPDATE food\n" +
             "    SET is_enabled = 0\n" +
             "    WHERE id = :id", nativeQuery = true)
-    void deleteMovie(@Param("id") Long id);
+    void deleteFood(@Param("id") Long id);
 }

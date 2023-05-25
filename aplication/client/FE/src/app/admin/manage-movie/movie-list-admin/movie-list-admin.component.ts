@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ManagerMovieService} from '../../../services/manager-movie.service';
+
 import {Movie} from '../../../shared/model/entity/Movie';
 import {ToastrService} from 'ngx-toastr';
 import {JsogService} from 'jsog-typescript';
@@ -7,6 +7,7 @@ import {SearchMovieDTO} from '../../../shared/model/dto/SearchMovieDTO';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import { MovieService } from 'src/app/services/movie.service';
+
 
 @Component({
   selector: 'app-movie-list-admin',
@@ -21,6 +22,7 @@ export class MovieListAdminComponent implements OnInit {
   stt: number = 0
   searchMovie: SearchMovieDTO;
   formSearch: FormGroup;
+  movieDelete: Movie;
   user: any;
   isLoggedIn = false;
 
@@ -31,7 +33,6 @@ export class MovieListAdminComponent implements OnInit {
               private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.checkStt()
     this.movieService.getAllMovie().subscribe((data) => {
       this.movieList = data;
       console.log(this.movieList);
@@ -68,12 +69,16 @@ export class MovieListAdminComponent implements OnInit {
     window.location.reload();
   }
 
-   checkStt() {
-    if (this.currentPage == 1) {
-      this.stt = 0;
-    } else {
-      this.stt = (this.currentPage-1)*this.pageSize
-    }
+   deleteMovie(id: number) {
+    this.movieService.deleteMovie(id).subscribe((data) => {   
+      this.toastService.success('Delete movie successfully!', 'Success:');
+      this.ngOnInit();
+    },(error) => {
+      this.toastService.success('Delete employee unsuccessfully!', 'Error:');
+    });
    }
 
+   setMovieDelete(movie: Movie) {
+     this.movieDelete = movie;
+   }
 }

@@ -13,7 +13,7 @@ import {JsogService} from 'jsog-typescript';
 })
 export class EmployeeListAdminComponent implements OnInit {
     employeeList: Account[];
-  
+    employeeDelete: Account;
     keyWord = null;
     pageSize: number = 5; 
     currentPage: number = 1; 
@@ -44,4 +44,17 @@ export class EmployeeListAdminComponent implements OnInit {
     });
 
   }
+  setEmployeeDelete(employee: Account) {
+    this.employeeDelete = employee;
+  }
+
+  deleteEmployee(id: number) {
+    
+    this.employeeAccountService.deleteEmployee(id).subscribe((data) => {   
+      this.toastService.success('Delete employee successfully!', 'Success:');
+      this.ngOnInit();
+    },(error) => {
+      this.toastService.success('Delete employee unsuccessfully!', 'Error:');
+    });
+   }
 }

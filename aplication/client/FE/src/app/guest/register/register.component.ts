@@ -135,7 +135,7 @@ export class RegisterComponent implements OnInit {
             if (data) {
               this.toastr.error('Email đã tồn tại', 'Error: ');
               stop();
-              // this.errorEmail = 'Email đã tồn tại';
+        
             }
           }
         );
@@ -146,18 +146,29 @@ export class RegisterComponent implements OnInit {
             if (data) {
               this.toastr.error('Số điện thoại đã tồn tại', 'Error: ');
               stop();
-              // this.errorPhone = 'Số điện thoại đã tồn tại';
+           
             }
           }
         );
         }
+        if (register.get('idCard').value != null){
+          this.authService.checkCCCD(register.get('idCard').value).subscribe(
+            (data) => {
+              if (data) {
+                this.toastr.error('CCCD đã tồn tại', 'Error: ');
+                stop();
+             
+              }
+            }
+          );
+          }
         if (register.get('username').value != null){
         this.authService.checkUsername(register.get('username').value).subscribe(
           (data) => {
             if (data) {
               this.toastr.error('Tài khoản đã tồn tại', 'Error: ');
               stop();
-              // this.errorPhone = 'Số điện thoại đã tồn tại';
+             
             }
           }
         );

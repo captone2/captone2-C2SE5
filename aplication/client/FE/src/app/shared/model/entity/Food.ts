@@ -3,5 +3,4 @@ export class Food {
     title: string;
     description: string;
     price: number;
-    quantity: number
   }

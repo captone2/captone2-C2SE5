@@ -1,5 +1,6 @@
 package com.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import org.hibernate.annotations.Type;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@JsonIdentityInfo(generator= JSOGGenerator.class)
+//@JsonIdentityInfo(generator= JSOGGenerator.class)
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +18,7 @@ public class Comment {
     private Integer rate;
     private LocalDateTime createAt;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 
@@ -26,6 +28,7 @@ public class Comment {
     }
 
     @ManyToOne
+//    @JsonBackReference
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 

@@ -2,12 +2,12 @@
   <div class="block-header">
     <div class="row clearfix">
       <div class="col-md-6 col-sm-12">
-        <h2>Dashboard</h2>
+        <h2></h2>
       </div>
       <div class="col-md-6 col-sm-12 text-right">
         <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item"><a href="index.html"><i class=""></i></a></li>
+          <li class="breadcrumb-item "></li>
         </ul>
 
       </div>
@@ -30,9 +30,21 @@
                 <input type="text" class="form-control" placeholder="Search...">
               </li>
               <li>
-                <button class="btn btn-success" data-toggle="modal" data-target="#create-movie"><i
+                <button style="background-color: #3265b9" class="btn btn-success btn-modal-update-food" data-toggle="modal" data-target="#create-movie"><i
                     class="fa-solid fa-plus mr-2"></i>Create
                   New</button>
+              </li>
+              <li> <a href="#" data-toggle="cardloading" data-loading-effect="pulse"><i class="icon-refresh"></i></a>
+              </li>
+              <li><a href="#" class="full-screen"><i class="icon-size-fullscreen"></i></a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false"></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another Action</a></li>
+                  <li><a href="#">Something else</a></li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -41,22 +53,22 @@
               <table class="table table-hover js-basic-example dataTable table-custom mb-0 tb-create">
                 <thead class="thead-dark">
                   <tr>
-                    <th class="text-center">Id</th>
-                    <th class="text-center">Tên</th>
-                    <th class="text-center">Tổng số ghế</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Total seat</th>
+                    <th class="text-center" style="width: 180px;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
-                    <td class="text-center">1</td>
-                    <td class="text-center">Tên</td>
-                    <td class="text-center">123123</td>
-                    <td class="text-center align-middle">
+                  <tr *ngFor="let screen of screenList | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index" >
+                    <td class="text-center">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                    <td class="text-center">{{screen?.name}}</td>
+                    <td class="text-center">{{screen?.totalSeat}}</td>
+                    <td class="text-center align-middle" style="display: flex; align-items: center;">
                       <button class="btn btn-sm round btn-outline-success"
-                        style="display: block;    width: 100%; margin-bottom: 10px;">Update</button>
+                        style="display: block;border:none;outline: none;width: 50%; margin-right: 5px;color: #285192;background-color: #e3ebf7;">Update</button>
                       <button class="btn btn-sm round btn-outline-danger"
-                        style="display: block;     width: 100%;">Remove</button>
+                        style="display: block;border:none;outline: none;width: 50%; color: fff;background-color: #3b71ca;">Delete</button>
                     </td>
                   </tr>
 
@@ -64,7 +76,7 @@
                 </tbody>
               </table>
               <div style="text-align: center;padding: 30px 0;">
-                <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
+                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
             </div>
 
@@ -76,5 +88,49 @@
 
     </div>
 
+  </div>
+</div>
+
+
+
+<div class="modal-update-food"
+  style="padding: 5px 20px 5px 20px;display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);z-index: 99999;background: #fff;min-width: 400px;border-radius: 10px;">
+  <div class="modal-body">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <h3>Create screen</h3>
+      <div class="cls">
+        <i class="fa-solid fa-xmark"></i>
+        <button class="cls" style="display: none;" #closeBtn></button>
+      </div>
+    </div>
+    <form [formGroup]="createScreen" (ngSubmit)="onSubmitCreate()">
+      <input hidden formControlName="id">
+      <div class="form-group">
+        <label>Name</label>
+        <input formControlName="name"  type="text" class="form-control">
+        <ng-container *ngFor="let validation of validation_messages.name">
+          <small class="form-text text-danger"
+            *ngIf="createScreen.get('name').hasError(validation.type)&&(createScreen.get('name').dirty || createScreen.get('name').touched)">
+            {{validation.message}}
+          </small>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <label>Total seat</label>
+        <input formControlName="totalSeat" type="text" class="form-control">
+        <ng-container *ngFor="let validation of validation_messages.totalSeat">
+          <small class="form-text text-danger"
+            *ngIf="createScreen.get('totalSeat').hasError(validation.type)&&(createScreen.get('totalSeat').dirty || createScreen.get('totalSeat').touched)">
+            {{validation.message}}
+          </small>
+        </ng-container>
+      </div>
+      <div class="form-group" style="display: flex; align-items: center; justify-content: end;">
+        <button class="btn btn-sm round btn-outline-success cls"
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; margin-right:10px; color: #285192;background-color: #e3ebf7;">Close</button>
+        <button [disabled]="createScreen.invalid" class="btn btn-sm round "
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; color: fff;background-color: #3b71ca">Create</button>
+      </div>
+    </form>
   </div>
 </div>

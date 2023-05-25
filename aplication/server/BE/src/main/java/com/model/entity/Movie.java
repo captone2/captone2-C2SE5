@@ -172,8 +172,9 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
+    public Movie(Boolean isEnabled,String title, String cast, String director, LocalDate releaseDate, int runningTime, String production, String trailerUrl, String content) {
         this.title = title;
+        this.isEnabled = isEnabled;
         this.cast = cast;
         this.director = director;
         this.releaseDate = releaseDate;

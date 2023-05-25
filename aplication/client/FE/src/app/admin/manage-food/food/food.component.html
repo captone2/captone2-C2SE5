@@ -1,0 +1,177 @@
+<div id="main-content">
+  <div class="block-header">
+    <div class="row clearfix">
+      <div class="col-md-6 col-sm-12">
+        <h2></h2>
+      </div>
+      <div class="col-md-6 col-sm-12 text-right">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html"><i class=""></i></a></li>
+          <li class="breadcrumb-item "></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container-fluid">
+
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Manage Food</h2>
+            <ul class="header-dropdown dropdown dropdown-animated scale-left">
+              <li style="margin-right: 10px;">
+                <input type="text" class="form-control" placeholder="Search...">
+              </li>
+              <li>
+                <button (click)="changeTitleModalCreate()" class="btn btn-success btn-modal-update-food" data-toggle="modal" data-target="#create-movie" style="background-color: #3265b9;"><i
+                    class="fa-solid fa-plus mr-2"></i>Create New</button>
+              </li>
+              <li> <a href="#" data-toggle="cardloading" data-loading-effect="pulse"><i class="icon-refresh"></i></a>
+              </li>
+              <li><a href="#" class="full-screen"><i class="icon-size-fullscreen"></i></a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false"></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another Action</a></li>
+                  <li><a href="#">Something else</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="body">
+            <div class="table-responsive">
+              <table class="table table-hover js-basic-example dataTable table-custom mb-0 tb-create">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Title</th>
+                    <th class="text-center" style="width: 500px;">Description</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let food of foodList | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                    <td class="text-center">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                    <td class="text-center">{{food?.title}}</td>
+                    <td class="text-center">
+                      <div style=" word-wrap: break-word; white-space: normal;">
+                        <span style="word-wrap: break-word;">
+                          {{food?.description}}
+                        </span>
+                      </div>
+
+                    </td>
+                    <td class="text-center">{{food?.price}}</td>
+                    <td class="text-center align-middle" style="display: flex; align-items: center;padding-top: 15px;">
+                      <button (click)="changeTitleModalUpdate(food)" class="btn btn-sm round btn-outline-success btn-modal-update-food"
+                        style="display: block;border:none;outline: none;width: 50%; margin-right: 5px;color: #285192;background-color: #e3ebf7;">Update</button>
+                      <button (click)="setFoodDelete(food)" class="btn btn-sm round btn-outline-danger btn-modal-remove-food" 
+                        style="display: block;border:none;outline: none;width: 50%; color: fff;background-color: #3b71ca;">Delete</button>
+                    </td>
+                  </tr>
+
+
+                </tbody>
+              </table>
+              <div style="text-align: center;padding: 30px 0;">
+                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="overlay" style="display: none;"></div>
+<div class="modal-update-food"
+  style="padding: 5px 20px 5px 20px;display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);z-index: 99999;background: #fff;min-width: 400px;border-radius: 10px;">
+  <div class="modal-body">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <h3>{{titleModal}}</h3>
+      <div class="cls">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+    <form [formGroup]="createFood" (ngSubmit)="onSubmitCreate(functionModal)">
+      <input hidden formControlName="id">
+      <div class="form-group">
+        <label>Title</label>
+        <input formControlName="title"  type="text" class="form-control">
+        <ng-container *ngFor="let validation of validation_messages.title">
+          <small class="form-text text-danger"
+            *ngIf="createFood.get('title').hasError(validation.type)&&(createFood.get('title').dirty || createFood.get('title').touched)">
+            {{validation.message}}
+          </small>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea style="font-size: 14px;" formControlName="description" class="form-control" cols="20" rows="10"></textarea>
+        <ng-container *ngFor="let validation of validation_messages.description">
+          <small class="form-text text-danger"
+            *ngIf="createFood.get('description').hasError(validation.type)&&(createFood.get('description').dirty || createFood.get('description').touched)">
+            {{validation.message}}
+          </small>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <label>Price</label>
+        <input formControlName="price" type="text" class="form-control">
+        <ng-container *ngFor="let validation of validation_messages.price">
+          <small class="form-text text-danger"
+            *ngIf="createFood.get('price').hasError(validation.type)&&(createFood.get('price').dirty || createFood.get('price').touched)">
+            {{validation.message}}
+          </small>
+        </ng-container>
+      </div>
+      <div class="form-group" style="display: flex; align-items: center; justify-content: end;">
+        <button class="btn btn-sm round btn-outline-success cls"
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; margin-right:10px; color: #285192;background-color: #e3ebf7;">Close</button>
+        <button [disabled]="createFood.invalid" class="btn btn-sm round "
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; color: fff;background-color: #3b71ca">{{functionModal}}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal-delete-food"
+  style="padding: 5px 20px 5px 20px; display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);z-index: 99999;background: #fff;min-width: 400px;border-radius: 10px;">
+  <div class="modal-body">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <h3>Delete movie</h3>
+      <div class="cls">
+        <i class="fa-solid fa-xmark"></i>
+        <button class="cls" style="display: none;" #closeBtn></button>
+      </div>
+    </div>
+    <form action="">
+      Do you want delete {{foodDelete?.title}}?
+      <div class="form-group" style="display: flex; align-items: center; justify-content: end;margin-top: 26px">
+        <button  class="btn btn-sm round btn-outline-success cls"
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; margin-right:10px; color: #285192;background-color: #e3ebf7;">Close</button>
+        <button (click)="deleteFood(foodDelete?.id)"  class="btn btn-sm round btn-outline-danger cls"
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; color: fff;background-color: #3b71ca">Delete</button>
+      </div>
+    </form>
+  </div>
+</div>

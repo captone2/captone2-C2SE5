@@ -35,8 +35,8 @@
                "src/assets/js/vendor/bootstrap/bootstrap-tab.js",
                "src/assets/js/scripts/imagesloaded.js",
                "src/assets/js/vendor/mCustomScrollbar/mCustomScrollbar.js",
-               "src/assets/js/scripts/amy-movie-script/amy-movie-script.js"
-
+               "src/assets/js/scripts/amy-movie-script/amy-movie-script.js",
+               "node_modules/chart.js/dist/chart.js"
             ]
           },
           "configurations": {

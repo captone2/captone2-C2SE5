@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiKey: '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',
   firebaseConfig : {
     apiKey: 'AIzaSyBB9sMhOjKVKYhhKZFmzOX2GdX95XT-4xE',
     authDomain: 'dtu-event.firebaseapp.com',

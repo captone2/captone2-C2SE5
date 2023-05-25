@@ -81,11 +81,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAllEmployeeAccount() {
-        List<Account> list = accountRepository.getAllAccountEmployee();
-        System.out.println(list.size());
-        for (Account value: list){
-            System.out.println(value.getEmail());
-        }
         return accountRepository.getAllAccountEmployee();
     }
 

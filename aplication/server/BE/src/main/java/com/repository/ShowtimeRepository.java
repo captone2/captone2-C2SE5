@@ -11,4 +11,6 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
     @Query(value = "select * from showtime where id = ?1", nativeQuery = true)
     Showtime findShowTimeById(long id);
 
+
+
 }

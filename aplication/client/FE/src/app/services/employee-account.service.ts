@@ -17,12 +17,24 @@ export class EmployeeAccountService {
   private readonly API_URL_EMPLOYEE_ACCOUNT_SEARCH = 'http://localhost:8080/api/';
   private readonly API_URL_EMPLOYEE_ACCOUNT_CHECK = 'http://localhost:8080/api/';
 
-
+  private readonly API_URL_FOOD = 'http://localhost:8080/api/auth/food';
+  private readonly API_URL_SCREEN = 'http://localhost:8080/api/screen';
 
   constructor(private httpClient: HttpClient) {
   }
 
- 
+  deleteFood(id: number): Observable<any> {
+    return this.httpClient.delete(this.API_URL_FOOD + '/delete/' + id);
+  }
+
+  createFood(food: any): Observable<any> {
+    return this.httpClient.post(this.API_URL_FOOD + '/create', food);
+  }
+
+  createScreen(screen: any): Observable<any> {
+    return this.httpClient.post(this.API_URL_SCREEN + '/add', screen);
+  }
+
   getEmployeeById(id: number): Observable<Account> {
     return this.httpClient.get<Account>(this.API_URL_EMPLOYEE_ACCOUNT_BY_ID + '/' + (id));
   }

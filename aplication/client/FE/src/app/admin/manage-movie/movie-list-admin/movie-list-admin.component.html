@@ -2,12 +2,12 @@
     <div class="block-header">
         <div class="row clearfix">
             <div class="col-md-6 col-sm-12">
-                <h2>Dashboard</h2>
+                <h2></h2>
             </div>
             <div class="col-md-6 col-sm-12 text-right">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="index.html"><i class=""></i></a></li>
+                 
                 </ul>
 
             </div>
@@ -26,7 +26,7 @@
                                 <input type="text" class="form-control" placeholder="Search...">
                             </li>
                             <li>
-                                <button routerLink="/admin/movie-add" class="btn btn-success" data-toggle="modal"
+                                <button routerLink="/admin/movie-add" class="btn btn-success" style="background-color: #3265b9;" data-toggle="modal"
                                     data-target="#create-movie"><i class="fa-solid fa-plus mr-2"></i>Create
                                     New</button>
                             </li>
@@ -51,7 +51,7 @@
                             <table class="table table-hover js-basic-example dataTable table-custom mb-0 tb-create">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th class="text-center" style="width: 50px;">Id</th>
+                                        <th class="text-center" style="width: 50px;">STT</th>
                                         <th class="text-left" style="width: 230px">Cast</th>
                                         <!-- <th class="text-left" style="width: 260px;">Content</th> -->
                                         <th class="text-center" style="width: 140px">Director</th>
@@ -66,8 +66,8 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let movie of movieList | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
-                                        <td class="text-center">{{i+1}}</td>
+                                        *ngFor="let movie of movieList | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index" >
+                                        <td class="text-center">{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                         <td class="text-left">
                                             <div style="
                                               word-wrap: break-word;
@@ -77,15 +77,7 @@
                                                 </span>
                                             </div>
                                         </td>
-                                        <!-- <td class="text-left"  >
-                                                  <div style="width: 260px;
-                                                  word-wrap: break-word;
-                                                  white-space: normal;">
-                                                      <span style="word-wrap: break-word;">
-                                                        {{movie?.content}}
-                                                      </span>
-                                                  </div>
-                                          </td> -->
+                                
                                         <td class="text-center">
                                             <div style="
                                             word-wrap: break-word;
@@ -122,7 +114,7 @@
                                                 </span>
                                             </div>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" [routerLink]="['/admin/movie-detail', movie.id]">
                                             <div style="
                                             word-wrap: break-word;
                                             white-space: normal;">
@@ -142,17 +134,18 @@
                                         </td>
                                         <td class="text-center align-middle">
                                             <button class="btn btn-sm round btn-outline-success"
-                                                style="display: block;width: 100%; margin-bottom: 10px;" [routerLink]="['/admin/movie-update', movie?.id]" > Update</button>
-                                            <button class="btn btn-sm round btn-outline-danger"
-                                                style="display: block;     width: 100%;">Delete</button>
+                                                style="color: #285192;background-color: #e3ebf7;display: block;width: 100%; margin-bottom: 10px;" [routerLink]="['/admin/movie-update', movie?.id]" > Update</button>
+                                            <button  (click)="setMovieDelete(movie)"  class="btn btn-sm round btn-outline-danger btn-modal-remove-food"
+                                                style="border-color: none;color: fff;background-color: #3b71ca;display: block;width: 100%;">Delete</button>
                                         </td>
+                                        
                                     </tr>
 
 
                                 </tbody>
                             </table>
                             <div style="text-align: center;padding: 30px 0;">
-                                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+                                <pagination-controls  (pageChange)="currentPage = $event"></pagination-controls>
                             </div>
                         </div>
 
@@ -242,4 +235,26 @@
         </div>
 
     </div>
+</div>
+
+
+<div class="modal-delete-food"
+  style="padding: 5px 20px 5px 20px; display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);z-index: 99999;background: #fff;min-width: 400px;border-radius: 10px;">
+  <div class="modal-body">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <h3>Delete movie</h3>
+      <div class="cls">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+    <form action="">
+      Do you want delete {{movieDelete?.title}}?
+      <div class="form-group" style="display: flex; align-items: center; justify-content: end;margin-top: 26px">
+        <button class="btn btn-sm round btn-outline-success"
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; margin-right:10px; color: #285192;background-color: #e3ebf7;">Close</button>
+        <button (click)="deleteMovie(movieDelete?.id)"  class="btn btn-sm round btn-outline-danger cls"
+          style="padding:10px; display: block;border:none;outline: none;width: 20%; color: fff;background-color: #3b71ca">Delete</button>
+      </div>
+    </form>
+  </div>
 </div>

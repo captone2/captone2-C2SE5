@@ -3,9 +3,11 @@ package com.repository;
 
 import com.model.entity.MovieShowTime;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository
@@ -41,4 +43,12 @@ public interface MovieShowTimeRepository extends JpaRepository<MovieShowTime,Lon
             "group by movie_show_time.movie_id", nativeQuery = true)
     List<MovieShowTime> findMovieShowTimeNow(@Param("id") String id);
 
+
+    @Transactional
+    @Modifying
+    @Query(value = " INSERT INTO movie_show_time(show_date,movie_id,screen_id,showtime_id) VALUES (:date,:movie,:screen,:showtime)", nativeQuery = true)
+    void addMovieShowtime(@Param("date") String date,@Param("movie") Integer movie,@Param("screen") Integer screen,@Param("showtime") Integer showtime);
+
+    @Query(value = "SELECT * FROM movie_show_time WHERE   movie_id = :movieId AND show_date = :showDate AND screen_id = :screenId", nativeQuery = true)
+    List<MovieShowTime> findMovieShowTimeByShowDateAndScreen(@Param("movieId") Integer movieId,@Param("showDate") String showDate,@Param("screenId") Integer screenId);
 }

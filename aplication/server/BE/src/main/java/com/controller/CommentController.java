@@ -1,8 +1,11 @@
 package com.controller;
 
-import com.model.dto.CommentDTO;
+
+
+import com.model.dto.CommentDTO1;
+import com.model.dto.dto.CommentDTO;
 import com.model.entity.Comment;
-import com.model.entity.Movie;
+import com.repository.CommentRepository;
 import com.service.CommentService;
 import com.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ public class CommentController {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping(value = "/get-comment/{id}")
     public ResponseEntity<List<Comment>> getAllCommentByMovieId(@PathVariable("id") long id) {
@@ -34,8 +39,10 @@ public class CommentController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<?> addComment(@RequestBody CommentDTO commentDTO) {
-        commentService.addNewComment(commentDTO);
+    public ResponseEntity<?> addComment(@RequestBody CommentDTO1 commentDTO1) {
+        System.out.println(1);
+        System.out.println(commentDTO1.getAccountId());
+        commentService.addNewComment(commentDTO1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

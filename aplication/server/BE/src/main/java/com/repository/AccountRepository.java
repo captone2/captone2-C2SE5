@@ -22,7 +22,7 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     Boolean existsByEmail(String username);
     boolean existsByPhone(String phone);
     boolean existsByUsername(String username);
-
+    boolean existsByIdCard(String cccd);
 
     @Query(value = "SELECT * FROM account WHERE id = :id", nativeQuery = true)
     Optional<Account> findAccountById1(@Param("id") Long id);
@@ -30,7 +30,7 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     Account findAccountByUsername(String username);
 
     @Transactional
-    @Query(value = "SELECT  fullname , phone , email FROM account where id = ?1", nativeQuery = true)
+    @Query(value = "SELECT FROM account where id = ?1", nativeQuery = true)
     Account findAccountById(Long id);
 
     @Modifying
@@ -88,7 +88,7 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update `account` set enable = 0 where id=?1", nativeQuery = true)
+    @Query(value = "update `account` set is_enabled = 0 where id=?1", nativeQuery = true)
     void deleteEmployeeAccountById(Long id);
 
     @Query(value = "SELECT username from  movietheater.account where username = ?1", nativeQuery = true)
@@ -96,6 +96,7 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
 
     Account findAccountByVerificationCode(String code);
 
+    @Transactional
     @Modifying
     @Query(value ="update account set verification_code =?1 where id =?2",nativeQuery = true)
     void addVerificationCode(String code, Long id);

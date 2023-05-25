@@ -1,7 +1,9 @@
 package com.controller;
 
 
+import com.model.dto.dto.CommentDTO;
 import com.model.dto.movie.MovieDTO;
+import com.repository.CommentRepository;
 import com.repository.MovieImageRepository;
 import com.repository.MovieRepository;
 import com.service.GenreService;
@@ -40,6 +42,9 @@ public class MovieController {
 
     @Autowired
     private MovieImageService movieImageService;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping(value = "/getAllMovie")
     public ResponseEntity<Page<Movie>> getAllMovie(@RequestParam("page") Integer page,
@@ -98,7 +103,11 @@ public class MovieController {
         }
     }
 
-
+//    @GetMapping(value = "/test/{id}")
+//    public ResponseEntity<List<Integer>> test(@PathVariable("id") long id) {
+//        List<Integer> genreByMovieId = movieImageRepository.getGenreByMovieId(id);
+//        return new ResponseEntity<>(genreByMovieId,HttpStatus.OK);
+//    }
 
     @GetMapping(value = "/search-movie")
     public ResponseEntity<List<Movie>> searchMovie(@RequestParam("keyword") String keyword) {
@@ -113,7 +122,8 @@ public class MovieController {
     @PostMapping(value = "/add")
     public ResponseEntity<?> addMovie(@RequestBody MovieDTO movie) {
         MovieDTO movieDTO = movie;
-        Movie movie1 = new Movie(movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
+        Movie movie1 = new Movie(true,movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
+        movie1.setEnabled(true);
         Movie movies = movieService.saveMovie(movie1);
         List<Integer> gernes = movie.getGenre();
         for (int i=0 ;i < gernes.size();i++) {
@@ -129,11 +139,10 @@ public class MovieController {
     public ResponseEntity<?> updateMovie(@RequestBody MovieDTO movie) {
         MovieDTO movieDTO = movie;
         Movie movie1 = new Movie(movie.getId(),movie.getTitle(),movie.getCast(),movie.getDirector(),movie.getReleaseDate(),movie.getRunningTime(),movie.getProduction(),movie.getTrailerUrl(),movie.getContent());
+        movie1.setEnabled(true);
         Movie movies = movieService.saveMovie(movie1);
         List<Integer> genres = movie.getGenre();
-        List<Integer> genreByMovieId = movieImageRepository.getGenreByMovieId(movies.getId());
-
-
+        List<Integer> genreByMovieId = movieImageRepository.getGenreByMovieId(movie1.getId());
         for (int i=0 ;i < genres.size();i++) {
             for (int j=0 ;j < genreByMovieId.size();j++) {
                 if(genres.get(i) == genreByMovieId.get(j)) {
@@ -151,7 +160,11 @@ public class MovieController {
             }
 
         }
-
+        if (genres.size() >0) {
+            for (int i=0 ;i < genres    .size();i++) {
+                genreService.addGenreToMovie(genres.get(i),movies.getId());
+            }
+        }
         if (genreByMovieId.size() >0) {
             for (int j=0 ;j < genreByMovieId.size();j++) {
                 movieImageRepository.deleteGenreMovie(genreByMovieId.get(j),movie.getId());
@@ -180,4 +193,6 @@ public class MovieController {
         Integer rate = movieRepository.getRateByMovieId(id);
         return new ResponseEntity<>(rate, HttpStatus.OK);
     }
+
+
 }

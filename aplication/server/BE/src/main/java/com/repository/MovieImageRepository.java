@@ -38,7 +38,7 @@ public interface MovieImageRepository extends JpaRepository<MovieImage, Long> {
     List<MovieImage> listImageMovieById(long id);
 
 
-    @Query(value = "SELECT genre_id from genre_movie where movie_id = ?1", nativeQuery = true)
-    List<Integer> getGenreByMovieId(long id);
+    @Query(value = "select genre_id from genre_movie where movie_id = :id", nativeQuery = true)
+    List<Integer> getGenreByMovieId(@Param("id") long id);
 
 }

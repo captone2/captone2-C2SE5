@@ -1,6 +1,6 @@
 package com.service.impl;
 
-import com.model.dto.CommentDTO;
+import com.model.dto.CommentDTO1;
 import com.model.entity.Comment;
 import com.repository.CommentRepository;
 import com.service.CommentService;
@@ -22,8 +22,12 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public void addNewComment(CommentDTO commentDTO) {
-        commentRepository.addNewComment(commentDTO.getContent(), commentDTO.getRate() , commentDTO.getAccountId() , commentDTO.getAccountId());
+    public void addNewComment(CommentDTO1 commentDTO1) {
+        System.out.println(commentDTO1.getContent());
+        System.out.println(commentDTO1.getRate());
+        System.out.println(commentDTO1.getAccountId());
+        System.out.println(commentDTO1.getMovieId());
+        commentRepository.addNewComment(commentDTO1.getContent(), commentDTO1.getRate() , commentDTO1.getAccountId() , commentDTO1.getMovieId());
     }
 
 }

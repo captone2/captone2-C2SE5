@@ -14,10 +14,11 @@ public class Screen {
     private long id;
     private String name;
     private int totalSeat;
-
+    private Boolean isEnabled;
 
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL)
     private List<Seat> seats;
+
 
     public long getId() {
         return id;
@@ -49,5 +50,22 @@ public class Screen {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public Screen() {
+    }
+
+    public Screen(String name, int totalSeat, Boolean isEnabled) {
+        this.name = name;
+        this.totalSeat = totalSeat;
+        this.isEnabled = isEnabled;
     }
 }

@@ -12,10 +12,12 @@ import java.util.List;
 public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
 
-    @Query(value = "select * from screen ", nativeQuery = true)
+    @Query(value = "select * from screen where is_enabled = 1", nativeQuery = true)
     List<Screen> findAll();
 
 
     List<Screen> findAllByName(String name);
+
+
 
 }

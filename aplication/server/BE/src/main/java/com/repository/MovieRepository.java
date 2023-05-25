@@ -73,6 +73,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Integer getRateByMovieId(@Param("id") Long id);
 
 
-
 }
 

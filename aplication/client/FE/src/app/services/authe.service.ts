@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppConstants } from '../common/app.constants';
 import {SignUp} from '../shared/model/dto/SignUp';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import { Account } from '../shared/model/entity/Account';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -40,6 +41,11 @@ export class AuthService {
 
   }
 
+  checkCCCD(cccd: any): Observable<any> {
+    return this.http.post(AppConstants.AUTH_API + 'check-cccd', cccd, httpOptions);
+
+  }
+
 
   isUserLoggedIn() {
     const token = sessionStorage.getItem('auth-token');
@@ -65,19 +71,19 @@ export class AuthService {
   }
 
   verifyPassword(code: string): Observable<any> {
-    return this.http.post(AppConstants.AUTH_API_USER + 'verify-password', {
+    return this.http.post('http://localhost:8080/api/auth/'  + 'verify-password', {
       code
     }, httpOptions);
   }
 
   resetPassword(username: string): Observable<any> {
-    return this.http.post(AppConstants.AUTH_API_USER + 'reset-password', {
-      username,
-    }, httpOptions);
+    return this.http.post('http://localhost:8080/api/auth/' + 'reset-password',{
+      username } , httpOptions
+   );
   }
 
   doResetPassword(password: string, code: string): Observable<any> {
-    return this.http.post(AppConstants.AUTH_API_USER + 'do-reset-password', {
+    return this.http.post('http://localhost:8080/api/auth/' + 'do-forget-password', {
       password,
       code
     }, httpOptions);

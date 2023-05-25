@@ -1,29 +1,17 @@
 package com.model.dto;
 
-
-public class CommentDTO {
-    private long id;
+public class CommentDTO1 {
+    private int id;
     private String content;
-    private int rate;
+    private int  rate;
     private int accountId;
     private int movieId;
 
-    public CommentDTO() {
-    }
-
-    public CommentDTO(long id, String content, int rate, int accountId, int movieId) {
-        this.id = id;
-        this.content = content;
-        this.rate = rate;
-        this.accountId = accountId;
-        this.movieId = movieId;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,6 +44,24 @@ public class CommentDTO {
     }
 
     public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public CommentDTO1() {
+    }
+
+    public CommentDTO1(int id, String content, int rate, int accountId, int movieId) {
+        this.id = id;
+        this.content = content;
+        this.rate = rate;
+        this.accountId = accountId;
+        this.movieId = movieId;
+    }
+
+    public CommentDTO1(String content, int rate, int accountId, int movieId) {
+        this.content = content;
+        this.rate = rate;
+        this.accountId = accountId;
         this.movieId = movieId;
     }
 }

@@ -1,35 +1,21 @@
 package com.controller;
 
 
-import com.model.dto.AccountMemberDTO;
 import com.model.dto.Password;
 import com.model.dto.Sy.AccountUserDTO;
-import com.model.dto.Sy.ManagerBooking;
-
 import com.model.dto.employeeAccount.CreateEmployeeAccount;
 import com.model.dto.employeeAccount.UpdateAccountDTO;
-import com.model.dto.employeeAccount.UpdateEmployeeAccount;
-
 import com.model.entity.Account;
 import com.repository.AccountRepository;
 import com.repository.RoleRepository;
 import com.service.AccountService;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import payload.reponse.MessageResponse;
-import payload.request.LoginRequest;
 import payload.request.ResetPassRequest;
-import payload.request.VerifyRequest;
-
-
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,15 +25,12 @@ import java.util.Optional;
 @CrossOrigin("**")
 public class AccountController {
 
-    private @Autowired
-    AccountService accountService;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
     @Autowired
     AccountRepository accountRepository;
-
+    private @Autowired
+    AccountService accountService;
+    @Autowired
+    private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -74,7 +57,7 @@ public class AccountController {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 } else {
                     String newPassWordEncode = new BCryptPasswordEncoder().encode(password.getNewPassword());
-                    accountRepository.changePassword(id,newPassWordEncode);
+                    accountRepository.changePassword(id, newPassWordEncode);
 
                     return new ResponseEntity<>(HttpStatus.OK);
                 }
@@ -114,28 +97,32 @@ public class AccountController {
 
     @PutMapping("employee-account-edit")
     public ResponseEntity<?> updateEmployee(@RequestBody CreateEmployeeAccount account) {
-        String passwordEncode = passwordEncoder.encode(account.getPassword());
-        Account account1 = new Account(account.getId(),true,account.getFullname() ,account.getBirthday(),account.getIdCard(),account.getAddress(), account.getPhone(),account.getEmail(),account.getGender(), account.getImageUrl(),passwordEncode);
+        Account account1;
+
+        if (account.getPassword().isEmpty()) {
+            account1 = new Account(account.getId(), true, account.getFullname(), account.getBirthday(), account.getIdCard(), account.getAddress(), account.getPhone(), account.getEmail(), account.getGender(), account.getImageUrl(), "local");
+        } else {
+            String passwordEncode = passwordEncoder.encode(account.getPassword());
+            account1 = new Account(account.getId(), true, account.getFullname(), account.getBirthday(), account.getIdCard(), account.getAddress(), account.getPhone(), account.getEmail(), account.getGender(), account.getImageUrl(), passwordEncode, "local");
+        }
         accountRepository.save(account1);
+        accountRepository.createAccountRole(account.getId(), 3);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @PostMapping(value = "employee-account-create")
-    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeAccount account ) {
-            String passwordEncode = passwordEncoder.encode(account.getPassword());
-            Account account1 = new Account(passwordEncode,true,account.getFullname() ,account.getBirthday(),account.getIdCard(),account.getAddress(), account.getPhone(),account.getEmail(),account.getGender(), account.getImageUrl());
-            Account account2 = accountRepository.save(account1);
-            accountRepository.createAccountRole(account2.getId(),3);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeAccount account) {
+        String passwordEncode = passwordEncoder.encode(account.getPassword());
+        Account account1 = new Account(passwordEncode, true, account.getFullname(), account.getBirthday(), account.getIdCard(), account.getAddress(), account.getPhone(), account.getEmail(), account.getGender(), account.getImageUrl(), "local");
+        Account account2 = accountRepository.save(account1);
+        accountRepository.createAccountRole(account2.getId(), 3);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @DeleteMapping(value = "employee-account-delete/{id}")
     public ResponseEntity<?> deleteByEmployeeId(@PathVariable Long id) {
-        if (id == null) {
-            return ResponseEntity.badRequest().body("Không có tài khoản này !");
-        }
         accountService.deleteEmployeeAccountById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -202,32 +189,6 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/reset-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody LoginRequest loginRequest){
-        System.out.println(1);
-        if (accountService.existsByEmail(loginRequest.getUsername()) != null) {
-            Optional<Account> user = accountService.findByEmail(loginRequest.getUsername());
-            String code = RandomString.make(64);
-            accountService.addVerificationCode(code, user.get().getId());
-            String confirmUrl = "http://localhost:4200/verify-reset-password?code=" + code;
-            accountService.sendMail(confirmUrl,user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-
-    @PostMapping("/verify-password")
-    public ResponseEntity<?> VerifyPassword(@RequestBody VerifyRequest code) {
-        Account isVerified = accountService.findAccountByVerificationCode(code.getCode());
-        System.out.println(isVerified.getVerificationCode());
-        if (isVerified.getVerificationCode().equals(code.getCode())) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PostMapping("/do-forget-password")
     public ResponseEntity<?> doResetPassword(@RequestBody ResetPassRequest resetPassRequest) {
         accountService.saveNewPassword(passwordEncoder.encode(resetPassRequest.getPassword()), resetPassRequest.getCode());
@@ -252,6 +213,7 @@ public class AccountController {
             return new ResponseEntity<>(account, HttpStatus.CREATED);
         }
     }
+
 }
 
 

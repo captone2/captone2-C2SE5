@@ -24,6 +24,8 @@ import { CommentService } from 'src/app/services/comment.service';
 })
 export class MovieDetailComponent implements OnInit {
   id: number;
+  player: YT.Player;
+  idMovieYTB: string = 'RUfiXZbc4f8';
   movie: Movie;
   movieDetail: Movie;
   movieShowtime1: MovieShowtime;
@@ -34,6 +36,7 @@ export class MovieDetailComponent implements OnInit {
   url = 'assets/js/main.js';
   loadAPI: any;
   rate: number = 0;
+  commentList: CommentDTO[]
   commentForm: FormGroup;
   private baseUrl = 'http://localhost:4200api/auth/booking';
   private readonly destroy$ = new Subject<void>();
@@ -61,6 +64,7 @@ export class MovieDetailComponent implements OnInit {
         Validators.minLength(3), Validators.maxLength(200)]],
 
       });
+      this.getComment();
   }
   public loadScript() {
     const node = document.createElement('script');
@@ -75,11 +79,13 @@ export class MovieDetailComponent implements OnInit {
     this.id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.movieService.findMovieById(this.id).subscribe(data => {
       this.movieDetail = data ;
+      // this.idMovieYTB = this.movieDetail.trailerUrl.split('v=')[1]
       console.log(data)
     })
   }
 
   getMovie() {
+    
     this.id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.movieService.getMovieShowtimeByMovieId(this.id).subscribe(data => {
       const dateList: DateDTO[] = data.reduce((acc: DateDTO[], obj: any) => {
@@ -296,14 +302,9 @@ export class MovieDetailComponent implements OnInit {
     return arr.map(genre => genre.name).join(', ');
   }
 
-  handleStarClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    const dataValue = target.getAttribute('data-value');
-    if (dataValue) {
-      const value = parseInt(dataValue, 10);
-      this.rate = value
-      console.log(value);
-    }
+  handleStarClick(start : number) {
+     this.rate = start;
+     console.log(this.rate);
   }
 
   checkLogin() {
@@ -315,22 +316,56 @@ export class MovieDetailComponent implements OnInit {
   }
   
   onSubmit() {
+    console.log(this.rate)
+    if (this.rate == 0) {
+      console.log("Ok1")
+      this.toastService.error('Vui lòng lựa chọn số sao!', 'Success: ');
+    } else {
+      console.log("Ok2")
+      const user = JSON.parse(sessionStorage.getItem('auth-user'))
+      const comment = new CommentDTO();
+      comment.content = this.commentForm.value.content;
+      comment.rate = this.rate;
+      comment.movieId = this.id;
+      comment.accountId = user.id;
+      console.log(comment);
+     this.commentService.addComment(comment).subscribe(data => {
+      this.toastService.error('Bình luận thành công!', 'Success: ');
+      this.rate = 0;
+     },(error) => {
+      this.toastService.error('Bình luận thất bại!', 'Error: ');
+     })
+    }
+   
+  }
+
+  getComment() {
     const user = JSON.parse(sessionStorage.getItem('auth-user'))
-    const comment = new CommentDTO();
-    comment.content = this.commentForm.value.content;
-    comment.rate = this.rate;
-    comment.movieId = this.id;
-    comment.accountId = user.id;
-    console.log(comment)
-   this.commentService.addComment(comment).subscribe(data => {
-    this.toastService.error('!', 'Lỗi: ');
+   this.commentService.getCommentByMovieId(user.id).subscribe(data => {
+      this.commentList = data;
+   },(error) => {
+    this.toastService.error('Get comment unsuccessfully!', 'Error: ');
    })
 
   }
+
+
   getRate() {
     this.id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.movieService.getRateByMovieId(this.id).subscribe(data => {
       this.rate = data.toFixed(0)
     })
+  }
+
+  savePlayer(player) {
+    this.player = player;
+    console.log("player instance", player);
+  }
+  onStateChange(event) {
+    console.log("player state", event.data);
+  }
+
+  convert(date :string) {
+
   }
 }

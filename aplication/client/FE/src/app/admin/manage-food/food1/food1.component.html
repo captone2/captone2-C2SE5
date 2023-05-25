@@ -1,0 +1,12 @@
+<div style="margin-top: 200px;margin-left: 200px;display: center;">
+
+
+<!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+
+<youtube-player [height]="360" style="position: relative;
+left: 50%;
+transform: translateX(-50%);
+margin-top: 20px;" [width]="640" [videoId]="id" (ready)="savePlayer($event)"
+    (change)="onStateChange($event)"></youtube-player>
+
+</div>

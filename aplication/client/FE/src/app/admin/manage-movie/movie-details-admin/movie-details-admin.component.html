@@ -1,38 +1,36 @@
 <div id="main-content">
+
     <div class="block-header">
         <div class="row clearfix">
             <div class="col-md-6 col-sm-12">
-                <h2>Dashboard</h2>
+                <h2></h2>
             </div>
             <div class="col-md-6 col-sm-12 text-right">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="index.html"><i class=""></i></a></li>
+
                 </ul>
 
             </div>
         </div>
     </div>
     <div class="container-fluid">
-        <i class="fa-solid fa-arrow-left" style="cursor: pointer;"></i>
+        <i routerLink="/admin/movie" class="fa-solid fa-arrow-left" style="cursor: pointer;"></i>
         <div class="row">
             <div class="border-bottom text-dark featured-movie">
                 <div class="container pt-3 pb-3">
                     <div class="row row-sm">
                         <div class="d-none d-sm-block col-2">
-                            <a href="/phim/lat-mat-6-tam-ve-dinh-menh/" title="Lật Mặt 6: Tấm Vé Định Mệnh">
-                                <img alt="Lật Mặt 6: Tấm Vé Định Mệnh"
-                                    src="https://moveek.com/storage/media/cache/short/643cd05155dc9009010254.jpeg"
-                                    data-srcset="https://moveek.com/storage/media/cache/short/643cd05155dc9009010254.jpeg 1x, https://moveek.com/storage/media/cache/tall/643cd05155dc9009010254.jpeg 2x"
-                                    data-src="https://moveek.com/storage/media/cache/short/643cd05155dc9009010254.jpeg"
-                                    class="img-fluid rounded border lazyloaded"
-                                    srcset="https://moveek.com/storage/media/cache/short/643cd05155dc9009010254.jpeg 1x, https://moveek.com/storage/media/cache/tall/643cd05155dc9009010254.jpeg 2x">
+                            <a href="/phim/lat-mat-6-tam-ve-dinh-menh/" title="{{movie?.title}}">
+                                <img alt="Lật Mặt 6: Tấm Vé Định Mệnh" src="{{movie?.movieImages[0].imageUrl}}"
+                                    data-srcset="" data-src="{{movie?.movieImages[0].imageUrl}}"
+                                    class="img-fluid rounded border lazyloaded" srcset="">
                             </a>
                         </div>
                         <div class="col-12 col-sm-10">
                             <div class="mb-3 text-center text-sm-left">
                                 <h1 class="mb-0 text-truncate">
-                                    <a href="/phim/lat-mat-6-tam-ve-dinh-menh/" title="Lật Mặt 6: Tấm Vé Định Mệnh">
+                                    <a href="#" title="{{movie?.title}}">
                                         {{movie?.title}}
                                     </a>
                                 </h1>
@@ -48,7 +46,7 @@
                                         <div class="col text-center text-sm-left">
                                             <strong>
                                                 <i class="fa-solid fa-thumbs-up" style="margin-right: 5px;"></i>
-                                                <span class="d-none d-sm-inline-block">Hài lòng</span>
+                                                <span class="d-none d-sm-inline-block">Satisfied</span>
                                             </strong><br>
                                             <a href="#" class="text-dark">
                                                 93%
@@ -58,7 +56,7 @@
                                         <div class="col text-center text-sm-left">
                                             <strong>
                                                 <i class="fa-solid fa-calendar" style="margin-right: 5px;"></i>
-                                                <span class="d-none d-sm-inline-block">Khởi chiếu</span>
+                                                <span class="d-none d-sm-inline-block">Release date</span>
                                             </strong><br>
                                             <span>{{movie?.releaseDate}}</span>
                                         </div>
@@ -66,15 +64,15 @@
                                         <div class="col text-center text-sm-left">
                                             <strong>
                                                 <i class="fa-solid fa-clock" style="margin-right: 5px;"></i>
-                                                <span class="d-none d-sm-inline-block">Thời lượng</span>
+                                                <span class="d-none d-sm-inline-block">Running time</span>
                                             </strong><br>
-                                            <span>{{movie?.runningTime}} phút</span>
+                                            <span>{{movie?.runningTime}} minute</span>
                                         </div>
 
                                         <div class="col text-center text-sm-left">
                                             <strong>
                                                 <i class="fa-solid fa-user-check" style="margin-right: 5px;"></i>
-                                                <span class="d-none d-sm-inline-block">Giới hạn tuổi</span>
+                                                <span class="d-none d-sm-inline-block">Age limit</span>
                                             </strong><br>
                                             <span>NC16</span>
                                         </div>
@@ -82,7 +80,7 @@
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <p class="mb-2">
-                                        <strong> Diễn viên</strong><br>
+                                        <strong> Cast</strong><br>
                                         <span>
                                             <a class="text-danger" href="/nghe-sy/trung-dung/" data-toggle="tooltip"
                                                 title="" data-original-title="">{{movie?.cast}}</a>,
@@ -91,14 +89,14 @@
                                     </p>
 
                                     <p class="mb-2">
-                                        <strong> Đạo diễn</strong><br>
+                                        <strong> Director</strong><br>
                                         <span>
                                             <a class="text-danger" href="/nghe-sy/ly-hai/">{{movie?.director}}</a>
                                         </span>
                                     </p>
 
                                     <p class="mb-2">
-                                        <strong>Nhà sản xuất</strong><br>
+                                        <strong>Production</strong><br>
                                         <span>
                                             <a class="text-danger" href="/nghe-sy/minh-ha/">{{movie?.production}}</a>
                                         </span>
@@ -113,8 +111,122 @@
         </div>
 
         <div class="row">
-            <video class="video-main" src="../assets/videos/video.mp4" controls></video>
-          </div>
+            <youtube-player [height]="360" style="position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 20px;" [width]="640" [videoId]="id" (ready)="savePlayer($event)"
+                (change)="onStateChange($event)"></youtube-player>
+        </div>
 
+
+        <div style="margin-top: 30px" class="entry-showtime single-cinema">
+            <div class="clearfix">
+                <h3 class="info-name amy-title">Showtime</h3>
+
+                <button class="btn  btn-modal-remove-food"
+                    style="background-color: #3265b9;margin-left: 900px;" data-toggle="modal"
+                    data-target="#create-movie"><i class="fa-solid fa-plus mr-2"></i>Create
+                    New</button>
+
+            </div>
+            <div class="showtime">
+                <div class="showtime-item single-cinema">
+                    <div *ngFor="let dateTime of dateDTO; let i = index" class="st-item">
+                        <div class="st-title"><label style="font-weight: bold;">{{dateTime?.day | date}}</label></div>
+                        <ul style="display: flex; gap:5px">
+                            <li *ngFor="let time of dateTime.showtime; let i = index"><a>{{time.time | slice:0:5 }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- 
+
+
+<div class="modal-delete-food"
+    style="padding: 5px 20px 5px 20px; display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);z-index: 99999;background: #fff;min-width: 400px;border-radius: 10px;">
+    <div class="modal-body">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <h3>Create showtime</h3>
+            <div class="cls">
+                <i class="fa-solid fa-xmark"></i>
+                <button class="cls" style="display: none;" #closeBtn></button>
+            </div>
+        </div>
+        <form action="">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Show date</label>
+                    <input type="date" min="{{currentDateTime}}" class="form-control" [(ngModel)]="selectedDate" (change)="onDateChange()">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Show date</label>
+                    <input type="date" min="{{currentDateTime}}" class="form-control" [(ngModel)]="selectedDate" (change)="onDateChange()">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Screen</label>
+                <input type="date" min="{{currentDateTime}}" class="form-control" [(ngModel)]="selectedDate" (change)="onDateChange()">
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; justify-content: end;margin-top: 26px">
+                <button class="btn btn-sm round btn-outline-success cls"
+                    style="padding:10px; display: block;border:none;outline: none;width: 20%; margin-right:10px; color: #285192;background-color: #e3ebf7;">Close</button>
+                <button class="btn btn-sm round btn-outline-danger cls"
+                    style="padding:10px; display: block;border:none;outline: none;width: 20%; color: fff;background-color: #3b71ca">Create</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="modal-delete-food"
+    style="padding: 5px 20px 5px 20px; display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);z-index: 99999;background: #fff;min-width: 400px;border-radius: 10px;">
+    <div class="modal-body">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <h3>Create showtime</h3>
+            <div (click)="init()" class="cls">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <form action="">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Show date</label>
+                    <input type="date" id="selectedDate" min="{{currentDateTime}}" class="form-control"
+                        (change)="onDateChange()">
+                </div>
+                <div *ngIf="selectedDate != ''" class="form-group col-md-6">
+                    <label>Screen</label>
+                    <select  style="font-size: 14px" class="form-control" id="exampleFormControlSelect2"  (change)="changeScreen($event.target.value)">
+                        <option disable value="0">--Select--</option>
+                        <option style="font-size: 14px" *ngFor="let screen of screenList" [value]="screen?.id">{{screen?.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="selectedDate != '' && screenSelect != 0" class="form-group">
+                <div class="showtime">
+                <label>Showtime</label>
+                <ul style="display: flex; gap:5px">
+                    <!-- <li *ngFor="let time of dateTime.showtime; let i = index"><a>{{time.time | slice:0:5 }}</a></li> -->
+                    <ng-container *ngFor="let showtime of showTimeList;let i = index">
+                    <li (click)="addShowtime($event.target,showtime)"  [ngClass]="{'showtime-disable': checkShowtime(showtime?.showTime)}"  class="seat1" >{{showtime?.showTime}}</li>
+                    </ng-container>
+                </ul>
+            </div>   
+            </div>
+            <div class="form-group" style="display: flex; align-items: center; justify-content: end;margin-top: 26px">
+                <button class="btn btn-sm round btn-outline-success"
+                    style="padding:10px; display: block;border:none;outline: none;width: 20%; margin-right:10px; color: #285192;background-color: #e3ebf7;">Close</button>
+                <button (click)="createShowtime()" class="btn btn-sm round btn-outline-danger"
+                    style="padding:10px; display: block;border:none;outline: none;width: 20%; color: fff;background-color: #3b71ca">Create</button>
+            </div>
+        </form>
     </div>
 </div>

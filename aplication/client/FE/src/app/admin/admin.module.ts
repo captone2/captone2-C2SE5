@@ -56,10 +56,15 @@ import { OrderModule } from 'ngx-order-pipe';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CssComponent } from './css/css.component';
-import { FoodAddComponent } from './manage-food/food-add/food-add.component';
 import { ShowtimeListComponent } from './manage-showtime/showtime-list/showtime-list.component';
 import { ShowtimeAddComponent } from './manage-showtime/showtime-add/showtime-add.component';
+import { FoodComponent } from './manage-food/food/food.component';
+import { Food1Component } from './manage-food/food1/food1.component';
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+// import { FoodAddComponent } from './manage-food/food-add/food-add.component';
+// import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 const adminRoutes: Routes = [
   // {
   //   path: 'list-movie',
@@ -164,19 +169,40 @@ const adminRoutes: Routes = [
         , canActivate: [AuthGuardService],
         data: { expectedRole: [Role.Admin] },
       },
+
       {
-        path: 'food-add', component: FoodAddComponent
+        path: 'employee-update/:id', component: EmployeeUpdateAdminComponent
         , canActivate: [AuthGuardService],
         data: { expectedRole: [Role.Admin] },
       },
-
+      {
+        path: 'food', component: FoodComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+      {
+        path: 'food1', component: Food1Component
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
       {
         path: 'screen', component: ScreenListComponent
         , canActivate: [AuthGuardService],
         data: { expectedRole: [Role.Admin] },
       },
       {
+        path: 'screen-seat', component: SeatDetailComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+      {
         path: 'showtime-add', component: ShowtimeAddComponent
+        , canActivate: [AuthGuardService],
+        data: { expectedRole: [Role.Admin] },
+      },
+
+      {
+        path: 'showtime', component: ShowtimeListComponent
         , canActivate: [AuthGuardService],
         data: { expectedRole: [Role.Admin] },
       },
@@ -219,9 +245,11 @@ const adminRoutes: Routes = [
     AdminHomeComponent,
     DashboardComponent,
     CssComponent,
-    FoodAddComponent,
     ShowtimeListComponent,
-    ShowtimeAddComponent
+    ShowtimeAddComponent,
+    FoodComponent,
+    Food1Component,
+    
   ],
   exports: [
     EmployeeListAdminComponent,
@@ -230,6 +258,7 @@ const adminRoutes: Routes = [
     EmployeeDetailAdminComponent,
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
     CommonModule,
     BrowserModule,
     AppRoutingModule,
@@ -265,6 +294,7 @@ const adminRoutes: Routes = [
     NgxPaginationModule,
     EmployeeModule,
     OrderModule,
+    NgxYoutubePlayerModule,
   ]
 })
 export class AdminModule {

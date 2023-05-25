@@ -1,15 +1,163 @@
-import { Component, OnInit } from '@angular/core';
-
+import { TicketFoodDTO } from './../../shared/model/dto/TicketFoodDTO';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Chart } from 'chart.js';
+import { BookingService } from 'src/app/services/booking.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { DatePipe } from '@angular/common';
+import { Observable, forkJoin } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  lastYear: number[] = [];
+  nowYear: number[] = [];
+  ticketFood: TicketFoodDTO;
+  constructor(
+    private elementRef: ElementRef,
+    private bookingService: BookingService
+  ) {}
 
-  constructor() { }
-
+  @ViewChild('myChart') myChart!: ElementRef;
+  @ViewChild('chartCanvas') chartCanvas: ElementRef;
   ngOnInit(): void {
+    this.loadData();
   }
 
+  
+
+  loadData(): void {
+    this.getLastYearAndNowYear().subscribe(([lastYearData, nowYearData]) => {
+      this.lastYear = lastYearData;
+      this.nowYear = nowYearData;
+      this.getTicketFood();
+      
+    });
+  }
+
+  getLastYearAndNowYear(): Observable<[number[], number[]]> {
+    const lastYearData$ = this.bookingService.getLastYear();
+    const nowYearData$ = this.bookingService.getNowYear();
+    const ticketFoodData$ = this.bookingService.getTicketFood();
+    return forkJoin([lastYearData$, nowYearData$]);
+  }
+
+  getTicketFood() {
+    this.bookingService.getTicketFood().subscribe(data => {
+      this.ticketFood = data;
+      this.ticketFood.ticket =  Math.round(this.ticketFood.ticket/23000);
+      this.ticketFood.food = Math.round(this.ticketFood.food/23000);
+      console.log(data)
+      this.drawCharts();
+    })
+  }
+
+  
+  drawCharts(): void {
+    console.log("Vẻ")
+    const canvas = this.elementRef.nativeElement.querySelector('#myChart');
+    const ctx = canvas.getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May'],
+        datasets: [
+          {
+            label: 'Sample Dataset',
+            data: [12, 19, 3, 5, 2, 3, 10],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Title',
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
+    });
+   
+    this.lastYear = this.lastYear.map(value => (value / 23000));
+    this.nowYear = this.nowYear.map(value => value / 23000);
+    const canvas1 = this.elementRef.nativeElement.querySelector('#myChart1');
+    const ctx1 = canvas1.getContext('2d');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May'],
+        datasets: [
+          {
+            label: '2022',
+            data: this.lastYear,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            fill: false,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+          {
+            label: '2023',
+            data: this.nowYear,
+            backgroundColor: '#ff6384',
+            fill: false,
+            borderColor: '#ff6384',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Revenue Dataset ',
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    console.log(this.ticketFood.food);
+    console.log(this.ticketFood.ticket);
+    const canvas2 = this.elementRef.nativeElement.querySelector('#myChart2');
+    const ctx2 = canvas2.getContext('2d');
+    const data = {
+      datasets: [{
+        label: [
+          'Food',
+          'Ticket',
+        ],
+        data: [this.ticketFood.food,this.ticketFood.ticket],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          // 'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    new Chart(ctx2, {
+      type: 'pie',
+      data: data
+    });
+  }
 }
+

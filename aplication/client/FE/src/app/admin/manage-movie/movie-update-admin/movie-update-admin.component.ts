@@ -32,13 +32,13 @@ export class MovieUpdateAdminComponent implements OnInit {
       Validators.minLength(3), Validators.maxLength(50)]],
       cast: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\>|\?|\/|\""|\;|\:|0-9]*$/),
       Validators.minLength(3), Validators.maxLength(200)]],
-      director: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|0-9]*$/),
+      director: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\>|\?|\/|\""|\;|\:|0-9]*$/),
       Validators.minLength(3), Validators.maxLength(50)]],
       releaseDate: ['', [Validators.required]],
       runningTime: ['', [Validators.required, Validators.pattern('^[0-9]{1,6}$'),
       Validators.minLength(1), Validators.maxLength(6)]],
       production: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\>|\?|\/|\""|\;]*$/),
-      Validators.minLength(3), Validators.maxLength(50)]],
+      Validators.minLength(3), Validators.maxLength(200)]],
       trailerUrl: ['', [Validators.required]],
       content: ['', [Validators.required, Validators.pattern(/^[^`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\?|\/|\""|\;]*$/),
       Validators.minLength(3), Validators.maxLength(600)]],
@@ -46,54 +46,51 @@ export class MovieUpdateAdminComponent implements OnInit {
     });
    }
    selectCheckbox: number[] = [];
-  validation_messages = {
+   validation_messages = {
     title: [
-      { type: 'required', message: 'Vui lòng nhập tên phim.' },
-      { type: 'pattern', message: 'Tên phim không hợp lệ, không được kí tự đặc biệt. (abc, abc xyz)' },
-      { type: 'minlength', message: 'Tên phim nhập tối thiểu 3 kí tự.' },
-      { type: 'maxlength', message: 'Tên phim nhập tối đa 50 kí tự.' }
+      { type: 'required', message: 'Please enter movie title.' },
+      { type: 'pattern', message: 'Invalid movie title, no special characters.' },
+      { type: 'minlength', message: 'Movie title enter at least 3 characters.' },
+      { type: 'maxlength', message: 'Movie title can enter up to 50 characters.' }
     ],
     cast: [
-      { type: 'required', message: 'Vui lòng nhập diễn viên.' },
-      { type: 'pattern', message: 'Tên diễn viên không hợp lệ, không được nhập số, kí tự đặc biệt. (abc, abc xyz)' },
-      { type: 'minlength', message: 'Tên diễn viên nhập tối thiểu 3 kí tự.' },
-      { type: 'maxlength', message: 'Tê diễn viên nhập tối đa 50 kí tự.' }
+      { type: 'required', message: 'Please enter cast..' },
+      { type: 'pattern', message: 'Invalid cast name' },
+      { type: 'minlength', message: 'Cast name enter at least 3 characters.' },
+      { type: 'maxlength', message: 'Enter cast name up to 50 characters.' }
     ],
     director: [
-      { type: 'required', message: 'Vui lòng nhập tên đạo diễn.' },
-      { type: 'pattern', message: 'Nhập tên đạo diễn không hợp lệ, không được nhập số, kí tự đặc biệt. (abc, abc xyz)' },
-      { type: 'minlength', message: 'Tên đạo diễn nhập tối thiểu 3 kí tự.' },
-      { type: 'maxlength', message: 'Tên đạo diễn nhập tối đa 50 kí tự.' }
+      { type: 'required', message: 'Please enter the director name.' },
+      { type: 'pattern', message: 'Invalid director name input' },
+      { type: 'minlength', message: 'The director name must be entered with at least 3 characters.' },
+      { type: 'maxlength', message: 'The director name can be entered up to 50 characters.' }
     ],
     releaseDate: [
-      { type: 'required', message: 'Vui lòng nhập ngày khởi chiếu.' },
+      { type: 'required', message: 'Please enter a release date.' },
       { type: 'minlength', message: 'Không được nhập ngày của quá khứ.' },
     ],
     runningTime: [
-      { type: 'required', message: 'Vui lòng thời lượng của phim. (đơn vị phút)' },
-      { type: 'pattern', message: 'Nhập thời lượng không hợp lệ.' },
-      { type: 'minlength', message: 'Thời lượng nhập tối thiểu 1 kí tự số.' },
-      { type: 'maxlength', message: 'Thời lượng nhập tối đa 6 kí tự.' }
+      { type: 'required', message: 'Please the duration of the movie. (unit of minutes)' },
+      { type: 'pattern', message: 'Invalid duration input.' },
+      { type: 'minlength', message: 'Minimum input duration is 1 numeric character.' },
+      { type: 'maxlength', message: 'Maximum input duration is 6 characters.' }
     ],
     production: [
-      { type: 'required', message: 'Vui lòng nhập tên hãng phim.' },
-      { type: 'pattern', message: 'Nhập tên hãng phim không hợp lệ.' },
-      { type: 'minlength', message: 'Tên hãng phim nhập tối thiểu 3 kí tự.' },
-      { type: 'maxlength', message: 'Tên hãng phim nhập tối đa 50 kí tự.' }
+      { type: 'required', message: 'Please enter the studio name.' },
+      { type: 'pattern', message: 'Invalid studio name input.' },
+      { type: 'minlength', message: 'Studio name enter at least 3 characters.' },
+      { type: 'maxlength', message: 'The studio name can be entered up to 200 characters.' }
 
     ],
     trailerUrl: [
-      { type: 'required', message: 'Vui lòng nhập trailer phim.' },
+      { type: 'required', message: 'Please enter movie trailer.' },
     ],
     content: [
-      { type: 'required', message: 'Vui lòng nội dung mô tả của phim.' },
-      { type: 'pattern', message: 'Nhập nội dung mô tả không hợp lệ, không được nhập kí tự đặc biệt. (abc, abc xyz)' },
-      { type: 'minlength', message: 'Nội dung mô tả phim nhập tối thiểu 3 kí tự.' },
-      { type: 'maxlength', message: 'Nội dung mô tả phim nhập tối đa 200 kí tự.' }
+      { type: 'required', message: 'Please describe the content of the movie.' },
+      { type: 'pattern', message: 'Invalid description entered' },
+      { type: 'minlength', message: 'The content of the movie description must be at least 3 characters.' },
+      { type: 'maxlength', message: 'The content of the movie description can be up to 200 characters.' }
     ],
-    // images: [
-    //   {type: 'required', message: 'Vui lòng chọn ảnh.'},
-    // ],
   };
   ngOnInit(): void {
     this.getMovieDetail();
@@ -125,7 +122,7 @@ export class MovieUpdateAdminComponent implements OnInit {
       this.urlNoPoster = this.movieDetail[0].imageUrl;
       
     }, (error) => {
-      this.toastService.error('Movie không tồn tại!', 'Lỗi: ');
+      this.toastService.error('Movie do not exist!', 'Error: ');
       this.router.navigate(['/admin/movie']);
     });
   }
@@ -155,7 +152,7 @@ export class MovieUpdateAdminComponent implements OnInit {
     this.uploadedAvatar = event.target.files[0];
     const type = event.target.files[0].type;
     if (type !== 'image/jpeg' && type !== 'image/png') {
-      this.toastService.error('Định dạng tệp được yêu cầu không chính xác!', 'Error: ');
+      this.toastService.error('The requested file format is incorrect!', 'Error: ');
     } else {
       if (this.uploadedAvatar) {
         const reader = new FileReader();
@@ -194,11 +191,11 @@ export class MovieUpdateAdminComponent implements OnInit {
               movie.imgUrl = url;
               this.updateMovie(movie).subscribe(
                 (data) => {
-                  this.toastService.success('Cập nhât thành công!', 'Success: ');
-                  this.ngOnInit();
+                  this.toastService.success('Update successful movie!', 'Success: ');
+                  this.router.navigateByUrl('/admin/movie');
                 },
                 (error: HttpErrorResponse) => {
-                  this.toastService.error('Cập nhât thất bài!', 'Error: ');
+                  this.toastService.error('Update failed movie!', 'Error: ');
                 }
               );
             });
@@ -210,11 +207,11 @@ export class MovieUpdateAdminComponent implements OnInit {
         console.log(movie)
         this.updateMovie(movie).subscribe(
           (data) => {
-            this.toastService.success('Cập nhât thành công!', 'Success: ');
-            this.router.navigateByUrl('/admmin/movie');
+            this.toastService.success('Update successful movie!', 'Success: ');
+            this.router.navigateByUrl('/admin/movie');
           },
           (error: HttpErrorResponse) => {
-            this.toastService.error('Cập nhât thất bài!', 'Error: ');
+            this.toastService.error('Update failed movie!', 'Error: ');
           }
         );
       }

@@ -4,26 +4,26 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class MovieShowTimeDTO {
-    private LocalDate showDate;
     private Integer movieId;
-    private LocalTime[] listTime;
-
+    private String showDate;
+    private Integer screenId;
+    private Integer[] showTime;
 
     public MovieShowTimeDTO() {
     }
 
-    public MovieShowTimeDTO(LocalDate showDate, Integer movieId, LocalTime[] listTime) {
-        this.showDate = showDate;
+    public MovieShowTimeDTO(Integer movieId, String showDate, Integer[] showTime) {
         this.movieId = movieId;
-        this.listTime = listTime;
-    }
-
-    public LocalDate getShowDate() {
-        return showDate;
-    }
-
-    public void setShowDate(LocalDate showDate) {
         this.showDate = showDate;
+        this.showTime = showTime;
+    }
+
+    public Integer getScreenId() {
+        return screenId;
+    }
+
+    public void setScreenId(Integer screenId) {
+        this.screenId = screenId;
     }
 
     public Integer getMovieId() {
@@ -34,11 +34,19 @@ public class MovieShowTimeDTO {
         this.movieId = movieId;
     }
 
-    public LocalTime[] getListTime() {
-        return listTime;
+    public String getShowDate() {
+        return showDate;
     }
 
-    public void setListTime(LocalTime[] listTime) {
-        this.listTime = listTime;
+    public void setShowDate(String showDate) {
+        this.showDate = showDate;
+    }
+
+    public Integer[] getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(Integer[] showTime) {
+        this.showTime = showTime;
     }
 }
