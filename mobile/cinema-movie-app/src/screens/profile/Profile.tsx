@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import { BackButton, Button } from "../../components";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
@@ -20,6 +20,7 @@ const Profile: FC<Props> = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const { user } = useAppSelector((state) => state.user.user);
+  const { userCurrent } = useAppSelector((state) => state.user.user);
   const [imageFromGallery, setImageFromGallery] = useState("");
   const bookedList = useAppSelector((state) => state.bookingReducer.data.bookedByAccount);
 
@@ -32,6 +33,7 @@ const Profile: FC<Props> = ({ navigation }) => {
         index: 0,
         routes: [{ name: "Welcome" }],
       });
+      ToastAndroid.show("Đăng xuất thành công.", ToastAndroid.LONG);
       setLoading(false);
     }, 1000);
 
@@ -54,8 +56,8 @@ const Profile: FC<Props> = ({ navigation }) => {
     });
 
     if (!result.canceled) {
-      console.log("result", result.uri);
-      setImageFromGallery(result.uri);
+      console.log("result", result.assets[0].uri);
+      setImageFromGallery(result.assets[0].uri);
     }
   };
 
@@ -65,6 +67,10 @@ const Profile: FC<Props> = ({ navigation }) => {
   useEffect(() => {
     initial();
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {}, 1000);
+  }, [userCurrent.fullname]);
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -102,7 +108,7 @@ const Profile: FC<Props> = ({ navigation }) => {
                   }}
                 />
               </TouchableOpacity>
-              <Text style={{ fontWeight: "bold", marginTop: 5 }}>{user.displayName.toLocaleUpperCase()}</Text>
+              <Text style={{ fontWeight: "bold", marginTop: 5 }}>{userCurrent.fullname.toLocaleUpperCase()}</Text>
             </View>
 
             <View

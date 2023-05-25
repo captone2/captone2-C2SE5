@@ -4,10 +4,10 @@
     "slug": "cinema-movie-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon/logo.png",
+    "icon": "./assets/icons/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon/logo.png",
+      "image": "./assets/icons/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.test"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "96e9fe0a-69ae-46dc-8ded-94e892b60164"
+      }
     }
   }
 }

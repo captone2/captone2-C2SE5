@@ -43,7 +43,11 @@ const Booked: FC = () => {
           </View>
           <View style={{ pointerEvents: "box-only", position: "absolute", bottom: 20, right: 30 }}>
             <TouchableOpacity onPress={handleImagePress}>
-              <Image source={{ uri: item.imgQrCode }} style={{ width: 60, height: 60 }} />
+              {item.imgQrCode ? (
+                <Image source={{ uri: item.imgQrCode }} style={{ width: 60, height: 60 }} />
+              ) : (
+                <Image source={require("../../../assets/images/avt/qr_code.png")} style={{ width: 60, height: 60 }} />
+              )}
             </TouchableOpacity>
 
             <Modal visible={isModalVisible} onRequestClose={() => setIsModalVisible(false)}>
@@ -66,6 +70,11 @@ const Booked: FC = () => {
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => <RenderItem item={item} />}
         />
+        {bookedList.length <= 0 && (
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: COLORS.lightGrey }}>Trống.</Text>
+          </View>
+        )}
       </View>
     </View>
   );

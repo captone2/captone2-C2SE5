@@ -71,6 +71,11 @@ const BookingReceived: FC = ({ navigation }) => {
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => <RenderItem item={item} />}
         />
+        {bookedList.length <= 0 && (
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: COLORS.lightGrey }}>Trống.</Text>
+          </View>
+        )}
       </View>
     </View>
   );

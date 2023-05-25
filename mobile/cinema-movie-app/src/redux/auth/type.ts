@@ -26,7 +26,7 @@ interface UserInfo2 {
 export interface UserInfo {
   accessToken: string;
   user: UserInfo2;
-  userCurrent: any;
+  userCurrent: Account;
 }
 
 export interface UserState {
@@ -42,8 +42,28 @@ export interface Password {
 
 export interface UpdateAccount {
   address: string;
-  birthday: Date;
+  birthday: Date | string;
   fullname: string;
-  gender: string;
+  gender: boolean;
   phone: string;
+}
+
+export interface Account {
+  accountCode: string;
+  address: string;
+  birthday: string;
+  createAt: string;
+  email: string;
+  enabled: boolean;
+  fullname: string;
+  gender: boolean;
+  id: number;
+  idCard: string;
+  imageUrl: string;
+  password: string;
+  phone: string;
+  provider: string;
+  totalPoint: number;
+  username: string;
+  verificationCode: string;
 }

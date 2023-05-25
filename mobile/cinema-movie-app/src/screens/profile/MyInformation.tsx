@@ -5,11 +5,14 @@ import { COLORS } from "../../utils/theme";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import TextInput from "../../components/TextInput";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { ValidateService } from "../../utils/validate";
 import { UserService } from "../../services/auth/auth.service";
 import { compareStrings, dateReverse } from "../../utils/format";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { UpdateAccount } from "../../redux/auth/type";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { getAccountById } from "../../redux/auth/dispatcher";
+import { format } from "date-fns";
 
 type Props = {
   navigation?: any;
@@ -17,9 +20,11 @@ type Props = {
 const MyInformation: FC<Props> = ({ navigation }) => {
   const [oldPassword, setOldPassword] = useState({ value: "", error: "" });
   const { userCurrent } = useAppSelector((state) => state.user.user);
+  const { user } = useAppSelector((state) => state.user.user);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+
   const [info, setInfo] = useState({
     name: userCurrent.fullname,
     phone: userCurrent.phone,
@@ -29,13 +34,14 @@ const MyInformation: FC<Props> = ({ navigation }) => {
     address: userCurrent.address,
   });
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const dispatch = useAppDispatch();
 
   const isMatchPassword = async () => {
     setLoading(true);
     if (await compareStrings(oldPassword.value, userCurrent.password)) {
       return setVisible(true);
     }
-    ToastAndroid.show("Mật khẩu củ không đúng.", ToastAndroid.LONG);
+    ToastAndroid.show("Mật khẩu không đúng.", ToastAndroid.LONG);
     setLoading(false);
   };
 
@@ -54,9 +60,29 @@ const MyInformation: FC<Props> = ({ navigation }) => {
     });
   };
 
+  const handlePressUpdate = async () => {
+    try {
+      const data: UpdateAccount = {
+        fullname: info.name,
+        address: info.address,
+        birthday: info.birthday,
+        gender: info.gender,
+        phone: info.phone,
+      };
+      const response = await UserService.updateAccount(userCurrent.id, data);
+      if (response) {
+        ToastAndroid.show("Chỉnh sửa thông tin thành công.", ToastAndroid.LONG);
+        dispatch(getAccountById(user.id));
+        navigation.goBack();
+      }
+    } catch (error) {
+      ToastAndroid.show("Chỉnh sửa thông tin không thành công.", ToastAndroid.LONG);
+    }
+  };
+
   useEffect(() => {
     setLoading(false);
-  }, []);
+  }, [userCurrent]);
 
   return (
     <View style={styles.container}>
@@ -111,16 +137,6 @@ const MyInformation: FC<Props> = ({ navigation }) => {
             <TextInput
               label="Email *"
               value={info.email}
-              onChangeText={(text) =>
-                setInfo({
-                  name: info.name,
-                  phone: info.phone,
-                  email: text,
-                  birthday: info.birthday,
-                  gender: info.gender,
-                  address: info.address,
-                })
-              }
               autoCorrect={false}
               autoCapitalize="none"
               autoComplete="off"
@@ -174,7 +190,7 @@ const MyInformation: FC<Props> = ({ navigation }) => {
                         name: info.name,
                         phone: info.phone,
                         email: info.email,
-                        birthday: date,
+                        birthday: format(date, "yyyy-MM-dd"),
                         gender: info.gender,
                         address: info.address,
                       });
@@ -226,7 +242,7 @@ const MyInformation: FC<Props> = ({ navigation }) => {
 
             <View style={{ marginTop: 10 }}>
               <Text style={{ marginBottom: 10 }}>* Thông tin bắt buộc.</Text>
-              <Button text="Chỉnh sửa thông tin" tintColor={COLORS.white} />
+              <Button text="Chỉnh sửa thông tin" tintColor={COLORS.white} onPress={handlePressUpdate} />
               <View style={{ alignSelf: "center" }}>
                 <Text
                   style={{ color: COLORS.blue, fontStyle: "italic", textDecorationLine: "underline" }}

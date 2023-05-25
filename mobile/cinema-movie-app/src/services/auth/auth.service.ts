@@ -1,5 +1,5 @@
 import { Endpoints } from "../../api/endpoints";
-import { LoginInfo, Password, UserState } from "../../redux/auth/type";
+import { LoginInfo, Password, UpdateAccount, UserState } from "../../redux/auth/type";
 import { axiosClient, responseBody } from "../../api/axios";
 import axios from "axios";
 
@@ -15,5 +15,9 @@ export class UserService {
 
   static getAccountById(id: number): Promise<any> {
     return axiosClient.get(Endpoints.PREFIX + `account/${id}`).then(responseBody);
+  }
+
+  static updateAccount(id: number, body: UpdateAccount): Promise<any> {
+    return axiosClient.patch(Endpoints.PREFIX + `${this.prefix}/update/${id}`, body).then(responseBody);
   }
 }

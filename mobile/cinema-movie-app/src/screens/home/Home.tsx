@@ -69,8 +69,8 @@ const Home: FC = ({ navigation }) => {
     },
   ];
 
-  const [flag, setFlag] = useState(false);
   const dispatch = useAppDispatch();
+  const [selectedGenre, setSelectedGenre] = useState(null);
 
   const opacityValue = useRef(new Animated.Value(1)).current;
   const opacityValue1 = useRef(new Animated.Value(2)).current;
@@ -110,9 +110,9 @@ const Home: FC = ({ navigation }) => {
     ]);
   };
   useEffect(() => {
-    initial();
     startAnimation();
-  }, []);
+    initial();
+  }, [movieList.length]);
 
   //require("../../../assets/icons/logo.png")
   const ListItem: FC<ListItemProps> = ({ item, top = false, onPress }) => {
@@ -164,12 +164,45 @@ const Home: FC = ({ navigation }) => {
   };
 
   const filterMovie = () => {
-    setFlag(!flag);
     if (movieList.length < 0) {
       return;
     }
     const result = movieList.filter((el) => el.title.toLowerCase().includes(keySearch.toLowerCase().trim()));
     setMovieListFilter(result);
+  };
+
+  const RenderGenre = ({ item, handleSelection, selectedGenre }) => {
+    let isItemSelected = selectedGenre === item.id;
+    const filterMovieByGenre = () => {
+      handleSelection(item.id);
+      if (selectedGenre === item.id) {
+        handleSelection("");
+        isItemSelected = false;
+      }
+      const result = movieList.reduce((pre, cur) => {
+        const a = cur.genres.filter((el) => el.name.includes(item.name));
+        if (a.length > 0) {
+          return [...pre, cur];
+        }
+        return pre;
+      }, [] as Movie[]);
+      setMovieListFilter(result);
+    };
+    return (
+      <TouchableOpacity style={[styles.genre, isItemSelected && styles.selectedGenre]} onPress={filterMovieByGenre}>
+        <Text
+          style={{
+            color: COLORS.colors.surface,
+          }}
+        >
+          {item.name}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const handleSelection = (id) => {
+    setSelectedGenre(id);
   };
 
   return (
@@ -201,30 +234,9 @@ const Home: FC = ({ navigation }) => {
             contentContainerStyle={{ paddingHorizontal: 10 }}
             data={genreList}
             horizontal
-            renderItem={({ item, index }) => {
-              const filterMovieByGenre = () => {
-                const result = movieList.reduce((pre, cur) => {
-                  const a = cur.genres.filter((el) => el.name.includes(item.name));
-                  if (a.length > 0) {
-                    return pre;
-                  }
-                  return cur;
-                });
-                console.log(result);
-                // setMovieListFilter(result);
-              };
-              return (
-                <TouchableOpacity style={styles.genre} onPress={filterMovieByGenre}>
-                  <Text
-                    style={{
-                      color: COLORS.colors.surface,
-                    }}
-                  >
-                    {item.name}
-                  </Text>
-                </TouchableOpacity>
-              );
-            }}
+            renderItem={({ item }) => (
+              <RenderGenre item={item} selectedGenre={selectedGenre} handleSelection={handleSelection} />
+            )}
           />
         </View>
         {!keySearch ? (
@@ -397,5 +409,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: COLORS.black,
     paddingHorizontal: 5,
+  },
+  selectedGenre: {
+    backgroundColor: COLORS.lightGrey,
   },
 });

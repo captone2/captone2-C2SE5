@@ -6,7 +6,9 @@ import axios from "axios";
 export class BookingService {
   static prefix = "auth/booking";
   static getBookingByBookingCode(body: BookingRequest): Promise<BookingDTO> {
-    return axiosClient.post(Endpoints.PREFIX + `${this.prefix}/get-booking-by-code`, body).then(responseBody);
+    return axiosClient
+      .post(Endpoints.PREFIX + `${this.prefix}/get-booking-by-code`, { bookingCode: body })
+      .then(responseBody);
   }
 
   static setTicketBookingReceived(body: BookingRequest): Promise<void> {
@@ -29,7 +31,6 @@ export class BookingService {
     return axiosClient.post(`${Endpoints.PREFIX}${this.prefix}`, body).then(responseBody);
   }
 
-  //TODO:
   //   number is number Seat id, id: booking code
   static addSeatByBookingCode(body: { numbers: number[]; id: string }): Promise<void> {
     return axiosClient.post(`${Endpoints.PREFIX}${this.prefix}/seat`, body).then(responseBody);
