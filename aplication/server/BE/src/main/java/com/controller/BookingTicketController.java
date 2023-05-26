@@ -149,5 +149,13 @@ public class BookingTicketController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+
+    @GetMapping(value = "/comment/{accountId}/{movieId}")
+    public ResponseEntity<List<Booking>> getListBookingCheckComment(@PathVariable("accountId") Long accountId ,@PathVariable("movieId") Long movieId) {
+        List<Booking> bookings = bookingRepository.checkBookingComment(accountId,movieId);
+        return new ResponseEntity<>(bookings,HttpStatus.OK);
+    }
+
 }
 

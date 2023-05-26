@@ -41,13 +41,7 @@ export class RegisterComponent implements OnInit {
 
     ],
     phone: [
-      //     Viettel: 09, 03
-      //     MobiFone: 09, 07
-      //     VinaPhone: 09, 08
-      //     Vietnamobile và Gmobile: 09, 05
       {type: 'required', message: 'Vui lòng nhập số điện thoại.'},
-      // {type: 'minlength', message: 'Số điện thoại gồm 10 số.'},
-      // {type: 'maxlength', message: 'Số điện thoại gồm 10 số.'},
       {type: 'pattern', message: 'Số điện thoại không hợp lệ. (10 số)'}
     ],
     address: [
@@ -55,19 +49,18 @@ export class RegisterComponent implements OnInit {
       {type: 'pattern', message: 'Không được nhập kí tự đặc biệt. (!@#$%^&)'}
     ],
     idCard: [
-      {type: 'required', message: 'Vui lòng nhập số CMND.'},
-      {type: 'pattern', message: 'CMND không hợp lệ.'},
-      // {type: 'length', message: 'CMND có 8 hoặc 12 số.'}
+      {type: 'required', message: 'Vui lòng nhập số CCCD.'},
+      {type: 'pattern', message: 'CCCD không hợp lệ.'},
     ],
     password: [
       {type: 'required', message: 'Vui lòng nhập mật khẩu.'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 6 kí tự.'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 15 kí tự.'}
+      {type: 'pattern', message: 'Mật khẩu không đúng định dạng.'},
+   
     ],
     matchingPassword: [
       {type: 'required', message: 'Vui lòng nhập xác nhận mật khẩu.'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 6 kí tự.'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 15 kí tự.'}
+      {type: 'pattern', message: 'Mật khẩu không đúng định dạng.'},
+   
     ],
     birthday: [
       {type: 'required', message: 'Vui lòng nhập ngày sinh.'}
@@ -77,7 +70,7 @@ export class RegisterComponent implements OnInit {
     ],
     email: [
       {type: 'required', message: 'Vui lòng nhập email.'},
-      {type: 'pattern', message: 'Email không đúng định dạng. (zxc123@gmail.com)'},
+      {type: 'pattern', message: 'Email không đúng định dạng'},
     ]
   };
 
@@ -93,8 +86,6 @@ export class RegisterComponent implements OnInit {
         phone: new FormControl(null,
           [Validators.required,
             Validators.pattern(/((09|03|07|08|05)+([0-9]{8})\b)/),
-            // Validators.minLength(10),
-            // Validators.maxLength(10)
           ]),
         address: new FormControl(null),
         idCard: new FormControl(null,
@@ -105,10 +96,10 @@ export class RegisterComponent implements OnInit {
         username: new FormControl(null,
           [Validators.required, Validators.maxLength(20), Validators.minLength(6)]),
         password: new FormControl(null,
-          [Validators.required, Validators.minLength(6)]),
+          [Validators.required, Validators.pattern('^(?=^.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#=?^&])[A-Za-z\\d@$!=%*#^?&]{8,20}$')]),
         matchingPassword: new FormControl(null,
           [Validators.required, Validators.minLength(6), compareValidator('password')]),
-        birthday: new FormControl(null, Validators.required)
+        birthday: new FormControl(null, Validators.pattern('^(?=^.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#=?^&])[A-Za-z\\d@$!=%*#^?&]{8,20}$'))
       },
     );
   }

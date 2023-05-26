@@ -1,5 +1,5 @@
 <div id="page" class="hfeed site">
-<app-header></app-header>
+  <app-header></app-header>
   <div id="main">
     <div class="steps-booking">
       <div class="steps choose-chair active-step" data-id="1">
@@ -38,7 +38,7 @@
                 <p>Ghế đã bán</p>
               </div>
             </div>
-            
+
           </div>
           <div class="row-book">
             <div class="screen">Màn hình</div>
@@ -46,38 +46,54 @@
           <div class="chair">
             <div>
               <div class="row-book" *ngFor="let seat of showSeat; let i = index">
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[0].id) ,'active-seat': checkActive(seat[0].id)}"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[0].id) ,'active-seat': checkActive(seat[0].id)}"
                   (click)="addSeat($event.target,seat[0].id,seat[0].name)">{{seat[0].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[1].id) , 'active-seat': checkActive(seat[1].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[1].id) , 'active-seat': checkActive(seat[1].id) }"
                   (click)="addSeat($event.target,seat[1].id,seat[1].name)">{{seat[1].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[2].id) , 'active-seat': checkActive(seat[2].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[2].id) , 'active-seat': checkActive(seat[2].id) }"
                   (click)="addSeat($event.target,seat[2].id,seat[2].name)">{{seat[2].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[3].id) , 'active-seat': checkActive(seat[3].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[3].id) , 'active-seat': checkActive(seat[3].id) }"
                   (click)="addSeat($event.target,seat[3].id,seat[3].name)">{{seat[3].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[4].id) , 'active-seat': checkActive(seat[4].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[4].id) , 'active-seat': checkActive(seat[4].id) }"
                   (click)="addSeat($event.target,seat[4].id,seat[4].name)">{{seat[4].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[5].id) , 'active-seat': checkActive(seat[5].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[5].id) , 'active-seat': checkActive(seat[5].id) }"
                   (click)="addSeat($event.target,seat[5].id,seat[5].name)">{{seat[5].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[6].id) , 'active-seat': checkActive(seat[6].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[6].id) , 'active-seat': checkActive(seat[6].id) }"
                   (click)="addSeat($event.target,seat[6].id,seat[6].name)">{{seat[6].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[7].id) , 'active-seat': checkActive(seat[7].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[7].id) , 'active-seat': checkActive(seat[7].id) }"
                   (click)="addSeat($event.target,seat[7].id,seat[7].name)">{{seat[7].name}}</div>
                 <div class="land"></div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[8].id) , 'active-seat': checkActive(seat[8].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[8].id) , 'active-seat': checkActive(seat[8].id) }"
                   (click)="addSeat($event.target,seat[8].id,seat[8].name)">{{seat[8].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[9].id) , 'active-seat': checkActive(seat[9].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[9].id) , 'active-seat': checkActive(seat[9].id) }"
                   (click)="addSeat($event.target,seat[9].id,seat[9].name)">{{seat[9].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[10].id) , 'active-seat': checkActive(seat[10].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[10].id) , 'active-seat': checkActive(seat[10].id) }"
                   (click)="addSeat($event.target,seat[10].id,seat[10].name)">{{seat[10].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[11].id) , 'active-seat': checkActive(seat[11].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[11].id) , 'active-seat': checkActive(seat[11].id) }"
                   (click)="addSeat($event.target,seat[11].id,seat[11].name)">{{seat[11].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[12].id) , 'active-seat': checkActive(seat[12].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[12].id) , 'active-seat': checkActive(seat[12].id) }"
                   (click)="addSeat($event.target,seat[12].id,seat[12].name)">{{seat[12].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[13].id) , 'active-seat': checkActive(seat[13].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[13].id) , 'active-seat': checkActive(seat[13].id) }"
                   (click)="addSeat($event.target,seat[13].id,seat[13].name)">{{seat[13].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[14].id) , 'active-seat': checkActive(seat[14].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[14].id) , 'active-seat': checkActive(seat[14].id) }"
                   (click)="addSeat($event.target,seat[14].id,seat[14].name)">{{seat[14].name}}</div>
-                <div class="seat" [ngClass]="{'active-sold': checkSold(seat[15].id) , 'active-seat': checkActive(seat[15].id) }"
+                <div class="seat"
+                  [ngClass]="{'active-sold': checkSold(seat[15].id) , 'active-seat': checkActive(seat[15].id) }"
                   (click)="addSeat($event.target,seat[15].id,seat[15].name)">{{seat[15].name}}</div>
               </div>
             </div>
@@ -172,33 +188,6 @@
             </div>
           </div>
           <!-- Infomation -->
-          <div class="infomation">
-            <div class="card">
-              <div class="card-header">
-                <span class="pay-sum">
-                  Thông tin cá nhân</span>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="fullname">Họ và tên</label>
-                  <input type="text" class="form-control" id="fullname">
-                </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" class="form-control" id="email">
-                </div>
-                <div class="form-group">
-                  <label for="phone_number">Số điện thoại</label>
-                  <input type="text" class="form-control" id="phone_number">
-                </div>
-                <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="check">
-                  <label class="form-check-label" for="check">Create an account with this email
-                    and phone number</label>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col-md-4">
@@ -208,7 +197,8 @@
             <div class="location">Starlight Da Nang</div>
             <div class="date-time">Giờ chiếu {{bookingDTO?.showtime}} - {{bookingDTO?.showDate | date: 'dd/MM/yyyy'}}
             </div>
-            <div class="room-seat">Màn hình {{movieShowtime?.screen.id}} - Ghế ngồi <span class="select-chair">{{seatContext}}</span></div>
+            <div class="room-seat">Màn hình {{movieShowtime?.screen.id}} - Ghế ngồi <span
+                class="select-chair">{{seatContext}}</span></div>
           </div>
           <div class="total">
             <div class="total-chair">
@@ -223,10 +213,14 @@
           <div class="description" style="display: none;">
             <p>Vé đã mua không được đổi hoặc hoàn tiền.</p>
             <p>Mã vé sẽ được gửi <b>01</b> lần qua số điện thoại và email đã nhập. Vui lòng
-               kiểm tra lại thông tin trước khi tiếp tục.</p>
+              kiểm tra lại thông tin trước khi tiếp tục.</p>
           </div>
-          <div class="btun btn-next" (click)="updateValueCookie()">Tiếp tục</div>
-          <div (click)="showInfoBooking()" class="btun btn-pay" style="display: none;">Thanh toán
+          <div style="display: flex;">
+            <div (click)="updateValueCookie1()" class="btun btn-back" style="background-color: blueviolet; flex: 30%;margin-right: 20px;">Quay lại</div>
+            <div class="btun btn-next" (click)="updateValueCookie()">Tiếp tục</div>
+          
+            <div (click)="showInfoBooking()" class="btun btn-pay" style="display: none;">Thanh toán
+          </div>
           </div>
         </div>
       </div>
@@ -328,18 +322,18 @@
         </div>
       </div>
       <div style="text-align: right;">
-        <a class="btn btn-success" href="#" style=" padding: 10px 15px;">
-          Back</a>
+        <a class="btn " href="#">
+          Quay về</a>
       </div>
     </div>
   </div>
 
   <!-- modal payment -->
   <div (click)="handleOverlayClick()" class="overlay" style="display: none;"></div>
-  <div class="modal-payment modal-wrap" style="display: none;">
+  <div class="modal-payment modal-wrap" style="display: none;     top: 45%;">
     <div class="modal-header">
       <h4 class="title">Xác nhận đơn hàng</h4>
-      <div (click)="handleOverlayClick()" class="cls">
+      <div (click)="handleOverlayClick()" class="cls" style="top: 20px;">
         <i class="fa-solid fa-xmark"></i>
       </div>
     </div>
@@ -389,7 +383,7 @@
     </div>
   </div>
   <div class="modal-body" style="padding-top: 30px;">
-    Hết thời gian đặt vé, Vui lòng thực hiện lại 
+    Hết thời gian đặt vé, Vui lòng thực hiện lại
   </div>
   <div class="modal-footer">
     <button type="button" class="btn-rebuy"><a routerLink="/home" style="color: #fff;">Đặt lại vé</a></button>

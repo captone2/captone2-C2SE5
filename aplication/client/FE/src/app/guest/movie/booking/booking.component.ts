@@ -18,6 +18,7 @@ import { BookingPost } from 'src/app/shared/model/dto/BookingPost';
 import { AngularFireStorage } from '@angular/fire/storage';
 import QRCode from 'qrcode';
 import { Thickness } from '@syncfusion/ej2-angular-charts';
+import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
 @Component({
   selector: 'app-booking',
@@ -25,6 +26,7 @@ declare var jQuery: any;
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent implements OnInit {
+  test: boolean = false;
   public payPalConfig?: IPayPalConfig;
   @ViewChild('openBtn') openBtn: ElementRef;
   @ViewChild('qrCanvas') qrCanvas;
@@ -47,9 +49,10 @@ export class BookingComponent implements OnInit {
   rate: number ;
   @ViewChild('modalMaxchair') modalMaxchair: ElementRef;
   private readonly destroy$ = new Subject<void>();
-  constructor(private storage: AngularFireStorage, private elRef: ElementRef, private router: Router, private accountService: AccountUserServiceService, private cookieService: CookieService, private movieService: MovieService, private http: HttpClient, private activatedRoute: ActivatedRoute, private seatService: SeatService) { }
+  constructor(private toastService: ToastrService, private storage: AngularFireStorage, private elRef: ElementRef, private router: Router, private accountService: AccountUserServiceService, private cookieService: CookieService, private movieService: MovieService, private http: HttpClient, private activatedRoute: ActivatedRoute, private seatService: SeatService) { }
 
   ngOnInit(): void {
+    
     this.getSeatSold();
     this.checkBookingExist();
     interval(1000)
@@ -189,7 +192,7 @@ closeModal() {
 
   getDuration(startDay: string): string {
     const bookingJSON = this.cookieService.get(this.activatedRoute.snapshot.params['transactionId']);
-    if ( this.checkStatusBook == false) {
+    if (this.checkStatusBook === false) {
       if (bookingJSON == '') {
         this.showRebuyModal();
         window.top.close();
@@ -211,6 +214,7 @@ closeModal() {
   }
 
   updateValueCookie() {
+    console.log('Next' +this.count)
     const name = this.activatedRoute.snapshot.params['transactionId']
     const originalString = this.bookingDTO.dayTimeCookie;
     const date = new Date(originalString);
@@ -250,6 +254,39 @@ closeModal() {
       jQuery('.description').css('display', 'block');
     }
   }
+
+
+  
+  updateValueCookie1() {
+    console.log('Quay' +this.count)
+    if (this.count === 2) {
+      this.count--;
+      jQuery('.steps').removeClass('active-step');
+      jQuery('.water-corn').addClass('active-step');
+      jQuery('.booking-chair').css('display', 'none');
+      jQuery('.book-food').css('display', 'block');
+      jQuery('.step-payment').css('display', 'none');
+      jQuery('.info').css('display', 'block');
+      jQuery('.total').css('margin-top', '20px');
+      jQuery('.btn-next').css('display', 'block');
+      jQuery('.btn-pay').css('display', 'none');
+      jQuery('.description').css('display', 'none');
+    } else if (this.count === 1) {
+      this.count--;
+      jQuery('.steps').removeClass('active-step');
+      jQuery('.choose-chair').addClass('active-step');
+      jQuery('.booking-chair').addClass('active-step');
+      jQuery('.booking-chair').css('display', 'block');
+      jQuery('.book-food').css('display', 'none');
+      jQuery('.step-payment').css('display', 'none');
+      jQuery('.info').css('display', 'block');
+      jQuery('.total').css('margin-top', '20px');
+      jQuery('.btn-next').css('display', 'block');
+      jQuery('.btn-pay').css('display', 'none');
+      jQuery('.description').css('display', 'none');
+    }
+  }
+
 
   getAllFood() {
 
@@ -293,14 +330,18 @@ closeModal() {
   }
 
   showInfoBooking() {
-    const myValue = (this.bookingDTO.totalPrice / 23000).toFixed(2);
-    console.log(myValue)
-
-    this.elRef.nativeElement.querySelector('.modal-payment').style.animation = 'topdown 0.5s ease-in-out forwards';
-    this.elRef.nativeElement.querySelector('.overlay').style.display = 'none';
-    this.elRef.nativeElement.querySelector('.modal-payment').style.animation = 'downtop 0.5s ease-in-out forwards';
-    this.elRef.nativeElement.querySelector('.modal-payment').style.display = 'block';
-    this.elRef.nativeElement.querySelector('.overlay').style.display = 'block';
+    if(this.bookingDTO.seatId.length ===0){
+      this.toastService.error('Vui lòng chọn ghế!', 'Error:');
+    } else {
+      const myValue = (this.bookingDTO.totalPrice / 23000).toFixed(2);
+      console.log(myValue)
+      this.elRef.nativeElement.querySelector('.modal-payment').style.animation = 'topdown 0.5s ease-in-out forwards';
+      this.elRef.nativeElement.querySelector('.overlay').style.display = 'none';
+      this.elRef.nativeElement.querySelector('.modal-payment').style.animation = 'downtop 0.5s ease-in-out forwards';
+      this.elRef.nativeElement.querySelector('.modal-payment').style.display = 'block';
+      this.elRef.nativeElement.querySelector('.overlay').style.display = 'block';
+    }
+   
   }
 
   handleOverlayClick() {
@@ -353,29 +394,84 @@ closeModal() {
         shape: 'rect'
       },
       onApprove: (data, actions) => {
-        // console.log('onApprove - transaction was approved, but not authorized', data, actions);
         actions.order.get().then(details => {
-          this.checkStatusBook == true;
-          this.bookingQRCode = this.generateRandomString(64)
-          this.generateQRCode(this.bookingQRCode)
-          this.showBookingSusses();
+          this.movieShowtimeId = parseInt(this.activatedRoute.snapshot.params['movieShowTimeId'])
+          this.movieService.getSeatSold(this.movieShowtimeId).subscribe(data => {
+            this.seatListSold = data;
+            console.log(data);
+            console.log(this.bookingDTO.seatId)
+          
+            const isAnySeatSold = this.bookingDTO.seatId.some(seatNumber => this.seatListSold.includes(seatNumber));
+            const duplicateSeats = this.bookingDTO.seatId.filter(seatNumber => this.seatListSold.includes(seatNumber));
+            const seatDuplicate: any = [];
+            const seatNameDuplicate: any = [];
+            // 
+            for (const num of this.bookingDTO.seatId) {
+              if (this.seatListSold.includes(num)) {
+                const index = this.bookingDTO.seatId.indexOf(num);
+                seatDuplicate.push(index);
+              }
+            }
+            for (const i of seatDuplicate) {
+              if (i >= 0 && i < this.bookingDTO.seatName.length) {
+                const element = this.bookingDTO.seatName[i];
+                seatNameDuplicate.push(element);
+              }
+            }
+            const str = seatNameDuplicate.join(',');
+            if (isAnySeatSold) {
+              this.toastService.error('Ghế ngồi ' + str + ' đã được thanh toán !', 'Error:');
+              const name = this.activatedRoute.snapshot.params['transactionId']
+              const originalString = this.bookingDTO.dayTimeCookie;
+              this.bookingDTO.foodName = [];
+              this.bookingDTO.foodId = [];
+              this.bookingDTO.foodPrice = [];
+              this.bookingDTO.foodTotal = [];
+              this.bookingDTO.seatId = [];
+              this.bookingDTO.seatName = [];
+              this.bookingDTO.totalPrice = 0;
+              this.seatContext = ''
+              const date = new Date(originalString);
+              const expires = date.toUTCString();
+              document.cookie = `${name}=${JSON.stringify(this.bookingDTO)}; expires=${expires}; path=/`;
+            } else {
+              this.checkStatusBook = true;
+              this.bookingQRCode = this.generateRandomString(64);
+              this.generateQRCode(this.bookingQRCode);
+              this.showBookingSusses();
+            }
+          }, error => {
+            console.log(error)
+          })
+          // this.getSeatSold();
+
+          // console.log(duplicateSeats)
          
         });
       },
+      // onApprove: (data, actions) => {
+      //   // console.log('onApprove - transaction was approved, but not authorized', data, actions);
+      //   actions.order.get().then(details => {
+      //     this.checkStatusBook == true;
+      //     this.bookingQRCode = this.generateRandomString(64)
+      //     this.generateQRCode(this.bookingQRCode)
+      //     this.showBookingSusses();
+         
+      //   });
+      // },
       onClientAuthorization: (data) => {
-        // console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        // this.showSuccess = true;
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
       },
       onCancel: (data, actions) => {
-        // console.log('OnCancel', data, actions);
-        alert('Cancel');
+        console.log('OnCancel', data, actions);
+       
       },
       onError: err => {
-        // console.log('OnError', err);
-        alert('error');
+        console.log('OnError', err);
+      
       },
       onClick: (data, actions) => {
-        // console.log('onClick', data, actions);
+        console.log('onClick', data, actions);
       },
     };
   }

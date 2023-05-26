@@ -95,25 +95,57 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="header bline">
-                        <h2>Cryptocurrency Overview</h2>
+                        <h2>Revenue Overview</h2>
                         <ul class="header-dropdown dropdown dropdown-animated scale-left">
-                            <li><a style=" color: fff;background-color: #3b71ca;" class="btn btn-default btn-sm"
-                                    href="javascript:void(0);" data-toggle="tooltip" data-placement="top"
-                                    title="Monthly">Monthly</a></li>
-                            <li><a style="color: #285192;background-color: #e3ebf7"
-                                    class="btn btn-outline-primary btn-sm" href="javascript:void(0);"
-                                    data-toggle="tooltip" data-placement="top" title="Yearly">Yearly</a></li>
+                        
                         </ul>
                     </div>
                     <div class="body">
                         <canvas id="myChart1" width="400" height="250"></canvas>
                     </div>
                 </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Specific revenue</h2>
+                            <ul class="header-dropdown dropdown dropdown-animated scale-left">
+                                <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
+                                            class="icon-refresh"></i></a></li>
+                                <li><a href="javascript:void(0);" class="full-screen"><i
+                                            class="icon-size-fullscreen"></i></a></li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                        role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another Action</a></li>
+                                        <li><a href="javascript:void(0);">Something else</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-5">
+                                    <div>
+                                        <canvas id="myChart2" width="400" height="400"></canvas>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-7">
+                                    <h6 class="font700">{{ticketFood.ticket+ticketFood.food}}$</h6>
+                                    <span>Ticket:<span class="float-right">{{ticketFood.ticket}}$</span></span><br>
+                                    <span>Foods & Drinks: <span class="float-right">{{ticketFood.food}}$</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Top Products</h2>
+                        <h2>Genre Overview </h2>
                         <ul class="header-dropdown dropdown dropdown-animated scale-left">
                             <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
                                         class="icon-refresh"></i></a></li>
@@ -137,43 +169,7 @@
             </div>
         </div>
         <div class="row clearfix">
-            <div class="col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="header">
-                        <h2>My Wallets</h2>
-                        <ul class="header-dropdown dropdown dropdown-animated scale-left">
-                            <li> <a href="javascript:void(0);" data-toggle="cardloading" data-loading-effect="pulse"><i
-                                        class="icon-refresh"></i></a></li>
-                            <li><a href="javascript:void(0);" class="full-screen"><i
-                                        class="icon-size-fullscreen"></i></a></li>
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                    role="button" aria-haspopup="true" aria-expanded="false"></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another Action</a></li>
-                                    <li><a href="javascript:void(0);">Something else</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <div class="row clearfix">
-                            <div class="col-5">
-                                <div>
-                                    <canvas id="myChart2" width="400" height="400"></canvas>
-                                </div>
-                               
-                            </div>
-                            <div class="col-7">
-                                <h6 class="font700">{{ticketFood.ticket+ticketFood.food}}$</h6>
-                                <span>Ticket:<span class="float-right">{{ticketFood.ticket}}$</span></span><br>
-                                <span>Foods & Drinks: <span class="float-right">{{ticketFood.food}}$</span></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
     </div>

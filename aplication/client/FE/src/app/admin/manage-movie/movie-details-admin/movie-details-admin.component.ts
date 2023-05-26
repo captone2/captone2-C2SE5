@@ -119,6 +119,7 @@ export class MovieDetailsAdminComponent implements OnInit {
         });
 
       }
+      console.log(this.dateDTO)
     }, (error) => {
     });
   }
@@ -148,6 +149,7 @@ export class MovieDetailsAdminComponent implements OnInit {
       this.showTimeList = data;
 
       this.showTimeList = this.sortArrayByShowTime(this.showTimeList)
+      console.log(this.showTimeList)
     })
   }
 
@@ -166,20 +168,48 @@ export class MovieDetailsAdminComponent implements OnInit {
   }
 
   addShowtime(target: any, showtime: any) {
-    console.log('Trước khi add: ' + this.showTimeListExist);
-    if (this.showTimeListExist.some(item => item.showtime.showTime === showtime.showTime)) {
-      target.classList.remove('showtime-active');
-      this.showTimeListExist = this.showTimeListExist.filter(item => !(item.showtime.id === showtime.id && item.showtime.showTime === showtime.showTime));
-      this.listShowTimeSelect = this.listShowTimeSelect.filter(number => number !== showtime.id);
-      console.log('Sau khi remove: ' + this.showTimeListExist)
+    console.log('Trước khi add: ')
+    let checkAdd: boolean = false;
+    const targetTimePlusMinutes = this.addMinutesToTime(showtime.showTime, this.movie.runningTime + 20);
+    const index1 = this.showTimeList.findIndex(item => item.showTime === showtime.showTime);
+    console.log(showtime.showTime)
+    console.log(index1)
+    const index2 = this.showTimeList.findIndex(item => item.showTime > targetTimePlusMinutes) ;
+    console.log(targetTimePlusMinutes)
+    console.log(index2)
+    // Lấy các khung giờ ở giữa
+    const middleShowTimes = [];
+    for (let i = index1 + 1; i < index2; i++) {
+      middleShowTimes.push(this.showTimeList[i].showTime);
+    }
+    console.log(middleShowTimes)
+    middleShowTimes.forEach(time => {
+      if(this.showTimeListExist.some(item => item.showtime.showTime === time)) {
+        if(targetTimePlusMinutes > time) {
+          checkAdd = true;
+        }
+      }
+      
+    });
 
+    if (checkAdd && this.showTimeListExist.length > 0) {
+      this.toastService.error('Add invalid showtime!', 'Error:');
     } else {
-      target.classList.add('showtime-active');
-      const movieShowtimeCopy = new MovieShowtime;
-      movieShowtimeCopy.showtime = showtime;
-      movieShowtimeCopy.movie = this.movie;
-      this.showTimeListExist.push(movieShowtimeCopy);
-      this.listShowTimeSelect.push(showtime.id)
+      if (this.showTimeListExist.some(item => item.showtime.showTime === showtime.showTime)) {
+        target.classList.remove('showtime-active');
+        this.showTimeListExist = this.showTimeListExist.filter(item => !(item.showtime.id === showtime.id && item.showtime.showTime === showtime.showTime));
+        this.listShowTimeSelect = this.listShowTimeSelect.filter(number => number !== showtime.id);
+        console.log('Sau khi remove: ' + this.showTimeListExist)
+
+      } else {
+        target.classList.add('showtime-active');
+        const movieShowtimeCopy = new MovieShowtime;
+        movieShowtimeCopy.showtime = showtime;
+        movieShowtimeCopy.movie = this.movie;
+        this.showTimeListExist.push(movieShowtimeCopy);
+        this.listShowTimeSelect.push(showtime.id)
+        console.log(this.showTimeListExist)
+      }
     }
   }
 
@@ -196,7 +226,7 @@ export class MovieDetailsAdminComponent implements OnInit {
         for (const item1 of movieShowTimeNew) {
           const movieShowTime = this.showTimeListExist.find(item => item.showtime.showTime === item1.showTime);
           if (movieShowTime) {
-            const showTimePlusRunningTime: string = this.addTime(movieShowTime.showtime.showTime, movieShowTime.movie.runningTime + 15);
+            const showTimePlusRunningTime: string = this.addTime(movieShowTime.showtime.showTime, movieShowTime.movie.runningTime + 17);
             isFound = this.compareTime(showTimePlusRunningTime, showTime);
             if (isFound == true) {
               break;
@@ -241,29 +271,43 @@ export class MovieDetailsAdminComponent implements OnInit {
   }
 
   createShowtime() {
-    if (this.selectedDate == '') {
-      this.toastService.error('Please select showdate!', 'Error:');
-    } else {
-      if (this.screenSelect == 0) {
-        this.toastService.error('Please select screen!', 'Error:');
-      } else {
-        if (this.listShowTimeSelect.length == 0) {
-          this.toastService.error('Please select showtime!', 'Error:');
-        } else {
-          const body = {
-            movieId: parseInt(this.activatedRoute.snapshot.params['id']),
-            showDate: this.selectedDate,
-            screenId: this.screenSelect,
-            showTime: this.listShowTimeSelect,
-          };
-          this.movieService.addMovieShowTime(body).subscribe(data => {        
-            this.toastService.success('Create showtime success!', 'Success:');
-          })
-        }
-      }
-    }
+    const body = {
+      movieId: parseInt(this.activatedRoute.snapshot.params['id']),
+      showDate: this.selectedDate,
+      screenId: this.screenSelect,
+      showTime: this.listShowTimeSelect,
+    };
+    console.log(body)
+    // if (this.selectedDate == '') {
+    //   this.toastService.error('Please select showdate!', 'Error:');
+    // } else {
+    //   if (this.screenSelect == 0) {
+    //     this.toastService.error('Please select screen!', 'Error:');
+    //   } else {
+    //     if (this.listShowTimeSelect.length == 0) {
+    //       this.toastService.error('Please select showtime!', 'Error:');
+    //     } else {
+    //       const body = {
+    //         movieId: parseInt(this.activatedRoute.snapshot.params['id']),
+    //         showDate: this.selectedDate,
+    //         screenId: this.screenSelect,
+    //         showTime: this.listShowTimeSelect,
+    //       };
+    //       this.movieService.addMovieShowTime(body).subscribe(data => {
+    //         this.toastService.success('Create showtime success!', 'Success:');
+    //       })
+    //     }
+    //   }
+    // }
 
 
   }
 
+  addMinutesToTime(time, minutes) {
+    const [hours, mins, secs] = time.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, mins, secs);
+    date.setMinutes(date.getMinutes() + minutes);
+    return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+  }
 }

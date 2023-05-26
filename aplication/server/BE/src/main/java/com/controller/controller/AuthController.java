@@ -133,5 +133,12 @@ public class AuthController {
 		accountService.saveNewPassword(passwordEncoder.encode(resetPassRequest.getPassword()), resetPassRequest.getCode());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+
+	@PostMapping("/verify-register")
+	public ResponseEntity<?> verifyResgister(@RequestBody VerifyRequest code) {
+		accountRepository.verifyRegister(code.getCode());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
 

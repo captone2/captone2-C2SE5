@@ -5,6 +5,8 @@ import { MovieShowtime } from '../shared/model/entity/MovieShowtime';
 import { Movie } from '../shared/model/entity/Movie';
 import { Food } from '../shared/model/entity/Food';
 import { Genre } from '../shared/model/entity/Genre';
+import { TopMovie } from '../shared/model/dto/TopMovie';
+import { GenreDTO } from '../shared/model/dto/GenreDTO';
 
 
 @Injectable({
@@ -18,6 +20,10 @@ export class MovieService {
   private readonly SCREEN_URL = 'http://localhost:8080/api/screen/list';
   private readonly COMMENT_URL = 'http://localhost:8080/api/auth/comment';
   constructor(private httpClient: HttpClient) {
+  }
+
+  public getGenre(): Observable<GenreDTO[]> {
+    return this.httpClient.get<GenreDTO[]>(this.MOVIE_URL + '/movie-genre');
   }
 
 
@@ -89,6 +95,10 @@ export class MovieService {
     return this.httpClient.get<number[]>('http://localhost:8080/api/auth/booking/seatSoldByShowTime/' + id);
   }
 
+  public checkComment(account: number, movie: number): Observable<any[]> {
+    return this.httpClient.get<any[]>('http://localhost:8080/api/auth/booking/comment/' + account + "/" + movie);
+  }
+
   public getAllFood(): Observable<Food[]> {
     return this.httpClient.get<Food[]>(this.FOOD_URL + 'getAll');
   }
@@ -126,4 +136,8 @@ export class MovieService {
     return this.httpClient.get(this.MOVIE_URL + "/" +id + "/rate");
   }
 
+
+  public getTopMovie(): Observable<TopMovie[]> {
+    return this.httpClient.get<TopMovie[]>(this.MOVIE_URL + '/movie-rate');
+  }
 }

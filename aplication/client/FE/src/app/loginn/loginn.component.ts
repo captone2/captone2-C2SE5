@@ -17,8 +17,8 @@ declare const showPassword: any;
   styleUrls: ['./loginn.component.css']
 })
 export class LoginnComponent implements OnInit {
-
-
+  url = 'assets/js/home.js';
+  loadAPI: any;
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
@@ -37,6 +37,9 @@ export class LoginnComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadAPI = new Promise(resolve => {
+      this.loadScript();
+    });
     const token: string = this.route.snapshot.queryParamMap.get('token');
     const error: string = this.route.snapshot.queryParamMap.get('error');
     if (this.tokenStorage.getToken()) {
@@ -93,6 +96,15 @@ export class LoginnComponent implements OnInit {
         }
       }
     );
+  }
+
+  public loadScript() {
+    const node = document.createElement('script');
+    node.src = this.url;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
   }
 
   notification(message: string) {

@@ -19,7 +19,8 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Query(value = "select * from account where email = ?1",nativeQuery = true)
     Optional<Account> findByEmail1(String email);
     Account findByEmail(String email);
-    Boolean existsByEmail(String username);
+    Boolean existsByEmail(String email);
+
     boolean existsByPhone(String phone);
     boolean existsByUsername(String username);
     boolean existsByIdCard(String cccd);
@@ -105,6 +106,12 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
     @Modifying
     @Query(value = "update account set password =?1,verification_code=null where verification_code=?2 ",nativeQuery = true)
     void saveNewPassword(String password, String code);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "update account set is_enabled = 1,verification_code=null where verification_code=?1 ",nativeQuery = true)
+    void verifyRegister(String code);
 
     @Transactional
     @Modifying

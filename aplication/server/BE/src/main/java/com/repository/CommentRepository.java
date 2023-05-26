@@ -21,8 +21,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO comment(`content`, `rate`, `account_id`, `movie_id`) " +
-            "VALUES (:content, :rate, :accountId, :movieId)", nativeQuery = true)
+    @Query(value = "INSERT INTO comment(`content`, `rate`, `account_id`, `movie_id`, `create_at`) " +
+            "VALUES (:content, :rate, :accountId, :movieId,NOW())", nativeQuery = true)
     void addNewComment(@Param("content") String content, @Param("rate") int rate, @Param("accountId") int account,
                        @Param("movieId") int movie);
 

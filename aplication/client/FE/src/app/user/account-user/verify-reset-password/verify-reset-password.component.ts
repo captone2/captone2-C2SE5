@@ -11,6 +11,8 @@ import {compareValidator} from '../Validator_User/validatePassword';
   styleUrls: ['./verify-reset-password.component.css']
 })
 export class VerifyResetPasswordComponent implements OnInit {
+  url = 'assets/js/home.js';
+  loadAPI: any;
   isSuccessful = true;
   isSendMail: boolean;
   isSubmited: true;
@@ -24,6 +26,9 @@ export class VerifyResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadAPI = new Promise(resolve => {
+      this.loadScript();
+    });
     this.formResetPassword = this.formBuilder.group({
       passwordGroup: this.formBuilder.group({
         // tslint:disable-next-line:max-line-length
@@ -33,23 +38,28 @@ export class VerifyResetPasswordComponent implements OnInit {
     });
     this.route.queryParams.subscribe(params => {
       const code = params.code;
-      if (code == null) {
-        this.isSendMail = false;
-      } else {
-        this.isSendMail = true;
-        this.isSuccessful = false;
+  
+     
         this.authService.verifyPassword(code).subscribe(
           data => {
-            this.isSuccessful = (data.message === 'accepted');
+          
           },
           err => {
-            this.isSuccessful = false;
+            this.toastr.error('Mã xác thực không đúng!', 'Error: ');
+            this.router.navigateByUrl('/login');
           }
         );
-      }
+      
     });
   }
-
+  public loadScript() {
+    const node = document.createElement('script');
+    node.src = this.url;
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
+  }
 
   onSubmit() {
     console.log(this.formResetPassword.value.passwordGroup.newPassword);

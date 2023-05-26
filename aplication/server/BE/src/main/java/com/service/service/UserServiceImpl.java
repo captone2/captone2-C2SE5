@@ -11,7 +11,9 @@ import com.repository.AccountRepository;
 import com.repository.RoleRepository;
 import com.security.oauth2.user.OAuth2UserInfo;
 import com.security.oauth2.user.OAuth2UserInfoFactory;
+import com.service.AccountService;
 import com.util.GeneralUtils;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -37,6 +39,9 @@ public class UserServiceImpl implements com.service.service.UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private AccountService accountService;
+
 	@Override
 	@Transactional(value = "transactionManager")
 	public Account registerNewUser(final SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException {
@@ -49,8 +54,12 @@ public class UserServiceImpl implements com.service.service.UserService {
 //		Date now = Calendar.getInstance().getTime();
 //		user.setCreatedDate(now);
 //		user.setModifiedDate(now);
+		String code = RandomString.make(64);
+		user.setVerificationCode(code);
+		user.setEnabled(false);
 		user = userRepository.save(user);
-		System.out.println("register");
+		String confirmUrl = "http://localhost:4200/check-register?code=" + code;
+		accountService.sendMailRegister(confirmUrl,user);
 		userRepository.flush();
 		return user;
 	}

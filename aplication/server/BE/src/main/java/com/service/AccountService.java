@@ -31,6 +31,7 @@ public interface AccountService {
 
     Account findAccountByVerificationCode(String code);
     void sendMail(String code, Optional<Account> account);
+    void sendMailRegister(String code, Account account);
     Boolean existsByEmail(String username);
     void addVerificationCode(String code, Long id);
     Optional<Account> findByEmail(String username);

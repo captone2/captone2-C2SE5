@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 @Repository
 public interface MovieShowTimeRepository extends JpaRepository<MovieShowTime,Long> {
-    @Query(value = "select * from movie_show_time where movie_id = :movieId and show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "select * from movie_show_time\n" +
+            "JOIN showtime ON showtime.id = movie_show_time.showtime_id\n" +
+            "where movie_id = :movieId and show_date >= DATE_FORMAT(NOW(), '%Y-%m-%d') ", nativeQuery = true)
     List<MovieShowTime> findAllMovieShowTimeByMovieId(@Param("movieId") long movieId);
-
+//    and showtime.show_time > CURTIME()
     @Query(value = "select * from movie_show_time where id = :id", nativeQuery = true)
     MovieShowTime findMovieShowTimeById(@Param("id") long id);
 

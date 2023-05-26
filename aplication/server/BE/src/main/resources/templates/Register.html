@@ -10,10 +10,9 @@
 <body style="font-family: 'Times New Roman'">
 <p>Chào, <b th:text="${email}"></b>,</p>
 <br>
-<p>Đã có một yêu cầu thiết lập lại mật khẩu của tài khoản của bạn.
-    Nếu đây là yêu cầu của bạn, vui lòng nhấn vào đường dẫn sau để kích hoạt thay đổi tài khoản mới: </p>
-<a th:text="${code}" th:href="${code}"></a>
-<br>
+<p>Tài khoản của bạn đã được đăng ký thành công</p>
+<p>Để hoàn tất việc đăng ký, vui lòng kích hoạt tài khoản của bạn thông qua đường dẫn sau: <a th:text="${code}" th:href="${code}"></a></p>
+<br>"
 <p>Ngược lại, vui lòng bỏ qua email này.</p>
 <br>
 <p>Xin cám ơn.</p>

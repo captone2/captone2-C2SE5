@@ -62,3 +62,10 @@
     text-align: center;
     padding: 8px;
 }
+
+
+
+.vdo-ytb iframe {
+    width: 680px;
+    height: 400px;
+}

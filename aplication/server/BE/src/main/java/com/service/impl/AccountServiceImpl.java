@@ -161,6 +161,24 @@ public class AccountServiceImpl implements AccountService {
         }
         System.out.println("Send success!!");
     }
+
+
+    @Override
+    public void sendMailRegister(String code, Account account){
+        try {
+            DataMail dataMail = new DataMail();
+            dataMail.setTo(account.getEmail());
+            dataMail.setSubject("Đăng ký tài khoản thành công ");
+            Map<String, Object> props = new HashMap<>();
+            props.put("code", code);
+            props.put("email", account.getEmail());
+            dataMail.setProps(props);
+            dataMailService.sendMail(dataMail,"Register");;
+        } catch (MessagingException exp){
+            exp.printStackTrace();
+        }
+        System.out.println("Send success!!");
+    }
 }
 
 

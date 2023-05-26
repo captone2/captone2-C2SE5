@@ -1,6 +1,9 @@
 package com.controller;
 
 
+import com.model.dto.GenreDTO;
+import com.model.dto.TicketFoodDTO;
+import com.model.dto.TopRateDTO;
 import com.model.dto.dto.CommentDTO;
 import com.model.dto.movie.MovieDTO;
 import com.repository.CommentRepository;
@@ -195,4 +198,26 @@ public class MovieController {
     }
 
 
+    @GetMapping(value = "/movie-rate")
+    public ResponseEntity<List<TopRateDTO>> getTicketFood() {
+        try {
+            List<TopRateDTO> topRateDTO = movieRepository.getMovieRate();
+            return new ResponseEntity<>(topRateDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
+    @GetMapping(value = "/movie-genre")
+    public ResponseEntity<List<GenreDTO>> getGenreMovie() {
+        try {
+            List<GenreDTO> topRateDTO = movieRepository.getGenreMovie();
+            return new ResponseEntity<>(topRateDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

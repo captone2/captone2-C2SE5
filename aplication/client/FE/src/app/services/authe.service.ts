@@ -76,6 +76,12 @@ export class AuthService {
     }, httpOptions);
   }
 
+  verifyRegister(code: string): Observable<any> {
+    return this.http.post('http://localhost:8080/api/auth/'  + 'verify-register', {
+      code
+    }, httpOptions);
+  }
+
   resetPassword(username: string): Observable<any> {
     return this.http.post('http://localhost:8080/api/auth/' + 'reset-password',{
       username } , httpOptions

@@ -6,7 +6,7 @@
           <div id="amy-site-logo">
             <a routerLink="/home">
               <img style="height: 20px"
-                src="https://firebasestorage.googleapis.com/v0/b/dtu-event.appspot.com/o/logo.webp?alt=media&token=a4e9b96c-f62f-4b29-85b0-2d71f2300c37"
+                src="https://scontent.xx.fbcdn.net/v/t1.15752-9/349108195_278636767900022_5558141228396537635_n.png?stp=dst-png_p206x206&_nc_cat=109&ccb=1-7&_nc_sid=aee45a&_nc_ohc=5E-ZUz-lQZ4AX-jQc9y&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdTJCnkD2HfqDlRRgeI8FECkZ27v9AcM1cfl3UK70NoT4A&oe=6496FDC3"
                 alt="Elementor Single Cinema" />
             </a>
           </div>
@@ -52,6 +52,7 @@
                 <button class="btn-search"><i class="fas fa-search"></i></button>
                 <input (keyup)=(searchMovie(inputName.value)) #inputName type="text" class="input-search"
                   placeholder="Type to Search...">
+                  <button class="btn-close" style="display: none;top:0px"> <i class="fa-solid fa-xmark"></i></button>
                 <!-- list search -->
                 <style>
                   .item-list:hover {
@@ -63,9 +64,9 @@
                 <div class="show-search"
                   style="overflow-y: scroll;height: 380px;display: none; text-align: left;padding: 10px 15px;  border-radius: 5px;">
                   <li *ngIf="movieListSearch == null">Không tìm thấy kết quả</li>
-                  <div class="item-list" *ngFor="let movie of movieListSearch" [routerLink]="['/movie-detail', movie?.id]"
+                  <a class="item-list" *ngFor="let movie of movieListSearch" [routerLink]="['/movie-detail', movie?.id]"
                     style="transition: all 0.3s linear; display: flex; align-items: center; margin-bottom: 8px;">
-                    <div>
+                    <div style="display: contents;">
                       <img style="width: 60px; height: 60px;" src="{{movie?.movieImages[0].imageUrl}}" alt="">
                     </div>
                     <div style="margin-left: 10px;">
@@ -74,7 +75,7 @@
                         Nisi, tempore.
                       </p>
                     </div>
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>

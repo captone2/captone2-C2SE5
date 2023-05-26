@@ -255,6 +255,7 @@
                               <button class="btn btn-dang" style="width: 100%; background-color: #12263f;">Đăng</button>
                             </div>
                             <div class="col-md-3">
+                              <button #closeBtn class="cls" hidden></button>
                               <div class="btn btn-huy cls" style="padding-left: 30px; padding-right: 30px;">Hủy</div>
                             </div>
                           </div>
@@ -268,11 +269,11 @@
             </div>
 
             <div class="col-md-12">
-              <div class="card">
+              <div class="card" style="margin-top: 20px;">
                 <div class="card-infinite" style="padding: 0 10px;">
                   <h1 class="h2 text-center">
                     Cộng đồng
-                    <span class="text-secondary">(12)</span>
+                    <span class="text-secondary"></span>
                   </h1>
                   <div *ngFor="let comment of commentList" class="card card-sm article mb-3">
                     <div class="card-body">
@@ -302,7 +303,7 @@
                       </div>
                       <div class="">
                         <div class="review-content">
-                          {{comment?.description}}
+                          {{comment?.content}}
                         </div>
                       </div>
                     </div>
@@ -451,23 +452,16 @@
       <div class="overlay" style="display: none;"></div>
       <div class="modal-trailer" style="display: none;">
         <div class="modal-body">
-          <div class="cls">
+          <div class="cls" style="z-index: 999999999;">
             <i class="fa-solid fa-xmark"></i>
           </div>
           <div class="video-src" style="position: absolute; width: 97.1%; z-index:99999;">
-            <youtube-player [height]="420" style="border-radius: 10px" [width]="560" [videoId]="id"
+            <youtube-player class="vdo-ytb" [width]="600" [videoId]="idMovieYTB"
               (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
           </div>
           <div class="detail-img">
-            <div class="btn-play">
-              <i class="fa-solid fa-play"></i>
-            </div>
-            <div class="box">
-              <a href="#" class=" btn bg-white font-bold"><span>Buy
-                  Ticket</span>
-              </a>
-            </div>
-            <div class="momo"></div>
+            
+      
           </div>
           <div class="detail-in text-white">
             <div class="containers">
@@ -477,7 +471,9 @@
                   <span class="m-2  text-white">Limited Series</span>
                   <span class="border  hd text-white">HD</span>
                 </section>
-                {{movieDetail?.content}}
+                <span>
+                  {{movieDetail?.content}}
+                </span>
               </div>
               <div class="dt-right">
                 <div>
@@ -488,8 +484,7 @@
                     <i class="fa-sharp fa-solid fa-star"></i>
                     <i class="fa-sharp fa-solid fa-star"></i>
                     <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
-                    <i class="fa-sharp fa-solid fa-star"></i>
+
                   </p>
                 </div>
               </div>

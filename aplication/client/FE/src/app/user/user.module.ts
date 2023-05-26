@@ -20,6 +20,7 @@ import { VerificationComponent } from './account-user/verification/verification.
 import {ConfirmBookingComponent} from './booking-user/confirm-booking/confirm-booking.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { CheckRegisterComponent } from './account-user/check-register/check-register.component';
 
 
 const userRoutes: Routes = [
@@ -40,6 +41,8 @@ const userRoutes: Routes = [
   },
   {path: 'reset-password', component: ResetPasswordComponent},
 
+  {path: 'check-register', component: CheckRegisterComponent},
+
   {path: 'verify-reset-password', component: VerifyResetPasswordComponent},
 
   {path: 'verification', component: VerificationComponent},
@@ -56,7 +59,8 @@ const userRoutes: Routes = [
     ResetPasswordComponent,
     VerifyResetPasswordComponent,
     VerificationComponent,
-    ConfirmBookingComponent
+    ConfirmBookingComponent,
+    CheckRegisterComponent
   ],
   exports: [
     UpdateAccountUserComponent,

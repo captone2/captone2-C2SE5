@@ -1,4 +1,6 @@
+import { MovieService } from 'src/app/services/movie.service';
 import { Component, OnInit } from '@angular/core';
+import { TopMovie } from 'src/app/shared/model/dto/TopMovie';
 
 @Component({
   selector: 'app-top-rate',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-rate.component.css']
 })
 export class TopRateComponent implements OnInit {
-
-  constructor() { }
+  listMovieRate: TopMovie[] = []
+  constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
+    this.movieService.getTopMovie().subscribe(data => {
+      this.listMovieRate = data;
+      console.log(data)
+    })
   }
 
 }

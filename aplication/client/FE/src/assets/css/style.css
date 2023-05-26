@@ -612,7 +612,7 @@ img.emoji {
 }
 
 .detail-in .dt-left {
-    width: 70%;
+    width: 100%;
     padding-right: 50px;
     font-size: 16px;
 }
@@ -1296,7 +1296,8 @@ td {
 }
 
 .amy-movie-item-poster img {
-    width: 100%;
+    width: 170px;
+    height: 255px;
 }
 
 .flex-container {
@@ -1340,7 +1341,7 @@ td {
 
 #masthead #amy-site-logo img {
     height: 51px;
-    transform: scale(3.7);
+    transform: scale(10);
 }
 
 
@@ -1806,3 +1807,10 @@ td {
     color: red;
   }
 
+
+
+
+  .vdo-ytb iframe {
+    width: 680px;
+    height: 400px;
+}

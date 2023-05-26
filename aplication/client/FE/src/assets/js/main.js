@@ -4636,100 +4636,31 @@ jQuery(".upload-button").on('click', function () {
 
 
 
+// Chat bot
+    jQuery(".icon-chatbot").on('click', function () {
+        if (jQuery(".chatbot-container").css('opacity') === '0') {
+            jQuery('.chatbot-container').css('animation', 'show 0.5s ease-in-out forwards');
+        } else {
+            jQuery('.chatbot-container').css({ animation: 'hide 0.5s ease-in-out forwards' });
+        }
+    });
+    // Close Chat bot
+    jQuery(".close-chat").on('click', function () {
+        jQuery('.chatbot-container').css({ animation: 'hide 0.5s ease-in-out forwards' });
+    });
 
 
-// //eye password
-// jQuery('.toggle-password-new').click(function () {
-//   if (jQuery('.new-password').attr('type') === "password") {
-//     jQuery('.new-password').attr('type', 'text')
-//   } else {
-//     jQuery('.new-password').attr('type', 'password')
-//   }
-// })
 
+jQuery('.btn-search').click(function() {
+    jQuery('.input-search').addClass('open');
+     jQuery(this).css('display', 'none');
+         jQuery('.btn-close').css('display', 'block');
+    jQuery('.show-search').css('display', 'block');
+})
 
-
-// const newPassword = jQuery('.new-password')
-// const confirmPassword = jQuery('.confirm-password')
-
-// // validate change password
-// newPassword.keyup(function () {
-//   var upperCase = new RegExp('[A-Z]');
-//   var lowerCase = new RegExp('[a-z]');
-//   var numbers = new RegExp('[0-9]');
-//   var regex = new RegExp('[#?!@$%^&*]');
-//   let password = false;
-//   let upercase = false;
-//   let lowercase = false;
-//   let number = false;
-//   let special = false;
-
-
-//   // validate special character password
-//   if (jQuery(this).val().match(regex)) {
-//     jQuery('.least-special').addClass('line-active')
-//     special = !special;
-//   } else {
-//     jQuery('.least-special').removeClass('line-active')
-//   }
-
-//   // validate length password
-//   if (jQuery(this).val().length >= 8 && jQuery(this).val().length <= 20) {
-//     jQuery('.least-six').addClass('line-active')
-//     password = !password;
-//   } else {
-//     jQuery('.least-six').removeClass('line-active')
-//   }
-
-//   // validate upeercase
-//   if (jQuery(this).val().match(upperCase)) {
-//     jQuery('.least-upper').addClass('line-active')
-//     upercase = !upercase;
-//   } else {
-//     jQuery('.least-upper').removeClass('line-active')
-//   }
-
-//   // validate lowercase
-//   if (jQuery(this).val().match(lowerCase)) {
-//     jQuery('.least-lower').addClass('line-active')
-//     lowercase = !lowercase;
-//   } else {
-//     jQuery('.least-lower').removeClass('line-active')
-//   }
-
-//   //validate only number
-//   if (jQuery(this).val().match(numbers)) {
-//     jQuery('.least-number').addClass('line-active')
-//     number = !number;
-//   } else {
-//     jQuery('.least-number').removeClass('line-active')
-//   }
-
-//   // validate clear all
-//   if (jQuery(this).val() === '') {
-//     jQuery('.least-six').removeClass('line-active')
-//     jQuery('.least-upper').removeClass('line-active')
-//     jQuery('.least-lower').removeClass('line-active')
-//     jQuery('.least-number').removeClass('line-active')
-//     jQuery('.least-special').removeClass('line-active')
-//   }
-
-//   // check success
-//   if (password && number && lowerCase && upercase && special) {
-//     jQuery('.icon-check-new').removeClass('check-active')
-//   } else {
-//     jQuery('.icon-check-new').addClass('check-active')
-//   }
-
-//   confirmPassword.val("");
-
-// })
-
-// // validate confirm password
-// confirmPassword.keyup(function () {
-//   if (jQuery(this).val() === newPassword.val()) {
-//     jQuery('.icon-check-confirm').removeClass('check-active')
-//   } else {
-//     jQuery('.icon-check-confirm').addClass('check-active')
-//   }
-// })
+jQuery('.btn-close').click(function() {
+    jQuery('.input-search').removeClass('open');
+     jQuery('.btn-search').css('display', 'block');
+         jQuery(this).css('display', 'none');
+      jQuery('.show-search').css('display', 'none');
+})

@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.model.dto.TicketFoodDTO;
+import com.model.dto.TopRateDTO;
 import com.model.entity.Booking;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,6 +42,14 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     }
 
 
+    @Query(value = "SELECT * FROM  booking \n" +
+            "JOIN movie_show_time on  movie_show_time.id = booking.movie_showtime_id\n" +
+            "WHERE booking.account_id = :account and movie_show_time.movie_id = :movie", nativeQuery = true)
+    List<Booking> checkBookingComment(@Param("account") long accountId ,@Param("movie") long movieId);
+
+
+
+
     @Modifying
     @Query(value = "INSERT INTO booking (booking_code, day_time_booking, received, total_price, account_id, payment_id, movie_showtime_id, img_qr_code)\n" +
             "    VALUES (:bookingCode, :dayTimeBooking, 0, :totalPrice, :accountId, 1, :movieShowTimeId, :imgQrCode)", nativeQuery = true)
@@ -71,7 +80,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Integer> getSeatByShowTimeId(@Param("id") Integer id);
 
 
-    @Query(value = "select * from booking where account_id = :id", nativeQuery = true)
+    @Query(value = "select * from booking where account_id = :id order by day_time_booking desc", nativeQuery = true)
     List<Booking> getBookingByAccountId(@Param("id") Integer id);
 
     @Modifying

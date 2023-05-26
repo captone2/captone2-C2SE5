@@ -1,5 +1,5 @@
 import { DateDTO } from './../../../shared/model/dto/DateDTO';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from '../../../services/movie.service';
 import { AuthService } from '../../../services/authe.service';
 import { ActivatedRoute } from '@angular/router';
@@ -25,6 +25,7 @@ import { CommentService } from 'src/app/services/comment.service';
 export class MovieDetailComponent implements OnInit {
   id: number;
   player: YT.Player;
+  @ViewChild('closeBtn') closeBtn: ElementRef;
   idMovieYTB: string = 'RUfiXZbc4f8';
   movie: Movie;
   movieDetail: Movie;
@@ -38,6 +39,8 @@ export class MovieDetailComponent implements OnInit {
   rate: number = 0;
   commentList: CommentDTO[]
   commentForm: FormGroup;
+  arrayRate: number[] = [];
+  checkComment: any[] = [];
   private baseUrl = 'http://localhost:4200api/auth/booking';
   private readonly destroy$ = new Subject<void>();
   constructor( private toastService: ToastrService, private form: FormBuilder, private authService: AuthService,
@@ -46,7 +49,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
     this.loadAPI = new Promise(resolve => {
       this.loadScript();
     });
@@ -65,6 +68,7 @@ export class MovieDetailComponent implements OnInit {
 
       });
       this.getComment();
+      this.getRate();
   }
   public loadScript() {
     const node = document.createElement('script');
@@ -75,11 +79,20 @@ export class MovieDetailComponent implements OnInit {
     document.getElementsByTagName('head')[0].appendChild(node);
   }
   
+
+  checkBookingMovie() {
+    this.id = parseInt(this.activatedRoute.snapshot.params['id']);
+    const user = JSON.parse(sessionStorage.getItem('auth-user'))
+    this.movieService.checkComment(user.id,this.id).subscribe(data => {
+      this.checkComment = data
+    })
+  }
   getMovieDetail() {
     this.id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.movieService.findMovieById(this.id).subscribe(data => {
       this.movieDetail = data ;
-      // this.idMovieYTB = this.movieDetail.trailerUrl.split('v=')[1]
+      this.idMovieYTB = this.movieDetail.trailerUrl.split('v=')[1]
+      console.log(this.idMovieYTB)
       console.log(data)
     })
   }
@@ -128,6 +141,24 @@ export class MovieDetailComponent implements OnInit {
           }
         });
       }
+
+      const updatedDateDTO = this.dateDTO.map(date => {
+        const timeMap = {};
+        const uniqueShowtime = [];
+      
+        for (const showtime of date.showtime) {
+          if (!timeMap[showtime.time]) {
+            timeMap[showtime.time] = true;
+            uniqueShowtime.push(showtime);
+          }
+        }
+      
+        return { ...date, showtime: uniqueShowtime };
+      });
+      
+      // Gán lại mảng dateDTO với mảng đã được gộp lại
+      this.dateDTO = updatedDateDTO;
+      console.log(this.dateDTO);
     }, (error) => {
     });
   }
@@ -317,43 +348,62 @@ export class MovieDetailComponent implements OnInit {
   
   onSubmit() {
     console.log(this.rate)
-    if (this.rate == 0) {
-      console.log("Ok1")
-      this.toastService.error('Vui lòng lựa chọn số sao!', 'Success: ');
-    } else {
-      console.log("Ok2")
-      const user = JSON.parse(sessionStorage.getItem('auth-user'))
-      const comment = new CommentDTO();
-      comment.content = this.commentForm.value.content;
-      comment.rate = this.rate;
-      comment.movieId = this.id;
-      comment.accountId = user.id;
-      console.log(comment);
-     this.commentService.addComment(comment).subscribe(data => {
-      this.toastService.error('Bình luận thành công!', 'Success: ');
-      this.rate = 0;
-     },(error) => {
-      this.toastService.error('Bình luận thất bại!', 'Error: ');
-     })
+    if (this.checkComment.length === 0) {
+      this.toastService.error('Vui lòng xem phim để bình luận!', 'Error: ');
+    } else{
+      if (this.rate == 0) {
+        console.log("Ok1")
+        this.toastService.error('Vui lòng lựa chọn số sao!', 'Error: ');
+      } else {
+        console.log("Ok2")
+        const user = JSON.parse(sessionStorage.getItem('auth-user'))
+        const comment = new CommentDTO();
+        comment.content = this.commentForm.value.content;
+        comment.rate = this.rate;
+        comment.movieId = this.id;
+        comment.accountId = user.id;
+        console.log(comment);
+       this.commentService.addComment(comment).subscribe(data => {
+        this.toastService.success('Bình luận thành công!', 'Success: ');
+        this.closeModal();
+        this.rate = 0;
+        this.ngOnInit();
+       },(error) => {
+        this.toastService.error('Bình luận thất bại!', 'Error: ');
+       })
+      }
     }
+  
    
   }
 
   getComment() {
-    const user = JSON.parse(sessionStorage.getItem('auth-user'))
-   this.commentService.getCommentByMovieId(user.id).subscribe(data => {
+    this.id = parseInt(this.activatedRoute.snapshot.params['id']);
+   this.commentService.getCommentByMovieId(this.id).subscribe(data => {
       this.commentList = data;
+      console.log(data)
    },(error) => {
     this.toastService.error('Get comment unsuccessfully!', 'Error: ');
    })
 
   }
-
+  private closeModal(): void {
+    this.closeBtn.nativeElement.click();
+  }
 
   getRate() {
+    console.log("Rate")
     this.id = parseInt(this.activatedRoute.snapshot.params['id']);
     this.movieService.getRateByMovieId(this.id).subscribe(data => {
-      this.rate = data.toFixed(0)
+      
+      if(data = null) {
+        console.log("1")
+        this.rate = 0;
+      }else{
+        console.log("1")
+        this.rate = data.toFixed(0)
+        this.arrayRate = Array(this.rate).fill(this.rate);
+      } 
     })
   }
 

@@ -2,11 +2,11 @@
     <app-header></app-header>
     <div id="main">
         <div id="content" class="site-content">
-            <section id="amy-page-header" class="amy-page-header">
+            <section id="amy-page-header" class="amy-page-header" style="height: 127px;">
                 <div class="amy-page-title amy-center">
                     <div class="amy-inner container">
                         <h1 class="page-title">
-                            Top rated </h1>
+                            Top phim </h1>
                     </div>
                 </div>
                 <span class="amy-section-overlay"></span>
@@ -23,16 +23,16 @@
                                             <div class="list-rate">
                                                 <table>
                                                     <tbody>
-                                                        <tr class="highlight">
+                                                        <tr *ngFor="let movie of listMovieRate , let i = index" class="highlight">
                                                             <td class="title">
                                                                 <a href="#movie/kubo-and-the-two-strings/">
-                                                                    01. Kubo and the Two Strings
+                                                                    {{i+1}}. {{movie?.title}}
                                                                 </a>
                                                             </td>
                                                             <td class="turn">
-                                                                0 Votes </td>
+                                                                {{movie?.vote}} Votes </td>
                                                             <td class="point">
-                                                                0 </td>
+                                                                {{movie?.rate}} </td>
                                                             <td class="star">
                                                                 <ul class="mv-rating-stars">
                                                                     <li class="mv-current-rating" data-point="0%">
@@ -40,163 +40,19 @@
                                                                 </ul>
                                                             </td>
                                                         </tr>
-                                                        <tr class="highlight">
-                                                            <td class="title">
-                                                                <a href="#movie/the-hurricane-heist/">
-                                                                    02. The Hurricane Heist </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="highlight">
-                                                            <td class="title">
-                                                                <a href="#movie/jumanji-welcome-to-the-jungle/">
-                                                                    03. Jumanji: Welcome to the
-                                                                    Jungle </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="highlight">
-                                                            <td class="title">
-                                                                <a href="#movie/death-wish/">
-                                                                    04. Death Wish </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="highlight">
-                                                            <td class="title">
-                                                                <a href="#movie/supersonic/">
-                                                                    05. Supersonic </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="">
-                                                            <td class="title">
-                                                                <a href="#movie/peter-rabbit/">
-                                                                    06. Peter Rabbit </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="">
-                                                            <td class="title">
-                                                                <a href="#movie/game-night/">
-                                                                    07. Game Night </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="">
-                                                            <td class="title">
-                                                                <a href="#movie/ice-age-collision-course/">
-                                                                    08. Ice Age: Collision
-                                                                    Course </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="">
-                                                            <td class="title">
-                                                                <a href="#movie/star-trek-beyond/">
-                                                                    9. Star Trek Beyond </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="">
-                                                            <td class="title">
-                                                                <a href="#movie/swiss-army-man/">
-                                                                    10. Swiss Army Man </a>
-                                                            </td>
-                                                            <td class="turn">
-                                                                0 Votes </td>
-                                                            <td class="point">
-                                                                0 </td>
-                                                            <td class="star">
-                                                                <ul class="mv-rating-stars">
-                                                                    <li class="mv-current-rating" data-point="0%">
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
+
+
                                                     </tbody>
                                                 </table>
                                                 <div class="clear"></div>
-                                                <nav class="amy-pagination">
+                                                <!-- <nav class="amy-pagination">
                                                     <div class="amy-shadow">
                                                         <span class="page-numbers current">1</span><a
                                                             class="page-numbers" href="#top-rated/page/2/">2</a><a
                                                             class="next page-numbers"
                                                             href="#top-rated/page/2/">Next</a>
                                                     </div>
-                                                </nav>
+                                                </nav> -->
                                             </div>
                                         </div>
                                     </section>

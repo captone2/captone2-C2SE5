@@ -307,7 +307,7 @@
                                 Khởi chiếu: {{movie.releaseDate | date}} </div>
                               <div class="entry-button">
                                 <a class="btn-trailer">
-                                  <i  aria-hidden="true" class="fa fa-play"></i>
+                                  <i aria-hidden="true" class="fa fa-play"></i>
                                   Trailer </a>
                                 <a>
                                   <i aria-hidden="true" class="fa fa-exclamation"></i>
@@ -964,7 +964,9 @@
                   <div class="elementor-widget-container">
                     <div class="amy-widget-content">
                       <h4>Ngõ 10 Cỏ Ba Lá</h4>
-                      <p>Một phụ nữ trẻ tỉnh dậy sau một tai nạn khủng khiếp và phát hiện ra rằng mình đang… bị nhốt trong hầm cùng với một người chuẩn bị cho ngày tận thế,… người khăng khăng rằng anh ta đã cứu mạng cô và thế giới bên ngoài không thể ở được sau
+                      <p>Một phụ nữ trẻ tỉnh dậy sau một tai nạn khủng khiếp và phát hiện ra rằng mình đang… bị nhốt
+                        trong hầm cùng với một người chuẩn bị cho ngày tận thế,… người khăng khăng rằng anh ta đã cứu
+                        mạng cô và thế giới bên ngoài không thể ở được sau
                         một thảm họa tận thế. Không biết tin vào đâu, người phụ nữ
                         sớm….</p>
                     </div>
@@ -1250,26 +1252,12 @@
   </div>
 
   <div class="chatbot-container" style="opacity: 0; transform: scale(0);">
-    <div class="chat-us">
-      <span>Chat With Us<i class="fa-regular fa-comments"></i></span>
-      <span class="close-chat"><i class="fa-solid fa-xmark"></i></span>
-    </div>
-    <div class="chatbot-message-container">
-      <div *ngFor="let item of chatConversation">
-        <p class="card-text padding" [ngClass]="item.cssClass">
-            {{item.person}} :  {{getText(item.response)}}                                                                                                            
-        </p>
-        
-    </div>
-    <div><img src="../../assets/ZNeT.gif" *ngIf="showSpinner" width="50px" height="50px"></div>
-    </div>
-    <div class="chatbot-input-container">
-      <input type="text" class="chatbot-input" [(ngModel)]="promptText" placeholder="Type your message here..." />
-      <button (click)="checkResponse()" class="chatbot-button"><i class="fa-regular fa-paper-plane"></i></button>
-    </div>
+    <iframe style="height: 400px" allow="microphone;"
+      src="https://console.dialogflow.com/api-client/demo/embedded/f25eb8c2-f425-4529-a521-8a1b815d8488"></iframe>
+
   </div>
 
-  
+
   <!-- <div class="icon-chatbot">
     <i class="fa-regular fa-comment-dots"></i>
   </div>
@@ -1325,7 +1313,7 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
       </div>
-      <div class="detail-img" >
+      <div class="detail-img">
         <!-- <div class="btn-play">
           <i class="fa-solid fa-play"></i>
         </div> -->

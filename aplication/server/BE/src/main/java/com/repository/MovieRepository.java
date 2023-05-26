@@ -1,6 +1,8 @@
 package com.repository;
 
 import ch.qos.logback.core.boolex.EvaluationException;
+import com.model.dto.GenreDTO;
+import com.model.dto.TopRateDTO;
 import com.model.entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +12,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.Tuple;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
@@ -25,7 +32,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value = "SELECT * FROM movie WHERE id = ?1", nativeQuery = true)
     Movie findMovieById(Long id);
 
-    @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE %:title% order by create_at DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM movie WHERE LOWER(title) LIKE %:title% and is_enabled = 1 order by create_at DESC", nativeQuery = true)
     List<Movie> searchMovieByTitle(@Param("title") String keyword);
 
 
@@ -72,6 +79,55 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "    WHERE movie_id = :id", nativeQuery = true)
     Integer getRateByMovieId(@Param("id") Long id);
 
+
+
+    @Query(value = "SELECT movie.title as title ,count(comment.movie_id) as vote , ROUND(avg(rate),1) as rate FROM comment \n" +
+            "JOIN movie ON movie.id = comment.movie_id\n" +
+            "WHERE YEAR(comment.create_at) = YEAR(CURRENT_DATE())\n" +
+            "AND MONTH(comment.create_at) BETWEEN MONTH(NOW())-2 AND MONTH(NOW())\n" +
+            "GROUP BY comment.movie_id\n" +
+            "ORDER BY ROUND(avg(rate),1) DESC", nativeQuery = true)
+    List<Tuple> getTopRate();
+
+    default List<TopRateDTO> getMovieRate() {
+        List<Tuple> resultList = getTopRate();
+        List<TopRateDTO> movieRateList = new ArrayList<>();
+
+        for (Tuple tuple : resultList) {
+            String title = (String) tuple.get("title");
+            long vote = ((Number) tuple.get("vote")).longValue();
+            BigDecimal rateBigDecimal = (BigDecimal) tuple.get("rate");
+            double rate = rateBigDecimal.doubleValue();
+
+            TopRateDTO movieRate = new TopRateDTO(title, vote, rate);
+            movieRateList.add(movieRate);
+        }
+
+        return movieRateList;
+    }
+
+
+    @Query(value = "SELECT genre.name as name , count(genre.name) as total  FROM booking\n" +
+            "JOIN movie_show_time ON movie_show_time.id = booking.movie_showtime_id\n" +
+            "JOIN movie ON movie.id = movie_show_time.movie_id\n" +
+            "JOIN genre_movie ON genre_movie.movie_id = movie.id\n" +
+            "JOIN genre ON genre.id = genre_movie.genre_id\n" +
+            "GROUP BY genre.name", nativeQuery = true)
+    List<Tuple> getGenre();
+
+    default List<GenreDTO> getGenreMovie() {
+        List<Tuple> resultList = getGenre();
+        List<GenreDTO> movieRateList = new ArrayList<>();
+
+        for (Tuple tuple : resultList) {
+            String name = (String) tuple.get("name");
+            long total = ((Number) tuple.get("total")).longValue();
+
+            GenreDTO genre = new GenreDTO(name,total);
+            movieRateList.add(genre);
+        }
+        return movieRateList;
+    }
 
 }
 
