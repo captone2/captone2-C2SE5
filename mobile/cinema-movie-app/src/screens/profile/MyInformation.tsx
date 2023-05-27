@@ -39,7 +39,9 @@ const MyInformation: FC<Props> = ({ navigation }) => {
   const isMatchPassword = async () => {
     setLoading(true);
     if (await compareStrings(oldPassword.value, userCurrent.password)) {
-      return setVisible(true);
+      setLoading(false);
+      setVisible(true);
+      return;
     }
     ToastAndroid.show("Mật khẩu không đúng.", ToastAndroid.LONG);
     setLoading(false);
@@ -242,7 +244,12 @@ const MyInformation: FC<Props> = ({ navigation }) => {
 
             <View style={{ marginTop: 10 }}>
               <Text style={{ marginBottom: 10 }}>* Thông tin bắt buộc.</Text>
-              <Button text="Chỉnh sửa thông tin" tintColor={COLORS.white} onPress={handlePressUpdate} />
+              <Button
+                text="Chỉnh sửa thông tin"
+                tintColor={COLORS.white}
+                onPress={handlePressUpdate}
+                loading={loading}
+              />
               <View style={{ alignSelf: "center" }}>
                 <Text
                   style={{ color: COLORS.blue, fontStyle: "italic", textDecorationLine: "underline" }}

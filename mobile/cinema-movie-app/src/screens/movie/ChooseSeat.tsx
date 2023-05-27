@@ -9,6 +9,7 @@ import {
   Image,
   TextInput,
   Alert,
+  LogBox,
 } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -47,6 +48,7 @@ const ChooseSeat: FC = ({ navigation, route }) => {
     initial();
   }, []);
 
+  LogBox.ignoreAllLogs();
   const SeatItem: FC<SeatItem> = ({ seat }) => {
     const [selectedSeatStyle, setSelectedSeatStyle] = useState(false);
 

@@ -47,8 +47,8 @@ const Payment: FC = ({ navigation, route }) => {
       },
     ],
     redirect_urls: {
-      return_url: "exp://192.168.55.101:19000",
-      cancel_url: "exp://192.168.55.101:19000",
+      return_url: "exp://localhost:19000",
+      cancel_url: "exp://localhost:19000",
     },
   };
   const handlePayment = async () => {
@@ -59,7 +59,7 @@ const Payment: FC = ({ navigation, route }) => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization:
-            "Bearer A21AALIzNZzg54LNz3xe3ueQ7GEBsZKJd6OZuQUzUQjUTkZvJ4ZKuKsRZSmtuLu1-ET2K6b03VPt1I_kSF32nNloPuqtCdn_A",
+            "Bearer A21AAIdUZ2skRK4DRGd6tJUSJ1J4qVLTupobWRoh4GZbP8Mk7tfcwBIFmqNUhyzXKz6h2cV7VsS7LRQ91BX6e4Gr74tUwLCsg",
         },
         body: "grant_type=client_credentials",
       });

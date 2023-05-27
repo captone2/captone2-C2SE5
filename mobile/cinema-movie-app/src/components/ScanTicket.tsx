@@ -2,10 +2,12 @@ import { Alert, Button, StyleSheet, Text, View, ToastAndroid } from "react-nativ
 import React, { FC, useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { BookingService } from "../services/booking/booking.service";
+import { useAppSelector } from "../hooks/useAppSelector";
 
-const ScanTicket: FC = () => {
+const ScanTicket: FC = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
+  const { user } = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -34,30 +36,26 @@ const ScanTicket: FC = () => {
           NumberSeat: bookingCurrent?.seats.length,
           Seat: bookingCurrent?.seats.map((el) => el.name),
         };
-        ToastAndroid.show(
-          `Your ticket:
-        \n${ticket.Movie}
-        \n${ticket.Screen}${ticket.Date}
-        \n${ticket.Time}
-        \n${ticket.NumberSeat}
-        \n${ticket.Seat}`,
-          ToastAndroid.LONG
-        );
-        Alert.alert(
-          `Your ticket:
-        \n${ticket.Movie}
-        \n${ticket.Screen}${ticket.Date}
-        \n${ticket.Time}
-        \n${ticket.NumberSeat}
-        \n${ticket.Seat}`
-        );
-        console.log("ticket");
+
+        navigation.navigate("InformationTicket", {
+          id: data,
+          customerName: user.displayName,
+          movieName: bookingCurrent.movieShowTime.movie.title,
+          showDate: bookingCurrent.movieShowTime.showDate,
+          showtime: bookingCurrent.movieShowTime.showtime,
+          screen: bookingCurrent.movieShowTime.screen.name,
+          seat: bookingCurrent.seats.map((el) => el.name).join(", "),
+          combo: bookingCurrent.food,
+          sumTotal: bookingCurrent.totalPrice,
+        });
+        console.log("bookingCurrent.food", bookingCurrent.food);
+
         await BookingService.setTicketBookingReceived({
           id: bookingCurrent.id,
           bookingCode: bookingCurrent.bookingCode,
         });
       } else {
-        Alert.alert(`QR-Code invalid!`);
+        Alert.alert(`QR-Code Đã dùng hoặc không tồn tại!`);
       }
     } catch (err) {
       console.log(err);

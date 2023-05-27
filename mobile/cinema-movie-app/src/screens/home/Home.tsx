@@ -43,12 +43,12 @@ const Home: FC = ({ navigation }) => {
   const genreList = useAppSelector((state) => state.movieReducer.data.genre);
 
   const dataSections = [
-    {
-      title: "Tất cả Phim",
-      top: false,
-      horizontal: true,
-      data: [...movieList],
-    },
+    // {
+    //   title: "Tất cả Phim",
+    //   top: false,
+    //   horizontal: true,
+    //   data: [...movieList],
+    // },
     {
       title: "Phim đang chiếu",
       top: false,
@@ -119,17 +119,18 @@ const Home: FC = ({ navigation }) => {
     const hourRunning = item.runningTime / 60;
     const minutesRunning = (hourRunning - Math.floor(hourRunning)) * 60;
     const timeRunning = Math.floor(hourRunning) + "giờ " + Math.round(minutesRunning) + "phút";
-
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={{ margin: 10 }}>
-          <Image
-            source={{
-              uri: item.movieImages[0].imageUrl,
-            }}
-            style={{ width: 170, height: 200 }}
-            resizeMode="cover"
-          />
+          {item.movieImages[0].imageUrl && (
+            <Image
+              source={{
+                uri: item.movieImages[0].imageUrl,
+              }}
+              style={{ width: 170, height: 200 }}
+              resizeMode="cover"
+            />
+          )}
           {item.is3D && (
             <Animated.View style={[{ opacity: opacityValue1 }, styles.is3D]}>
               <Text style={{ color: COLORS.white, fontSize: 12, padding: 2 }}>3d</Text>

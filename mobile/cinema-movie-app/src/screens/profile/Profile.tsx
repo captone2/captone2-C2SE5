@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+import { Image, LogBox, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import React, { FC, useEffect, useState } from "react";
 import { BackButton, Button } from "../../components";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
@@ -67,10 +67,7 @@ const Profile: FC<Props> = ({ navigation }) => {
   useEffect(() => {
     initial();
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {}, 1000);
-  }, [userCurrent.fullname]);
+  LogBox.ignoreAllLogs();
   return (
     <View style={styles.container}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -108,7 +105,9 @@ const Profile: FC<Props> = ({ navigation }) => {
                   }}
                 />
               </TouchableOpacity>
-              <Text style={{ fontWeight: "bold", marginTop: 5 }}>{userCurrent.fullname.toLocaleUpperCase()}</Text>
+              <Text style={{ fontWeight: "bold", marginTop: 5 }}>
+                {userCurrent && userCurrent.fullname.toLocaleUpperCase()}
+              </Text>
             </View>
 
             <View

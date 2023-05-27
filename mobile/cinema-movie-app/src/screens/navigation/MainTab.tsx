@@ -13,6 +13,7 @@ import {
   ShowQRCode,
   CommentMovie,
 } from "..";
+import InformationTicket from "../InformationTicket";
 
 const Stack = createNativeStackNavigator();
 const MainTab = () => {
@@ -32,6 +33,7 @@ const MainTab = () => {
       <Stack.Screen name="Payment" component={Payment} />
       <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
       <Stack.Screen name="CommentMovie" component={CommentMovie} />
+      <Stack.Screen name="InformationTicket" component={InformationTicket} />
     </Stack.Navigator>
   );
 };
