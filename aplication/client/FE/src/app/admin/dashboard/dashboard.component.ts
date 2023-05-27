@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
   listTotal: number[] = [];
   listGenre: GenreDTO[] = [];
   ticketFood: TicketFoodDTO;
+  sumLast: number = 0;
+  sumNow: number = 0;
+  account: number = 0;
   constructor(
     private elementRef: ElementRef,
     private bookingService: BookingService,
@@ -29,10 +32,15 @@ export class DashboardComponent implements OnInit {
   @ViewChild('chartCanvas') chartCanvas: ElementRef;
   ngOnInit(): void {
     this.loadData();
+    this.getAccount();
   }
 
 
-
+  getAccount() {
+    this.bookingService.getAccountMonth().subscribe(data => {
+      this.account = data;
+    })
+  }
   loadData(): void {
     this.getLastYearAndNowYear().subscribe(([lastYearData, nowYearData]) => {
       this.lastYear = lastYearData;
@@ -41,7 +49,7 @@ export class DashboardComponent implements OnInit {
 
     });
   }
-
+  
 
 
   getLastYearAndNowYear(): Observable<[number[], number[]]> {
@@ -105,8 +113,8 @@ export class DashboardComponent implements OnInit {
     //     },
     //   },
     // });
-
-
+   
+    
     const canvas3 = this.elementRef.nativeElement.querySelector('#myChart');
     const ctx3 = canvas3.getContext('2d');
     const data3 = {
@@ -136,6 +144,8 @@ export class DashboardComponent implements OnInit {
 
     this.lastYear = this.lastYear.map(value => (value / 23000));
     this.nowYear = this.nowYear.map(value => value / 23000);
+    this.sumLast= this.lastYear.reduce((a, b) => a + b, 0);
+    this.sumNow= this.nowYear.reduce((a, b) => a + b, 0);
     const canvas1 = this.elementRef.nativeElement.querySelector('#myChart1');
     const ctx1 = canvas1.getContext('2d');
     new Chart(ctx1, {

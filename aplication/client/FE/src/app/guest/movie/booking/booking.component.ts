@@ -155,7 +155,9 @@ closeModal() {
   }
 
   addSeat(target: any, idSeat: number, nameSeat: string) {
-    const price =50000;
+
+    const price =this.calculateTicketPrice(this.bookingDTO.showtime,this.bookingDTO.showDate);
+    console.log(price);
     if  (this.bookingDTO.seatId.length == 5) {
       this.modalMaxchair.nativeElement.style.animation = 'downtop 0.5s ease-in-out forwards';
       this.modalMaxchair.nativeElement.style.display = 'block';

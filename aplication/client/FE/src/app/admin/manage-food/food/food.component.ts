@@ -18,6 +18,7 @@ export class FoodComponent implements OnInit {
   pageSize: number = 5;
   currentPage: number = 1;
   foodUpdate: Food;
+
   @ViewChild('closeBtn') closeBtn: ElementRef;
   constructor(private form: FormBuilder, private movieService: MovieService, private employeeAccountService: EmployeeAccountService, private toastService: ToastrService,) {
 

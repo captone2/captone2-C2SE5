@@ -95,7 +95,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query(value = "SELECT COUNT(email) FROM account \n" +
             "JOIN account_role on account_role.account_id = account.id \n" +
-            "WHERE YEAR(create_at) = YEAR(NOW()) AND MONTH(create_at) = MONTH(NOW()) AND account_role.role_id = 3", nativeQuery = true)
+            "WHERE YEAR(create_at) = YEAR(NOW()) AND MONTH(create_at) = MONTH(NOW())", nativeQuery = true)
     Integer getAccountRegisterByMonth();
 
 
